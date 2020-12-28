@@ -4,7 +4,10 @@
   "description": "GitBook clone with custom features",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev-auth": "webpack --watch --env isDev --env isAuth",
+    "dev-app": "webpack --watch --env isDev --env isApp",
+    "build-auth": "webpack --env isAuth",
+    "build-app": "webpack --env isApp"
   },
   "repository": {
     "type": "git",
