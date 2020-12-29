@@ -11,8 +11,13 @@ import {
 
 import { Registration } from '../registration';
 import { Login } from '../login';
+import { assetsService } from '../../services/assets-service';
+
+const LOGO_ICON: string = 'logo';
+const LOGO_LOGIN_ICON: string = 'logo-login';
 
 export function AuthComponent() {
+  const [logoIcon, setLogoIcon] = useState(LOGO_ICON);
   const [isLoginMode, setIsLoginMode] = useState(false);
   const componentClassname = classnames('auth', {
     [IS_LOGIN_MODE_CLASSNAME]: isLoginMode
@@ -20,13 +25,14 @@ export function AuthComponent() {
 
   function toggleMode() {
     setIsLoginMode(!isLoginMode);
+    setLogoIcon(!isLoginMode ? LOGO_LOGIN_ICON : LOGO_ICON);
   }
 
   return (
     <div className={componentClassname}>
       <div className="auth-content">
         <div className="auth-header">
-          <div className="auth-logo"></div>
+          <img src={assetsService.getIconUrl(logoIcon)} className="auth-logo" />
           Gitbook Clone
         </div>
         <div className="auth-form" data-class="shadow">

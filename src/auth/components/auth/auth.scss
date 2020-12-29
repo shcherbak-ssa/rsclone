@@ -24,12 +24,19 @@
 
   &-header {
     color: #fff;
+    display: flex;
+    align-items: center;
     font: bold 24px/32px Montserrat, sans-serif;
     transition: .4s;
 
     .is-login-mode & {
       color: $dark-color;
     }
+  }
+
+  &-logo {
+    margin-right: 10px;
+    -x-size: 36px;
   }
 
   &-form {
