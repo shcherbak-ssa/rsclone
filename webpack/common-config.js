@@ -41,7 +41,7 @@ const commonConfig = ({isDev, entryDirname, outputDirname, outputFilename}) => {
             {
               loader: 'file-loader',
               options: {
-                name: 'views/[name].html',
+                name: '[name].html',
               }
             }
           ]

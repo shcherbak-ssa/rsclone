@@ -1,0 +1,11 @@
+[data-class~="click"] {
+  cursor: pointer;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    -x-size: 100%;
+    -x-position: absolute 0 x x 0;
+  }
+}

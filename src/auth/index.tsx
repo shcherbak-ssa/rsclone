@@ -5,6 +5,7 @@ import './index.html';
 import { AuthComponent } from './components/auth';
 
 const ROOT_ELEMENT_ID = 'auth';
+const DEFAULT_ROUTER_PATHNAME = '';
 
 ReactDOM.render(
   <AuthComponent />,
