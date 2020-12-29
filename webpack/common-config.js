@@ -59,8 +59,21 @@ const commonConfig = ({isDev, entryDirname, outputDirname, outputFilename}) => {
             {
               loader: 'ts-loader',
               options: {
-                configFile: resolve(__dirname, '../tsconfig.json'),
                 transpileOnly: true,
+                compilerOptions: {
+                  module: 'es6',
+                  target: 'es5',
+                  sourceMap: true,
+                  strict: true,
+                  jsx: 'react',
+                  moduleResolution: 'node',
+                  resolveJsonModule: true,
+                  sourceMap: isDev,
+                  typeRoots: [
+                    resolve(__dirname, '../node_modules/@types')
+                  ],
+                  esModuleInterop: true
+                }
               },
             }
           ]

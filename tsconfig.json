@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "es6",
+    "module": "commonjs",
     "target": "es5",
     "allowJs": true,
     "esModuleInterop": true,
@@ -8,13 +8,12 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react",
-    "sourceMap": true,
     "typeRoots": [
       "node_modules/@types"
     ],
+    "outDir": "./dist/backend",
+    "baseUrl": "./backend"
   },
-  "include": ["src/**/*"],
+  "include": ["backend/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
