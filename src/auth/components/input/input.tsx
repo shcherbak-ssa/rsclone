@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import './input.scss';
+import { assetsService } from '../../services/assets-service';
 
 const IS_ACTIVE_CLASSNAME: string = 'is-active';
 const IS_ERROR_CLASSNAME: string = 'is-error';
@@ -11,6 +12,8 @@ export type InputProps = {
   value: string,
   error: string,
   updateValue: Function,
+  icon?: string,
+  iconClickHandle?: Function,
 };
 
 export function Input({
@@ -18,14 +21,23 @@ export function Input({
   value,
   error,
   updateValue,
+  icon,
+  iconClickHandle,
 }: InputProps) {
   const inputField = useRef<HTMLInputElement>(null);
+  const [cursorPosition, setCursorPosition] = useState(0);
 
   const [isActive, setIsActive] = useState(false);
   const componentClassname = classnames('input', {
     [IS_ACTIVE_CLASSNAME]: isActive,
     [IS_ERROR_CLASSNAME]: !!error,
   });
+
+  useEffect(() => {
+    if (inputField && inputField.current) {
+      inputField.current.setSelectionRange(cursorPosition, cursorPosition);
+    }
+  }, [value]);
 
   function clickHandle() {
     setIsActive(true);
@@ -43,6 +55,21 @@ export function Input({
 
   function changeHandle(e: React.ChangeEvent<HTMLInputElement>) {
     updateValue(e.target.value);
+    
+    if (inputField && inputField.current) {
+      setCursorPosition(inputField.current.selectionStart || value.length);
+    }
+  }
+
+  function inputIconClickHandle(e: React.MouseEvent<HTMLImageElement>) {
+    if (e.target instanceof HTMLImageElement) {
+      e.target.classList.toggle(IS_ACTIVE_CLASSNAME);
+      
+      
+      if (iconClickHandle) {
+        iconClickHandle();
+      }
+    }
   }
 
   return (
@@ -61,6 +88,15 @@ export function Input({
       />
       <div className="input-placeholder">{placeholder}</div>
       <div className="input-error">{error}</div>
+      {
+        icon
+          ? <img
+              src={assetsService.getIconUrl(icon)}
+              className="input-icon"
+              onClick={inputIconClickHandle}
+            />
+          : ''
+      }
     </div>
   );
 }

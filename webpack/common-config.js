@@ -95,29 +95,13 @@ const commonConfig = ({isDev, entryDirname, outputDirname, outputFilename}) => {
           ]
         },
         {
-          test: /\.ttf$/,
-          loader: 'file-loader',
-          options: {
-            name: '[name].ttf',
-            outputPath: 'assets/fonts',
-          }
-        },
-        {
-          test: /\.(jpg|png)$/,
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'assets/images',
-          }
-        },
-        {
-          test: /\.ico$/,
+          test: /\.(jpg|png|svg|ico)$/,
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
             outputPath: 'assets',
           }
-        }
+        },
       ]
     },
     resolve: {

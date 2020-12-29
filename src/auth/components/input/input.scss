@@ -22,6 +22,7 @@
   &-field {
     background: transparent;
     color: $dark-color;
+    font-family: inherit;
     padding: 16px 0 0 16px;
     position: relative;
     -x-size: 100%;
@@ -32,6 +33,19 @@
     opacity: 0;
     transition: .2s;
     -x-position: absolute x x 0 0;
+  }
+
+  &-icon {
+    opacity: .6;
+    transition: .2s;
+    transform: translateY(-50%);
+    z-index: 1;
+    -x-size: 24px;
+    -x-position: absolute 50% 12px x x;
+
+    &:hover, &.is-active {
+      opacity: 1;
+    }
   }
 
   &-placeholder, &-field {
