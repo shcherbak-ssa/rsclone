@@ -1,4 +1,5 @@
 const {join: joinPaths, resolve} = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const currentMode = (isDev) => isDev ? 'development' : 'production';
@@ -16,8 +17,8 @@ const webpackConfig = (env = {}) => {
     entry: joinPaths(SRC_DIRNAME, 'index.tsx'),
     output: {
       path: resolve(__dirname, outputDirname(isDev)),
-      chunkFilename: joinPaths('js', '[name].chunk.js'),
-      filename: joinPaths('js', 'main.js'),
+      chunkFilename: joinPaths('public', 'js', '[name].chunk.js'),
+      filename: joinPaths('public', 'js', 'main.js'),
     },
     module: {
       rules: [
@@ -92,7 +93,7 @@ const webpackConfig = (env = {}) => {
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: 'assets',
+            outputPath: joinPaths('public', 'assets'),
           }
         },
       ]
@@ -101,8 +102,9 @@ const webpackConfig = (env = {}) => {
       extensions: ['.js', '.tsx', '.ts'],
     },
     plugins: [
+      new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
-        filename: 'css/main.css'
+        filename: joinPaths('public', 'css', 'main.css')
       })
     ],
   }

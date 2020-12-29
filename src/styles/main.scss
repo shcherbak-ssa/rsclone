@@ -16,4 +16,8 @@ body {
   position: relative;
 }
 
+#root {
+  -x-size: 100%;
+}
+
 @import './classes.scss';
