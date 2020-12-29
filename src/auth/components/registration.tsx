@@ -1,7 +1,7 @@
 import React from 'react';
 import { LOGIN_ROUTE_PATHNAME } from '../constants';
 import { FormContainerProps, FormContainer } from '../containers/form-container';
-import { Input } from './input';
+import { InputEmail, InputName, InputPassword } from './inputs';
 
 type RegistrationProps = {
   toggleMode: Function,
@@ -20,11 +20,11 @@ export function Registration({
     toggleMode,
   };
 
-  const inputs = [1, 2, 3];
-
   return (
     <FormContainer {...formContainerProps}>
-      {inputs.map((item, index) => <Input key={index} />)}
+      <InputName />
+      <InputEmail />
+      <InputPassword />
     </FormContainer>
   );
 }
