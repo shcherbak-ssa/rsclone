@@ -9,6 +9,8 @@ import {
   REGISTRATION_ROUTE_PATHNAME
 } from '../../constants';
 
+import { Registration } from '../registration';
+
 export function AuthComponent() {
   const [isLoginMode, setIsLoginMode] = useState(false);
   const componentClassname = classnames('auth', {
@@ -33,7 +35,7 @@ export function AuthComponent() {
                 <Redirect to={REGISTRATION_ROUTE_PATHNAME} />
               </Route>
               <Route path={REGISTRATION_ROUTE_PATHNAME}>
-                Registration
+                <Registration />
               </Route>
               <Route path={LOGIN_ROUTE_PATHNAME}>
                 Login

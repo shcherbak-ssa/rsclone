@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './form-container.scss';
 
 export type FormContainerProps = {
@@ -7,8 +8,8 @@ export type FormContainerProps = {
   buttonValue: string,
   message: string,
   messageLink: string,
-  messageLinkClickHandle: Function,
-  children: React.ReactChildren,
+  nextHistoryPath: string,
+  children?: React.ReactNode,
 };
 
 export function FormContainer({
@@ -18,11 +19,12 @@ export function FormContainer({
   buttonValue,
   message,
   messageLink,
-  messageLinkClickHandle,
+  nextHistoryPath,
 }: FormContainerProps) {
+  const history = useHistory();
 
   function formLinkClickHande() {
-    messageLinkClickHandle();
+    history.push(nextHistoryPath);
   }
 
   return (
