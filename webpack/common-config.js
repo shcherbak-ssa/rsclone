@@ -60,20 +60,6 @@ const commonConfig = ({isDev, entryDirname, outputDirname, outputFilename}) => {
               loader: 'ts-loader',
               options: {
                 transpileOnly: true,
-                compilerOptions: {
-                  module: 'es6',
-                  target: 'es5',
-                  sourceMap: true,
-                  strict: true,
-                  jsx: 'react',
-                  moduleResolution: 'node',
-                  resolveJsonModule: true,
-                  sourceMap: isDev,
-                  typeRoots: [
-                    resolve(__dirname, '../node_modules/@types')
-                  ],
-                  esModuleInterop: true
-                }
               },
             }
           ]
@@ -93,9 +79,11 @@ const commonConfig = ({isDev, entryDirname, outputDirname, outputFilename}) => {
             {
               loader: 'postcss-loader',
               options: {
-                plugins: [
-                  require('postcss-short')({ prefix: 'x', skip: 'x' }),
-                ]
+                postcssOptions: {
+                  plugins: [
+                    require('postcss-short')({ prefix: 'x', skip: 'x' }),
+                  ]
+                }
               }
             },
             {

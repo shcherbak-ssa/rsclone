@@ -1,0 +1,46 @@
+
+@import '../../../styles/assets.scss';
+@import '../../../styles/common.scss';
+
+#auth {
+  -x-size: 100%;
+}
+
+.auth {
+  background: $auth-background;
+  padding: 20px 64px;
+  -x-size: 100%;
+
+  @media screen and (max-width: 768px) {
+    padding: 20px 24px;
+  }
+
+  &-content {
+    position: relative;
+    z-index: 9;
+  }
+
+  &-header {
+    color: #fff;
+    font: bold 24px/32px Montserrat, sans-serif;
+    transition: .4s;
+
+    .is-login-mode & {
+      color: $dark-color;
+    }
+  }
+
+  &-decoration {
+    background: $decoration-background;
+    position: absolute;
+    top: -280%;
+    left: -50%;
+    transform: rotate(-22.6deg);
+    transition: .4s;
+    -x-size: 200vw;
+
+    .is-login-mode & {
+      top: 70%;
+    }
+  }
+}
