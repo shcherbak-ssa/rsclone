@@ -9,6 +9,7 @@ export type FormContainerProps = {
   message: string,
   messageLink: string,
   nextHistoryPath: string,
+  toggleMode: Function,
   children?: React.ReactNode,
 };
 
@@ -20,11 +21,13 @@ export function FormContainer({
   message,
   messageLink,
   nextHistoryPath,
+  toggleMode,
 }: FormContainerProps) {
   const history = useHistory();
 
   function formLinkClickHande() {
     history.push(nextHistoryPath);
+    toggleMode();
   }
 
   return (

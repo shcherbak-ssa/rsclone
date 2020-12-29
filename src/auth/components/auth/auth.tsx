@@ -18,7 +18,7 @@ export function AuthComponent() {
     [IS_LOGIN_MODE_CLASSNAME]: isLoginMode
   });
 
-  function toggleLoginMode() {
+  function toggleMode() {
     setIsLoginMode(!isLoginMode);
   }
 
@@ -36,10 +36,10 @@ export function AuthComponent() {
                 <Redirect to={REGISTRATION_ROUTE_PATHNAME} />
               </Route>
               <Route path={REGISTRATION_ROUTE_PATHNAME}>
-                <Registration />
+                <Registration toggleMode={toggleMode} />
               </Route>
               <Route path={LOGIN_ROUTE_PATHNAME}>
-                <Login />
+                <Login toggleMode={toggleMode} />
               </Route>
             </Switch>
           </Router>

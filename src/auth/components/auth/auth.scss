@@ -51,7 +51,8 @@
     -x-size: 1751px 768px;
 
     .is-login-mode & {
-      top: 70%;
+      top: 120%;
+      transform: rotate(-22.6deg) translate(30%, -50%);
     }
   }
 }
