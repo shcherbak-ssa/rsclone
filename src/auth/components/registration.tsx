@@ -1,6 +1,7 @@
 import React from 'react';
 import { LOGIN_ROUTE_PATHNAME } from '../constants';
 import { FormContainerProps, FormContainer } from '../containers/form-container';
+import { Input } from './input';
 
 type RegistrationProps = {
   toggleMode: Function,
@@ -19,9 +20,11 @@ export function Registration({
     toggleMode,
   };
 
+  const inputs = [1, 2, 3];
+
   return (
     <FormContainer {...formContainerProps}>
-      <div>messageLinkClickHandle</div>
+      {inputs.map((item, index) => <Input key={index} />)}
     </FormContainer>
   );
 }
