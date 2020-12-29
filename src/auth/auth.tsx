@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import classnames from 'classnames';
-import './auth.scss';
+import './styles/auth.scss';
 
 import {
   IS_LOGIN_MODE_CLASSNAME,
   LOGIN_ROUTE_PATHNAME,
   REGISTRATION_ROUTE_PATHNAME
-} from '../../constants';
+} from './constants';
 
-import { Registration } from '../registration';
-import { Login } from '../login';
-import { assetsService } from '../../services/assets-service';
+import { Registration } from './components/registration';
+import { Login } from './components/login';
+import { assetsService } from './services/assets-service';
 
 const LOGO_ICON: string = 'logo';
 const LOGO_LOGIN_ICON: string = 'logo-login';

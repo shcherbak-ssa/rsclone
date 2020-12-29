@@ -4,12 +4,9 @@
   "description": "GitBook clone with custom features",
   "main": "index.js",
   "scripts": {
-    "dev-auth": "webpack --watch --env isDev --env isAuth",
-    "dev-app": "webpack --watch --env isDev --env isApp",
-    "build-auth": "webpack --env isAuth",
-    "build-app": "webpack --env isApp",
-    "dev-server": "nodemon --watch backend backend/server.ts",
-    "static-server": "static dev/auth -H"
+    "dev": "webpack --watch --env isDev",
+    "build": "webpack",
+    "dev-server": "nodemon --watch backend backend/server.ts"
   },
   "repository": {
     "type": "git",
