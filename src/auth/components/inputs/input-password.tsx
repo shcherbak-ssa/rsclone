@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Input, InputProps } from '../input';
 
 const VIEW_ICON: string = 'view';
-const EMPTY_LENGHT: number = 0;
 
 export function InputPassword() {
   const [value, setValue] = useState('');

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import './input.scss';
-import { assetsService } from '../../services/assets-service';
+import { assetsService } from '../../services/assets.service';
 
 const IS_ACTIVE_CLASSNAME: string = 'is-active';
 const IS_ERROR_CLASSNAME: string = 'is-error';

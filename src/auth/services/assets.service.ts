@@ -1,5 +1,5 @@
 class AssetsService {
-  public getIconUrl(icon: string) {
+  getIconUrl(icon: string) {
     return `/assets/${icon}.svg`;
   }
 }

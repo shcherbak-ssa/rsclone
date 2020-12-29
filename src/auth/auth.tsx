@@ -11,7 +11,7 @@ import {
 
 import { Registration } from './components/registration';
 import { Login } from './components/login';
-import { assetsService } from './services/assets-service';
+import { assetsService } from './services/assets.service';
 
 const LOGO_ICON: string = 'logo';
 const LOGO_LOGIN_ICON: string = 'logo-login';
