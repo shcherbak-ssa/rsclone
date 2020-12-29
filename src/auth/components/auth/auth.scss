@@ -38,6 +38,8 @@
     padding: 32px;
     transform: translate(-50%, -50%);
     z-index: 99;
+    width: 480px;
+    transition: .2s;
     -x-position: absolute 50% x x 50%;
   }
 
