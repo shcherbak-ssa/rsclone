@@ -10,6 +10,7 @@ import {
 } from '../../constants';
 
 import { Registration } from '../registration';
+import { Login } from '../login';
 
 export function AuthComponent() {
   const [isLoginMode, setIsLoginMode] = useState(false);
@@ -38,7 +39,7 @@ export function AuthComponent() {
                 <Registration />
               </Route>
               <Route path={LOGIN_ROUTE_PATHNAME}>
-                Login
+                <Login />
               </Route>
             </Switch>
           </Router>
