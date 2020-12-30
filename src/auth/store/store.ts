@@ -25,6 +25,7 @@ export const storeSelectors = {
   getCurrentMode() {
     return (state: StoreStateType) => state.mode;
   },
+
   getInput(inputLabel: InputLabels) {
     return ({ inputs }: StoreStateType) => inputs[inputLabel];
   },
@@ -33,5 +34,9 @@ export const storeSelectors = {
 export const storeStates = {
   getCurrentMode() {
     return store.getState().mode.currentMode;
+  },
+
+  getInput(inputLabel: InputLabels) {
+    return store.getState().inputs[inputLabel];
   },
 };

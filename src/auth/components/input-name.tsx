@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { InputLabels } from '../constants';
 import { Input, InputProps } from '../containers/input';
+import { authController } from '../controllers/auth.controller';
+import { storeSelectors } from '../store';
 
 export function InputName() {
-  const [value, setValue] = useState('');
-  const [error, setError] = useState('');
+  const inputLabel = InputLabels.NAME_INPUT_LABEL;
+  const {value, error} = useSelector(storeSelectors.getInput(inputLabel));
 
   const inputProps: InputProps = {
     placeholder: 'Your name',
     value,
     error,
     updateValue: (newValue: string) => {
-      setValue(newValue);
-
-      if (error) {
-        setError('');
-      }
+      authController.updateInputValue(newValue, inputLabel);
     },
   };
 
