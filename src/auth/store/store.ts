@@ -25,3 +25,9 @@ export const storeSelectors = {
     return (state: StoreStateType) => state.mode;
   },
 };
+
+export const storeStates = {
+  getCurrentMode() {
+    return store.getState().mode.currentMode;
+  },
+};

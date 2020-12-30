@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './form-container.scss';
 
+import { authController } from '../../controllers/auth.controller';
+
 export type FormContainerProps = {
   title: string,
   socialDescription: string,
@@ -9,7 +11,6 @@ export type FormContainerProps = {
   message: string,
   messageLink: string,
   nextHistoryPath: string,
-  toggleMode: Function,
   children?: React.ReactNode,
 };
 
@@ -21,13 +22,12 @@ export function FormContainer({
   message,
   messageLink,
   nextHistoryPath,
-  toggleMode,
 }: FormContainerProps) {
   const history = useHistory();
 
   function formLinkClickHande() {
     history.push(nextHistoryPath);
-    toggleMode();
+    authController.toggleMode();
   }
 
   return (

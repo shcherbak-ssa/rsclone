@@ -4,7 +4,6 @@ import { FormContainerProps, FormContainer } from '../containers/form-container'
 import { InputName } from './input-name';
 import { InputEmail } from './input-email';
 import { InputPassword } from './input-password';
-import { modeModel } from '../models/mode.model';
 
 export function Registration() {
   const formContainerProps: FormContainerProps = {
@@ -14,9 +13,6 @@ export function Registration() {
     message: 'Already have an account? ',
     messageLink: 'Login',
     nextHistoryPath: LOGIN_ROUTE_PATHNAME,
-    toggleMode: () => {
-      modeModel.switchToLoginMode();
-    },
   };
 
   return (
