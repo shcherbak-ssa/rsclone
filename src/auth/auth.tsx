@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import classnames from 'classnames';
 import './styles/auth.scss';
 
@@ -12,6 +13,7 @@ import {
 import { Registration } from './components/registration';
 import { Login } from './components/login';
 import { assetsService } from './services/assets.service';
+import { store } from './store';
 
 const LOGO_ICON: string = 'logo';
 const LOGO_LOGIN_ICON: string = 'logo-login';
@@ -29,29 +31,31 @@ export function AuthComponent() {
   }
 
   return (
-    <div className={componentClassname}>
-      <div className="auth-content">
-        <div className="auth-header">
-          <img src={assetsService.getIconUrl(logoIcon)} className="auth-logo" />
-          Gitbook Clone
+    <Provider store={store}>
+      <div className={componentClassname}>
+        <div className="auth-content">
+          <div className="auth-header">
+            <img src={assetsService.getIconUrl(logoIcon)} className="auth-logo" />
+            Gitbook Clone
+          </div>
+          <div className="auth-form" data-class="shadow">
+            <Router>
+              <Switch>
+                <Route path="/" exact>
+                  <Redirect to={REGISTRATION_ROUTE_PATHNAME} />
+                </Route>
+                <Route path={REGISTRATION_ROUTE_PATHNAME}>
+                  <Registration toggleMode={toggleMode} />
+                </Route>
+                <Route path={LOGIN_ROUTE_PATHNAME}>
+                  <Login toggleMode={toggleMode} />
+                </Route>
+              </Switch>
+            </Router>
+          </div>
         </div>
-        <div className="auth-form" data-class="shadow">
-          <Router>
-            <Switch>
-              <Route path="/" exact>
-                <Redirect to={REGISTRATION_ROUTE_PATHNAME} />
-              </Route>
-              <Route path={REGISTRATION_ROUTE_PATHNAME}>
-                <Registration toggleMode={toggleMode} />
-              </Route>
-              <Route path={LOGIN_ROUTE_PATHNAME}>
-                <Login toggleMode={toggleMode} />
-              </Route>
-            </Switch>
-          </Router>
-        </div>
+        <div className="auth-decoration"></div>
       </div>
-      <div className="auth-decoration"></div>
-    </div>
+    </Provider>
   );
 }
