@@ -5,6 +5,8 @@ const EMPTY_FIELD_LENGTH: number = 0;
 const MAX_FIELD_LENGTH: number = 127;
 const MIN_PASSWORD_LENGTH: number = 8;
 
+const NAME_REGEXP: RegExp = /[-<>(){}!#$%^&*_=+[\]\.,;:@\"]/g;
+
 const EMAIL_REGEXP: RegExp =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -41,7 +43,14 @@ export class ValidationService {
     }
   }
 
-  private validateName(name: string) {}
+  private validateName(name: string) {
+    if (NAME_REGEXP.test(name.toLowerCase())) {
+      throw new AuthError(
+        `Name can contains only letters, numbers and spaces`, 
+        InputLabels.NAME_INPUT_LABEL,
+      );
+    }
+  }
 
   private validateEmail(email: string) {
     if (!EMAIL_REGEXP.test(email.toLowerCase())) {
