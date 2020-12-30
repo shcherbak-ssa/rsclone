@@ -2,7 +2,7 @@ import { combineReducers, createStore, Store } from "redux";
 import { InputsActionType, InputsStateType, inputsStore } from "./inputs.store";
 import { ModeActionType, ModeStateType, modeStore } from "./mode.store";
 
-type StoreStateType = {
+export type StoreStateType = {
   inputs: InputsStateType,
   mode: ModeStateType,
 };
