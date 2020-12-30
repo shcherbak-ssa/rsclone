@@ -18,11 +18,11 @@ type ToLoginModeActionType = {
 export type ModeActionType = ToRegistrationModeActionType | ToLoginModeActionType;
 
 export type ModeStateType = {
-  mode: ModeType,
+  currentMode: ModeType,
 };
 
 const initialState: ModeStateType = {
-  mode: REGISTRATION_MODE_LABEL,
+  currentMode: REGISTRATION_MODE_LABEL,
 };
 
 function modeReducer(
@@ -30,6 +30,10 @@ function modeReducer(
   action: ModeActionType,
 ): ModeStateType {
   switch (action.type) {
+    case Constants.TO_REGISTRATION_MODE:
+      return { currentMode: REGISTRATION_MODE_LABEL };
+    case Constants.TO_LOGIN_MODE:
+      return { currentMode: LOGIN_MODE_LABEL };
     default:
       return state;
   }
