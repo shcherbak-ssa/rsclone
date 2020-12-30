@@ -1,4 +1,4 @@
-import { StoreStateType, dispatchAction } from "../store";
+import { dispatchAction } from "../store";
 import { modeStore } from '../store/mode.store';
 
 const {
@@ -13,10 +13,6 @@ class ModeModel {
 
   switchToLoginMode() {
     dispatchAction(switchToLoginMode());
-  }
-
-  getMode() {
-    return (state: StoreStateType) => state.mode;
   }
 }
 

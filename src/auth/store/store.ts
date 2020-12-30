@@ -2,7 +2,7 @@ import { combineReducers, createStore, Store } from "redux";
 import { InputsActionType, InputsStateType, inputsStore } from "./inputs.store";
 import { ModeActionType, ModeStateType, modeStore } from "./mode.store";
 
-export type StoreStateType = {
+type StoreStateType = {
   inputs: InputsStateType,
   mode: ModeStateType,
 };
@@ -19,3 +19,9 @@ export const store: StoreType = createStore(combineReducers({
 export function dispatchAction(action: StoreActionType) {
   store.dispatch(action);
 }
+
+export const storeSelectors = {
+  getCurrentMode() {
+    return (state: StoreStateType) => state.mode;
+  },
+};

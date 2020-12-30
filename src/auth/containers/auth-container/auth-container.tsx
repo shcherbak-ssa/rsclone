@@ -14,13 +14,13 @@ import {
 import { Registration } from '../../components/registration';
 import { Login } from '../../components/login';
 import { assetsService } from '../../services/assets.service';
-import { modeModel } from '../../models/mode.model';
+import { storeSelectors } from '../../store';
 
 const LOGO_ICON: string = 'logo';
 const LOGO_LOGIN_ICON: string = 'logo-login';
 
 export function AuthContainer() {
-  const { currentMode } = useSelector(modeModel.getMode());
+  const { currentMode } = useSelector(storeSelectors.getCurrentMode());
   const isLoginMode = currentMode === LOGIN_MODE_LABEL;
 
   const componentClassname = classnames('auth', {

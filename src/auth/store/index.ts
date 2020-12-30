@@ -1,1 +1,1 @@
-export { StoreStateType, store, dispatchAction } from './store';
+export { store, dispatchAction, storeSelectors } from './store';
