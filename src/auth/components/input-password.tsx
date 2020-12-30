@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { InputLabels } from '../constants';
 import { Input, InputProps } from '../containers/input';
+import { authController } from '../controllers/auth.controller';
+import { storeSelectors } from '../store';
 
 const VIEW_ICON: string = 'view';
 
 export function InputPassword() {
-  const [value, setValue] = useState('');
-  const [error, setError] = useState('');
+  const inputLabel = InputLabels.PASSWORD_INPUT_LABEL;
+  const {value, error} = useSelector(storeSelectors.getInput(inputLabel));
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const inputProps: InputProps = {
@@ -17,16 +21,11 @@ export function InputPassword() {
       setIsPasswordVisible(!isPasswordVisible);
     },
     updateValue: (newValue: string) => {
-      if (isPasswordVisible) {
-        setValue(newValue);
-      } else {
-        const transformedValue = removeDots(newValue);
-        setValue(transformedValue);
+      if (!isPasswordVisible) {
+        newValue = removeDots(newValue);
       }
 
-      if (error) {
-        setError('');
-      }
+      authController.updateInputValue(newValue, inputLabel);
     },
   };
 
