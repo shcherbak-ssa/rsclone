@@ -26,11 +26,11 @@ type UpdateErrorActionType = {
   inputLabel: InputLabelType,
 };
 
-export type InputActionType = UpdateValueActionType | UpdateErrorActionType;
+export type InputsActionType = UpdateValueActionType | UpdateErrorActionType;
 
-export type InputsState = {};
+export type InputsStateType = {};
 
-const initialState: InputsState = {
+const initialState: InputsStateType = {
   [NAME_INPUT_LABEL]: {
     value: '',
     error: '',
@@ -49,9 +49,9 @@ const initialState: InputsState = {
 }
 
 function inputsReducer(
-  state: InputsState = initialState,
-  action: InputActionType,
-): InputsState {
+  state: InputsStateType = initialState,
+  action: InputsActionType,
+): InputsStateType {
   switch (action.type) {
     case Constants.UPDATE_VALUE:
       return {
