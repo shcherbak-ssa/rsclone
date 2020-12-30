@@ -1,6 +1,7 @@
 import { combineReducers, createStore, Store } from "redux";
 import { InputsActionType, InputsStateType, inputsStore } from "./inputs.store";
 import { ModeActionType, ModeStateType, modeStore } from "./mode.store";
+import { InputLabels } from '../constants';
 
 type StoreStateType = {
   inputs: InputsStateType,
@@ -23,6 +24,9 @@ export function dispatchAction(action: StoreActionType) {
 export const storeSelectors = {
   getCurrentMode() {
     return (state: StoreStateType) => state.mode;
+  },
+  getInput(inputLabel: InputLabels) {
+    return ({ inputs }: StoreStateType) => inputs[inputLabel];
   },
 };
 

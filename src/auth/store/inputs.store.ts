@@ -1,8 +1,4 @@
-import {
-  NAME_INPUT_LABEL,
-  EMAIL_INPUT_LABEL,
-  PASSWORD_INPUT_LABEL,
-} from '../constants';
+import { InputLabels } from '../constants';
 
 enum Constants {
   UPDATE_VALUE = 'inputs-store/update-value',
@@ -10,9 +6,9 @@ enum Constants {
 };
 
 type InputLabelType =
-  typeof NAME_INPUT_LABEL |
-  typeof EMAIL_INPUT_LABEL |
-  typeof PASSWORD_INPUT_LABEL;
+  typeof InputLabels.NAME_INPUT_LABEL |
+  typeof InputLabels.EMAIL_INPUT_LABEL |
+  typeof InputLabels.PASSWORD_INPUT_LABEL;
 
 type UpdateValueActionType = {
   type: typeof Constants.UPDATE_VALUE,
@@ -28,23 +24,33 @@ type UpdateErrorActionType = {
 
 export type InputsActionType = UpdateValueActionType | UpdateErrorActionType;
 
-export type InputsStateType = {};
+type InputState = {
+  value: string,
+  error: string,
+  inputLabel: InputLabelType,
+};
+
+export type InputsStateType = {
+  [InputLabels.NAME_INPUT_LABEL]: InputState,
+  [InputLabels.EMAIL_INPUT_LABEL]: InputState,
+  [InputLabels.PASSWORD_INPUT_LABEL]: InputState,
+};
 
 const initialState: InputsStateType = {
-  [NAME_INPUT_LABEL]: {
+  [InputLabels.NAME_INPUT_LABEL]: {
     value: '',
     error: '',
-    inputLabel: NAME_INPUT_LABEL,
+    inputLabel: InputLabels.NAME_INPUT_LABEL,
   },
-  [EMAIL_INPUT_LABEL]: {
+  [InputLabels.EMAIL_INPUT_LABEL]: {
     value: '',
     error: '',
-    inputLabel: EMAIL_INPUT_LABEL,
+    inputLabel: InputLabels.EMAIL_INPUT_LABEL,
   },
-  [PASSWORD_INPUT_LABEL]: {
+  [InputLabels.PASSWORD_INPUT_LABEL]: {
     value: '',
     error: '',
-    inputLabel: PASSWORD_INPUT_LABEL,
+    inputLabel: InputLabels.PASSWORD_INPUT_LABEL,
   },
 }
 
