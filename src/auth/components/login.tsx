@@ -1,7 +1,8 @@
 import React from 'react';
 import { REGISTRATION_ROUTE_PATHNAME } from '../constants';
 import { FormContainerProps, FormContainer } from '../containers/form-container';
-import { InputEmail, InputPassword } from './inputs';
+import { InputEmail } from './input-email';
+import { InputPassword } from './input-password';
 
 type LoginProps = {
   toggleMode: Function,

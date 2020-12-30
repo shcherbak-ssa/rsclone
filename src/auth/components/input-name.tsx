@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Input, InputProps } from '../input';
+import { Input, InputProps } from '../containers/input';
 
-export function InputEmail() {
+export function InputName() {
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
 
   const inputProps: InputProps = {
-    placeholder: 'E-mail',
+    placeholder: 'Your name',
     value,
     error,
     updateValue: (newValue: string) => {

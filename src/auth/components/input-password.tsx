@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, InputProps } from '../input';
+import { Input, InputProps } from '../containers/input';
 
 const VIEW_ICON: string = 'view';
 
