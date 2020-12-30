@@ -1,6 +1,7 @@
-import { combineReducers, createStore, Store } from "redux";
-import { InputsActionType, InputsStateType, inputsStore } from "./inputs.store";
-import { ModeActionType, ModeStateType, modeStore } from "./mode.store";
+import { combineReducers, createStore, Store } from 'redux';
+
+import { InputsActionType, InputsStateType, inputsStore } from './inputs.store';
+import { ModeActionType, ModeStateType, modeStore } from './mode.store';
 import { InputLabels } from '../constants';
 
 type StoreStateType = {

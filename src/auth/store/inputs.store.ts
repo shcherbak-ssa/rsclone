@@ -3,6 +3,7 @@ import { InputLabels } from '../constants';
 enum Constants {
   UPDATE_VALUE = 'inputs-store/update-value',
   UPDATE_ERROR = 'inputs-store/update-error',
+  UPDATE_STATE = 'inputs-store/update-state',
 };
 
 type InputLabelType =
@@ -22,7 +23,12 @@ type UpdateErrorActionType = {
   inputLabel: InputLabelType,
 };
 
-export type InputsActionType = UpdateValueActionType | UpdateErrorActionType;
+type UpdateStateActionType = {
+  type: typeof Constants.UPDATE_STATE,
+};
+
+export type InputsActionType =
+  UpdateValueActionType | UpdateErrorActionType | UpdateStateActionType;
 
 type InputState = {
   value: string,
@@ -81,6 +87,8 @@ function inputsReducer(
           inputLabel: input.inputLabel,
         }
       };
+    case Constants.UPDATE_STATE:
+      return initialState;
     default:
       return state;
   }
@@ -102,10 +110,17 @@ function updateError(
   };
 }
 
+function updateState(): UpdateStateActionType {
+  return {
+    type: Constants.UPDATE_STATE,
+  };
+}
+
 export const inputsStore = {
   reducer: inputsReducer,
   actions: {
     updateValue,
     updateError,
+    updateState
   },
 };
