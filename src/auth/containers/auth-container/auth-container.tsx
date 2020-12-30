@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import './auth-container.scss';
@@ -15,17 +15,25 @@ import { Registration } from '../../components/registration';
 import { Login } from '../../components/login';
 import { assetsService } from '../../services/assets.service';
 import { storeSelectors } from '../../store';
+import { authController } from '../../controllers/auth.controller';
 
 const LOGO_ICON: string = 'logo';
 const LOGO_LOGIN_ICON: string = 'logo-login';
 
 export function AuthContainer() {
+  const location = useLocation();
   const { currentMode } = useSelector(storeSelectors.getCurrentMode());
-  const isLoginMode = currentMode === LOGIN_MODE_LABEL;
 
+  const isLoginMode = currentMode === LOGIN_MODE_LABEL;
   const componentClassname = classnames('auth', {
     [IS_LOGIN_MODE_CLASSNAME]: isLoginMode,
   });
+
+  useEffect(() => {
+    if (location.pathname === LOGIN_ROUTE_PATHNAME) {
+      authController.toggleMode();
+    }
+  }, []);
 
   function updateLogoIcon() {
     return assetsService.getIconUrl(isLoginMode ? LOGO_LOGIN_ICON : LOGO_ICON);
