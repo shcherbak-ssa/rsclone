@@ -2,6 +2,6 @@ import { Router } from "express";
 
 export interface BaseRouter {
   router: Router;
-  pathRegExp: RegExp;
+  pathRegExp?: RegExp;
   initRouter(): void;
 }

@@ -1,13 +1,14 @@
 import { join } from 'path';
 import express from 'express';
 import { Application, Request, Response, NextFunction } from 'express';
-import { ROOT_REGEXP_PATHNAME, SUCCESS_STATUS_CODE, ROOT_FILENAME } from './constants';
+
+import { ROOT_REGEXP_PATHNAME, ROOT_FILENAME } from './constants';
 import { BaseRouter } from './routers';
 import { serverConfig } from './server.config';
+import { responseService } from './services/response.service';
 
-const sessionCookieOptions = {
-  active: true,
-};
+const sessionCookieOptions = { active: true };
+const rootFilename: string = join(serverConfig.publicDirname, ROOT_FILENAME);
 
 export type AppOptions = {
   port: number,
@@ -54,7 +55,13 @@ export class App {
     this.initRootRequest();
 
     routers.forEach((router) => {
-      this.app.use(router.pathRegExp, router.router);
+      if (router.pathRegExp) {
+        this.app.use(router.pathRegExp, router.router);
+      } else {
+        this.app.use(router.router);
+      }
+
+      router.initRouter();
     });
   }
 
@@ -69,10 +76,8 @@ export class App {
       return next();
     }
 
-    res
-      .cookie('session', JSON.stringify(sessionCookieOptions))
-      .status(SUCCESS_STATUS_CODE)
-      .sendFile(join(serverConfig.publicDirname, ROOT_FILENAME));
+    res.cookie('session', JSON.stringify(sessionCookieOptions));
+    responseService.sendSuccessResponseFile(res, rootFilename);
   }
 
   private initPublic(publicPath: string) {

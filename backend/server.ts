@@ -1,5 +1,6 @@
 import { join } from 'path';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 
 import { serverConfig } from './server.config';
 import { AppOptions, App } from './app';
@@ -13,7 +14,8 @@ const appOptions: AppOptions = {
     AuthRouter.init(),
   ],
   middlewares: [
-    cookieParser()
+    cookieParser(),
+    bodyParser.json(),
   ],
 };
 

@@ -12,6 +12,9 @@ enum InputLabels {
   PASSWORD_INPUT_LABEL = 'password',
 };
 
+const SUCCESS_RESPONSE_TYPE: string = 'success';
+const ERROR_RESPONSE_TYPE: string = 'error';
+
 export {
   IS_LOGIN_MODE_CLASSNAME,
   REGISTRATION_ROUTE_PATHNAME,
@@ -19,4 +22,6 @@ export {
   REGISTRATION_MODE_LABEL,
   LOGIN_MODE_LABEL,
   InputLabels,
+  SUCCESS_RESPONSE_TYPE,
+  ERROR_RESPONSE_TYPE,
 };
