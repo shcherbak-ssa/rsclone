@@ -30,6 +30,10 @@ export function FormContainer({
     authController.toggleMode();
   }
 
+  function buttonClickHandle() {
+    authController.runCurrentMode();
+  }
+
   return (
     <div className="form-container form">
       <div className="form-title">{title}</div>
@@ -38,7 +42,11 @@ export function FormContainer({
         <div className="form-social-icons"></div>
       </div>
       <div className="form-inputs">{children}</div>
-      <div className="form-button" data-class="click">{buttonValue}</div>
+      <div
+        className="form-button"
+        data-class="click"
+        onClick={buttonClickHandle}
+      >{buttonValue}</div>
       <div className="form-message">
         {message}
         <span className="form-link" onClick={formLinkClickHande}>{messageLink}</span>

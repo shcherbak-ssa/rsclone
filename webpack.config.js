@@ -54,6 +54,9 @@ const webpackConfig = (env = {}) => {
               loader: 'ts-loader',
               options: {
                 transpileOnly: true,
+                compilerOptions: {
+                  sourceMap: isDev,
+                },
               },
             }
           ]

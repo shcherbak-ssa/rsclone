@@ -36,6 +36,10 @@ export const storeStates = {
     return store.getState().mode.currentMode;
   },
 
+  getInputs() {
+    return store.getState().inputs;
+  },
+
   getInput(inputLabel: InputLabels) {
     return store.getState().inputs[inputLabel];
   },
