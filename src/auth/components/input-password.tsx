@@ -1,40 +1,37 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { InputLabels } from '../constants';
 import { Input, InputProps } from '../containers/input';
 import { authController } from '../controllers/auth.controller';
-import { storeSelectors } from '../store';
 
 const VIEW_ICON: string = 'view';
 
 export function InputPassword() {
   const inputLabel = InputLabels.PASSWORD_INPUT_LABEL;
-  const {value, error} = useSelector(storeSelectors.getInput(inputLabel));
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const inputProps: InputProps = {
     placeholder: 'Password',
-    value: transformValue(),
-    error,
+    inputLabel,
     icon: VIEW_ICON,
     iconClickHandle: () => {
       setIsPasswordVisible(!isPasswordVisible);
     },
-    updateValue: (newValue: string) => {
+    updateValue: (oldValue: string, newValue: string) => {
       if (!isPasswordVisible) {
-        newValue = removeDots(newValue);
+        newValue = removeDots(oldValue, newValue);
       }
 
       authController.updateInputValue(newValue, inputLabel);
     },
+    transformValue,
   };
 
-  function transformValue() {
+  function transformValue(value: string) {
     return isPasswordVisible ? value : value.replace(/[^\n]/ig, '●');
   }
 
-  function removeDots(newValue: string) {
-    const splitedValue = value.split('').reverse();
+  function removeDots(oldValue: string, newValue: string) {
+    const splitedValue = oldValue.split('').reverse();
     return newValue.replace(/●/g, () => splitedValue.pop() || '');
   }
 

@@ -23,30 +23,22 @@ export class RegistrationModel {
   static startRegistration() {
     const inputs: InputsStateType = storeStates.getInputs();
     const registrationModel: RegistrationModel = new RegistrationModel(inputs);
+    registrationModel.run();
+  }
 
+  async run() {
     try {
-      registrationModel.run();
+      await this.validateInputs();
+
+      const user: User = this.createUser();
+      console.log(user);
+      // const response = await this.sendRequest(user);
     } catch (error) {
-      registrationModel.parseError(error);
+      this.parseError(error);
     }
   }
 
-  run() {
-    this.validateInputs();
-
-    const user: User = this.createUser();
-    // const response = await this.sendRequest(user);
-  }
-
-  parseError(error: Error) {
-    if (error instanceof ValidationError) {
-      dispatchAction(updateError(error.message, error.inputLabel));
-    } else {
-      console.log(error);
-    }
-  }
-
-  private validateInputs() {
+  private async validateInputs() {
     const validationService: ValidationService = new ValidationService();
 
     for (const [, {value, inputLabel}] of Object.entries(this.inputs)) {
@@ -66,5 +58,13 @@ export class RegistrationModel {
 
   private async sendRequest(user: User) {
 
+  }
+
+  private parseError(error: Error) {
+    if (error instanceof ValidationError) {
+      dispatchAction(updateError(error.message, error.inputLabel));
+    } else {
+      console.log(error);
+    }
   }
 }

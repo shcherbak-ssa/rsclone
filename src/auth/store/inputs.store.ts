@@ -58,19 +58,27 @@ function inputsReducer(
   state: InputsStateType = initialState,
   action: InputsActionType,
 ): InputsStateType {
+  let input: InputState;
+
   switch (action.type) {
     case Constants.UPDATE_VALUE:
+      input = state[action.inputLabel];
       return {
         ...state,
         [action.inputLabel]: {
-          value: action.value
+          value: action.value,
+          error: input.error,
+          inputLabel: input.inputLabel,
         }
       };
     case Constants.UPDATE_ERROR:
+      input = state[action.inputLabel];
       return {
         ...state,
         [action.inputLabel]: {
-          error: action.error
+          error: action.error,
+          value: input.value,
+          inputLabel: input.inputLabel,
         }
       };
     default:

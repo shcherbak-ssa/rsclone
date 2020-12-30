@@ -1,8 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import './input.scss';
 
 import { assetsService } from '../../services/assets.service';
+import { InputLabels } from '../../constants';
+import { storeSelectors } from '../../store';
+import { authController } from '../../controllers/auth.controller';
 
 const IS_ACTIVE_CLASSNAME: string = 'is-active';
 const IS_ERROR_CLASSNAME: string = 'is-error';
@@ -10,21 +14,23 @@ const EMPTY_VALUE_LENGTH: number = 0;
 
 export type InputProps = {
   placeholder: string,
-  value: string,
-  error: string,
-  updateValue: Function,
+  inputLabel: InputLabels,
+  updateValue?: Function,
+  transformValue?: Function,
   icon?: string,
   iconClickHandle?: Function,
 };
 
 export function Input({
   placeholder,
-  value,
-  error,
+  inputLabel,
   updateValue,
+  transformValue,
   icon,
   iconClickHandle,
 }: InputProps) {
+  const {value, error} = useSelector(storeSelectors.getInput(inputLabel));
+
   const inputField = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState(false);
 
@@ -48,7 +54,13 @@ export function Input({
   }
 
   function changeHandle(e: React.ChangeEvent<HTMLInputElement>) {
-    updateValue(e.target.value);
+    const newValue = e.target.value;
+
+    if (updateValue) {
+      updateValue(value, newValue);
+    } else {
+      authController.updateInputValue(newValue, inputLabel);
+    }
   }
 
   function inputIconClickHandle(e: React.MouseEvent<HTMLImageElement>) {
@@ -71,7 +83,7 @@ export function Input({
         ref={inputField}
         type="text"
         className="input-field"
-        value={value}
+        value={transformValue ? transformValue(value) : value}
         onBlur={blurHandle}
         onChange={changeHandle}
       />

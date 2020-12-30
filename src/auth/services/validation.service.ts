@@ -22,7 +22,6 @@ export class ValidationError implements Error {
 
 export class ValidationService {
   validate(value: string, inputLabel: InputLabels) {
-    console.log(value, inputLabel);
     this.emptyFieldCheck(value, inputLabel);
     this.maxFieldLengthCheck(value, inputLabel);
 
