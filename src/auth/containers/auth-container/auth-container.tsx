@@ -13,7 +13,7 @@ import {
 
 import { Registration } from '../../components/registration';
 import { Login } from '../../components/login';
-import { assetsService } from '../../services/assets.service';
+import { assetsService } from '../../../services/assets.service';
 import { storeSelectors } from '../../store';
 import { authController } from '../../controllers/auth.controller';
 

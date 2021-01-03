@@ -1,5 +1,5 @@
-import { InputLabels } from "../constants";
-import { AuthError } from "../errors/auth.error";
+import { InputLabels } from "../auth/constants";
+import { AuthError } from "../auth/errors/auth.error";
 
 const EMPTY_FIELD_LENGTH: number = 0;
 const MAX_FIELD_LENGTH: number = 127;
@@ -10,7 +10,7 @@ const NAME_REGEXP: RegExp = /[-<>(){}!#$%^&*_=+[\]\.,;:@\"]/g;
 const EMAIL_REGEXP: RegExp =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-export class ValidationService {
+export class AuthValidationService {
   validate(value: string, inputLabel: InputLabels) {
     this.emptyFieldCheck(value, inputLabel);
     this.maxFieldLengthCheck(value, inputLabel);

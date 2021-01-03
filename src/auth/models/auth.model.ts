@@ -1,6 +1,6 @@
 import { dispatchAction, storeStates } from "../store";
 import { InputsStateType, inputsStore } from "../store/inputs.store";
-import { ValidationService } from "../services/validation.service";
+import { AuthValidationService } from "../../services/auth-validation.service";
 import { ERROR_RESPONSE_TYPE, InputLabels } from "../constants";
 import { AuthError } from "../errors/auth.error";
 import { Response } from "./response.model";
@@ -49,10 +49,10 @@ class AuthModel {
   }
 
   async validateInputs() {
-    const validationService: ValidationService = new ValidationService();
+    const authValidationService: AuthValidationService = new AuthValidationService();
 
     for (const [, {value, inputLabel}] of Object.entries(this.inputs)) {
-      validationService.validate(value.trim(), inputLabel);
+      authValidationService.validate(value.trim(), inputLabel);
     }
   }
 
@@ -125,11 +125,11 @@ export class LoginModel extends AuthModel {
   }
 
   async validateInputs() {
-    const validationService: ValidationService = new ValidationService();
+    const authValidationService: AuthValidationService = new AuthValidationService();
 
     for (const [label, {value, inputLabel}] of Object.entries(this.inputs)) {
       if (label === InputLabels.NAME_INPUT_LABEL) continue;
-      validationService.validate(value.trim(), inputLabel);
+      authValidationService.validate(value.trim(), inputLabel);
     }
   }
 

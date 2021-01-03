@@ -1,5 +1,3 @@
-import { InputLabels } from "../constants";
-
 const AUTH_ERROR_NAME: string = 'AuthError';
 
 export class AuthError implements Error {
