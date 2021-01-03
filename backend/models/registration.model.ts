@@ -76,7 +76,9 @@ export class RegistrationModel {
 
       const user: NewUser = new NewUser(this.req.body);
       await this.checkUserExisting(user);
-      await this.responseSender.sendSuccessResponse('Test success', { ...this.req.body });
+
+      const newUserID: number = await this.createNewUser(user);
+      await this.responseSender.sendSuccessResponse('Test success', { id: newUserID });
     } catch (error) {
       await this.parseError(error);
     }
@@ -92,9 +94,7 @@ export class RegistrationModel {
   }
 
   async checkUserExisting(user: NewUser) {
-    const dbResult: string = await fsPromises.readFile(USER_DB_FILENAME, {encoding: 'utf-8'});
-    const usersDB: Array<User> = JSON.parse(dbResult);
-
+    const usersDB: Array<User> = await this.readUsersDB();
     const searchUserEmail: string = user.getEmailForCheck();
     const userExist: User | undefined = usersDB.find((user) => user.email === searchUserEmail);
 
@@ -106,6 +106,25 @@ export class RegistrationModel {
         }
       );
     }
+  }
+
+  async createNewUser(user: NewUser) {
+    const usersDB: Array<User> = await this.readUsersDB();
+    const newUser: User = user.getDataForSave();
+
+    usersDB.push(newUser);
+    this.updateUsersDB(usersDB);
+
+    return usersDB.length - 1;
+  }
+
+  async readUsersDB(): Promise<Array<User>> {
+    const dbResult: string = await fsPromises.readFile(USER_DB_FILENAME, {encoding: 'utf-8'});
+    return JSON.parse(dbResult);
+  }
+
+  async updateUsersDB(usersDB: Array<User>) {
+    fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(usersDB, null, 2));
   }
 
   async parseError(error: Error) {
