@@ -1,0 +1,20 @@
+@import '../../../styles/assets.scss';
+
+.sidebar-icon {
+  cursor: pointer;
+  transition: .2s;
+  -x-size: 40px;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  .original-theme & {
+    color: $original-sidebar-icon-color;
+    opacity: .6;
+
+    &:hover, &.is-active {
+      opacity: 1;
+    }
+  }
+}

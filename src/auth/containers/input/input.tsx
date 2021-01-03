@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import './input.scss';
 
-import { assetsService } from '../../../services/assets.service';
+import { AssetsService } from '../../../services/assets.service';
 import { InputLabels, IS_ERROR_CLASSNAME } from '../../constants';
 import { storeSelectors } from '../../store';
 import { authController } from '../../controllers/auth.controller';
@@ -91,7 +91,7 @@ export function Input({
       {
         icon
           ? <img
-              src={assetsService.getIconUrl(icon)}
+              src={new AssetsService().getIconUrl(icon)}
               className="input-icon"
               onClick={inputIconClickHandle}
             />

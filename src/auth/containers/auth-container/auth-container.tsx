@@ -13,7 +13,7 @@ import {
 
 import { Registration } from '../../components/registration';
 import { Login } from '../../components/login';
-import { assetsService } from '../../../services/assets.service';
+import { AssetsService } from '../../../services/assets.service';
 import { storeSelectors } from '../../store';
 import { authController } from '../../controllers/auth.controller';
 
@@ -36,6 +36,7 @@ export function AuthContainer() {
   }, []);
 
   function updateLogoIcon() {
+    const assetsService: AssetsService = new AssetsService();
     return assetsService.getIconUrl(isLoginMode ? LOGO_LOGIN_ICON : LOGO_ICON);
   }
 

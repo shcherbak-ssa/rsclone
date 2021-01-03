@@ -1,7 +1,12 @@
 import React from 'react';
+import { Theme } from './constants';
 
-import { AppContainer } from './containers/app-container';
+import { AppContainerProps, AppContainer } from './containers/app-container';
 
 export default function AppComponent() {
-  return <AppContainer />
+  const appContainerProps: AppContainerProps = {
+    theme: Theme.ORIGINAL,
+  };
+  
+  return <AppContainer {...appContainerProps} />
 }

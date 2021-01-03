@@ -1,0 +1,21 @@
+@import '../../../styles/assets.scss';
+
+.sidebar {
+  justify-content: space-between;
+  padding: 12px 0 24px;
+  -x-size: 72px 100%;
+  -x-position: absolute 0 x x 0;
+
+  &-icons {
+    align-items: center;
+  }
+
+  &-line {
+    margin-bottom: 8px;
+    -x-size: 42px 1px;
+
+    .original-theme & {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

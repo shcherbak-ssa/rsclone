@@ -16,4 +16,16 @@
   &:hover {
     box-shadow: 0 4px 4px rgba(51, 51, 51, 0.04), 0 4px 56px rgba(51, 51, 51, 0.16);
   }
-} 
+}
+
+[data-class~="flex-center"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-class~="flex-column"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

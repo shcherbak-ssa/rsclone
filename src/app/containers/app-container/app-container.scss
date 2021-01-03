@@ -4,22 +4,16 @@
 .app {
   position: relative;
   -x-size: 100%;
-}
 
-.original-theme {
-  .app {
+  &.original-theme {
     background: $original-app-background-color;
   }
-}
-
-.original-theme {
-  .app {
+  
+  &.light-theme {
     background: $light-app-background-color;
   }
-}
-
-.original-theme {
-  .app {
+  
+  &.dark-theme {
     background: $dark-app-background-color;
   }
 }
