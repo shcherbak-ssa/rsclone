@@ -8,7 +8,6 @@ import { InputPassword } from './input-password';
 export function Registration() {
   const formContainerProps: FormContainerProps = {
     title: 'Registration',
-    socialDescription: 'You can sign up with social',
     buttonValue: 'Create account',
     message: 'Already have an account? ',
     messageLink: 'Login',

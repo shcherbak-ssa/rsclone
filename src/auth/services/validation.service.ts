@@ -30,7 +30,7 @@ export class ValidationService {
 
   private emptyFieldCheck(value: string, inputLabel: InputLabels) {
     if (value.length === EMPTY_FIELD_LENGTH) {
-      throw new AuthError('Field cannot be empty', inputLabel);
+      throw new AuthError('Field cannot be empty', { inputLabel });
     }
   }
 
@@ -38,7 +38,7 @@ export class ValidationService {
     if (value.length > MAX_FIELD_LENGTH) {
       throw new AuthError(
         `Field value cannot be over ${MAX_FIELD_LENGTH} characters`, 
-        inputLabel,
+        { inputLabel },
       );
     }
   }
@@ -47,7 +47,9 @@ export class ValidationService {
     if (NAME_REGEXP.test(name.toLowerCase())) {
       throw new AuthError(
         `Name can contains only letters, numbers and spaces`, 
-        InputLabels.NAME_INPUT_LABEL,
+        {
+          inputLabel: InputLabels.NAME_INPUT_LABEL
+        },
       );
     }
   }
@@ -56,7 +58,9 @@ export class ValidationService {
     if (!EMAIL_REGEXP.test(email.toLowerCase())) {
       throw new AuthError(
         `Invalid e-mail address`, 
-        InputLabels.EMAIL_INPUT_LABEL,
+        {
+          inputLabel: InputLabels.EMAIL_INPUT_LABEL
+        },
       );
     }
   }
@@ -65,7 +69,9 @@ export class ValidationService {
     if (password.length < MIN_PASSWORD_LENGTH) {
       throw new AuthError(
         `Password cannot be under ${MIN_PASSWORD_LENGTH} characters`, 
-        InputLabels.PASSWORD_INPUT_LABEL,
+        {
+          inputLabel: InputLabels.PASSWORD_INPUT_LABEL
+        },
       );
     }
   }

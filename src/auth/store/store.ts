@@ -1,21 +1,24 @@
 import { combineReducers, createStore, Store } from 'redux';
 
+import { InputLabels } from '../constants';
 import { InputsActionType, InputsStateType, inputsStore } from './inputs.store';
 import { ModeActionType, ModeStateType, modeStore } from './mode.store';
-import { InputLabels } from '../constants';
+import { FormActionType, FormStateType, formStore } from './form.store';
 
 type StoreStateType = {
   inputs: InputsStateType,
   mode: ModeStateType,
+  form: FormStateType
 };
 
-type StoreActionType = InputsActionType | ModeActionType;
+type StoreActionType = InputsActionType | ModeActionType | FormActionType;
 
 type StoreType = Store<StoreStateType, StoreActionType>;
 
 export const store: StoreType = createStore(combineReducers({
   inputs: inputsStore.reducer,
   mode: modeStore.reducer,
+  form: formStore.reducer,
 }));
 
 export function dispatchAction(action: StoreActionType) {
@@ -29,6 +32,10 @@ export const storeSelectors = {
 
   getInput(inputLabel: InputLabels) {
     return ({ inputs }: StoreStateType) => inputs[inputLabel];
+  },
+
+  getFormError() {
+    return (state: StoreStateType) => state.form.formError;
   },
 };
 

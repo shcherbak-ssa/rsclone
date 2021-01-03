@@ -4,12 +4,11 @@ import classnames from 'classnames';
 import './input.scss';
 
 import { assetsService } from '../../services/assets.service';
-import { InputLabels } from '../../constants';
+import { InputLabels, IS_ERROR_CLASSNAME } from '../../constants';
 import { storeSelectors } from '../../store';
 import { authController } from '../../controllers/auth.controller';
 
 const IS_ACTIVE_CLASSNAME: string = 'is-active';
-const IS_ERROR_CLASSNAME: string = 'is-error';
 const EMPTY_VALUE_LENGTH: number = 0;
 
 export type InputProps = {

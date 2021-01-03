@@ -12,19 +12,17 @@
       margin-bottom: 32px;
     }
 
-    &-social {
-      background: #F1F1F1;
+    &-error {
+      background: #f1f1f1;
+      color: transparent;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       margin: 0 0 32px -32px;
       padding: 0 32px;
-      -x-size: calc(100% + 64px) 60px;
-      -x-font-size: 13px/20px;
-
-      &-icons {
-        display: flex;
-      }
+      transition: .2s;
+      -x-size: calc(100% + 64px) 1px;
+      -x-font-size: 18px/24px;
     }
 
     &-inputs {
@@ -68,6 +66,13 @@
 
     &-button, &-message {
       -x-font-size: 16px/24px;
+    }
+  }
+
+  &.is-error {
+    .form-error {
+      color: #DB524E;
+      height: 60px;
     }
   }
 }

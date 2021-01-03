@@ -5,10 +5,10 @@ const AUTH_ERROR_NAME: string = 'AuthError';
 export class AuthError implements Error {
   name: string = AUTH_ERROR_NAME;
   message: string;
-  inputLabel: InputLabels;
+  payload: any;
 
-  constructor(message: string, inputLabel: InputLabels) {
+  constructor(message: string, payload: any) {
     this.message = message;
-    this.inputLabel = inputLabel;
+    this.payload = payload;
   }
 }

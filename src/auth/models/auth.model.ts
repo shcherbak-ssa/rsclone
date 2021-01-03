@@ -6,8 +6,10 @@ import { AuthError } from "../errors/auth.error";
 import { Response } from "./response.model";
 import { LocalStorageService } from "../../services/localstorage.service";
 import { USER_LOCALSTORAGE_LABEL } from "../../constants";
+import { formStore } from "../store/form.store";
 
 const { updateError } = inputsStore.actions;
+const { setFormError, removeFormError } = formStore.actions;
 
 interface User {
   email: string;
@@ -24,6 +26,8 @@ class AuthModel {
   inputs: InputsStateType;
 
   constructor() {
+    dispatchAction(removeFormError());
+
     const inputs: InputsStateType = storeStates.getInputs();
     this.inputs = inputs;
   }
@@ -42,7 +46,13 @@ class AuthModel {
     }
   }
 
-  async validateInputs() {}
+  async validateInputs() {
+    const validationService: ValidationService = new ValidationService();
+
+    for (const [, {value, inputLabel}] of Object.entries(this.inputs)) {
+      validationService.validate(value.trim(), inputLabel);
+    }
+  }
 
   createUser() {
     return {email: '', password: ''};
@@ -67,7 +77,7 @@ class AuthModel {
   checkResponse(response: Response) {
     if (response.type === ERROR_RESPONSE_TYPE) {
       const {message, payload} = response;
-      throw new AuthError(message, payload.inputLabel);
+      throw new AuthError(message, payload);
     }
   }
 
@@ -78,8 +88,13 @@ class AuthModel {
 
   parseError(error: Error) {
     if (error instanceof AuthError) {
-      const {message, inputLabel} = error;
-      dispatchAction(updateError(message, inputLabel));
+      const {message, payload} = error;
+      
+      if (payload.inputLabel) {
+        dispatchAction(updateError(message, payload.inputLabel));
+      } else {
+        dispatchAction(setFormError(message));
+      }
     } else {
       console.log(error);
     }
@@ -89,14 +104,6 @@ class AuthModel {
 export class RegistrationModel extends AuthModel {
   static startRegistration() {
     new RegistrationModel().run();
-  }
-
-  async validateInputs() {
-    const validationService: ValidationService = new ValidationService();
-
-    for (const [, {value, inputLabel}] of Object.entries(this.inputs)) {
-      validationService.validate(value.trim(), inputLabel);
-    }
   }
 
   createUser(): RegistrationUser {
@@ -121,18 +128,6 @@ export class LoginModel extends AuthModel {
     for (const [label, {value, inputLabel}] of Object.entries(this.inputs)) {
       if (label === InputLabels.NAME_INPUT_LABEL) continue;
       validationService.validate(value.trim(), inputLabel);
-    }
-  }
-
-  checkResponse(response: Response) {
-    if (response.type === ERROR_RESPONSE_TYPE) {
-      const {message, payload} = response;
-
-      if (payload.inputLabel) {
-        throw new AuthError(message, payload.inputLabel);
-      } else {
-        console.log(message);
-      }
     }
   }
 

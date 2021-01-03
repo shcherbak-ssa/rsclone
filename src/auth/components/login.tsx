@@ -7,7 +7,6 @@ import { InputPassword } from './input-password';
 export function Login() {
   const formContainerProps: FormContainerProps = {
     title: 'Login',
-    socialDescription: 'You can sign in with social',
     buttonValue: 'Login account',
     message: 'Do not have an account? ',
     messageLink: 'Registration',
