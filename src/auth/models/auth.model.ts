@@ -23,7 +23,8 @@ interface LoginUser extends User {}
 class AuthModel {
   inputs: InputsStateType;
 
-  constructor(inputs: InputsStateType) {
+  constructor() {
+    const inputs: InputsStateType = storeStates.getInputs();
     this.inputs = inputs;
   }
 
@@ -86,14 +87,8 @@ class AuthModel {
 }
 
 export class RegistrationModel extends AuthModel {
-  constructor(inputs: InputsStateType) {
-    super(inputs);
-  }
-  
   static startRegistration() {
-    const inputs: InputsStateType = storeStates.getInputs();
-    const registrationModel: RegistrationModel = new RegistrationModel(inputs);
-    registrationModel.run();
+    new RegistrationModel().run();
   }
 
   async validateInputs() {
@@ -116,14 +111,8 @@ export class RegistrationModel extends AuthModel {
 }
 
 export class LoginModel extends AuthModel {
-  constructor(inputs: InputsStateType) {
-    super(inputs);
-  }
-  
   static startLogin() {
-    const inputs: InputsStateType = storeStates.getInputs();
-    const loginModel: LoginModel = new LoginModel(inputs);
-    loginModel.run();
+    new LoginModel().run();
   }
 
   async validateInputs() {
