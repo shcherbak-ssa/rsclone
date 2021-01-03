@@ -1,0 +1,25 @@
+
+@import '../../styles/assets.scss';
+
+.app {
+  position: relative;
+  -x-size: 100%;
+}
+
+.original-theme {
+  .app {
+    background: $original-app-background-color;
+  }
+}
+
+.original-theme {
+  .app {
+    background: $light-app-background-color;
+  }
+}
+
+.original-theme {
+  .app {
+    background: $dark-app-background-color;
+  }
+}

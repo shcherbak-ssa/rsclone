@@ -4,20 +4,15 @@ import { USER_LOCALSTORAGE_LABEL } from './constants';
 import { LocalStorageService } from './services/localstorage.service';
 
 export function EntryRouter() {
-  const [user, setUser] = useState({});
-
-  const AuthComponent = lazy(() => {
-    return import('./auth').then(({ AuthComponent }) => ({ default: AuthComponent }));
-  });
-  const AppComponent = lazy(() => {
-    return import('./app').then(({ AppComponent }) => ({ default: AppComponent }));
-  });
+  const [userExists, setUserExists] = useState(false);
+  const AppComponent = lazy(() => import('./app'));
+  const AuthComponent = lazy(() => import('./auth'));
 
   useEffect(() => {
     const localStorageService: LocalStorageService = new LocalStorageService();
     
     if (localStorageService.exists(USER_LOCALSTORAGE_LABEL)) {
-      setUser(localStorageService.get(USER_LOCALSTORAGE_LABEL));
+      setUserExists(true);
     }
   }, []);
 
@@ -26,7 +21,7 @@ export function EntryRouter() {
       <Suspense fallback={<div>Loading...</div>}>
         <Switch>
           <Route path="/">
-            {'id' in user ? <AppComponent {...user} /> : <AuthComponent />}
+            {userExists ? <AppComponent /> : <AuthComponent />}
           </Route>
         </Switch>
       </Suspense>

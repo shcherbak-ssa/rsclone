@@ -1,1 +1,1 @@
-export { AppComponentProps, AppComponent } from './app';
+export {default} from './app';

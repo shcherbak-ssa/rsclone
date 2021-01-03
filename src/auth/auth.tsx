@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { AuthContainer } from './containers/auth-container';
 import { store } from './store';
 
-export function AuthComponent() {
+export default function AuthComponent() {
   return (
     <Provider store={store}>
       <AuthContainer />

@@ -1,12 +1,7 @@
 import React from 'react';
 
-type AppComponentProps = {
-  id: number,
-  email: string,
-};
-
-export function AppComponent({id, email}: AppComponentProps) {
+export default function AppComponent() {
   return (
-    <div className="app">{id + email}</div>
+    <div className="app">App AppComponent</div>
   );
 }
