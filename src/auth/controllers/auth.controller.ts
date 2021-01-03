@@ -1,7 +1,7 @@
 import { InputLabels, REGISTRATION_MODE_LABEL } from '../constants';
 import { InputsModel } from '../models/inputs.model';
 import { ModeModel } from '../models/mode.model';
-import { RegistrationModel } from '../models/registration.model';
+import { LoginModel, RegistrationModel } from '../models/auth.model';
 import { storeStates } from '../store';
 
 class AuthController {
@@ -19,6 +19,8 @@ class AuthController {
 
     if (currentMode === REGISTRATION_MODE_LABEL) {
       RegistrationModel.startRegistration();
+    } else {
+      LoginModel.startLogin();
     }
   }
 }
