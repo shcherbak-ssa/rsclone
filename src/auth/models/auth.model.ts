@@ -124,6 +124,18 @@ export class LoginModel extends AuthModel {
     }
   }
 
+  checkResponse(response: Response) {
+    if (response.type === ERROR_RESPONSE_TYPE) {
+      const {message, payload} = response;
+
+      if (payload.inputLabel) {
+        throw new AuthError(message, payload.inputLabel);
+      } else {
+        console.log(message);
+      }
+    }
+  }
+
   createUser(): LoginUser {
     const {email, password} = this.inputs;
 

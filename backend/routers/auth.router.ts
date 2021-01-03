@@ -1,7 +1,12 @@
 import { Request, Response, Router } from "express";
+
 import { BaseRouter } from "./base.router";
-import { AUTH_REGEXP_PATHNAME } from "../constants";
-import { registrationBodySchemaValidator, RegistrationModel } from '../models/registration.model';
+import {
+  LoginModel,
+  RegistrationModel,
+  registrationBodySchemaValidator,
+  loginBodySchemaValidator,
+} from '../models/auth.model';
 
 enum AuthPathnames {
   REGISTRATION = '/registration',
@@ -17,17 +22,17 @@ export class AuthRouter implements BaseRouter {
 
   initRouter() {
     this.router.post(
-      AuthPathnames.REGISTRATION,
-      registrationBodySchemaValidator,
-      this.registrationRequest
+      AuthPathnames.REGISTRATION, registrationBodySchemaValidator, this.registrationRequest,
     );
 
-    this.router.post(AuthPathnames.LOGIN, this.loginRequest);
+    this.router.post(AuthPathnames.LOGIN, loginBodySchemaValidator, this.loginRequest);
   }
 
   private async registrationRequest(req: Request, res: Response) {
     RegistrationModel.startRegistration(req, res);
   }
 
-  private async loginRequest() {}
+  private async loginRequest(req: Request, res: Response) {
+    LoginModel.startLogin(req, res);
+  }
 }
