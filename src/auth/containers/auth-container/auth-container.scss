@@ -42,6 +42,11 @@
     width: 480px;
     transition: .2s;
     -x-position: absolute 50% x x 50%;
+
+    @media screen and (max-width: 530px) {
+      width: 100%;
+      padding: 16px;
+    }
   }
 
   &-decoration {

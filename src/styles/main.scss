@@ -9,11 +9,15 @@
 
 @import './assets.scss';
 
+html {
+  overflow: hidden;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   height: 100vh;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
 #root {
