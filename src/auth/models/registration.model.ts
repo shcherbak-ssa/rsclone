@@ -4,6 +4,8 @@ import { ValidationService } from "../services/validation.service";
 import { ERROR_RESPONSE_TYPE } from "../constants";
 import { AuthError } from "../errors/auth.error";
 import { Response } from "./response.model";
+import { LocalStorageService } from "../../services/localstorage.service";
+import { USER_LOCALSTORAGE_LABEL } from "../../constants";
 
 const { updateError } = inputsStore.actions;
 
@@ -32,9 +34,9 @@ export class RegistrationModel {
 
       const user: User = this.createUser();
       const response = await this.sendRequest(user);
-      this.checkResponse(response);
 
-      console.log(response);
+      this.checkResponse(response);
+      this.saveNewUser(response.payload.id, user.email);
     } catch (error) {
       this.parseError(error);
     }
@@ -79,6 +81,11 @@ export class RegistrationModel {
       const {message, payload} = response;
       throw new AuthError(message, payload.inputLabel);
     }
+  }
+
+  private saveNewUser(newUserID: number, email: string) {
+    const localStorageService: LocalStorageService = new LocalStorageService();
+    localStorageService.save(USER_LOCALSTORAGE_LABEL, {id: newUserID, email});
   }
 
   private parseError(error: Error) {
