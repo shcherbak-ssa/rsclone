@@ -13,6 +13,5 @@ export const emailValidation: ParamSchema = {
   errorMessage: 'Invalid e-mail address',
   escape: true,
   trim: true,
-  normalizeEmail: true,
   isEmail: true,
 };
