@@ -8,6 +8,7 @@ export class LocalStorageService {
   }
 
   get(storageLabel: string) {
-    return localStorage.getItem(storageLabel);
+    const storage = localStorage.getItem(storageLabel);
+    return JSON.parse(storage || '{}');
   }
 }

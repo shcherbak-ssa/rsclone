@@ -41,6 +41,8 @@ class AuthModel {
 
       this.checkResponse(response);
       this.saveUser(response.payload.id, user.email);
+
+      location.replace(location.origin);
     } catch (error) {
       this.parseError(error);
     }
