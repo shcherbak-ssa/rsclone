@@ -1,11 +1,12 @@
 import { promises as fsPromises } from 'fs';
-
+import { join } from 'path';
 import { Request, Response } from 'express';
 import { checkSchema, validationResult } from 'express-validator';
 
 import { emailValidation, nameValidation, passwordValidation } from '../validation';
 import { ResponseSender } from './response.model';
-import { USER_DB_FILENAME } from '../constants';
+import { DB_DIRNAME, USER_DB_FILENAME } from '../constants';
+import { UsernameService } from '../services/username.service';
 
 const REGISTRATION_ERROR: string = 'RegistrationError';
 const EMAIL_INPUT_LABEL: string = 'email';
@@ -22,6 +23,18 @@ interface User {
   password: string;
 }
 
+type UsersDB = {
+  email: string;
+  password: string;
+};
+
+type UserDB = {
+  id: number;
+  name: string;
+  avatar: string;
+  username: string;
+};
+
 class NewUser implements User {
   name: string;
   email: string;
@@ -37,9 +50,20 @@ class NewUser implements User {
     return this.email;
   }
 
-  getDataForSave() {
+  getDataToCreateUserDB(newUserID: number): UserDB {
+    const usernameService: UsernameService = new UsernameService();
+    const username: string = usernameService.createUsername(this.email);
+
     return {
+      id: newUserID,
       name: this.name,
+      avatar: '',
+      username,
+    }
+  }
+
+  getDataForSaveToUsersDB(): UsersDB {
+    return {
       email: this.email,
       password: this.password,
     }
@@ -78,7 +102,7 @@ export class RegistrationModel {
       await this.checkUserExisting(user);
 
       const newUserID: number = await this.createNewUser(user);
-      await this.responseSender.sendSuccessResponse('Test success', { id: newUserID });
+      await this.sendResponse(newUserID);
     } catch (error) {
       await this.parseError(error);
     }
@@ -94,9 +118,9 @@ export class RegistrationModel {
   }
 
   async checkUserExisting(user: NewUser) {
-    const usersDB: Array<User> = await this.readUsersDB();
+    const usersDB: Array<UsersDB> = await this.readUsersDB();
     const searchUserEmail: string = user.getEmailForCheck();
-    const userExist: User | undefined = usersDB.find((user) => user.email === searchUserEmail);
+    const userExist: UsersDB | undefined = usersDB.find((user) => user.email === searchUserEmail);
 
     if (userExist) {
       throw new RegistrationError(
@@ -109,22 +133,36 @@ export class RegistrationModel {
   }
 
   async createNewUser(user: NewUser) {
-    const usersDB: Array<User> = await this.readUsersDB();
-    const newUser: User = user.getDataForSave();
+    const usersDB: Array<UsersDB> = await this.readUsersDB();
+    const newUser: UsersDB = user.getDataForSaveToUsersDB();
 
     usersDB.push(newUser);
-    this.updateUsersDB(usersDB);
+    const newUserID: number = usersDB.length - 1;
 
-    return usersDB.length - 1;
+    this.updateUsersDB(usersDB);
+    this.createNewUserDB(newUserID, user);
+
+    return newUserID;
+  }
+  
+  async sendResponse(newUserID: number) {
+    await this.responseSender.sendSuccessResponse('Success', { id: newUserID });
   }
 
-  async readUsersDB(): Promise<Array<User>> {
+  async readUsersDB(): Promise<Array<UsersDB>> {
     const dbResult: string = await fsPromises.readFile(USER_DB_FILENAME, {encoding: 'utf-8'});
     return JSON.parse(dbResult);
   }
 
-  async updateUsersDB(usersDB: Array<User>) {
+  async updateUsersDB(usersDB: Array<UsersDB>) {
     fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(usersDB, null, 2));
+  }
+
+  async createNewUserDB(newUserID: number, user: NewUser) {
+    const newUser: UserDB = user.getDataToCreateUserDB(newUserID);
+    const newUserDBFilename: string = join(DB_DIRNAME, `${newUser.username}-${newUser.id}.json`);
+
+    await fsPromises.writeFile(newUserDBFilename, JSON.stringify({user: newUser}, null, 2));
   }
 
   async parseError(error: Error) {
