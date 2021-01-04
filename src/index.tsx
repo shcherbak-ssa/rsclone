@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import './assets/icons';
 import './assets/favicon.ico';
@@ -15,6 +16,8 @@ window.onbeforeunload = () => {
 }
 
 ReactDOM.render(
-  <EntryRouter />,
+  <Router>  
+    <EntryRouter />
+  </Router>,
   document.getElementById(ROOT_ELEMENT_ID)
 );

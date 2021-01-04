@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
 import './app-container.scss';
@@ -8,12 +9,10 @@ import { Sidebar } from '../../components/sidebar';
 import { Menu } from '../../components/menu';
 import { Spaces } from '../../components/spaces';
 import { Settings } from '../../components/settings';
+import { storeSelectors } from '../../store';
 
-export type AppContainerProps = {
-  theme: string;
-};
-
-export function AppContainer({theme}: AppContainerProps) {
+export function AppContainer() {
+  const theme = useSelector(storeSelectors.user.getCurrentTheme());
   const componentClassnames = classnames('app', theme);
 
   return (

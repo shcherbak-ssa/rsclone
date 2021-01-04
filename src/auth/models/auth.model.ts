@@ -1,11 +1,11 @@
 import { dispatchAction, storeStates } from "../store";
 import { InputsStateType, inputsStore } from "../store/inputs.store";
 import { AuthValidationService } from "../../services/auth-validation.service";
-import { ERROR_RESPONSE_TYPE, InputLabels } from "../constants";
+import { InputLabels } from "../constants";
 import { AuthError } from "../errors/auth.error";
 import { Response } from "./response.model";
 import { LocalStorageService } from "../../services/localstorage.service";
-import { USER_LOCALSTORAGE_LABEL } from "../../constants";
+import { USER_LOCALSTORAGE_LABEL, ERROR_RESPONSE_TYPE } from "../../constants";
 import { formStore } from "../store/form.store";
 
 const { updateError } = inputsStore.actions;

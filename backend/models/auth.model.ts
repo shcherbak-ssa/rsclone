@@ -7,6 +7,7 @@ import { emailValidation, nameValidation, passwordValidation } from '../validati
 import { ResponseSender } from './response.model';
 import { DB_DIRNAME, Language, Theme, USER_DB_FILENAME } from '../constants';
 import { UsernameService } from '../services/username.service';
+import { UserDB, UsersDB } from '../db/types';
 
 const REGISTRATION_ERROR: string = 'RegistrationError';
 const EMAIL_INPUT_LABEL: string = 'email';
@@ -28,20 +29,6 @@ interface IUser {
   password: string;
 }
 
-type UsersDB = {
-  email: string;
-  password: string;
-};
-
-type UserDB = {
-  id: number;
-  name: string;
-  avatar: string;
-  username: string;
-  theme: string;
-  language: string;
-};
-
 class User implements IUser {
   name: string;
   email: string;
@@ -62,12 +49,16 @@ class User implements IUser {
     const username: string = usernameService.createUsername(this.email);
 
     return {
-      id: newUserID,
-      name: this.name,
-      avatar: '',
-      username,
-      theme: Theme.ORIGINAL,
-      language: Language.ENGLISH,
+      user: {
+        id: newUserID,
+        name: this.name,
+        avatar: '',
+        username,
+        theme: Theme.ORIGINAL,
+        language: Language.ENGLISH,
+        spaces: []
+      },
+      spaces: {},
     }
   }
 
@@ -191,10 +182,10 @@ export class RegistrationModel extends AuthModel {
   }
 
   async createNewUserDB(newUserID: number, user: User) {
-    const newUser: UserDB = user.getDataToCreateUserDB(newUserID);
-    const newUserDBFilename: string = join(DB_DIRNAME, `user-${newUser.id}.json`);
+    const newUser = user.getDataToCreateUserDB(newUserID);
+    const newUserDBFilename: string = join(DB_DIRNAME, `user-${newUser.user.id}.json`);
 
-    await fsPromises.writeFile(newUserDBFilename, JSON.stringify({user: newUser}, null, 2));
+    await fsPromises.writeFile(newUserDBFilename, JSON.stringify(newUser, null, 2));
   }
 }
 

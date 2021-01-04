@@ -55,12 +55,7 @@ export class App {
     this.initRootRequest();
 
     routers.forEach((router) => {
-      if (router.pathRegExp) {
-        this.app.use(router.pathRegExp, router.router);
-      } else {
-        this.app.use(router.router);
-      }
-
+      this.app.use(router.router);
       router.initRouter();
     });
   }

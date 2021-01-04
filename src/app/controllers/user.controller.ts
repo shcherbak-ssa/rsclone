@@ -8,6 +8,5 @@ userController.on(UserEvents.LOAD_USER, loadUserHandler);
 
 async function loadUserHandler() {
   const userIniterModel: UserIniterModel = new UserIniterModel();
-  const user = await userIniterModel.loadUserData();
-  console.log();
+  await userIniterModel.loadUserData();
 }

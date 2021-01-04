@@ -1,11 +1,11 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { AppRoutes } from './app/constants';
 import { USER_LOCALSTORAGE_LABEL } from './constants';
 import { LocalStorageService } from './services/localstorage.service';
 
 export function EntryRouter() {
-  const [userExists, setUserExists] = useState(false);
+  const history = useHistory();
   const AppComponent = lazy(() => import('./app'));
   const AuthComponent = lazy(() => import('./auth'));
 
@@ -13,20 +13,18 @@ export function EntryRouter() {
     const localStorageService: LocalStorageService = new LocalStorageService();
     
     if (localStorageService.exists(USER_LOCALSTORAGE_LABEL)) {
-      setUserExists(true);
+      history.push(AppRoutes.ROOT);
+    } else {
+      history.push('/');
     }
   }, []);
 
   return (
-    <Router>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route path="/">
-            {userExists ? <Redirect to={AppRoutes.ROOT} /> : <AuthComponent />}
-          </Route>
-          <Route path={AppRoutes.ROOT} component={AppComponent} />
-        </Switch>
-      </Suspense>
-    </Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <Route path="/" exact component={AuthComponent} />
+        <Route path={AppRoutes.ROOT} component={AppComponent} />
+      </Switch>
+    </Suspense>
   );
 }
