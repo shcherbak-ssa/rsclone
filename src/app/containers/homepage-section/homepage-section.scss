@@ -1,0 +1,22 @@
+@import '../../../styles/assets.scss';
+
+.homepage-section {
+  overflow: hidden;
+
+  &-header {
+    margin-bottom: 42px;
+  }
+
+  &-title {
+    font-weight: 500;
+    -x-font-size: 36px/32px;
+
+    .original-theme & {
+      color: $homepage-section-title-color;
+    }
+  }
+
+  &-content {
+    overflow-y: auto;
+  }
+}
