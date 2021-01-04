@@ -2,6 +2,7 @@ import React from 'react';
 import './settings.scss';
 
 import { HomepageSectionProps, HomepageSection } from '../../containers/homepage-section';
+import { SettingsUser } from '../settings-user';
 
 export function Settings() {
   const homepageSectionProps: HomepageSectionProps = {
@@ -10,7 +11,9 @@ export function Settings() {
 
   return (
     <HomepageSection {...homepageSectionProps}>
-      <div className="settings" data-class="flex-column"></div>
+      <div className="settings" data-class="flex-column">
+        <SettingsUser />
+      </div>
     </HomepageSection>
   );
 }

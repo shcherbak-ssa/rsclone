@@ -17,9 +17,16 @@
     justify-content: space-between;
   }
 
+  &-title {
+    font-weight: 500;
+    font-size: 18px;
+
+    .original-theme & {
+      color: $original-settings-section-title-color;
+    }
+  }
+
   &-content {
-    border-top: 1px solid #fff;
-    padding-top: 24px;
     height: 0;
     opacity: 0;
     transition: .4s;
@@ -36,6 +43,8 @@
       }
 
       &-content {
+        border-top: 1px solid #fff;
+        padding-top: 24px;
         height: auto;
         opacity: 1;
       }
