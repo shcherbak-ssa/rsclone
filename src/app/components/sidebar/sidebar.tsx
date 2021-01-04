@@ -5,8 +5,9 @@ import './sidebar.scss';
 import infoCircleOutlined from '@iconify/icons-ant-design/info-circle-outlined';
 import booksIcon from '@iconify/icons-wpf/books';
 
-import { AppRoutes } from '../../constants';
+import { AppEvents, AppRoutes, MenuItemLabels } from '../../constants';
 import { SidebarIcon } from '../sidebar-icon';
+import { appController } from '../../controllers/app.controller';
 
 export function Sidebar() {
   const history = useHistory();
@@ -26,6 +27,7 @@ export function Sidebar() {
         height: 24,
       },
       clickHandler: () => {
+        appController.emit(AppEvents.CHANGE_MENU_ITEM, MenuItemLabels.SPACES);
         history.push(AppRoutes.ROOT);
       },
     }

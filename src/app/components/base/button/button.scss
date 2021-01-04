@@ -1,0 +1,25 @@
+@import '../../../../styles/assets.scss';
+
+.button {
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  height: 30px;
+  padding: 0 16px;
+  transition: .2s;
+  -x-font-size: 14px/20px;
+
+  &-icon {
+    margin-right: 8px;
+  }
+
+  .original-theme & {
+    background: $original-button-background-color;
+    color: $original-button-color;
+
+    &:hover {
+      background: $original-button-background-color-hover;
+    }
+  }
+}
