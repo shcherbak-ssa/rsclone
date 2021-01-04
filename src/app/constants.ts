@@ -9,8 +9,8 @@ enum Theme {
 };
 
 enum AppRoutes {
-  ROOT = '/',
-  SETTINGS = '/settings',
+  ROOT = '/app',
+  SETTINGS = '/app/settings',
 };
 
 enum MenuItemLabels {

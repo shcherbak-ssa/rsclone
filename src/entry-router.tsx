@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { AppRoutes } from './app/constants';
 import { USER_LOCALSTORAGE_LABEL } from './constants';
 import { LocalStorageService } from './services/localstorage.service';
 
@@ -21,8 +22,9 @@ export function EntryRouter() {
       <Suspense fallback={<div>Loading...</div>}>
         <Switch>
           <Route path="/">
-            {userExists ? <AppComponent /> : <AuthComponent />}
+            {userExists ? <Redirect to={AppRoutes.ROOT} /> : <AuthComponent />}
           </Route>
+          <Route path={AppRoutes.ROOT} component={AppComponent} />
         </Switch>
       </Suspense>
     </Router>
