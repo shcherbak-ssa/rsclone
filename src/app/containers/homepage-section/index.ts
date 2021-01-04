@@ -1,1 +1,1 @@
-export { HomepageSection } from './homepage-section';
+export { HomepageSectionProps, HomepageSection } from './homepage-section';

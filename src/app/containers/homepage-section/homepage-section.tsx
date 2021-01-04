@@ -3,7 +3,7 @@ import './homepage-section.scss';
 
 export type HomepageSectionProps = {
   title: string,
-  children: React.ReactNode,
+  children?: React.ReactNode,
 };
 
 export function HomepageSection({
