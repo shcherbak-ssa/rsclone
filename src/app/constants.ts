@@ -6,7 +6,13 @@ enum Theme {
   DARK = 'dark-theme',
 };
 
+enum AppRoutes {
+  ROOT = '/',
+  SETTINGS = '/settings',
+}
+
 export {
   THEME_LOCALSTORAGE_LABEL,
   Theme,
+  AppRoutes,
 };

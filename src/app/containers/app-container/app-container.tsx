@@ -1,9 +1,13 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import classnames from 'classnames';
 import './app-container.scss';
 
+import { AppRoutes } from '../../constants';
 import { Sidebar } from '../../components/sidebar';
 import { Menu } from '../../components/menu';
+import { Spaces } from '../../components/spaces';
+import { Settings } from '../../components/settings';
 
 export type AppContainerProps = {
   theme: string;
@@ -16,6 +20,12 @@ export function AppContainer({theme}: AppContainerProps) {
     <div className={componentClassnames}>
       <Sidebar />
       <Menu />
+      <Router>
+        <Switch>
+          <Route path={AppRoutes.ROOT} component={Spaces} />
+          <Route path={AppRoutes.SETTINGS} component={Settings} />
+        </Switch>
+      </Router>
     </div>
   );
 }
