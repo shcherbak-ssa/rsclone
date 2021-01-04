@@ -5,7 +5,7 @@ import { checkSchema, validationResult } from 'express-validator';
 
 import { emailValidation, nameValidation, passwordValidation } from '../validation';
 import { ResponseSender } from './response.model';
-import { DB_DIRNAME, USER_DB_FILENAME } from '../constants';
+import { DB_DIRNAME, Language, Theme, USER_DB_FILENAME } from '../constants';
 import { UsernameService } from '../services/username.service';
 
 const REGISTRATION_ERROR: string = 'RegistrationError';
@@ -38,6 +38,8 @@ type UserDB = {
   name: string;
   avatar: string;
   username: string;
+  theme: string;
+  language: string;
 };
 
 class User implements IUser {
@@ -64,6 +66,8 @@ class User implements IUser {
       name: this.name,
       avatar: '',
       username,
+      theme: Theme.ORIGINAL,
+      language: Language.ENGLISH,
     }
   }
 
@@ -188,7 +192,7 @@ export class RegistrationModel extends AuthModel {
 
   async createNewUserDB(newUserID: number, user: User) {
     const newUser: UserDB = user.getDataToCreateUserDB(newUserID);
-    const newUserDBFilename: string = join(DB_DIRNAME, `${newUser.username}-${newUser.id}.json`);
+    const newUserDBFilename: string = join(DB_DIRNAME, `user-${newUser.id}.json`);
 
     await fsPromises.writeFile(newUserDBFilename, JSON.stringify({user: newUser}, null, 2));
   }
