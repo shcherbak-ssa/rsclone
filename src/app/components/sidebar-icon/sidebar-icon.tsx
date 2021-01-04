@@ -3,15 +3,24 @@ import './sidebar-icon.scss';
 import { Icon } from '@iconify/react';
 
 type SidebarIconProps = {
-  icon: object,
-  width?: number,
-  height?: number,
+  iconProps: {
+    icon: object,
+    width?: number,
+    height?: number,
+  },
+  clickHandler: () => void,
 };
 
-export function SidebarIcon(props: SidebarIconProps) {
+export function SidebarIcon({
+  iconProps, clickHandler,
+}: SidebarIconProps) {
   return (
-    <div className="sidebar-icon" data-class="flex-center">
-      <Icon {...props} />
+    <div
+      className="sidebar-icon"
+      data-class="click flex-center"
+      onClick={clickHandler}
+    >
+      <Icon {...iconProps} />
     </div>
   );
 }
