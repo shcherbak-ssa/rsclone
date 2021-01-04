@@ -1,0 +1,32 @@
+@import '../../../styles/assets.scss';
+
+.menu-item {
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  transition: .2s;
+  padding: 0 8px;
+  -x-size: 100% 30px;
+
+  &-icon {
+    margin-right: 8px;
+  }
+
+  &-text {
+    font-weight: 500;
+    -x-font-size: 14px/32px;
+  }
+
+  .original-theme & {
+    color: $original-menu-item-color;
+
+    &:hover {
+      background: $original-menu-item-background-color-hover;
+      color: $original-menu-item-color-hover;
+    }
+
+    &.is-active {
+      color: $original-menu-item-color-active;
+    }
+  }
+}
