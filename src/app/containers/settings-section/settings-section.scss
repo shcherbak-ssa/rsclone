@@ -1,0 +1,44 @@
+@import '../../../styles/assets.scss';
+
+.settings-section {
+  border-radius: 4px;
+  margin-bottom: 24px;
+  padding: 18px 24px 24px;
+  transition: .4s;
+  width: 100%;
+
+  .original-theme & {
+    background: $original-settings-section-background-color;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-content {
+    border-top: 1px solid #fff;
+    padding-top: 24px;
+    height: 0;
+    opacity: 0;
+    transition: .4s;
+
+    .original-theme & {
+      border-top-color: $original-settings-section-line-color;
+    }
+  }
+
+  &.is-active {
+    .settings-section {
+      &-header {
+        margin-bottom: 18px;
+      }
+
+      &-content {
+        height: auto;
+        opacity: 1;
+      }
+    }
+  }
+}
