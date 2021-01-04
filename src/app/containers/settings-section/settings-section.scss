@@ -3,7 +3,7 @@
 .settings-section {
   border-radius: 4px;
   margin-bottom: 24px;
-  padding: 18px 24px 24px;
+  padding: 24px;
   transition: .4s;
   width: 100%;
 
@@ -37,6 +37,8 @@
   }
 
   &.is-active {
+    padding-top: 18px;
+
     .settings-section {
       &-header {
         margin-bottom: 18px;

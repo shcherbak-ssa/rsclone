@@ -5,6 +5,7 @@ import { HomepageSectionProps, HomepageSection } from '../../containers/homepage
 import { SettingsUser } from '../settings-user';
 import { SettingsLogin } from '../settings-login';
 import { SettingsApp } from '../settings-app';
+import { SettingsShortcuts } from '../settings-shortcuts';
 import { SettingsDanger } from '../settings-danger';
 
 export function Settings() {
@@ -18,6 +19,7 @@ export function Settings() {
         <SettingsUser />
         <SettingsLogin />
         <SettingsApp />
+        <SettingsShortcuts />
         <SettingsDanger />
       </div>
     </HomepageSection>
