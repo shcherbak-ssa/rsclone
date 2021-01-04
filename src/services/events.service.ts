@@ -26,7 +26,7 @@ export class Events {
     this.removeHandler(eventHandlers, handler);
   }
 
-  emit(event: string, payload: any) {
+  emit(event: string, payload?: any) {
     if (!this.isEventExist(event)) {
       throw new EventsError(`Event '${event}' does not exist`);
     }

@@ -22,6 +22,10 @@ enum AppEvents {
   CHANGE_MENU_ITEM = 'app-events/change-menu-item',
 };
 
+enum UserEvents {
+  LOAD_USER = 'user-events/load-user',
+};
+
 export {
   IS_ACTIVE_CLASSNAME,
   THEME_LOCALSTORAGE_LABEL,
@@ -29,4 +33,5 @@ export {
   AppRoutes,
   MenuItemLabels,
   AppEvents,
+  UserEvents,
 };
