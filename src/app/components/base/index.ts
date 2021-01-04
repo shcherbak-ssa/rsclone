@@ -1,9 +1,9 @@
-import { BaseButtonType, Button } from './button';
+import { BaseButtonProps, Button } from './button';
 
 export const Base = {
   Button,
 };
 
 export {
-  BaseButtonType,
+  BaseButtonProps,
 }

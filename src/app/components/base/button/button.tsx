@@ -5,13 +5,13 @@ import { Icon } from '@iconify/react';
 
 const BUTTON_ICON_HEIGHT: number = 18;
 
-export type BaseButtonType = {
+export type BaseButtonProps = {
   icon?: object,
   value: string,
   clickHandler: () => void,
 };
 
-export function Button({icon, value, clickHandler}: BaseButtonType) {
+export function Button({icon, value, clickHandler}: BaseButtonProps) {
   return (
     <div className="button" data-class="click" onClick={clickHandler}>
       {

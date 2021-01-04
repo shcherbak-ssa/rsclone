@@ -4,14 +4,15 @@
   border-radius: 3px;
   display: flex;
   align-items: center;
+  font-size: 14px;
   font-weight: 500;
   height: 30px;
   padding: 0 16px;
   transition: .2s;
-  -x-font-size: 14px/20px;
 
   &-icon {
     margin-right: 8px;
+    -x-size: 18px;
   }
 
   .original-theme & {
