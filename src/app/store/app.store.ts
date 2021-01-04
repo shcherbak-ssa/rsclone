@@ -24,6 +24,8 @@ function appReducer(
   action: AppActionType
 ): AppStateType {
   switch (action.type) {
+    case Constants.CHANGE_MENU_ITEM:
+      return {...state, activeMenuItem: action.nextMenuItem};
     default:
       return state;
   }

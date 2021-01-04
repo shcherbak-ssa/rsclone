@@ -11,17 +11,22 @@ type MenuItemProps = {
   icon: object,
   text: string,
   isActive?: boolean,
+  clickHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
 };
 
 export function MenuItem({
-  icon, text, isActive,
+  icon, text, isActive, clickHandler,
 }: MenuItemProps) {
   const componentClassnames = classnames('menu-item', {
     [IS_ACTIVE_CLASSNAME]: isActive,
   });
 
   return (
-    <div className={componentClassnames} data-class="click">
+    <div
+      className={componentClassnames}
+      data-class="click"
+      onClick={clickHandler}
+    >
       <Icon icon={icon} className="menu-item-icon" height={ICON_HEIGHT} />
       <div className="menu-item-text">{text}</div>
     </div>

@@ -18,10 +18,15 @@ enum MenuItemLabels {
   SETTINGS = 'settings',
 };
 
+enum AppEvents {
+  CHANGE_MENU_ITEM = 'app-events/change-menu-item',
+};
+
 export {
   IS_ACTIVE_CLASSNAME,
   THEME_LOCALSTORAGE_LABEL,
   Theme,
   AppRoutes,
   MenuItemLabels,
+  AppEvents,
 };
