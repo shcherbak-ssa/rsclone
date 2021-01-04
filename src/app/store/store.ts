@@ -1,12 +1,18 @@
-import { Action, combineReducers, createStore, Store } from 'redux';
+import { combineReducers, createStore, Store } from 'redux';
 
-export type StoreStateType = {};
+import { AppActionType, AppStateType, appStore } from './app.store';
 
-type StoreActionType = Action;
+export type StoreStateType = {
+  app: AppStateType,
+};
+
+type StoreActionType = AppActionType;
 
 type StoreType = Store<StoreStateType, StoreActionType>;
 
-export const store: StoreType = createStore(combineReducers({}));
+export const store: StoreType = createStore(combineReducers({
+  app: appStore.reducer,
+}));
 
 export function dispatchAction(action: StoreActionType) {
   store.dispatch(action);

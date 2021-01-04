@@ -1,3 +1,5 @@
+const IS_ACTIVE_CLASSNAME: string = 'is-active';
+
 const THEME_LOCALSTORAGE_LABEL: string = 'app-theme';
 
 enum Theme {
@@ -9,10 +11,17 @@ enum Theme {
 enum AppRoutes {
   ROOT = '/',
   SETTINGS = '/settings',
-}
+};
+
+enum MenuItemLabels {
+  SPACES = 'space',
+  SETTINGS = 'settings',
+};
 
 export {
+  IS_ACTIVE_CLASSNAME,
   THEME_LOCALSTORAGE_LABEL,
   Theme,
   AppRoutes,
+  MenuItemLabels,
 };
