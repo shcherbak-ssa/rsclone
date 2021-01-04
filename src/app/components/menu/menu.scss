@@ -4,7 +4,23 @@
   width: 224px;
 
   &-user {
+    display: flex;
+    align-items: center;
     margin-bottom: 35px;
+    width: 100%;
+
+    .avatar {
+      margin-right: 6px;
+    }
+  }
+
+  &-username {
+    font-weight: 500;
+    -x-font-size: 16px/32px;
+
+    .original-theme & {
+      color: $original-menu-username-color;
+    }
   }
 
   &-line {

@@ -7,14 +7,16 @@ import spacesIcon from '@iconify/icons-uil/apps';
 import settingsIcon from '@iconify/icons-clarity/settings-line';
 import logOutIcon from '@iconify/icons-feather/log-out';
 
-import { MenuItem } from '../menu-item';
 import { AppEvents, AppRoutes, MenuItemLabels } from '../../constants';
-import { storeSelectors } from '../../store';
 import { appController } from '../../controllers/app.controller';
+import { storeSelectors } from '../../store';
+import { MenuItem } from '../menu-item';
+import { Avatar } from '../avatar';
 
 export function Menu() {
   const history = useHistory();
   const activeMenuItem = useSelector(storeSelectors.getActiveMenuItem());
+  const {name: userName} = useSelector(storeSelectors.user.get()); 
 
   const menuItemsProps = {
     spaces: {
@@ -48,7 +50,10 @@ export function Menu() {
 
   return (
     <div className="menu" data-class="flex-column">
-      <div className="menu-user"></div>
+      <div className="menu-user">
+        <Avatar />
+        <div className="menu-username">{userName}</div>
+      </div>
       <MenuItem {...menuItemsProps.spaces} />
       <MenuItem {...menuItemsProps.settings} />
       <div className="menu-line"></div>
