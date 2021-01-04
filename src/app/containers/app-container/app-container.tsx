@@ -18,11 +18,11 @@ export function AppContainer({theme}: AppContainerProps) {
 
   return (
     <div className={componentClassnames}>
-      <Sidebar />
-      <Menu />
       <Router>
+        <Sidebar />
+        <Menu />
         <Switch>
-          <Route path={AppRoutes.ROOT} component={Spaces} />
+          <Route path={AppRoutes.ROOT} exact component={Spaces} />
           <Route path={AppRoutes.SETTINGS} component={Settings} />
         </Switch>
       </Router>
