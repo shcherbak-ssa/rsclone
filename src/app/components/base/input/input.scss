@@ -1,16 +1,20 @@
 @import '../../../../styles/assets.scss';
 
-.input {
-  border-radius: 4px;
-  transition: .2s;
-  -x-size: 100% 56px;
-
-  .original-theme & {
-    background: $original-input-background-color;
-  }
+.base-input {
+  width: 100%;
 
   &:not(:last-child) {
     margin-bottom: 20px;
+  }
+
+  &-container {
+    border-radius: 4px;
+    transition: .2s;
+    -x-size: 100% 56px;
+
+    .original-theme & {
+      background: $original-input-background-color;
+    }
   }
 
   &-placeholder {
@@ -38,10 +42,16 @@
   &-error {
     opacity: 0;
     transition: .2s;
-    -x-position: absolute x x 0 0;
+    margin-bottom: 8px;
 
     .original-theme & {
       color: $original-input-error-color;
+    }
+  }
+
+  &-description {
+    .original-theme & {
+      color: $original-input-description-color;
     }
   }
 
@@ -58,12 +68,20 @@
     }
   }
 
-  &-placeholder, &-field {
+  &-placeholder, &-field, &-description {
     -x-font-size: 16px/24px;
   }
 
+  &.has-description {
+    .base-input {
+      &-container {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
   &.is-active {
-    .input {
+    .base-input {
       &-placeholder {
         transform: none;
         top: 6px;
@@ -77,13 +95,7 @@
   }
 
   &.is-error {
-    margin-bottom: 35px;
-
-    &:last-child {
-      margin-bottom: 20px;
-    }
-
-    .input {
+    .base-input {
       &-error {
         bottom: -25px;
         opacity: 1;

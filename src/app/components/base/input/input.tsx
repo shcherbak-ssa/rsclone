@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import './input.scss';
 
@@ -8,23 +8,33 @@ import {
   EMPTY_VALUE_LENGTH,
 } from '../../../constants';
 
+const HAS_DESCRIPTION_CLASSNAME: string = 'has-description';
+
 export type BaseInputProps = {
   value: string,
   placeholder: string,
   error: string,
+  description?: string,
   updateValue: Function,
 };
 
 export function Input({
-  value, placeholder, error, updateValue,
+  value, placeholder, error, description, updateValue,
 }: BaseInputProps) {
   const inputField = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState(false);
 
-  const componentClassname = classnames('input', {
+  const componentClassname = classnames('base-input', {
     [IS_ACTIVE_CLASSNAME]: isActive,
     [IS_ERROR_CLASSNAME]: !!error,
+    [HAS_DESCRIPTION_CLASSNAME]: !!description,
   });
+
+  useEffect(() => {
+    if (value.length > EMPTY_VALUE_LENGTH) {
+      setIsActive(true);
+    }
+  }, []);
 
   function clickHandle() {
     setIsActive(true);
@@ -45,21 +55,20 @@ export function Input({
   }
 
   return (
-    <div
-      className={componentClassname}
-      data-class="click"
-      onClick={clickHandle}
-    >
-      <input
-        ref={inputField}
-        type="text"
-        className="input-field"
-        value={value}
-        onBlur={blurHandle}
-        onChange={changeHandle}
-      />
-      <div className="input-placeholder">{placeholder}</div>
-      <div className="input-error">{error}</div>
+    <div className={componentClassname} onClick={clickHandle}>
+      <div className="base-input-container" data-class="click">
+        <input
+          ref={inputField}
+          type="text"
+          className="base-input-field"
+          value={value}
+          onBlur={blurHandle}
+          onChange={changeHandle}
+        />
+        <div className="base-input-placeholder">{placeholder}</div>
+      </div>
+      <div className="base-input-error">{error}</div>
+      {description ? <div className="base-input-description">{description}</div> : ''}
     </div>
   );
 }
