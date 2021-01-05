@@ -18,8 +18,12 @@ enum MenuItemLabels {
   SETTINGS = 'settings',
 };
 
-enum AppEvents {
-  CHANGE_MENU_ITEM = 'app-events/change-menu-item',
+enum SettingsLabels {
+  USER = 'settings-user',
+  LOGIN = 'settings-login',
+  APP = 'settings-app',
+  SHORTCUTS = 'settings-shortcuts',
+  DANGER = 'settings-danger',
 };
 
 enum UserEvents {
@@ -32,6 +36,6 @@ export {
   Theme,
   AppRoutes,
   MenuItemLabels,
-  AppEvents,
+  SettingsLabels,
   UserEvents,
 };

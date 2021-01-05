@@ -5,7 +5,6 @@ import './sidebar.scss';
 import infoCircleOutlined from '@iconify/icons-ant-design/info-circle-outlined';
 import booksIcon from '@iconify/icons-wpf/books';
 
-import { AppEvents, AppRoutes, MenuItemLabels } from '../../constants';
 import { SidebarIcon } from '../sidebar-icon';
 
 export function Sidebar() {
