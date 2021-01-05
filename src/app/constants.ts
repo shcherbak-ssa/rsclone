@@ -34,6 +34,10 @@ enum UserEvents {
   LOAD_USER = 'user-events/load-user',
 };
 
+enum AppEvents {
+  SHOW_POPUP = 'app-events/show-popup',
+};
+
 export {
   IS_ACTIVE_CLASSNAME,
   IS_ERROR_CLASSNAME,
@@ -44,4 +48,5 @@ export {
   MenuItemLabels,
   SettingsLabels,
   UserEvents,
+  AppEvents,
 };

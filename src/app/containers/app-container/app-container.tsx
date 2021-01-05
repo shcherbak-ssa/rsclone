@@ -9,6 +9,7 @@ import { Spaces } from '../../components/spaces';
 import { Settings } from '../../components/settings';
 import { storeSelectors } from '../../store';
 import { AppRoutesService } from '../../../services/app-routes.service';
+import { Popup } from '../popup';
 
 export function AppContainer() {
   const theme = useSelector(storeSelectors.user.getCurrentTheme());
@@ -20,9 +21,10 @@ export function AppContainer() {
 
   return (
     <div className="app">
+      <Sidebar />
+      <Menu />
+      <Popup />
       <Router>
-        <Sidebar />
-        <Menu />
         <Switch>
           <Route path={appRoutesService.getRootRoutePath()} exact component={Spaces} />
           <Route path={appRoutesService.getSpacesRoutePath()} component={Spaces} />

@@ -1,20 +1,29 @@
 @import '../../../styles/assets.scss';
 
 .popup {
-  border-radius: 4px;
-  max-width: 600px;
-  transform: translateX(-50%);
-  -x-position: absolute 120px x x 50%;
+  background: rgba(17, 17, 17, 0.5);
+  z-index: 9999;
+  -x-size: 100%;
+  -x-position: absolute 0 x x 0;
+  
+  &-container {
+    border-radius: 4px;
+    max-width: 600px;
+    transform: translateX(-50%);
+    -x-position: absolute 120px x x 50%;
 
-  .original-theme & {
-    background: $original-popup-background-color;
+    .original-theme & {
+      background: $original-popup-background-color;
+    }
   }
 
   &-header {
     border-bottom: 1px solid;
+    display: flex;
+    align-items: center;
     font-weight: 500;
-    justify-content: center;
-    height: 100px;
+    padding: 0 24px;
+    height: 80px;
     -x-font-size: 24px/56px;
 
     .original-theme & {
@@ -25,6 +34,15 @@
 
   &-body {
     padding: 32px 24px 8px;
+
+    &-text {
+      padding: 16px 12px 40px;
+      -x-font-size: 18px/24px;
+
+      .original-theme & {
+        color: $original-popup-body-text-color;
+      }
+    }
   }
 
   &-footer {
@@ -33,6 +51,8 @@
     padding: 24px;
 
     .button {
+      height: 40px;
+
       &:not(:last-child) {
         margin-right: 24px;
       }

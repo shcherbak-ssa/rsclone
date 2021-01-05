@@ -11,7 +11,7 @@ export type BaseButtonProps = {
   type?: ButtonTypes,
   icon?: object,
   value: string,
-  clickHandler: () => void,
+  clickHandler: (e: React.MouseEvent) => void,
 };
 
 export function Button({

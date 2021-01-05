@@ -7,11 +7,13 @@ import spacesIcon from '@iconify/icons-uil/apps';
 import settingsIcon from '@iconify/icons-clarity/settings-line';
 import logOutIcon from '@iconify/icons-feather/log-out';
 
-import { MenuItemLabels } from '../../constants';
+import { AppEvents, MenuItemLabels } from '../../constants';
 import { storeSelectors } from '../../store';
 import { AppRoutesService } from '../../../services/app-routes.service';
 import { MenuItem } from '../menu-item';
 import { Avatar } from '../avatar';
+import { PopupProps } from '../../containers/popup';
+import { popupController } from '../../controllers/popup.controller';
 
 export function Menu() {
   const history = useHistory();
@@ -19,6 +21,15 @@ export function Menu() {
   const [activeMenuItem, setActiveMenuItem] = useState('');
 
   const appRoutesService: AppRoutesService = new AppRoutesService();
+
+  const logoutPopupProps: PopupProps = {
+    title: 'Log out',
+    body: <div className="popup-body-text">Are you sure you want to exit?</div>,
+    confirmButtonProps: {
+      value: 'Log out',
+      clickHandler: () => {},
+    },
+  };
 
   const menuItemsProps = {
     spaces: {
@@ -40,7 +51,9 @@ export function Menu() {
     logout: {
       icon: logOutIcon,
       text: 'Log out',
-      clickHandler: () => {},
+      clickHandler: () => {
+        popupController.emit(AppEvents.SHOW_POPUP, logoutPopupProps);
+      },
     },
   };
 
