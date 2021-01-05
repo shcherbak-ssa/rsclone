@@ -2,16 +2,28 @@ import React from 'react';
 import './settings-danger.scss';
 
 import { SettingsSection, SettingsSectionProps } from '../../containers/settings-section';
+import { SettingsAction, SettingsActionProps } from '../../containers/settings-action';
 
 export function SettingsDanger() {
   const settingsSectionProps: SettingsSectionProps = {
-    isActive: false,
+    isActive: true,
     title: 'Danger Zone',
     unsavedDataExist: false,
     saveButtonClickHanlder: () => {},
   };
 
+  const settingsActionProps: SettingsActionProps = {
+    title: 'Delete account',
+    description: `By deleting your personal account, you delete all associated data. Think before acting, there's no turning back!`,
+    buttonProps: {
+      value: 'Delete',
+      clickHandler: () => {},
+    },
+  };
+
   return (
-    <SettingsSection {...settingsSectionProps}></SettingsSection>
+    <SettingsSection {...settingsSectionProps}>
+      <SettingsAction {...settingsActionProps} />
+    </SettingsSection>
   );
 }

@@ -1,8 +1,6 @@
 @import '../../../styles/assets.scss';
 
 .homepage-section {
-  overflow: hidden;
-
   &-header {
     display: flex;
     align-items: center;
@@ -20,6 +18,7 @@
   }
 
   &-content {
-    overflow-y: auto;
+    overflow: hidden;
+    height: 75vh;
   }
 }

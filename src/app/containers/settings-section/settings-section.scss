@@ -32,7 +32,7 @@
     transition: .4s;
 
     .original-theme & {
-      border-top-color: $original-settings-section-line-color;
+      border-top: 0 solid $original-settings-section-line-color;
     }
   }
 
@@ -45,7 +45,7 @@
       }
 
       &-content {
-        border-top: 1px solid #fff;
+        border-top-width: 1px;
         padding-top: 24px;
         height: auto;
         opacity: 1;

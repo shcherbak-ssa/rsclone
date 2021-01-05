@@ -9,6 +9,19 @@
 
 @import './assets.scss';
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb        {
+  background: rgba(0, 0, 0, .4);
+  border-radius: 20px;
+}
+
 html {
   overflow: hidden;
 }

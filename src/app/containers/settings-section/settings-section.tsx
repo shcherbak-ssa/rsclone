@@ -12,10 +12,11 @@ export type SettingsSectionProps = {
   title: string,
   unsavedDataExist: boolean,
   saveButtonClickHanlder: () => void,
+  children?: React.ReactNode,
 };
 
 export function SettingsSection({
-  isActive, title, unsavedDataExist, saveButtonClickHanlder,
+  isActive, title, unsavedDataExist, saveButtonClickHanlder, children
 }: SettingsSectionProps) {
   const componentClassnames = classnames('settings-section', {
     [IS_ACTIVE_CLASSNAME]: isActive,
@@ -33,7 +34,7 @@ export function SettingsSection({
         <div className="settings-section-title">{title}</div>
         {unsavedDataExist ? <Base.Button {...saveButtonProps} /> : ''}
       </div>
-      <div className="settings-section-content"></div>
+      <div className="settings-section-content">{children}</div>
     </div>
   );
 }
