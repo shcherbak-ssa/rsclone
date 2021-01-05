@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './menu.scss';
@@ -7,15 +7,14 @@ import spacesIcon from '@iconify/icons-uil/apps';
 import settingsIcon from '@iconify/icons-clarity/settings-line';
 import logOutIcon from '@iconify/icons-feather/log-out';
 
-import { AppEvents, AppRoutes, MenuItemLabels } from '../../constants';
-import { appController } from '../../controllers/app.controller';
+import { AppRoutes, MenuItemLabels } from '../../constants';
 import { storeSelectors } from '../../store';
 import { MenuItem } from '../menu-item';
 import { Avatar } from '../avatar';
 
 export function Menu() {
   const history = useHistory();
-  const activeMenuItem = useSelector(storeSelectors.getActiveMenuItem());
+  const [activeMenuItem, setActiveMenuItem] = useState(MenuItemLabels.SPACES);
   const {name: userName} = useSelector(storeSelectors.user.get()); 
 
   const menuItemsProps = {
@@ -24,8 +23,7 @@ export function Menu() {
       text: 'Spaces',
       isActive: activeMenuItem === MenuItemLabels.SPACES,
       clickHandler: () => {
-        emitChangeMenuItemEvent(MenuItemLabels.SPACES);
-        history.push(AppRoutes.ROOT);
+        changeMenuItem(MenuItemLabels.SPACES, AppRoutes.ROOT);
       },
     },
     settings: {
@@ -33,8 +31,7 @@ export function Menu() {
       text: 'Settings',
       isActive: activeMenuItem === MenuItemLabels.SETTINGS,
       clickHandler: () => {
-        emitChangeMenuItemEvent(MenuItemLabels.SETTINGS);
-        history.push(AppRoutes.SETTINGS);
+        changeMenuItem(MenuItemLabels.SETTINGS, AppRoutes.SETTINGS);
       },
     },
     logout: {
@@ -44,8 +41,11 @@ export function Menu() {
     },
   };
 
-  function emitChangeMenuItemEvent(nextMenuItem: MenuItemLabels) {
-    appController.emit(AppEvents.CHANGE_MENU_ITEM, nextMenuItem);
+  function changeMenuItem(nextMenuItemLabel: MenuItemLabels, nextRoute: AppRoutes) {
+    if (nextMenuItemLabel === activeMenuItem) return;
+
+    setActiveMenuItem(nextMenuItemLabel);
+    history.push(nextRoute);
   }
 
   return (

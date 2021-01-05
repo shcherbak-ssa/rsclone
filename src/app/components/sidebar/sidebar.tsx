@@ -7,7 +7,6 @@ import booksIcon from '@iconify/icons-wpf/books';
 
 import { AppEvents, AppRoutes, MenuItemLabels } from '../../constants';
 import { SidebarIcon } from '../sidebar-icon';
-import { appController } from '../../controllers/app.controller';
 
 export function Sidebar() {
   const history = useHistory();
@@ -27,8 +26,7 @@ export function Sidebar() {
         height: 24,
       },
       clickHandler: () => {
-        appController.emit(AppEvents.CHANGE_MENU_ITEM, MenuItemLabels.SPACES);
-        history.push(AppRoutes.ROOT);
+        location.replace(location.origin);
       },
     }
   };

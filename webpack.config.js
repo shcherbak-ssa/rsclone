@@ -48,6 +48,9 @@ const webpackConfig = (env = {}) => {
               loader: 'babel-loader',
               options: {
                 presets: ['@babel/env', '@babel/react'],
+                plugins: [
+                  '@babel/plugin-transform-regenerator',
+                ],
               }
             },
             {

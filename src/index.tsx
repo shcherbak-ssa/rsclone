@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import '@babel/polyfill';
 import './assets/icons';
 import './assets/favicon.ico';
 import './styles/main.scss';
