@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './menu.scss';
@@ -7,15 +7,18 @@ import spacesIcon from '@iconify/icons-uil/apps';
 import settingsIcon from '@iconify/icons-clarity/settings-line';
 import logOutIcon from '@iconify/icons-feather/log-out';
 
-import { AppRoutes, MenuItemLabels } from '../../constants';
+import { MenuItemLabels } from '../../constants';
 import { storeSelectors } from '../../store';
+import { AppRoutesService } from '../../../services/app-routes.service';
 import { MenuItem } from '../menu-item';
 import { Avatar } from '../avatar';
 
 export function Menu() {
   const history = useHistory();
-  const [activeMenuItem, setActiveMenuItem] = useState(MenuItemLabels.SPACES);
   const {name: userName} = useSelector(storeSelectors.user.get()); 
+  const [activeMenuItem, setActiveMenuItem] = useState('');
+
+  const appRoutesService: AppRoutesService = new AppRoutesService();
 
   const menuItemsProps = {
     spaces: {
@@ -23,7 +26,7 @@ export function Menu() {
       text: 'Spaces',
       isActive: activeMenuItem === MenuItemLabels.SPACES,
       clickHandler: () => {
-        changeMenuItem(MenuItemLabels.SPACES, AppRoutes.ROOT);
+        changeMenuItem(MenuItemLabels.SPACES, appRoutesService.getSpacesRoutePath());
       },
     },
     settings: {
@@ -31,7 +34,7 @@ export function Menu() {
       text: 'Settings',
       isActive: activeMenuItem === MenuItemLabels.SETTINGS,
       clickHandler: () => {
-        changeMenuItem(MenuItemLabels.SETTINGS, AppRoutes.SETTINGS);
+        changeMenuItem(MenuItemLabels.SETTINGS, appRoutesService.getSettingsRoutePath());
       },
     },
     logout: {
@@ -41,7 +44,15 @@ export function Menu() {
     },
   };
 
-  function changeMenuItem(nextMenuItemLabel: MenuItemLabels, nextRoute: AppRoutes) {
+  useEffect(() => {
+    if (location.pathname === appRoutesService.getSettingsRoutePath()) {
+      setActiveMenuItem(MenuItemLabels.SETTINGS);
+    } else {
+      setActiveMenuItem(MenuItemLabels.SPACES);
+    }
+  }, []);
+
+  function changeMenuItem(nextMenuItemLabel: MenuItemLabels, nextRoute: string) {
     if (nextMenuItemLabel === activeMenuItem) return;
 
     setActiveMenuItem(nextMenuItemLabel);

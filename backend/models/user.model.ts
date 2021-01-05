@@ -1,14 +1,14 @@
+import { join } from 'path';
 import { promises as fsPromises } from 'fs';
 import { Request, Response } from 'express';
 
 import { DB_DIRNAME, USER_DB_FILENAME } from '../constants';
 import { UserDB, UsersDB } from '../db/types';
-import { join } from 'path';
 import { ResponseSender } from './response.model';
 
 type UserQuery = {
   userID: number;
-  userEmail: string;
+  username: string;
 };
 
 export class UserModel {
@@ -19,7 +19,7 @@ export class UserModel {
 
       await this.validateUser(userQuery);
       
-      const user: UserDB = await this.readCurrentUserDB(userQuery.userID);
+      const user: UserDB = await this.readCurrentUserDB(userQuery.username);
       await this.sendResponse(user, res);
     } catch (error) {
       console.log(error);
@@ -29,17 +29,17 @@ export class UserModel {
   private getUserQuery(req: Request) {
     if (req.query !== undefined) {
       return {
-        userID: parseInt(req.query.id as string),
-        userEmail: req.query.email as string,
+        userID: parseInt(req.query.userID as string),
+        username: req.query.username as string,
       }
     } else {
       return null;
     }
   }
 
-  private async validateUser({userID, userEmail}: UserQuery) {
+  private async validateUser({userID, username}: UserQuery) {
     const usersDB = await this.readUsersDB();
-    if (usersDB[userID].email === userEmail) return;
+    if (usersDB[userID].username === username) return;
 
     throw new Error('Invalid user');
   }
@@ -49,8 +49,8 @@ export class UserModel {
     return JSON.parse(result);
   }
 
-  private async readCurrentUserDB(userID: number): Promise<UserDB> {
-    const currentUserDBFilename: string = join(DB_DIRNAME, `user-${userID}.json`);
+  private async readCurrentUserDB(username: string): Promise<UserDB> {
+    const currentUserDBFilename: string = join(DB_DIRNAME, `@${username}.json`);
     const result: string = await fsPromises.readFile(currentUserDBFilename, {encoding: 'utf-8'});
     return JSON.parse(result);
   }

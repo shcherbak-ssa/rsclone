@@ -33,11 +33,13 @@ class User implements IUser {
   name: string;
   email: string;
   password: string;
+  username: string;
 
   constructor({name = '', email, password}: IUser) {
     this.name = name;
     this.email = email.toLowerCase();
     this.password = password;
+    this.username = this.createUsername();
   }
 
   getEmailForCheck() {
@@ -45,15 +47,12 @@ class User implements IUser {
   }
 
   getDataToCreateUserDB(newUserID: number): UserDB {
-    const usernameService: UsernameService = new UsernameService();
-    const username: string = usernameService.createUsername(this.email);
-
     return {
       user: {
         id: newUserID,
         name: this.name,
         avatar: '',
-        username,
+        username: this.username,
         theme: Theme.ORIGINAL,
         language: Language.ENGLISH,
         spaces: []
@@ -66,7 +65,13 @@ class User implements IUser {
     return {
       email: this.email,
       password: this.password,
+      username: this.username,
     }
+  }
+
+  private createUsername() {
+    const usernameService: UsernameService = new UsernameService();
+    return usernameService.createUsername(this.email);
   }
 }
 
@@ -111,8 +116,8 @@ class AuthModel {
     }
   }
 
-  async sendResponse(userID: number) {
-    await this.responseSender.sendSuccessResponse('Success', { id: userID });
+  async sendResponse(userID: number, username: string) {
+    await this.responseSender.sendSuccessResponse('Success', { userID, username });
   }
 
   async readUsersDB(): Promise<Array<UsersDB>> {
@@ -145,8 +150,8 @@ export class RegistrationModel extends AuthModel {
     const user: User = new User(this.req.body);
     await this.checkUserExisting(user);
 
-    const newUserID: number = await this.createNewUser(user);
-    await this.sendResponse(newUserID);
+    const {newUserID, username} = await this.createNewUser(user);
+    await this.sendResponse(newUserID, username);
   }
 
   async checkUserExisting(user: User) {
@@ -171,10 +176,10 @@ export class RegistrationModel extends AuthModel {
     usersDB.push(newUser);
     const newUserID: number = usersDB.length - 1;
 
-    this.updateUsersDB(usersDB);
-    this.createNewUserDB(newUserID, user);
+    await this.updateUsersDB(usersDB);
+    const username: string = await this.createNewUserDB(newUserID, user);
 
-    return newUserID;
+    return { newUserID, username };
   }
 
   async updateUsersDB(usersDB: Array<UsersDB>) {
@@ -183,9 +188,12 @@ export class RegistrationModel extends AuthModel {
 
   async createNewUserDB(newUserID: number, user: User) {
     const newUser = user.getDataToCreateUserDB(newUserID);
-    const newUserDBFilename: string = join(DB_DIRNAME, `user-${newUser.user.id}.json`);
+    const {username} = newUser.user;
+    const newUserDBFilename: string = join(DB_DIRNAME, `@${username}.json`);
 
     await fsPromises.writeFile(newUserDBFilename, JSON.stringify(newUser, null, 2));
+
+    return username;
   }
 }
 
@@ -202,8 +210,8 @@ export class LoginModel extends AuthModel {
     await super.tryToRun();
 
     const user: User = new User(this.req.body);
-    const newUserID: number = await this.findUser(user);
-    await this.sendResponse(newUserID);
+    const {userID, username} = await this.findUser(user);
+    await this.sendResponse(userID, username);
   }
 
   async findUser(user: User) {
@@ -218,6 +226,7 @@ export class LoginModel extends AuthModel {
       throw new AuthError('Invalid e-mail or password', {});
     }
 
-    return userID; 
+    const {username} = usersDB[userID];
+    return { userID, username }; 
   }
 }

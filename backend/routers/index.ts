@@ -1,9 +1,9 @@
 import { BaseRouter } from './base.router';
 import { AuthRouter } from './auth.router';
-import { AppRouter } from './app.router';
+import { UserRouter } from './user.router';
 
 export {
   BaseRouter,
   AuthRouter,
-  AppRouter,
+  UserRouter,
 };

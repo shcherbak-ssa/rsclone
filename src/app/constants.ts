@@ -11,11 +11,6 @@ enum Theme {
   DARK = 'dark-theme',
 };
 
-enum AppRoutes {
-  ROOT = '/app',
-  SETTINGS = '/app/settings',
-};
-
 enum MenuItemLabels {
   SPACES = 'space',
   SETTINGS = 'settings',
@@ -39,7 +34,6 @@ export {
   EMPTY_VALUE_LENGTH,
   THEME_LOCALSTORAGE_LABEL,
   Theme,
-  AppRoutes,
   MenuItemLabels,
   SettingsLabels,
   UserEvents,

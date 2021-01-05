@@ -2,8 +2,13 @@ const USER_LOCALSTORAGE_LABEL: string = 'user';
 const SUCCESS_RESPONSE_TYPE: string = 'success';
 const ERROR_RESPONSE_TYPE: string = 'error';
 
+const ROOT_ROUTE_PATH: string = '/';
+const APP_INITIAL_ROUTES_STRING: string = '/@';
+
 export {
   USER_LOCALSTORAGE_LABEL,
   SUCCESS_RESPONSE_TYPE,
   ERROR_RESPONSE_TYPE,
+  APP_INITIAL_ROUTES_STRING,
+  ROOT_ROUTE_PATH,
 };

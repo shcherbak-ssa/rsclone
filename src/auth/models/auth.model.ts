@@ -40,7 +40,7 @@ class AuthModel {
       const response = await this.sendRequest(user);
 
       this.checkResponse(response);
-      this.saveUser(response.payload.id, user.email);
+      this.saveUser(response.payload);
 
       location.replace(location.origin);
     } catch (error) {
@@ -83,9 +83,9 @@ class AuthModel {
     }
   }
 
-  saveUser(newUserID: number, email: string) {
+  saveUser({userID, username}) {
     const localStorageService: LocalStorageService = new LocalStorageService();
-    localStorageService.save(USER_LOCALSTORAGE_LABEL, {id: newUserID, email});
+    localStorageService.save(USER_LOCALSTORAGE_LABEL, {userID, username});
   }
 
   parseError(error: Error) {

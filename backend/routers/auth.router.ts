@@ -21,11 +21,13 @@ export class AuthRouter implements BaseRouter {
   }
 
   initRouter() {
-    this.router.post(
-      AuthPathnames.REGISTRATION, registrationBodySchemaValidator, this.registrationRequest,
-    );
-
-    this.router.post(AuthPathnames.LOGIN, loginBodySchemaValidator, this.loginRequest);
+    this.router
+      .post(
+        AuthPathnames.REGISTRATION, registrationBodySchemaValidator, this.registrationRequest,
+      )
+      .post(
+        AuthPathnames.LOGIN, loginBodySchemaValidator, this.loginRequest
+      );
   }
 
   private async registrationRequest(req: Request, res: Response) {

@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 
 import { serverConfig } from './server.config';
 import { AppOptions, App } from './app';
-import { AuthRouter, AppRouter } from './routers';
+import { AuthRouter, UserRouter } from './routers';
 
 const appOptions: AppOptions = {
   port: serverConfig.port,
@@ -12,7 +12,7 @@ const appOptions: AppOptions = {
   publicPath: join(serverConfig.publicDirname, 'public'),
   routers: [
     AuthRouter.init(),
-    AppRouter.init(),
+    UserRouter.init(),
   ],
   middlewares: [
     cookieParser(),
