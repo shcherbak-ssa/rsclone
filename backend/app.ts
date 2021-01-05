@@ -1,13 +1,12 @@
 import { join } from 'path';
 import express from 'express';
-import { Application, Request, Response, NextFunction } from 'express';
+import { Application, Request, Response } from 'express';
 
-import { ROOT_REGEXP_PATHNAME, ROOT_FILENAME } from './constants';
+import { ROOT_FILENAME } from './constants';
 import { BaseRouter } from './routers';
 import { serverConfig } from './server.config';
 import { responseService } from './services/response.service';
 
-const sessionCookieOptions = { active: true };
 const rootFilename: string = join(serverConfig.publicDirname, ROOT_FILENAME);
 
 export type AppOptions = {
@@ -33,6 +32,8 @@ export class App {
     this.initMiddlewares(middlewares);
     this.initRouters(routers);
     this.initPublic(publicPath);
+
+    this.initInitialRequest();
   }
 
   static init(appOptions: AppOptions): App {
@@ -46,32 +47,21 @@ export class App {
   }
 
   private initMiddlewares(middlewares: Array<any>) {
-    middlewares.forEach((middleware) => {
-      this.app.use(middleware);
-    });
+    middlewares.forEach((middleware) => this.app.use(middleware));
   }
 
   private initRouters(routers: Array<BaseRouter>) {
-    this.initRootRequest();
-
     routers.forEach((router) => {
       this.app.use(router.router);
       router.initRouter();
     });
   }
 
-  private initRootRequest() {
-    this.app.get(ROOT_REGEXP_PATHNAME, this.rootGetHandle);
+  private initInitialRequest() {
+    this.app.get('*', this.rootGetHandle);
   }
 
-  private rootGetHandle(req: Request, res: Response, next: NextFunction) {
-    const sessionCookie = req.cookies.session;
-    
-    if (sessionCookie && JSON.parse(sessionCookie).active) {
-      return next();
-    }
-
-    res.cookie('session', JSON.stringify(sessionCookieOptions));
+  private rootGetHandle(req: Request, res: Response) {
     responseService.sendSuccessResponseFile(res, rootFilename);
   }
 

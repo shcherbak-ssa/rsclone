@@ -5,6 +5,15 @@ import bodyParser from 'body-parser';
 import { serverConfig } from './server.config';
 import { AppOptions, App } from './app';
 import { AuthRouter, UserRouter } from './routers';
+import { UserDB } from './db/types';
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: UserDB
+    }
+  }
+}
 
 const appOptions: AppOptions = {
   port: serverConfig.port,

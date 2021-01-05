@@ -1,10 +1,11 @@
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 
 import { BaseRouter } from "./base.router";
+import { UsernameParam } from '../params/username.param';
 import { UserModel } from "../models/user.model";
 
 enum UserPathnames {
-  GET_USER = '/@:username',
+  GET_USER = '/@:username/',
 };
 
 export class UserRouter implements BaseRouter {
@@ -16,10 +17,12 @@ export class UserRouter implements BaseRouter {
   }
 
   initRouter() {
+    UsernameParam.init(this.router);
+
     this.router.get(UserPathnames.GET_USER, this.getUser.bind(this));
   }
 
-  private async getUser(req: Request, res: Response) {
-    this.userModel.getUser(req, res);
+  private async getUser(req: Request, res: Response, next: NextFunction) {
+    this.userModel.getUser(req, res, next);
   }
 }
