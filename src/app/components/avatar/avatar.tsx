@@ -22,7 +22,7 @@ export function Avatar({size = DEFAULT_AVATAR_SIZE}: AvatarProps) {
   function transformUserName() {
     const [firstName, lastName] = user.name.split(' ');
     const firstLetterOfFirstName = firstName[0];
-    const firstLetterOfLastName = lastName[0];
+    const firstLetterOfLastName = lastName ? lastName[0] : '';
     return `${firstLetterOfFirstName}${firstLetterOfLastName}`.toUpperCase();
   }
 

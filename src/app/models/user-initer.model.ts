@@ -5,8 +5,7 @@ import { NetworkService } from "../../services/network.service";
 import { dispatchAction } from "../store";
 import { UserStateType, userStore } from "../store/user.store";
 
-const USER_ID_URL_PARAM_LABEL: string = 'userID';
-const USERNAME_URL_PARAM_LABEL: string = 'username';
+const USER_ID_URL_PARAM_LABEL: string = 'id';
 
 export class UserIniterModel {
   async loadUserData() {
@@ -15,7 +14,6 @@ export class UserIniterModel {
 
     const localStorageUser = localStorageService.get(USER_LOCALSTORAGE_LABEL);
     urlParams.append(USER_ID_URL_PARAM_LABEL, localStorageUser.userID);
-    urlParams.append(USERNAME_URL_PARAM_LABEL, localStorageUser.username);
 
     const appRoutesService = new AppRoutesService();
     const pathname = appRoutesService.getRootRoutePath();
@@ -23,11 +21,10 @@ export class UserIniterModel {
     const loadUserUrl = `${pathname}?${urlParams.toString()}`;
     const response = await this.load(loadUserUrl);
 
-    this.updateUserStoreStates(response.user, localStorageUser.email);
+    this.updateUserStoreStates(response.user);
   }
 
-  private updateUserStoreStates(user: UserStateType, email: string) {
-    user.email = email;
+  private updateUserStoreStates(user: UserStateType) {
     dispatchAction(userStore.actions.updateStates(user));
   }
 

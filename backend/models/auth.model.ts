@@ -7,7 +7,7 @@ import { emailValidation, nameValidation, passwordValidation } from '../validati
 import { ResponseSender } from './response.model';
 import { DB_DIRNAME, Language, Theme, USER_DB_FILENAME } from '../constants';
 import { UsernameService } from '../services/username.service';
-import { UserDB, UsersDB } from '../db/types';
+import { UserDB, UsersDB } from './types';
 
 const REGISTRATION_ERROR: string = 'RegistrationError';
 const EMAIL_INPUT_LABEL: string = 'email';
@@ -46,26 +46,22 @@ class User implements IUser {
     return this.email;
   }
 
-  getDataToCreateUserDB(newUserID: number): UserDB {
+  getDataToCreateUserDB(): UserDB {
     return {
-      user: {
-        id: newUserID,
-        name: this.name,
-        avatar: '',
-        username: this.username,
-        theme: Theme.ORIGINAL,
-        language: Language.ENGLISH,
-        spaces: []
-      },
-      spaces: {},
+      spaces: [],
     }
   }
 
-  getDataForUsersDB(): UsersDB {
+  getDataForUsersDB(newUserID: number): UsersDB {
     return {
+      id: newUserID,
+      name: this.name,
       email: this.email,
       password: this.password,
       username: this.username,
+      avatar: '',
+      theme: Theme.ORIGINAL,
+      language: Language.ENGLISH,
     }
   }
 
@@ -171,13 +167,15 @@ export class RegistrationModel extends AuthModel {
 
   async createNewUser(user: User) {
     const usersDB: Array<UsersDB> = await this.readUsersDB();
-    const newUser: UsersDB = user.getDataForUsersDB();
-
+    
+    const newUserID: number = usersDB.length;
+    const newUser: UsersDB = user.getDataForUsersDB(newUserID);
+    
     usersDB.push(newUser);
-    const newUserID: number = usersDB.length - 1;
-
     await this.updateUsersDB(usersDB);
-    const username: string = await this.createNewUserDB(newUserID, user);
+
+    const {username} = newUser;
+    await this.createNewUserDB(user, username);
 
     return { newUserID, username };
   }
@@ -186,14 +184,11 @@ export class RegistrationModel extends AuthModel {
     fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(usersDB, null, 2));
   }
 
-  async createNewUserDB(newUserID: number, user: User) {
-    const newUser = user.getDataToCreateUserDB(newUserID);
-    const {username} = newUser.user;
+  async createNewUserDB(user: User, username: string) {
+    const newUser = user.getDataToCreateUserDB();
     const newUserDBFilename: string = join(DB_DIRNAME, `@${username}.json`);
 
     await fsPromises.writeFile(newUserDBFilename, JSON.stringify(newUser, null, 2));
-
-    return username;
   }
 }
 
@@ -216,7 +211,7 @@ export class LoginModel extends AuthModel {
 
   async findUser(user: User) {
     const usersDB: Array<UsersDB> = await this.readUsersDB();
-    const {email, password} = user.getDataForUsersDB();
+    const {email, password} = user;
 
     const userID: number = usersDB.findIndex((userItem) => {
       return userItem.email === email && userItem.password === password;
