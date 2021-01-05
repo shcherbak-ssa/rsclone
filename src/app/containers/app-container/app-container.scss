@@ -7,15 +7,15 @@
   overflow-y: scroll;
   -x-size: 100%;
 
-  &.original-theme {
+  .original-theme & {
     background: $original-app-background-color;
   }
   
-  &.light-theme {
+  .light-theme & {
     background: $light-app-background-color;
   }
   
-  &.dark-theme {
+  .dark-theme & {
     background: $dark-app-background-color;
   }
 }

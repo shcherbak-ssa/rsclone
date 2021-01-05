@@ -36,15 +36,25 @@ $original-settings-avatar-drop-color: #9DAAB6;
 $original-settings-avatar-drop-border-color: #183055;
 $original-settings-avatar-link-color: #3884FF;
 
-$original-button-color: #fff;
-$original-button-background-color: #3884FF;
-$original-button-background-color-hover: #1F65D6;
+$original-button-primary-color: #fff;
+$original-button-primary-background-color: #3884FF;
+$original-button-primary-background-color-hover: #1F65D6;
+$original-button-secondary-color: #74818D;
+$original-button-secondary-background-color: #E6ECF1;
+$original-button-secondary-background-color-hover: #d3dce4;
+$original-button-danger-color: #fff;
+$original-button-danger-background-color: #FF4642;
+$original-button-danger-background-color-hover: #f62520;
 
 $original-input-background-color: #183055;
 $original-input-color: #fff;
 $original-input-placeholder-color: rgba(255, 255, 255, 0.48);
 $original-input-error-color: #FF4642;
 $original-input-description-color: rgba(255, 255, 255, 0.48);
+
+$original-popup-background-color: #fff;
+$original-popup-header-border-color: #E6ECF1;
+$original-popup-title-color: #111111;
 
 /** light theme */
 $light-app-background-color: #FAFAFA;

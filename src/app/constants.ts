@@ -11,6 +11,12 @@ enum Theme {
   DARK = 'dark-theme',
 };
 
+enum ButtonTypes {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DANGER = 'danger',
+};
+
 enum MenuItemLabels {
   SPACES = 'space',
   SETTINGS = 'settings',
@@ -34,6 +40,7 @@ export {
   EMPTY_VALUE_LENGTH,
   THEME_LOCALSTORAGE_LABEL,
   Theme,
+  ButtonTypes,
   MenuItemLabels,
   SettingsLabels,
   UserEvents,

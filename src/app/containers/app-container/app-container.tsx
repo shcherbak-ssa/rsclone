@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import classnames from 'classnames';
 import './app-container.scss';
 
 import { Sidebar } from '../../components/sidebar';
@@ -13,11 +12,14 @@ import { AppRoutesService } from '../../../services/app-routes.service';
 
 export function AppContainer() {
   const theme = useSelector(storeSelectors.user.getCurrentTheme());
-  const componentClassnames = classnames('app', theme);
   const appRoutesService: AppRoutesService = new AppRoutesService();
 
+  useEffect(() => {
+    document.body.classList.add(theme);
+  }, [theme]);
+
   return (
-    <div className={componentClassnames}>
+    <div className="app">
       <Router>
         <Sidebar />
         <Menu />

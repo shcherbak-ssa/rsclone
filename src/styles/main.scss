@@ -37,4 +37,16 @@ body {
   -x-size: 100%;
 }
 
+#popup {
+  background: rgba(17, 17, 17, 0.5);
+  display: none;
+  z-index: 9999;
+  -x-size: 100%;
+  -x-position: absolute 0 x x 0;
+
+  &.is-open {
+    display: block;
+  }
+}
+
 @import './classes.scss';

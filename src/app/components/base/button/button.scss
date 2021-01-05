@@ -16,11 +16,31 @@
   }
 
   .original-theme & {
-    background: $original-button-background-color;
-    color: $original-button-color;
+    &.primary {
+      background: $original-button-primary-background-color;
+      color: $original-button-primary-color;
+  
+      &:hover {
+        background: $original-button-primary-background-color-hover;
+      }
+    }
 
-    &:hover {
-      background: $original-button-background-color-hover;
+    &.secondary {
+      background: $original-button-secondary-background-color;
+      color: $original-button-secondary-color;
+  
+      &:hover {
+        background: $original-button-secondary-background-color-hover;
+      }
+    }
+
+    &.danger {
+      background: $original-button-danger-background-color;
+      color: $original-button-danger-color;
+  
+      &:hover {
+        background: $original-button-danger-background-color-hover;
+      }
     }
   }
 }
