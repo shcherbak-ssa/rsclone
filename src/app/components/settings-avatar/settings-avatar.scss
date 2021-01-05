@@ -1,0 +1,43 @@
+@import '../../../styles/assets.scss';
+
+.settings-avatar {
+  display: flex;
+
+  &-container {
+    margin-right: 16px;
+    -x-size: 126px;
+
+    .original-theme & {
+      background: $original-settings-avatar-container-background-color;
+    }
+  }
+
+  &-drop {
+    border: 1px solid;
+    flex-grow: 1;
+    height: 126px;
+    -x-font-size: 12px/17px;
+
+    .original-theme & {
+      border-color: $original-settings-avatar-drop-border-color;
+      color: $original-settings-avatar-drop-color;
+    }
+  }
+
+  &-link {
+    cursor: pointer;
+    margin-left: 3px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    .original-theme & {
+      color: $original-settings-avatar-link-color;
+    }
+  }
+
+  &-container, &-drop {
+    border-radius: 3px;
+  }
+}
