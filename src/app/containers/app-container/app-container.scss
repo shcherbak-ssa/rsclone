@@ -2,11 +2,9 @@
 @import '../../../styles/assets.scss';
 
 .app {
-  display: grid;
-  grid-template-columns: 224px 1fr;
-  gap: 80px;
-  padding: 80px 130px 0;
+  padding: 0 130px 0 460px;
   position: relative;
+  overflow-y: scroll;
   -x-size: 100%;
 
   &.original-theme {

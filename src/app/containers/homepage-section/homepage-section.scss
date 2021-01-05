@@ -1,6 +1,9 @@
 @import '../../../styles/assets.scss';
 
 .homepage-section {
+  padding-top: 80px;
+  width: 100%;
+
   &-header {
     display: flex;
     align-items: center;
@@ -15,10 +18,5 @@
     .original-theme & {
       color: $original-homepage-section-title-color;
     }
-  }
-
-  &-content {
-    overflow: hidden;
-    height: 78vh;
   }
 }
