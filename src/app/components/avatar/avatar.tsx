@@ -3,8 +3,21 @@ import { useSelector } from 'react-redux';
 import { storeSelectors } from '../../store';
 import './avatar.scss';
 
-export function Avatar() {
+const DEFAULT_AVATAR_SIZE: number = 46;
+
+type AvatarProps = {
+  size?: number,
+};
+
+export function Avatar({size = DEFAULT_AVATAR_SIZE}: AvatarProps) {
   const user = useSelector(storeSelectors.user.get());
+
+  function setSizeStyles() {
+    return {
+      width: size,
+      height: size,
+    };
+  }
 
   function transformUserName() {
     const [firstName, lastName] = user.name.split(' ');
@@ -14,10 +27,10 @@ export function Avatar() {
   }
 
   if (user.avatar) {
-    return <div className="avatar"></div>;
+    return <div className="avatar" style={setSizeStyles()}></div>;
   } else {
     return (
-      <div className="avatar" data-class="flex-center">
+      <div className="avatar" style={setSizeStyles()} data-class="flex-center">
         {transformUserName()}
       </div>
     );
