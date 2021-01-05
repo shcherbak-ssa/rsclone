@@ -1,4 +1,7 @@
 const IS_ACTIVE_CLASSNAME: string = 'is-active';
+const IS_ERROR_CLASSNAME: string = 'is-error';
+
+const EMPTY_VALUE_LENGTH: number = 0;
 
 const THEME_LOCALSTORAGE_LABEL: string = 'app-theme';
 
@@ -32,6 +35,8 @@ enum UserEvents {
 
 export {
   IS_ACTIVE_CLASSNAME,
+  IS_ERROR_CLASSNAME,
+  EMPTY_VALUE_LENGTH,
   THEME_LOCALSTORAGE_LABEL,
   Theme,
   AppRoutes,
