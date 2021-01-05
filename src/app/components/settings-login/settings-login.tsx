@@ -9,6 +9,7 @@ import { storeSelectors } from '../../store';
 export function SettingsLogin() {
   const {email} = useSelector(storeSelectors.user.get());
   const [emailValue, setEmailValue] = useState(email);
+  const [currentPasswordValue, setCurrentPasswordValue] = useState('');
 
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
@@ -24,9 +25,17 @@ export function SettingsLogin() {
     updateValue: (value: string) => {},
   };
 
+  const currentPasswordInputProps: BaseInputProps = {
+    value: currentPasswordValue,
+    placeholder: 'Password',
+    error: '',
+    updateValue: (value: string) => {},
+  };
+
   return (
     <SettingsSection {...settingsSectionProps}>
       <Base.Input {...emailInputProps} />
+      <Base.Input {...currentPasswordInputProps} />
     </SettingsSection>
   );
 }
