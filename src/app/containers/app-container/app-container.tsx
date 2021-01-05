@@ -21,10 +21,10 @@ export function AppContainer() {
 
   return (
     <div className="app">
-      <Sidebar />
-      <Menu />
-      <Popup />
       <Router>
+        <Sidebar />
+        <Menu />
+        <Popup />
         <Switch>
           <Route path={appRoutesService.getRootRoutePath()} exact component={Spaces} />
           <Route path={appRoutesService.getSpacesRoutePath()} component={Spaces} />

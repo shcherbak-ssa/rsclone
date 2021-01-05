@@ -7,6 +7,7 @@ import spacesIcon from '@iconify/icons-uil/apps';
 import settingsIcon from '@iconify/icons-clarity/settings-line';
 import logOutIcon from '@iconify/icons-feather/log-out';
 
+import { USER_LOCALSTORAGE_LABEL } from '../../../constants';
 import { AppEvents, MenuItemLabels } from '../../constants';
 import { storeSelectors } from '../../store';
 import { AppRoutesService } from '../../../services/app-routes.service';
@@ -14,6 +15,7 @@ import { MenuItem } from '../menu-item';
 import { Avatar } from '../avatar';
 import { PopupProps } from '../../containers/popup';
 import { popupController } from '../../controllers/popup.controller';
+import { LocalStorageService } from '../../../services/localstorage.service';
 
 export function Menu() {
   const history = useHistory();
@@ -27,7 +29,12 @@ export function Menu() {
     body: <div className="popup-body-text">Are you sure you want to exit?</div>,
     confirmButtonProps: {
       value: 'Log out',
-      clickHandler: () => {},
+      clickHandler: () => {
+        const localStorageService = new LocalStorageService();
+        localStorageService.remove(USER_LOCALSTORAGE_LABEL);
+
+        location.replace(location.origin);
+      },
     },
   };
 

@@ -4,7 +4,12 @@ export class LocalStorageService {
   }
 
   save(storageLabel: string, payload: any) {
-    localStorage.setItem(storageLabel, JSON.stringify(payload));
+    const storageItem = typeof payload === 'string' ? payload : JSON.stringify(payload);
+    localStorage.setItem(storageLabel, storageItem);
+  }
+
+  remove(storageLabel: string) {
+    localStorage.removeItem(storageLabel);
   }
 
   get(storageLabel: string) {

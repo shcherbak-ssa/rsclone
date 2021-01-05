@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import './auth-container.scss';
@@ -15,25 +15,17 @@ import { Registration } from '../../components/registration';
 import { Login } from '../../components/login';
 import { AssetsService } from '../../../services/assets.service';
 import { storeSelectors } from '../../store';
-import { authController } from '../../controllers/auth.controller';
 
 const LOGO_ICON: string = 'logo';
 const LOGO_LOGIN_ICON: string = 'logo-login';
 
 export function AuthContainer() {
-  const location = useLocation();
   const { currentMode } = useSelector(storeSelectors.getCurrentMode());
 
   const isLoginMode = currentMode === LOGIN_MODE_LABEL;
   const componentClassname = classnames('auth', {
     [IS_LOGIN_MODE_CLASSNAME]: isLoginMode,
   });
-
-  useEffect(() => {
-    if (location.pathname === LOGIN_ROUTE_PATHNAME) {
-      authController.toggleMode();
-    }
-  }, []);
 
   function updateLogoIcon() {
     const assetsService: AssetsService = new AssetsService();
@@ -53,12 +45,8 @@ export function AuthContainer() {
               <Route path="/" exact>
                 <Redirect to={REGISTRATION_ROUTE_PATHNAME} />
               </Route>
-              <Route path={REGISTRATION_ROUTE_PATHNAME}>
-                <Registration />
-              </Route>
-              <Route path={LOGIN_ROUTE_PATHNAME}>
-                <Login />
-              </Route>
+              <Route path={REGISTRATION_ROUTE_PATHNAME} component={Registration} />
+              <Route path={LOGIN_ROUTE_PATHNAME} component={Login} />
             </Switch>
           </Router>
         </div>
