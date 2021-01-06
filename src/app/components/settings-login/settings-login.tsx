@@ -6,24 +6,46 @@ import { SettingsSection, SettingsSectionProps } from '../../containers/settings
 import { SettingsAction, SettingsActionProps } from '../../containers/settings-action';
 import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
+import { UpdatedEmailType } from '../../models/settings.model';
+import { ValidationError } from '../../../services/validation.service';
+import { settingsController } from '../../controllers/settings.controller';
+import { SettingsEvents } from '../../constants';
 
 export function SettingsLogin() {
   const {email} = useSelector(storeSelectors.user.get());
   const [emailValue, setEmailValue] = useState(email);
+  const [emailError, setEmailError] = useState('');
+  const [unsavedDataExist, setUnsavedDataExist] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
     title: 'Login',
-    unsavedDataExist: false,
-    saveButtonClickHanlder: () => {},
+    unsavedDataExist,
+    saveButtonClickHanlder: () => {
+      const updatedEmail: UpdatedEmailType = {
+        newEmail: emailValue,
+        callback: (result) => {
+          if (result instanceof ValidationError) {
+            return setEmailError(result.message);
+          }
+        },
+      };
+
+      settingsController.emit(SettingsEvents.UPDATE_EMAIL, updatedEmail);
+    },
   };
 
   const emailInputProps: BaseInputProps = {
     value: emailValue,
     placeholder: 'E-mail',
-    error: '',
+    error: emailError,
     updateValue: (value: string) => {
       setEmailValue(value);
+      setUnsavedDataExist(value !== email);
+
+      if (emailError) {
+        setEmailError('');
+      }
     },
   };
 

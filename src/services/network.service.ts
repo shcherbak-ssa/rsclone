@@ -8,6 +8,7 @@ const USER_ID_URL_PARAM_LABEL: string = 'id';
 
 enum Methods {
   GET = 'GET',
+  PUT = 'PUT',
   DELETE = 'DELETE',
   EMPTY = '',
 };
@@ -81,6 +82,10 @@ export type NetworkResponse = {
 export class NetworkService {
   async get() {
     return await this.sendRequest(Methods.GET);
+  }
+
+  async update(body: any) {
+    return await this.sendRequest(Methods.PUT, body);
   }
 
   async delete() {

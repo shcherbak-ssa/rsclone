@@ -42,7 +42,7 @@
   &-error {
     opacity: 0;
     transition: .2s;
-    margin-bottom: 8px;
+    margin: 8px 0;
 
     .original-theme & {
       color: $original-input-error-color;
@@ -97,7 +97,6 @@
   &.is-error {
     .base-input {
       &-error {
-        bottom: -25px;
         opacity: 1;
       }
     }

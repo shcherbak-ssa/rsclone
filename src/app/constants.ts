@@ -3,8 +3,6 @@ const IS_ERROR_CLASSNAME: string = 'is-error';
 
 const EMPTY_VALUE_LENGTH: number = 0;
 
-const THEME_LOCALSTORAGE_LABEL: string = 'app-theme';
-
 enum Theme {
   ORIGINAL = 'original-theme',
   LIGHT = 'light-theme',
@@ -40,15 +38,21 @@ enum AppEvents {
   CLOSE_POPUP = 'app-events/close-popup',
 };
 
+enum SettingsEvents {
+  INIT_SETTINGS = 'settings-events/init',
+  UPDATE_EMAIL = 'settings-events/update-email',
+  REMOVE_SETTINGS = 'settings-events/remove-settings',
+};
+
 export {
   IS_ACTIVE_CLASSNAME,
   IS_ERROR_CLASSNAME,
   EMPTY_VALUE_LENGTH,
-  THEME_LOCALSTORAGE_LABEL,
   Theme,
   ButtonTypes,
   MenuItemLabels,
   SettingsLabels,
   UserEvents,
   AppEvents,
+  SettingsEvents,
 };
