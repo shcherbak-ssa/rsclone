@@ -36,7 +36,7 @@ export class SettingsModel {
       if (user) {
         const updatedUser = await this.update(user, requestBody);
         await this.saveUpdatedUserToDB(updatedUser);
-        await this.responseSender.sendSuccessResponse('success', {});
+        await this.responseSender.sendSuccessResponse('success', {...requestBody});
       }
     } catch (error) {
       await this.parseError(error);
