@@ -13,10 +13,15 @@ import { Popup } from '../popup';
 
 export function AppContainer() {
   const theme = useSelector(storeSelectors.user.getCurrentTheme());
+
   const appRoutesService: AppRoutesService = new AppRoutesService();
 
   useEffect(() => {
     document.body.classList.add(theme);
+
+    return () => {
+      document.body.classList.remove(theme);
+    };
   }, [theme]);
 
   return (

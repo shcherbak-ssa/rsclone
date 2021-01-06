@@ -83,7 +83,7 @@ export class SettingsModel {
     callback(result);
   }
 
-  async updateApp({language, callback}: UpdatedAppType) {
+  async updateApp({language, theme, callback}: UpdatedAppType) {
     const updatedData = [];
 
     if (language !== undefined) {
@@ -92,15 +92,25 @@ export class SettingsModel {
       });
     }
 
+    if (theme !== undefined) {
+      updatedData.push({
+        value: theme, inputLabel: InputLabels.THEME_INPUT_LABEL,
+      });
+    }
+
     try {
       const sendingData = this.preparingSendingData(updatedData);
       const response = await this.sendRequest(sendingData);
 
       if (response.type === SUCCESS_RESPONSE_TYPE) {
-        const {language} = response.payload;
+        const {language, theme} = response.payload;
   
         if (language) {
           dispatchAction(updateData(InputLabels.LANGUAGE_INPUT_LABEL, language));
+        }
+
+        if (theme) {
+          dispatchAction(updateData(InputLabels.THEME_INPUT_LABEL, theme));
         }
       } else if (response.type === ERROR_RESPONSE_TYPE) {
         console.log(response);

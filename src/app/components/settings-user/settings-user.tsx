@@ -9,7 +9,7 @@ import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
 import { UpdatedUserType } from '../../models/settings.model';
 import { ValidationError } from '../../../services/validation.service';
-import { ERROR_RESPONSE_TYPE, InputLabels } from '../../../constants';
+import { InputLabels } from '../../../constants';
 import { settingsController } from '../../controllers/settings.controller';
 import { SettingsEvents } from '../../constants';
 

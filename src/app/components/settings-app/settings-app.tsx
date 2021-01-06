@@ -27,6 +27,7 @@ export function SettingsApp() {
     saveButtonClickHanlder: () => {
       const updatedApp: UpdatedAppType = {
         language: selectedLanguage.label === currentLanguageLabel ? undefined : selectedLanguage.label,
+        theme: selectedTheme.label === currentThemeLabel ? undefined : selectedTheme.label,
         callback: () => {
           setUnsavedDataExist(false);
         }
