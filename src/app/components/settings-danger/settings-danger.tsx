@@ -1,11 +1,13 @@
 import React from 'react';
 import './settings-danger.scss';
 
-import { AppEvents, ButtonTypes } from '../../constants';
+import { AppEvents, ButtonTypes, UserEvents } from '../../constants';
 import { SettingsSection, SettingsSectionProps } from '../../containers/settings-section';
 import { SettingsAction, SettingsActionProps } from '../../containers/settings-action';
 import { PopupProps } from '../../containers/popup';
 import { popupController } from '../../controllers/popup.controller';
+import { userController } from '../../controllers/user.controller';
+import { DeleteUserService } from '../../../services/delete-user.service';
 
 export function SettingsDanger() {
   const settingsSectionProps: SettingsSectionProps = {
@@ -20,7 +22,14 @@ export function SettingsDanger() {
       type: ButtonTypes.DANGER,
       value: 'Delete',
       clickHandler: () => {
-        popupController.emit(AppEvents.CLOSE_POPUP);
+        userController.emit(UserEvents.DELETE_ACCOUNT, (isDeleted) => {
+          if (isDeleted) {
+            new DeleteUserService().deleteFromLocal();
+          } else {
+            console.log('deleting error');
+            popupController.emit(AppEvents.CLOSE_POPUP);
+          }
+        });
       },
     },
   };

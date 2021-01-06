@@ -17,6 +17,7 @@ export class Events {
     eventHandlers.push(handler);
     
     this.events.set(event, eventHandlers);
+    return this;
   }
 
   off(event: string, handler: Function) {

@@ -72,9 +72,19 @@ export class NetworkError implements Error {
   }
 }
 
+export type NetworkResponse = {
+  type: string;
+  message: string;
+  payload: any;
+}
+
 export class NetworkService {
   async get() {
     return await this.sendRequest(Methods.GET);
+  }
+
+  async delete() {
+    return await this.sendRequest(Methods.DELETE);
   }
 
   private async sendRequest(method: Methods, body?: any) {

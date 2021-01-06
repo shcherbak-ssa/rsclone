@@ -32,6 +32,7 @@ enum SettingsLabels {
 
 enum UserEvents {
   LOAD_USER = 'user-events/load-user',
+  DELETE_ACCOUNT = 'user-events/delete-account',
 };
 
 enum AppEvents {
