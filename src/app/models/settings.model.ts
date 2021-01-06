@@ -23,6 +23,12 @@ export type UpdatedUserType = {
   callback: Function;
 };
 
+export type UpdatedAppType = {
+  language?: string;
+  theme?: string;
+  callback: Function;
+};
+
 export class SettingsModel {
   async updateUser({newName, newUsername, callback}: UpdatedUserType) {
     const updatedData = [];
@@ -75,6 +81,35 @@ export class SettingsModel {
     }
 
     callback(result);
+  }
+
+  async updateApp({language, callback}: UpdatedAppType) {
+    const updatedData = [];
+
+    if (language !== undefined) {
+      updatedData.push({
+        value: language, inputLabel: InputLabels.LANGUAGE_INPUT_LABEL,
+      });
+    }
+
+    try {
+      const sendingData = this.preparingSendingData(updatedData);
+      const response = await this.sendRequest(sendingData);
+
+      if (response.type === SUCCESS_RESPONSE_TYPE) {
+        const {language} = response.payload;
+  
+        if (language) {
+          dispatchAction(updateData(InputLabels.LANGUAGE_INPUT_LABEL, language));
+        }
+      } else if (response.type === ERROR_RESPONSE_TYPE) {
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      callback();
+    }
   }
 
   private async startUpdating(updatedData: Array<SettingsType>) {

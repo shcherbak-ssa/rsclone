@@ -6,7 +6,9 @@ import { SettingsSection, SettingsSectionProps } from '../../containers/settings
 import { SettingsGroupProps, SettingsGroup } from '../../containers/settings-group';
 import { Base, BaseSelectProps } from '../base';
 import { storeSelectors } from '../../store';
-import { languages } from '../../constants';
+import { languages, SettingsEvents } from '../../constants';
+import { UpdatedAppType } from '../../models/settings.model';
+import { settingsController } from '../../controllers/settings.controller';
 
 export function SettingsApp() {
   const {language} = useSelector(storeSelectors.user.get());
@@ -17,7 +19,16 @@ export function SettingsApp() {
     isActive: true,
     title: 'App',
     unsavedDataExist,
-    saveButtonClickHanlder: () => {},
+    saveButtonClickHanlder: () => {
+      const updatedApp: UpdatedAppType = {
+        language: selectedLanguage.label === language ? undefined : selectedLanguage.label,
+        callback: () => {
+          setUnsavedDataExist(false);
+        }
+      };
+
+      settingsController.emit(SettingsEvents.UPDATE_APP, updatedApp);
+    },
   };
 
   const selectProps: BaseSelectProps = {

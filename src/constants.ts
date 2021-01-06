@@ -10,6 +10,7 @@ enum InputLabels {
   EMAIL_INPUT_LABEL = 'email',
   PASSWORD_INPUT_LABEL = 'password',
   USERNAME_INPUT_LABEL = 'username',
+  LANGUAGE_INPUT_LABEL = 'language',
 };
 
 export {
