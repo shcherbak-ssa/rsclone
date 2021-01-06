@@ -9,8 +9,6 @@ export function SettingsDanger() {
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
     title: 'Danger Zone',
-    unsavedDataExist: false,
-    saveButtonClickHanlder: () => {},
   };
 
   const settingsActionProps: SettingsActionProps = {

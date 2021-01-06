@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const currentMode = (isDev) => isDev ? 'development' : 'production';
 const currentDevtool = (isDev) => isDev ? 'eval-source-map' : false;
-const outputDirname = (isDev) => isDev ? 'dev' : 'dist';
 
 const SRC_DIRNAME = joinPaths(__dirname, 'src');
 
@@ -16,9 +15,9 @@ const webpackConfig = (env = {}) => {
     devtool: currentDevtool(isDev),
     entry: joinPaths(SRC_DIRNAME, 'index.tsx'),
     output: {
-      path: resolve(__dirname, outputDirname(isDev)),
-      chunkFilename: joinPaths('public', 'js', '[name].chunk.js'),
-      filename: joinPaths('public', 'js', 'main.js'),
+      path: resolve(__dirname, 'public'),
+      chunkFilename: joinPaths('js', '[name].chunk.js'),
+      filename: joinPaths('js', 'main.js'),
     },
     module: {
       rules: [
@@ -99,7 +98,7 @@ const webpackConfig = (env = {}) => {
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: joinPaths('public', 'assets'),
+            outputPath: 'assets',
           }
         },
       ]
@@ -110,7 +109,7 @@ const webpackConfig = (env = {}) => {
     plugins: [
       new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
-        filename: joinPaths('public', 'css', 'main.css')
+        filename: joinPaths('css', 'main.css')
       })
     ],
   }

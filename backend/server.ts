@@ -1,4 +1,3 @@
-import { join } from 'path';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
@@ -18,7 +17,7 @@ declare global {
 const appOptions: AppOptions = {
   port: serverConfig.port,
   hostname: serverConfig.hostname,
-  publicPath: join(serverConfig.publicDirname, 'public'),
+  publicPath: serverConfig.publicDirname,
   routers: [
     AuthRouter.init(),
     UserRouter.init(),

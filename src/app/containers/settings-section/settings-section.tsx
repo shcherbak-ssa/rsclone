@@ -10,13 +10,13 @@ import { IS_ACTIVE_CLASSNAME } from '../../constants';
 export type SettingsSectionProps = {
   isActive: boolean,
   title: string,
-  unsavedDataExist: boolean,
-  saveButtonClickHanlder: () => void,
+  unsavedDataExist?: boolean,
+  saveButtonClickHanlder?: () => void,
   children?: React.ReactNode,
 };
 
 export function SettingsSection({
-  isActive, title, unsavedDataExist, saveButtonClickHanlder, children
+  isActive, title, unsavedDataExist = false, saveButtonClickHanlder, children
 }: SettingsSectionProps) {
   const componentClassnames = classnames('settings-section', {
     [IS_ACTIVE_CLASSNAME]: isActive,
