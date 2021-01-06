@@ -17,9 +17,7 @@ export function Popup() {
   const cancelButtonProps: BaseButtonProps = {
     type: ButtonTypes.SECONDARY,
     value: 'Cancel',
-    clickHandler: (e: React.MouseEvent) => {
-      hidePopup(e);
-    },
+    clickHandler: (e: React.MouseEvent) => {},
   };
 
   useEffect(() => {
@@ -29,27 +27,19 @@ export function Popup() {
   }, []);
 
   function closePopup(e: React.MouseEvent) {
-    if (!e.target.classList.contains('popup')) {
-      e.stopPropagation();
-      return;
+    e.stopPropagation();
+
+    const {classList: targetClassList} = e.target;
+
+    if (
+      targetClassList.contains('popup') ||
+      targetClassList.contains('button')
+    ) {
+      setPopupProps(null);
     }
-
-    hidePopup(e);
-  }
-
-  function hidePopup(e: React.MouseEvent) {
-    setPopupProps(null);
   }
 
   if (popupProps === null) return <div></div>;
-
-  const confirmButtonProps: BaseButtonProps = {
-    value: popupProps.confirmButtonProps.value || '',
-    clickHandler: (e: React.MouseEvent) => {
-      popupProps.confirmButtonProps.clickHandler();
-      hidePopup(e);
-    },
-  };
 
   return (
     <div className="popup" onClick={closePopup}>
@@ -58,7 +48,7 @@ export function Popup() {
         <div className="popup-body">{popupProps.body}</div>
         <div className="popup-footer">
           <Base.Button {...cancelButtonProps} />
-          <Base.Button {...confirmButtonProps} />
+          <Base.Button {...popupProps.confirmButtonProps} />
         </div>
       </div>
     </div>
