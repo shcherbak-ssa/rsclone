@@ -14,5 +14,13 @@
     .original-theme & {
       color: $original-settings-group-title-color;
     }
+
+    .light-theme & {
+      color: $light-settings-group-title-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-settings-group-title-color;
+    }
   }
 }

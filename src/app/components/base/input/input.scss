@@ -15,6 +15,19 @@
     .original-theme & {
       background: $original-input-background-color;
     }
+
+    .light-theme & {
+      background: $light-input-background-color;
+      box-shadow: 0 4px 4px rgba(51, 51, 51, 0.04), 0 4px 16px rgba(51, 51, 51, 0.08);
+
+      &:hover {
+        box-shadow: 0px 4px 4px rgba(51, 51, 51, 0.04), 0px 4px 56px rgba(51, 51, 51, 0.16);
+      }
+    }
+    
+    .dark-theme & {
+      background: $dark-input-background-color;
+    }
   }
 
   &-placeholder {
@@ -24,6 +37,14 @@
 
     .original-theme & {
       color: $original-input-placeholder-color;
+    }
+
+    .light-theme & {
+      color: $light-input-placeholder-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-input-placeholder-color;
     }
   }
 
@@ -37,6 +58,14 @@
     .original-theme & {
       color: $original-input-color;
     }
+
+    .light-theme & {
+      color: $light-input-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-input-color;
+    }
   }
 
   &-error {
@@ -47,11 +76,27 @@
     .original-theme & {
       color: $original-input-error-color;
     }
+
+    .light-theme & {
+      color: $light-input-error-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-input-error-color;
+    }
   }
 
   &-description {
     .original-theme & {
       color: $original-input-description-color;
+    }
+
+    .light-theme & {
+      color: $light-input-description-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-input-description-color;
     }
   }
 

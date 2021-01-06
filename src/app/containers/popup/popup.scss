@@ -15,6 +15,14 @@
     .original-theme & {
       background: $original-popup-background-color;
     }
+
+    .light-theme & {
+      background: $light-popup-background-color;
+    }
+    
+    .dark-theme & {
+      background: $dark-popup-background-color;
+    }
   }
 
   &-header {
@@ -30,6 +38,16 @@
       border-bottom-color: $original-popup-header-border-color;
       color: $original-popup-title-color;
     }
+
+    .light-theme & {
+      border-bottom-color: $light-popup-header-border-color;
+      color: $light-popup-title-color;
+    }
+    
+    .dark-theme & {
+      border-bottom-color: $dark-popup-header-border-color;
+      color: $dark-popup-title-color;
+    }
   }
 
   &-body {
@@ -42,6 +60,14 @@
 
       .original-theme & {
         color: $original-popup-body-text-color;
+      }
+
+      .light-theme & {
+        color: $light-popup-body-text-color;
+      }
+      
+      .dark-theme & {
+        color: $dark-popup-body-text-color;
       }
     }
   }

@@ -11,6 +11,15 @@
     background: $original-settings-section-background-color;
   }
 
+  .light-theme & {
+    background: $light-settings-section-background-color;
+    box-shadow: 0 4px 4px rgba(51, 51, 51, 0.04), 0 4px 16px rgba(51, 51, 51, 0.08);
+  }
+  
+  .dark-theme & {
+    background: $dark-settings-section-background-color;
+  }
+
   &-header {
     display: flex;
     align-items: center;
@@ -24,6 +33,14 @@
     .original-theme & {
       color: $original-settings-section-title-color;
     }
+
+    .light-theme & {
+      color: $light-settings-section-title-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-settings-section-title-color;
+    }
   }
 
   &-content {
@@ -33,6 +50,14 @@
 
     .original-theme & {
       border-top: 0 solid $original-settings-section-line-color;
+    }
+
+    .light-theme & {
+      border-top: 0 solid $light-settings-section-line-color;
+    }
+    
+    .dark-theme & {
+      border-top: 0 solid $dark-settings-section-line-color;
     }
   }
 

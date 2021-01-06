@@ -29,4 +29,30 @@
       color: $original-menu-item-color-active;
     }
   }
+
+  .light-theme & {
+    color: $light-menu-item-color;
+
+    &:hover {
+      background: $light-menu-item-background-color-hover;
+      color: $light-menu-item-color-hover;
+    }
+
+    &.is-active {
+      color: $light-menu-item-color-active;
+    }
+  }
+  
+  .dark-theme & {
+    color: $dark-menu-item-color;
+
+    &:hover {
+      background: $dark-menu-item-background-color-hover;
+      color: $dark-menu-item-color-hover;
+    }
+
+    &.is-active {
+      color: $dark-menu-item-color-active;
+    }
+  }
 }

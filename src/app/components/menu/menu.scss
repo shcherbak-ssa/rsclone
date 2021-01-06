@@ -22,6 +22,14 @@
     .original-theme & {
       color: $original-menu-username-color;
     }
+
+    .light-theme & {
+      color: $light-menu-username-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-menu-username-color;
+    }
   }
 
   &-line {
@@ -30,6 +38,14 @@
 
     .original-theme & {
       background: $original-menu-line-background;
+    }
+
+    .light-theme & {
+      background: $light-menu-line-background;
+    }
+    
+    .dark-theme & {
+      background: $dark-menu-line-background;
     }
   }
 }

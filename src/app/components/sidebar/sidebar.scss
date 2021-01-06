@@ -15,7 +15,15 @@
     -x-size: 42px 1px;
 
     .original-theme & {
-      background: rgba(255, 255, 255, 0.1);
+      background: $original-sidebar-line-background-color;
+    }
+
+    .light-theme & {
+      background: $light-sidebar-line-background-color;
+    }
+    
+    .dark-theme & {
+      background: $dark-sidebar-line-background-color;
     }
   }
 }

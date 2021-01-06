@@ -10,6 +10,14 @@
     .original-theme & {
       background: $original-settings-avatar-container-background-color;
     }
+
+    .light-theme & {
+      background: $light-settings-avatar-container-background-color;
+    }
+    
+    .dark-theme & {
+      background: $dark-settings-avatar-container-background-color;
+    }
   }
 
   &-drop {
@@ -21,6 +29,16 @@
     .original-theme & {
       border-color: $original-settings-avatar-drop-border-color;
       color: $original-settings-avatar-drop-color;
+    }
+
+    .light-theme & {
+      border-color: $light-settings-avatar-drop-border-color;
+      color: $light-settings-avatar-drop-color;
+    }
+    
+    .dark-theme & {
+      border-color: $dark-settings-avatar-drop-border-color;
+      color: $dark-settings-avatar-drop-color;
     }
   }
 
@@ -34,6 +52,14 @@
 
     .original-theme & {
       color: $original-settings-avatar-link-color;
+    }
+
+    .light-theme & {
+      color: $light-settings-avatar-link-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-settings-avatar-link-color;
     }
   }
 

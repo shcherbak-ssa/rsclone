@@ -18,5 +18,13 @@
     .original-theme & {
       color: $original-homepage-section-title-color;
     }
+
+    .light-theme & {
+      color: $light-homepage-section-title-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-homepage-section-title-color;
+    }
   }
 }
