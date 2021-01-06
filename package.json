@@ -39,6 +39,7 @@
     "@babel/preset-react": "^7.12.10",
     "@iconify/icons-ant-design": "^1.1.0",
     "@iconify/icons-clarity": "^1.1.0",
+    "@iconify/icons-eva": "^1.1.0",
     "@iconify/icons-feather": "^1.1.0",
     "@iconify/icons-ic": "^1.1.1",
     "@iconify/icons-uil": "^1.1.1",
