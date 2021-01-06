@@ -17,12 +17,16 @@ export function Popup() {
   const cancelButtonProps: BaseButtonProps = {
     type: ButtonTypes.SECONDARY,
     value: 'Cancel',
-    clickHandler: (e: React.MouseEvent) => {},
+    clickHandler: (e: React.MouseEvent) => {
+      e.stopPropagation();
+      popupController.emit(AppEvents.CLOSE_POPUP);
+    },
   };
 
   useEffect(() => {
     popupController.on(AppEvents.SHOW_POPUP, (currentPopupProps: PopupProps) => {
       setPopupProps(currentPopupProps);
+      popupController.on(AppEvents.CLOSE_POPUP, closePopupHandler);
     });
   }, []);
 
@@ -37,14 +41,14 @@ export function Popup() {
   function closePopup(e: React.MouseEvent) {
     e.stopPropagation();
 
-    const {classList: targetClassList} = e.target;
-
-    if (
-      targetClassList.contains('popup') ||
-      targetClassList.contains('button')
-    ) {
-      setPopupProps(null);
+    if (e.target.classList.contains('popup')) {
+      popupController.emit(AppEvents.CLOSE_POPUP);
     }
+  }
+
+  function closePopupHandler() {
+    setPopupProps(null);
+    popupController.off(AppEvents.CLOSE_POPUP, closePopupHandler);
   }
 
   if (popupProps === null) return <div></div>;

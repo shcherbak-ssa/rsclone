@@ -33,6 +33,7 @@ export function Menu() {
         const localStorageService = new LocalStorageService();
         localStorageService.remove(USER_LOCALSTORAGE_LABEL);
 
+        popupController.emit(AppEvents.CLOSE_POPUP);
         location.replace(location.origin);
       },
     },

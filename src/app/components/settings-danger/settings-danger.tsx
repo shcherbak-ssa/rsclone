@@ -19,7 +19,9 @@ export function SettingsDanger() {
     confirmButtonProps: {
       type: ButtonTypes.DANGER,
       value: 'Delete',
-      clickHandler: () => {},
+      clickHandler: () => {
+        popupController.emit(AppEvents.CLOSE_POPUP);
+      },
     },
   };
 

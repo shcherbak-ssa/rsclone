@@ -36,6 +36,7 @@ enum UserEvents {
 
 enum AppEvents {
   SHOW_POPUP = 'app-events/show-popup',
+  CLOSE_POPUP = 'app-events/close-popup',
 };
 
 export {
