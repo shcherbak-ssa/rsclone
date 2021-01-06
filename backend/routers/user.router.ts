@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { Router } from "express";
 
 import { BaseRouter } from "./base.router";
 import { UsernameParam } from '../params/username.param';

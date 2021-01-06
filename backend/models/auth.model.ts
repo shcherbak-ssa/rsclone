@@ -1,86 +1,53 @@
-import { promises as fsPromises } from 'fs';
 import { join } from 'path';
+import { promises as fsPromises } from 'fs';
 import { Request, Response } from 'express';
 import { checkSchema, validationResult } from 'express-validator';
 
-import { emailValidation, nameValidation, passwordValidation } from '../validation';
+import {
+  emailValidation,
+  nameValidation,
+  passwordValidation,
+  ValidationError,
+} from '../validation';
 import { ResponseSender } from './response.model';
-import { DB_DIRNAME, Language, Theme, USER_DB_FILENAME } from '../constants';
-import { UsernameService } from '../services/username.service';
-import { UserDB, UsersDB } from './types';
+import { DB_DIRNAME, USER_DB_FILENAME } from '../constants';
+import { UsersDB } from './types';
+import { AuthUser } from './auth-user.model';
 
-const REGISTRATION_ERROR: string = 'RegistrationError';
 const EMAIL_INPUT_LABEL: string = 'email';
 
+const emailValidationSchema = {
+  ...emailValidation,
+  exists: {
+    options: { checkFalsy: true },
+    errorMessage: 'E-mail cannot be empty',
+  },
+};
+
+const passwordValidationSchema = {
+  ...passwordValidation,
+  exists: {
+    options: { checkFalsy: true },
+    errorMessage: 'Password cannot be empty',
+  },
+};
+
 export const loginBodySchemaValidator = checkSchema({
-  email: emailValidation,
-  password: passwordValidation,
+  email: emailValidationSchema,
+  password: passwordValidationSchema,
 });
 
 export const registrationBodySchemaValidator = checkSchema({
-  name: nameValidation,
-  email: emailValidation,
-  password: passwordValidation,
+  name: {
+    ...nameValidation,
+    exists: {
+      options: { checkFalsy: true },
+      errorMessage: 'Name cannot be empty',
+    },
+  },
+  email: emailValidationSchema,
+  password: passwordValidationSchema,
 });
-
-interface IUser {
-  name?: string;
-  email: string;
-  password: string;
-}
-
-class User implements IUser {
-  name: string;
-  email: string;
-  password: string;
-  username: string;
-
-  constructor({name = '', email, password}: IUser) {
-    this.name = name;
-    this.email = email.toLowerCase();
-    this.password = password;
-    this.username = this.createUsername();
-  }
-
-  getEmailForCheck() {
-    return this.email;
-  }
-
-  getDataToCreateUserDB(): UserDB {
-    return {
-      spaces: [],
-    }
-  }
-
-  getDataForUsersDB(newUserID: number): UsersDB {
-    return {
-      id: newUserID,
-      name: this.name,
-      email: this.email,
-      password: this.password,
-      username: this.username,
-      avatar: '',
-      theme: Theme.ORIGINAL,
-      language: Language.ENGLISH,
-    }
-  }
-
-  private createUsername() {
-    const usernameService: UsernameService = new UsernameService();
-    return usernameService.createUsername(this.email);
-  }
-}
-
-class AuthError implements Error {
-  name: string = REGISTRATION_ERROR;
-  message: string;
-  payload: any;
-
-  constructor(message: string, payload: any) {
-    this.message = message;
-    this.payload = payload;
-  }
-}
 
 class AuthModel {
   req: Request;
@@ -108,7 +75,7 @@ class AuthModel {
 
     if (!errors.isEmpty()) {
       const {msg: message, param: inputLabel} = errors.array()[0];
-      throw new AuthError(message, {inputLabel});
+      throw new ValidationError(message, {inputLabel});
     }
   }
 
@@ -122,7 +89,7 @@ class AuthModel {
   }
 
   async parseError(error: Error) {
-    if (error instanceof AuthError) {
+    if (error instanceof ValidationError) {
       const {message, payload} = error;
       this.responseSender.sendErrorResponse(message, payload);
     } else {
@@ -143,20 +110,20 @@ export class RegistrationModel extends AuthModel {
   async tryToRun() {
     await super.tryToRun();
 
-    const user: User = new User(this.req.body);
+    const user: AuthUser = new AuthUser(this.req.body);
     await this.checkUserExisting(user);
 
     const {newUserID, username} = await this.createNewUser(user);
     await this.sendResponse(newUserID, username);
   }
 
-  async checkUserExisting(user: User) {
+  async checkUserExisting(user: AuthUser) {
     const usersDB: Array<UsersDB> = await this.readUsersDB();
     const searchUserEmail: string = user.getEmailForCheck();
     const userExist: UsersDB | undefined = usersDB.find((user) => user.email === searchUserEmail);
 
     if (userExist) {
-      throw new AuthError(
+      throw new ValidationError(
         'User with current e-mail is already exist',
         {
           inputLabel: EMAIL_INPUT_LABEL,
@@ -165,7 +132,7 @@ export class RegistrationModel extends AuthModel {
     }
   }
 
-  async createNewUser(user: User) {
+  async createNewUser(user: AuthUser) {
     const usersDB: Array<UsersDB> = await this.readUsersDB();
     
     const newUserID: number = usersDB.length;
@@ -184,7 +151,7 @@ export class RegistrationModel extends AuthModel {
     fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(usersDB, null, 2));
   }
 
-  async createNewUserDB(user: User, username: string) {
+  async createNewUserDB(user: AuthUser, username: string) {
     const newUser = user.getDataToCreateUserDB();
     const newUserDBFilename: string = join(DB_DIRNAME, `@${username}.json`);
 
@@ -204,12 +171,12 @@ export class LoginModel extends AuthModel {
   async tryToRun() {
     await super.tryToRun();
 
-    const user: User = new User(this.req.body);
+    const user: AuthUser = new AuthUser(this.req.body);
     const {userID, username} = await this.findUser(user);
     await this.sendResponse(userID, username);
   }
 
-  async findUser(user: User) {
+  async findUser(user: AuthUser) {
     const usersDB: Array<UsersDB> = await this.readUsersDB();
     const {email, password} = user;
 
@@ -218,7 +185,7 @@ export class LoginModel extends AuthModel {
     });
 
     if (userID < 0) {
-      throw new AuthError('Invalid e-mail or password', {});
+      throw new ValidationError('Invalid e-mail or password', {});
     }
 
     const {username} = usersDB[userID];

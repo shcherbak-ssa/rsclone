@@ -1,5 +1,6 @@
 import { SUCCESS_RESPONSE_TYPE } from "../../constants";
 import { NetworkResponse, NetworkService } from "../../services/network.service";
+import { AppRoutesService } from '../../services/app-routes.service';
 import { dispatchAction } from "../store";
 import { UserStateType, userStore } from "../store/user.store";
 
@@ -13,7 +14,9 @@ export class UserIniterModel {
 
   private async load() {
     const networkService: NetworkService = new NetworkService();
-    return await networkService.get();
+    const appRoutesService: AppRoutesService = new AppRoutesService();
+    const url = appRoutesService.getRootRoutePath();
+    return await networkService.get(url);
   }
 
   private async parseResponse(response: NetworkResponse) {

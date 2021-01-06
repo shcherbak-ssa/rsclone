@@ -1,5 +1,4 @@
 import { USER_LOCALSTORAGE_LABEL } from "../constants";
-import { AppRoutesService } from "./app-routes.service";
 import { LocalStorageService } from "./localstorage.service";
 
 const JSON_CONTENT_TYPE: string = 'application/json';
@@ -34,6 +33,10 @@ class FetchRequest {
     this.setContentType();
   }
 
+  setUrl(url: string) {
+    this.createUrl(url);
+  }
+
   getRequestData(): FetchRequestType {
     return {
       url: this.url,
@@ -43,17 +46,14 @@ class FetchRequest {
     };
   }
 
-  private createUrl() {
+  private createUrl(url?: string) {
     const localStorageService: LocalStorageService = new LocalStorageService();
     const urlParams = new URLSearchParams();
 
     const localStorageUser = localStorageService.get(USER_LOCALSTORAGE_LABEL);
     urlParams.append(USER_ID_URL_PARAM_LABEL, localStorageUser.userID);
 
-    const appRoutesService = new AppRoutesService();
-    const pathname = appRoutesService.getRootRoutePath();
-
-    this.url = `${pathname}?${urlParams.toString()}`;
+    this.url = `${url || location.pathname}?${urlParams.toString()}`;
   }
 
   private setContentType() {
@@ -80,23 +80,30 @@ export type NetworkResponse = {
 }
 
 export class NetworkService {
-  async get() {
-    return await this.sendRequest(Methods.GET);
+  async get(url?: string) {
+    const fetchRequest = new FetchRequest(Methods.GET);
+    
+    if (url) {
+      fetchRequest.setUrl(url);
+    }
+
+    return await this.sendRequest(fetchRequest);
   }
 
   async update(body: any) {
-    return await this.sendRequest(Methods.PUT, body);
+    const fetchRequest = new FetchRequest(Methods.PUT, body);
+    return await this.sendRequest(fetchRequest);
   }
 
   async delete() {
-    return await this.sendRequest(Methods.DELETE);
+    const fetchRequest = new FetchRequest(Methods.DELETE);
+    return await this.sendRequest(fetchRequest);
   }
 
-  private async sendRequest(method: Methods, body?: any) {
+  private async sendRequest(fetchRequest: FetchRequest) {
     try {
-      const fetchRequest = new FetchRequest(method, body);
-      const response = await this.fetchRequest(fetchRequest.getRequestData());
-
+      const requestData = fetchRequest.getRequestData();
+      const response = await this.fetchRequest(requestData);
       return await response.json();
     } catch (error) {
       console.log(error);

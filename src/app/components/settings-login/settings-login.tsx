@@ -26,7 +26,9 @@ export function SettingsLogin() {
         newEmail: emailValue,
         callback: (result) => {
           if (result instanceof ValidationError) {
-            return setEmailError(result.message);
+            setEmailError(result.message);
+          } else {
+            setUnsavedDataExist(false);
           }
         },
       };

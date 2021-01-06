@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 
 import { serverConfig } from './server.config';
 import { AppOptions, App } from './app';
-import { AuthRouter, UserRouter } from './routers';
+import { AuthRouter, UserRouter, SettingsRouter } from './routers';
 import { UsersDB } from './models/types';
 
 declare global {
@@ -21,6 +21,7 @@ const appOptions: AppOptions = {
   routers: [
     AuthRouter.init(),
     UserRouter.init(),
+    SettingsRouter.init(),
   ],
   middlewares: [
     cookieParser(),
