@@ -4,10 +4,9 @@ import './select.scss';
 
 import Icon from '@iconify/react';
 import arrowIcon from '@iconify/icons-eva/arrow-ios-downward-fill';
-import { IS_OPEN_CLASSNAME } from '../../../constants';
+import { IS_OPEN_CLASSNAME, IS_SELECTED_CLASSNAME } from '../../../constants';
 
 const ICON_SIZE: number = 28;
-const IS_SELECTED_CLASSNAME: string = 'is-selected';
 
 type SelectItemType = {
   label: string;

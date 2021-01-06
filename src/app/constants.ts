@@ -1,6 +1,7 @@
 const IS_ACTIVE_CLASSNAME: string = 'is-active';
 const IS_ERROR_CLASSNAME: string = 'is-error';
 const IS_OPEN_CLASSNAME: string = 'is-open';
+const IS_SELECTED_CLASSNAME: string = 'is-selected';
 
 const EMPTY_VALUE_LENGTH: number = 0;
 
@@ -47,25 +48,11 @@ enum SettingsEvents {
   REMOVE_SETTINGS = 'settings-events/remove-settings',
 };
 
-const languages = [
-  {
-    label: 'en',
-    value: 'English',
-  },
-  {
-    label: 'ru',
-    value: 'Russian',
-  },
-  {
-    label: 'it',
-    value: 'Italian',
-  },
-];
-
 export {
   IS_ACTIVE_CLASSNAME,
   IS_ERROR_CLASSNAME,
   IS_OPEN_CLASSNAME,
+  IS_SELECTED_CLASSNAME,
   EMPTY_VALUE_LENGTH,
   Theme,
   ButtonTypes,
@@ -74,5 +61,4 @@ export {
   UserEvents,
   AppEvents,
   SettingsEvents,
-  languages,
 };

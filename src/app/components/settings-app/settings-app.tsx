@@ -6,13 +6,18 @@ import { SettingsSection, SettingsSectionProps } from '../../containers/settings
 import { SettingsGroupProps, SettingsGroup } from '../../containers/settings-group';
 import { Base, BaseSelectProps } from '../base';
 import { storeSelectors } from '../../store';
-import { languages, SettingsEvents } from '../../constants';
+import { SettingsEvents } from '../../constants';
 import { UpdatedAppType } from '../../models/settings.model';
 import { settingsController } from '../../controllers/settings.controller';
+import { SettingsTheme, SettingsThemeProps } from '../settings-theme/settings-theme';
+
+import { languages } from '../../data/languages';
+import { themes } from '../../data/themes';
 
 export function SettingsApp() {
-  const {language} = useSelector(storeSelectors.user.get());
-  const [selectedLanguage, setSelectedLanguage] = useState(getSelectedLanguage(language));
+  const {language: currentLanguageLabel, theme: currentThemeLabel} = useSelector(storeSelectors.user.get());
+  const [selectedLanguage, setSelectedLanguage] = useState(getSelectedValue(languages, currentLanguageLabel));
+  const [selectedTheme, setSelectedTheme] = useState(getSelectedValue(themes, currentThemeLabel));
   const [unsavedDataExist, setUnsavedDataExist] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
@@ -21,7 +26,7 @@ export function SettingsApp() {
     unsavedDataExist,
     saveButtonClickHanlder: () => {
       const updatedApp: UpdatedAppType = {
-        language: selectedLanguage.label === language ? undefined : selectedLanguage.label,
+        language: selectedLanguage.label === currentLanguageLabel ? undefined : selectedLanguage.label,
         callback: () => {
           setUnsavedDataExist(false);
         }
@@ -38,8 +43,8 @@ export function SettingsApp() {
     updateSelectedItem: (label: string) => {
       if (label === selectedLanguage.label) return;
       
-      setSelectedLanguage(getSelectedLanguage(label));
-      setUnsavedDataExist(label !== language);
+      setSelectedLanguage(getSelectedValue(languages, label));
+      setUnsavedDataExist(label !== currentLanguageLabel);
     },
   };
 
@@ -47,14 +52,27 @@ export function SettingsApp() {
     title: 'Theme',
   };
 
-  function getSelectedLanguage(currentLanguageLabel) {
-    return languages.find((lang) => lang.label === currentLanguageLabel)
+  const settingsThemeProps: SettingsThemeProps = {
+    selected: selectedTheme.label,
+    items: themes,
+    selectItem: (label: string) => {
+      if (label === selectedTheme.label) return;
+      
+      setSelectedTheme(getSelectedValue(themes, label));
+      setUnsavedDataExist(label !== currentThemeLabel);
+    },
+  };
+
+  function getSelectedValue(from, label) {
+    return from.find((item) => item.label === label);
   }
 
   return (
     <SettingsSection {...settingsSectionProps}>
       <Base.Select {...selectProps} />
-      <SettingsGroup {...settingsGroupProps}></SettingsGroup>
+      <SettingsGroup {...settingsGroupProps}>
+        <SettingsTheme {...settingsThemeProps} />
+      </SettingsGroup>
     </SettingsSection>
   );
 }

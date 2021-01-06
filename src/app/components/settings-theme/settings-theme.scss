@@ -1,0 +1,22 @@
+@import '../../../styles/assets.scss';
+
+.settings-theme {
+  display: flex;
+  width: 100%;
+
+  &-item {
+    &:not(:last-child) {
+      margin-right: 24px;
+    }
+  }
+
+  &-view {
+    background: {
+      repeat: no-repeat;
+      size: cover;
+      position: center;
+    };
+    margin-bottom: 16px;
+    -x-size: 180px 126px;
+  }
+}

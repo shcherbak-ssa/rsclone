@@ -1,0 +1,61 @@
+@import '../../../../styles/assets.scss';
+
+.radio {
+  display: flex;
+  width: 100%;
+
+  &-label {
+    margin-right: 12px;
+    transition: .2s;
+    -x-size: 24px;
+
+    .original-theme & {
+      background: $original-radio-label-background-color;
+    }
+
+    span {
+      display: none;
+      -x-size: 10px;
+
+      .original-theme & {
+        background: $original-radio-span-background-color;
+      }
+    }
+  }
+
+  &-description {
+    -x-font-size: 16px/24px;
+
+    .original-theme & {
+      color: $original-radio-description-color;
+    }
+  }
+
+  &-label, &-label span {
+    border-radius: 50%;
+  }
+
+  &:hover {
+    .radio {
+      &-label {
+        .original-theme & {
+          background: $original-radio-label-hover-background-color;
+        }
+      }
+    }
+  }
+
+  &.is-selected {
+    .radio {
+      &-label {
+        .original-theme & {
+          background: $original-radio-label-selected-background-color;
+        }
+
+        span {
+          display: block;
+        }
+      }
+    }
+  }
+}
