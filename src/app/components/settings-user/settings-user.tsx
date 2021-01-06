@@ -9,7 +9,7 @@ import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
 import { UpdatedUserType } from '../../models/settings.model';
 import { ValidationError } from '../../../services/validation.service';
-import { InputLabels } from '../../../constants';
+import { ERROR_RESPONSE_TYPE, InputLabels } from '../../../constants';
 import { settingsController } from '../../controllers/settings.controller';
 import { SettingsEvents } from '../../constants';
 
@@ -27,8 +27,8 @@ export function SettingsUser() {
     unsavedDataExist,
     saveButtonClickHanlder: () => {
       const updatedUser: UpdatedUserType = {
-        newName: nameValue === name ? '' : nameValue,
-        newUsername: usernameValue === username ? '' : usernameValue,
+        newName: nameValue === name ? undefined : nameValue,
+        newUsername: usernameValue === username ? undefined : usernameValue,
         callback: (result) => {
           if (result instanceof ValidationError) {
             const {message, payload} = result;

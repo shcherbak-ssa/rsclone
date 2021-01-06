@@ -1,4 +1,5 @@
-import { InputLabels, SUCCESS_RESPONSE_TYPE } from "../../constants";
+import { ERROR_RESPONSE_TYPE, InputLabels, SUCCESS_RESPONSE_TYPE, USER_LOCALSTORAGE_LABEL } from "../../constants";
+import { LocalStorageService } from "../../services/localstorage.service";
 import { NetworkResponse, NetworkService } from "../../services/network.service";
 import { ValidationError, ValidationService } from "../../services/validation.service";
 import { dispatchAction } from "../store";
@@ -26,13 +27,13 @@ export class SettingsModel {
   async updateUser({newName, newUsername, callback}: UpdatedUserType) {
     const updatedData = [];
 
-    if (newName) {
+    if (newName !== undefined) {
       updatedData.push({
         value: newName, inputLabel: InputLabels.NAME_INPUT_LABEL,
       });
     }
 
-    if (newUsername) {
+    if (newUsername !== undefined) {
       updatedData.push({
         value: newUsername, inputLabel: InputLabels.USERNAME_INPUT_LABEL,
       });
@@ -48,8 +49,15 @@ export class SettingsModel {
       }
 
       if (username) {
-        dispatchAction(updateData(InputLabels.USERNAME_INPUT_LABEL, username));
+        const localStorageService = new LocalStorageService();
+        const {userID} = localStorageService.get(USER_LOCALSTORAGE_LABEL);
+
+        localStorageService.save(USER_LOCALSTORAGE_LABEL, {userID, username});
+        location.replace(location.origin);
       }
+    } else if (result.type === ERROR_RESPONSE_TYPE) {
+      const {message, payload} = result;
+      return callback(new ValidationError(message, payload));
     }
 
     callback(result);

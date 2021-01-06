@@ -1,14 +1,26 @@
-import { promises as fsPromises } from 'fs';
+import { existsSync, promises as fsPromises } from 'fs';
 import { NextFunction, Request, Response } from 'express';
 import { Schema, validationResult } from 'express-validator';
 
 import { UsersDB } from './types';
-import { USER_DB_FILENAME } from '../constants';
+import { DB_DIRNAME, USER_DB_FILENAME } from '../constants';
 import { ResponseSender } from './response.model';
-import { emailValidation, ValidationError } from '../validation';
+import {
+  usernameValidation,
+  passwordValidation,
+  emailValidation,
+  nameValidation,
+  ValidationError,
+} from '../validation';
+import { join } from 'path';
+
+const USERNAME_LABEL: string = 'username';
 
 export const settingsValidationSchema: Schema = {
+  name: nameValidation,
   email: emailValidation,
+  password: passwordValidation,
+  username: usernameValidation,
 };
 
 export class SettingsModel {
@@ -57,7 +69,31 @@ export class SettingsModel {
   }
 
   async update(user: UsersDB, requestBody: any) {
+    if (USERNAME_LABEL in requestBody) {
+      const {username} = requestBody;
+
+      await this.checkNewUsernameExisting(username);
+      await this.renameUserDB(user.username, username);
+    }
+
     return {...user, ...requestBody};
+  }
+
+  async checkNewUsernameExisting(newUsername: string) {
+    const newUsernameFilename = join(DB_DIRNAME, `@${newUsername}.json`);
+
+    if (existsSync(newUsernameFilename)) {
+      throw new ValidationError(
+        'User with current username is already exist',
+        { inputLabel: USERNAME_LABEL },
+      );
+    }
+  }
+
+  async renameUserDB(currentUsername: string, newUsername: string) {
+    const currentUsernameFilename = join(DB_DIRNAME, `@${currentUsername}.json`);
+    const newUsernameFilename = join(DB_DIRNAME, `@${newUsername}.json`);
+    await fsPromises.rename(currentUsernameFilename, newUsernameFilename);
   }
 
   async saveUpdatedUserToDB(updatedUser: UsersDB) {
