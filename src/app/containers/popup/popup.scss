@@ -4,7 +4,7 @@
   background: rgba(17, 17, 17, 0.5);
   z-index: 9999;
   -x-size: 100%;
-  -x-position: absolute 0 x x 0;
+  -x-position: fixed 0 x x 0;
   
   &-container {
     border-radius: 4px;
@@ -37,6 +37,7 @@
 
     &-text {
       padding: 16px 12px;
+      text-align: center;
       -x-font-size: 18px/24px;
 
       .original-theme & {

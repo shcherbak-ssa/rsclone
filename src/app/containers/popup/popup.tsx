@@ -26,6 +26,14 @@ export function Popup() {
     });
   }, []);
 
+  useEffect(() => {
+    if (popupProps === null) {
+      document.body.style.overflow = '';
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
+  }, [popupProps]);
+
   function closePopup(e: React.MouseEvent) {
     e.stopPropagation();
 
