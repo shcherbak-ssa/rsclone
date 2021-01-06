@@ -44,7 +44,9 @@ export function SettingsApp() {
       if (label === selectedLanguage.label) return;
       
       setSelectedLanguage(getSelectedValue(languages, label));
-      setUnsavedDataExist(label !== currentLanguageLabel);
+      setUnsavedDataExist(
+        label !== currentLanguageLabel || selectedTheme.label !== currentThemeLabel
+      );
     },
   };
 
@@ -59,11 +61,13 @@ export function SettingsApp() {
       if (label === selectedTheme.label) return;
       
       setSelectedTheme(getSelectedValue(themes, label));
-      setUnsavedDataExist(label !== currentThemeLabel);
+      setUnsavedDataExist(
+        label !== currentThemeLabel || selectedLanguage.label !== currentLanguageLabel
+      );
     },
   };
 
-  function getSelectedValue(from, label) {
+  function getSelectedValue(from, label: string) {
     return from.find((item) => item.label === label);
   }
 

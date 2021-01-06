@@ -53,7 +53,7 @@ export function SettingsUser() {
     error: nameError,
     updateValue: (value: string) => {
       setNameValue(value);
-      setUnsavedDataExist(value !== name);
+      setUnsavedDataExist(value !== name || usernameValue !== username);
 
       if (nameError) {
         setNameError('');
@@ -68,7 +68,7 @@ export function SettingsUser() {
     description: 'Your username is used as prefix for your personal spaces',
     updateValue: (value: string) => {
       setUsernameValue(value);
-      setUnsavedDataExist(value !== username);
+      setUnsavedDataExist(value !== username || nameValue !== name);
 
       if (usernameError) {
         setUsernameError('');
