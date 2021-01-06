@@ -1,8 +1,7 @@
 import { dispatchAction, storeStates } from "../store";
 import { InputsStateType, inputsStore } from "../store/inputs.store";
-import { AuthValidationService } from "../../services/auth-validation.service";
-import { InputLabels } from "../constants";
-import { AuthError } from "../errors/auth.error";
+import { ValidationError, ValidationService } from "../../services/validation.service";
+import { InputLabels } from "../../constants";
 import { Response } from "./response.model";
 import { LocalStorageService } from "../../services/localstorage.service";
 import { USER_LOCALSTORAGE_LABEL, ERROR_RESPONSE_TYPE } from "../../constants";
@@ -49,10 +48,10 @@ class AuthModel {
   }
 
   async validateInputs() {
-    const authValidationService: AuthValidationService = new AuthValidationService();
+    const validationService: ValidationService = new ValidationService();
 
     for (const [, {value, inputLabel}] of Object.entries(this.inputs)) {
-      authValidationService.validate(value.trim(), inputLabel);
+      validationService.validate(value.trim(), inputLabel);
     }
   }
 
@@ -79,7 +78,7 @@ class AuthModel {
   checkResponse(response: Response) {
     if (response.type === ERROR_RESPONSE_TYPE) {
       const {message, payload} = response;
-      throw new AuthError(message, payload);
+      throw new ValidationError(message, payload);
     }
   }
 
@@ -89,7 +88,7 @@ class AuthModel {
   }
 
   parseError(error: Error) {
-    if (error instanceof AuthError) {
+    if (error instanceof ValidationError) {
       const {message, payload} = error;
       
       if (payload.inputLabel) {
@@ -125,11 +124,11 @@ export class LoginModel extends AuthModel {
   }
 
   async validateInputs() {
-    const authValidationService: AuthValidationService = new AuthValidationService();
+    const validationService: ValidationService = new ValidationService();
 
     for (const [label, {value, inputLabel}] of Object.entries(this.inputs)) {
       if (label === InputLabels.NAME_INPUT_LABEL) continue;
-      authValidationService.validate(value.trim(), inputLabel);
+      validationService.validate(value.trim(), inputLabel);
     }
   }
 

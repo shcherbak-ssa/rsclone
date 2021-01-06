@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import './input.scss';
 
+import { InputLabels } from '../../../constants';
+import { IS_ERROR_CLASSNAME } from '../../constants';
 import { AssetsService } from '../../../services/assets.service';
-import { InputLabels, IS_ERROR_CLASSNAME } from '../../constants';
 import { storeSelectors } from '../../store';
 import { authController } from '../../controllers/auth.controller';
 

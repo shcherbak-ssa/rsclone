@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InputLabels } from '../constants';
+import { InputLabels } from '../../constants';
 import { Input, InputProps } from '../containers/input';
 import { authController } from '../controllers/auth.controller';
 

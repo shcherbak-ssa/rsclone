@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputLabels } from '../constants';
+import { InputLabels } from '../../constants';
 import { Input, InputProps } from '../containers/input';
 
 export function InputName() {

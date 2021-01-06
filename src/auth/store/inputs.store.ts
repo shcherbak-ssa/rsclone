@@ -1,4 +1,4 @@
-import { InputLabels } from '../constants';
+import { InputLabels } from '../../constants';
 
 enum Constants {
   UPDATE_VALUE = 'inputs-store/update-value',
