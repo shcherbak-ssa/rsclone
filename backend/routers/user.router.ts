@@ -6,6 +6,7 @@ import { UserModel } from "../models/user.model";
 
 enum UserPathnames {
   GET_USER = '/@:username/',
+  DELETE_USER = '/@:username/',
 };
 
 export class UserRouter implements BaseRouter {
@@ -19,10 +20,14 @@ export class UserRouter implements BaseRouter {
   initRouter() {
     UsernameParam.init(this.router);
 
-    this.router.get(UserPathnames.GET_USER, this.getUser.bind(this));
-  }
-
-  private async getUser(req: Request, res: Response, next: NextFunction) {
-    this.userModel.getUser(req, res, next);
+    this.router
+      .get(
+        UserPathnames.GET_USER,
+        this.userModel.getUser.bind(this.userModel),
+      )
+      .delete(
+        UserPathnames.DELETE_USER,
+        this.userModel.deleteUser.bind(this.userModel),
+      );
   }
 }
