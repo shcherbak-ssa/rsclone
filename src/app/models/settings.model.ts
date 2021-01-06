@@ -4,7 +4,7 @@ import { ValidationError, ValidationService } from "../../services/validation.se
 import { dispatchAction } from "../store";
 import { userStore } from "../store/user.store";
 
-const {updateEmail} = userStore.actions;
+const {updateData} = userStore.actions;
 
 type SettingsType = {
   value: string;
@@ -16,7 +16,45 @@ export type UpdatedEmailType = {
   callback: Function;
 };
 
+export type UpdatedUserType = {
+  newName?: string;
+  newUsername?: string;
+  callback: Function;
+};
+
 export class SettingsModel {
+  async updateUser({newName, newUsername, callback}: UpdatedUserType) {
+    const updatedData = [];
+
+    if (newName) {
+      updatedData.push({
+        value: newName, inputLabel: InputLabels.NAME_INPUT_LABEL,
+      });
+    }
+
+    if (newUsername) {
+      updatedData.push({
+        value: newUsername, inputLabel: InputLabels.USERNAME_INPUT_LABEL,
+      });
+    }
+
+    const result: NetworkResponse = await this.startUpdating(updatedData);
+
+    if (result.type === SUCCESS_RESPONSE_TYPE) {
+      const {name, username} = result.payload;
+
+      if (name) {
+        dispatchAction(updateData(InputLabels.NAME_INPUT_LABEL, name));
+      }
+
+      if (username) {
+        dispatchAction(updateData(InputLabels.USERNAME_INPUT_LABEL, username));
+      }
+    }
+
+    callback(result);
+  }
+
   async updateEmail({newEmail, callback}: UpdatedEmailType) {
     const updatedData = [{
       value: newEmail, inputLabel: InputLabels.EMAIL_INPUT_LABEL,
@@ -25,7 +63,7 @@ export class SettingsModel {
 
     if (result.type === SUCCESS_RESPONSE_TYPE) {
       const {email} = result.payload;
-      dispatchAction(updateEmail(email));
+      dispatchAction(updateData(InputLabels.EMAIL_INPUT_LABEL, email));
     }
 
     callback(result);

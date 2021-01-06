@@ -41,6 +41,7 @@ enum AppEvents {
 enum SettingsEvents {
   INIT_SETTINGS = 'settings-events/init',
   UPDATE_EMAIL = 'settings-events/update-email',
+  UPDATE_USER = 'settings-events/update-user',
   REMOVE_SETTINGS = 'settings-events/remove-settings',
 };
 

@@ -7,17 +7,40 @@ import { SettingsGroup, SettingsGroupProps } from '../../containers/settings-gro
 import { SettingsAvatar } from '../settings-avatar';
 import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
+import { UpdatedUserType } from '../../models/settings.model';
+import { ValidationError } from '../../../services/validation.service';
+import { InputLabels } from '../../../constants';
+import { settingsController } from '../../controllers/settings.controller';
+import { SettingsEvents } from '../../constants';
 
 export function SettingsUser() {
   const {name, username} = useSelector(storeSelectors.user.get());
   const [nameValue, setNameValue] = useState(name);
+  const [nameError, setNameError] = useState('');
   const [usernameValue, setUsernameValue] = useState(username);
+  const [usernameError, setUsernameError] = useState('');
+  const [unsavedDataExist, setUnsavedDataExist] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
     title: 'User',
-    unsavedDataExist: false,
-    saveButtonClickHanlder: () => {},
+    unsavedDataExist,
+    saveButtonClickHanlder: () => {
+      const updatedUser: UpdatedUserType = {
+        newName: nameValue === name ? '' : nameValue,
+        newUsername: usernameValue === username ? '' : usernameValue,
+        callback: (result) => {
+          if (result instanceof ValidationError) {
+            const {message, payload} = result;
+            updateError(message, payload.inputLabel);
+          } else {
+            setUnsavedDataExist(false);
+          }
+        }
+      };
+
+      settingsController.emit(SettingsEvents.UPDATE_USER, updatedUser);
+    },
   };
 
   const settingsGroupProps: SettingsGroupProps = {
@@ -27,21 +50,42 @@ export function SettingsUser() {
   const nameInputProps: BaseInputProps = {
     value: nameValue,
     placeholder: 'Your name',
-    error: '',
+    error: nameError,
     updateValue: (value: string) => {
       setNameValue(value);
+      setUnsavedDataExist(value !== name);
+
+      if (nameError) {
+        setNameError('');
+      }
     },
   };
 
   const usernameInputProps: BaseInputProps = {
     value: usernameValue,
     placeholder: 'Username',
-    error: '',
+    error: usernameError,
     description: 'Your username is used as prefix for your personal spaces',
     updateValue: (value: string) => {
       setUsernameValue(value);
+      setUnsavedDataExist(value !== username);
+
+      if (usernameError) {
+        setUsernameError('');
+      }
     },
   };
+
+  function updateError(message: string, inputLabel: InputLabels) {
+    switch (inputLabel) {
+      case InputLabels.NAME_INPUT_LABEL:
+        setNameError(message);
+        break;
+      case InputLabels.USERNAME_INPUT_LABEL:
+        setUsernameError(message);
+        break;
+    }
+  }
 
   return (
     <SettingsSection {...settingsSectionProps}>

@@ -17,6 +17,7 @@ export class Events {
     eventHandlers.push(handler);
     
     this.events.set(event, eventHandlers);
+
     return this;
   }
 
@@ -25,6 +26,8 @@ export class Events {
 
     const eventHandlers: Array<Function> = this.getEventHandlers(event);
     this.removeHandler(eventHandlers, handler);
+
+    return this;
   }
 
   emit(event: string, payload?: any) {
