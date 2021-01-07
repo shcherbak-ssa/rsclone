@@ -3,11 +3,14 @@
 .sidebar {
   justify-content: space-between;
   padding: 12px 0 24px;
+  z-index: 99;
   -x-size: 72px 100%;
   -x-position: fixed 0 x x 0;
 
   &-icons {
     align-items: center;
+    z-index: 99;
+    position: relative;
   }
 
   &-line {
