@@ -4,8 +4,6 @@ import { ValidationError, ValidationService } from "../../services/validation.se
 import { dispatchAction } from "../store";
 import { userStore } from "../store/user.store";
 
-const {updateData} = userStore.actions;
-
 type SettingsType = {
   value: string;
   inputLabel: InputLabels;
@@ -47,7 +45,7 @@ export class SettingsModel {
   }
 
   protected dispatchStateAction(inputLabel: InputLabels, value: string) {
-    dispatchAction(updateData(inputLabel, value));
+    dispatchAction(userStore.actions.updateData(inputLabel, value));
   }
 
   private parseError(error: Error) {

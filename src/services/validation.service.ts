@@ -4,8 +4,8 @@ const EMPTY_FIELD_LENGTH: number = 0;
 const MAX_FIELD_LENGTH: number = 127;
 const MIN_PASSWORD_LENGTH: number = 8;
 
-const NAME_REGEXP: RegExp = /[-<>(){}!#$%^&*_=+[\]\.,;:@\"]/g;
-const USERNAME_REGEXP: RegExp = /[<>(){}!#$%^&*=+[\]\.,;:@\"\s]/g;
+const NAME_REGEXP: RegExp = /[-<>(){}!#$%^&*_=+[\]\.,;:@\"]/;
+const USERNAME_REGEXP: RegExp = /[<>(){}!#$%^&*=+[\]\.,;:@\"\s]/;
 const EMAIL_REGEXP: RegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 const VALIDATION_ERROR_NAME: string = 'ValidationError';

@@ -1,7 +1,7 @@
 import { SettingsEvents } from '../constants';
 import { Events } from '../../services/events.service';
 
-import { SettingsUserModel, SettingsUserType } from '../models/settings-user.model';
+import { SettingsUserModel, UpdatedUserSettingsType } from '../models/settings-user.model';
 import { UpdatedEmailType, SettingsLoginModel } from '../models/settings-login.model';
 import { SettingsAppModel, UpdatedAppSettingsType } from '../models/settings-app.model';
 
@@ -37,8 +37,8 @@ function removeSettingsHandler() {
   settingsAppModel = null;
 }
 
-async function updateUserHandler(updatedUser: SettingsUserType) {
-  await settingsUserModel.updateUser(updatedUser);
+async function updateUserHandler(updatedUserSettings: UpdatedUserSettingsType) {
+  await settingsUserModel.updateSettings(updatedUserSettings);
 }
 
 async function updateEmailHandler(updatedEmail: UpdatedEmailType) {

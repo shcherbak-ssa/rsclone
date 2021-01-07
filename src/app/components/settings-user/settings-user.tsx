@@ -7,7 +7,7 @@ import { SettingsGroup, SettingsGroupProps } from '../../containers/settings-gro
 import { SettingsAvatar } from '../settings-avatar';
 import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
-import { UpdatedUserType } from '../../models/settings.model';
+import { UpdatedUserSettingsType } from '../../models/settings-user.model';
 import { ValidationError } from '../../../services/validation.service';
 import { InputLabels } from '../../../constants';
 import { settingsController } from '../../controllers/settings.controller';
@@ -26,17 +26,16 @@ export function SettingsUser() {
     title: 'User',
     unsavedDataExist,
     saveButtonClickHanlder: () => {
-      const updatedUser: UpdatedUserType = {
+      const updatedUser: UpdatedUserSettingsType = {
         newName: nameValue === name ? undefined : nameValue,
         newUsername: usernameValue === username ? undefined : usernameValue,
-        callback: (result) => {
-          if (result instanceof ValidationError) {
-            const {message, payload} = result;
-            updateError(message, payload.inputLabel);
-          } else {
-            setUnsavedDataExist(false);
-          }
-        }
+        successCallback: () => {
+          setUnsavedDataExist(false);
+        },
+        errorCallback: (result: ValidationError) => {
+          const {message, payload} = result;
+          updateError(message, payload.inputLabel);
+        },
       };
 
       settingsController.emit(SettingsEvents.UPDATE_USER, updatedUser);
