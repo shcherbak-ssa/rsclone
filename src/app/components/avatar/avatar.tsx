@@ -8,10 +8,10 @@ const DEFAULT_AVATAR_SIZE: number = 46;
 
 type AvatarProps = {
   size?: number,
-  avatarBlob?: ArrayBuffer,
+  avatarArrayBuffer?: string,
 };
 
-export function Avatar({size = DEFAULT_AVATAR_SIZE, avatarBlob}: AvatarProps) {
+export function Avatar({size = DEFAULT_AVATAR_SIZE, avatarArrayBuffer}: AvatarProps) {
   const {name, avatar} = useSelector(storeSelectors.user.get());
   const assetsService = new AssetsService();
 
@@ -38,9 +38,11 @@ export function Avatar({size = DEFAULT_AVATAR_SIZE, avatarBlob}: AvatarProps) {
     return `${firstLetterOfFirstName}${firstLetterOfLastName}`.toUpperCase();
   }
 
-  if (avatar || avatarBlob) {
-    const imageUrl = assetsService.getAvatarImageUrl(avatar || avatarBlob);
+  if (avatar) {
+    const imageUrl = assetsService.getAvatarImageUrl(avatar);
     return <div className="avatar" style={setSizeStyles(imageUrl)}></div>;
+  } else if (avatarArrayBuffer) {
+    return <div className="avatar" style={setSizeStyles(avatarArrayBuffer)}></div>;
   } else {
     return (
       <div className="avatar" style={setSizeStyles()} data-class="flex-center">

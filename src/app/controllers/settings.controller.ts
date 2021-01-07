@@ -1,13 +1,20 @@
 import { SettingsEvents } from '../constants';
 import { Events } from '../../services/events.service';
 
-import { SettingsUserModel, UpdatedUserSettingsType } from '../models/settings-user.model';
+import {
+  SettingsAppModel,
+  UpdatedAppSettingsType,
+} from '../models/settings-app.model';
+import {
+  UpdatedUserAvatarType,
+  SettingsUserModel,
+  UpdatedUserSettingsType,
+} from '../models/settings-user.model';
 import {
   UpdatedLoginSettingsType,
   SettingsLoginModel,
   ConfirmPasswordType,
 } from '../models/settings-login.model';
-import { SettingsAppModel, UpdatedAppSettingsType } from '../models/settings-app.model';
 
 export const settingsController: Events = new Events();
 
@@ -26,6 +33,7 @@ function initSettingsHandler() {
 
   settingsController
     .on(SettingsEvents.UPDATE_USER, updateUserHandler)
+    .on(SettingsEvents.UPDATE_USER_AVATAR, updateUserAvatarHandler)
     .on(SettingsEvents.UPDATE_LOGIN, updateLoginHandler)
     .on(SettingsEvents.CONFIRM_PASSWORD, confirmPasswordHandler)
     .on(SettingsEvents.UPDATE_APP, updateAppHandler);
@@ -34,6 +42,7 @@ function initSettingsHandler() {
 function removeSettingsHandler() {
   settingsController
     .off(SettingsEvents.UPDATE_USER, updateUserHandler)
+    .off(SettingsEvents.UPDATE_USER_AVATAR, updateUserAvatarHandler)
     .off(SettingsEvents.UPDATE_LOGIN, updateLoginHandler)
     .off(SettingsEvents.CONFIRM_PASSWORD, confirmPasswordHandler)
     .off(SettingsEvents.UPDATE_APP, updateAppHandler);
@@ -45,6 +54,10 @@ function removeSettingsHandler() {
 
 async function updateUserHandler(updatedUserSettings: UpdatedUserSettingsType) {
   await settingsUserModel.updateSettings(updatedUserSettings);
+}
+
+async function updateUserAvatarHandler(updatedUserAvatar: UpdatedUserAvatarType) {
+  await settingsUserModel.updateUserAvatar(updatedUserAvatar);
 }
 
 async function updateLoginHandler(updatedLoginSettings: UpdatedLoginSettingsType) {

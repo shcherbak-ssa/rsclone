@@ -29,8 +29,8 @@ export function SettingsLogin() {
     unsavedDataExist,
     saveButtonClickHanlder: () => {
       const updatedLoginSettings: UpdatedLoginSettingsType = {
-        newEmail: emailValue === email ? undefined : emailValue,
-        newPassword: passwordValue === '' ? undefined : passwordValue,
+        newEmail: emailValue.trim() === email ? undefined : emailValue.trim(),
+        newPassword: passwordValue.trim() === '' ? undefined : passwordValue.trim(),
         successCallback: () => {
           setUnsavedDataExist(false);
         },

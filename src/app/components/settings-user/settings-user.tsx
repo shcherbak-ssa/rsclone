@@ -7,7 +7,7 @@ import { SettingsGroup, SettingsGroupProps } from '../../containers/settings-gro
 import { SettingsAvatar, SettingsAvatarProps } from '../settings-avatar';
 import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
-import { UpdatedUserSettingsType } from '../../models/settings-user.model';
+import { UpdatedUserAvatarType, UpdatedUserSettingsType } from '../../models/settings-user.model';
 import { ValidationError } from '../../../services/validation.service';
 import { InputLabels } from '../../../constants';
 import { settingsController } from '../../controllers/settings.controller';
@@ -20,7 +20,9 @@ export function SettingsUser() {
   const [usernameValue, setUsernameValue] = useState(username);
   const [usernameError, setUsernameError] = useState('');
   const [unsavedDataExist, setUnsavedDataExist] = useState(false);
-  const [avatarBlob, setAvatarBlob] = useState(null);
+  const [avatarUserFile, setAvatarUserFile] = useState(null);
+  const [avatarArrayBuffer, setAvatarArrayBuffer] = useState(null);
+  const [loadedFilename, setLoadedFilename] = useState('');
 
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
@@ -28,10 +30,12 @@ export function SettingsUser() {
     unsavedDataExist,
     saveButtonClickHanlder: () => {
       const updatedUser: UpdatedUserSettingsType = {
-        newName: nameValue === name ? undefined : nameValue,
-        newUsername: usernameValue === username ? undefined : usernameValue,
+        newName: nameValue.trim() === name ? undefined : nameValue.trim(),
+        newUsername: usernameValue.trim() === username ? undefined : usernameValue.trim(),
         successCallback: () => {
-          setUnsavedDataExist(false);
+          if (avatarUserFile === null) {
+            setUnsavedDataExist(false);
+          }
         },
         errorCallback: (result: ValidationError) => {
           const {message, payload} = result;
@@ -40,12 +44,35 @@ export function SettingsUser() {
       };
 
       settingsController.emit(SettingsEvents.UPDATE_USER, updatedUser);
+
+      if (avatarUserFile !== null) {
+        const updatedUserAvatar: UpdatedUserAvatarType = {
+          avatarUserFile,
+          successCallback: () => {
+            setAvatarUserFile(null);
+            setAvatarArrayBuffer(null);
+            setLoadedFilename('');
+
+            if (nameValue.trim() === name && usernameValue.trim() === username) {
+              setUnsavedDataExist(false);
+            }
+          },
+        };
+
+        settingsController.emit(SettingsEvents.UPDATE_USER_AVATAR, updatedUserAvatar);
+      }
     },
   };
 
   const settingsAvatarProps: SettingsAvatarProps = {
-    avatarBlob,
-    setAvatarBlob,
+    avatarArrayBuffer,
+    loadedFilename,
+    setAvatarArrayBuffer,
+    setLoadedFilename,
+    setAvatarUserFile: (blob: Blob) => {
+      setAvatarUserFile(blob);
+      setUnsavedDataExist(nameValue !== name || usernameValue !== username || blob !== null);
+    },
   };
 
   const settingsGroupProps: SettingsGroupProps = {
@@ -58,7 +85,7 @@ export function SettingsUser() {
     error: nameError,
     updateValue: (value: string) => {
       setNameValue(value);
-      setUnsavedDataExist(value !== name || usernameValue !== username);
+      setUnsavedDataExist(value !== name || usernameValue !== username || avatarUserFile !== null);
 
       if (nameError) {
         setNameError('');
@@ -73,7 +100,7 @@ export function SettingsUser() {
     description: 'Your username is used as prefix for your personal spaces',
     updateValue: (value: string) => {
       setUsernameValue(value);
-      setUnsavedDataExist(value !== username || nameValue !== name);
+      setUnsavedDataExist(value !== username || nameValue !== name || avatarUserFile !== null);
 
       if (usernameError) {
         setUsernameError('');

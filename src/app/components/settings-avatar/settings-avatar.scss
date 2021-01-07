@@ -95,6 +95,22 @@
     }
   }
 
+  &-error {
+    margin-top: 12px;
+
+    .original-theme & {
+      color: $original-input-error-color;
+    }
+
+    .light-theme & {
+      color: $light-input-error-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-input-error-color;
+    }
+  }
+
   &-container, &-drop {
     border-radius: 3px;
   }

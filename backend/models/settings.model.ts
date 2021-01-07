@@ -46,6 +46,12 @@ export class SettingsModel {
     await new SettingsModel(req, res).confirmPassword();
   }
 
+  static async loadUserAvatar(req: Request, res: Response, next: NextFunction) {
+    if (!req.user || !req.file) return next();
+
+    await new SettingsModel(req, res).loadUserAvatar();
+  }
+
   async updateUserData() {
     try {
       await this.validateBody();
@@ -81,6 +87,18 @@ export class SettingsModel {
       }
     } catch (error) {
       await this.parseError(error);
+    }
+  }
+
+  async loadUserAvatar() {
+    const {userAvatarFilename} = this.req;
+    const user: UsersDB | undefined = this.req.user;
+
+    if (user) {
+      const updatedUser = await this.update(user, { avatar: userAvatarFilename });
+      await this.saveUpdatedUserToDB(updatedUser);
+  
+      this.responseSender.sendSuccessResponse('success', { avatar: userAvatarFilename });
     }
   }
 

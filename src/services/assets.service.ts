@@ -1,3 +1,5 @@
+const correctUserAvatarFileTypes = ['png', 'jpg'];
+
 export class AssetsService {
   getIconUrl(icon: string) {
     return `/assets/${icon}.svg`;
@@ -7,12 +9,16 @@ export class AssetsService {
     return `/assets/${image}.png`;
   }
 
-  getAvatarImageUrl(image: ArrayBuffer | string) {
-    if (typeof(image) === 'string') return image;
+  getAvatarImageUrl(image: string) {
+    return `/avatars/${image}`;
+  }
 
-    const imageUrl = URL.createObjectURL(image);
-    URL.revokeObjectURL(imageUrl);
+  isValidUserAvatarFileType(filename: string) {
+    const fileType = this.getFileType(filename);
+    return correctUserAvatarFileTypes.includes(fileType);
+  }
 
-    return imageUrl;
+  private getFileType(filename: string) {
+    return filename.split('.').reverse()[0];
   }
 }

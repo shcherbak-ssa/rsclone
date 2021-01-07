@@ -1,13 +1,9 @@
-import { join } from 'path';
 import express from 'express';
 import { Application, Request, Response } from 'express';
 
-import { ROOT_FILENAME } from './constants';
+import { ROOT_FILENAME, AVATARS_PATHNAME, AVATARS_DB_DIRNAME } from './constants';
 import { BaseRouter } from './routers';
-import { serverConfig } from './server.config';
 import { responseService } from './services/response.service';
-
-const rootFilename: string = join(serverConfig.publicDirname, ROOT_FILENAME);
 
 export type AppOptions = {
   port: number,
@@ -62,10 +58,11 @@ export class App {
   }
 
   private rootGetHandle(req: Request, res: Response) {
-    responseService.sendSuccessResponseFile(res, rootFilename);
+    responseService.sendSuccessResponseFile(res, ROOT_FILENAME);
   }
 
   private initPublic(publicPath: string) {
+    this.app.use(AVATARS_PATHNAME, express.static(AVATARS_DB_DIRNAME));
     this.app.use(express.static(publicPath));
   }
 }

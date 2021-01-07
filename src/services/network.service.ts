@@ -10,21 +10,20 @@ enum Methods {
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
-  EMPTY = '',
 };
 
 type FetchRequestType = {
   url: string;
   method: Methods;
   body?: any;
-  contentType: string;
+  contentTypeHeader: object;
 };
 
 class FetchRequest {
   private url: string;
   private method: Methods;
   private body?: any;
-  private contentType: string;
+  private contentType: object;
 
   constructor(method: Methods, body?: any) {
     this.method = method;
@@ -43,7 +42,7 @@ class FetchRequest {
       url: this.url,
       method: this.method,
       body: this.body,
-      contentType: this.contentType,
+      contentTypeHeader: this.contentType,
     };
   }
 
@@ -58,9 +57,16 @@ class FetchRequest {
   }
 
   private setContentType() {
+    if (this.body instanceof FormData) {
+      this.contentType = {};
+      return;
+    }
+    
     if (typeof this.body === 'object') {
       this.body = JSON.stringify(this.body);
-      this.contentType = JSON_CONTENT_TYPE;
+      this.contentType = {
+        'Content-Type': JSON_CONTENT_TYPE,
+      };
     }
   }
 }
@@ -118,13 +124,13 @@ export class NetworkService {
   }
 
   private async fetchRequest({
-    url, method, body, contentType,
+    url, method, body, contentTypeHeader,
   }: FetchRequestType) {
     return fetch(url, {
       method,
       body,
       headers: {
-        'Content-Type': contentType,
+        ...contentTypeHeader
       }
     });
   }

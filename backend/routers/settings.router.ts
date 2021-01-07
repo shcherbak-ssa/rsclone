@@ -3,13 +3,13 @@ import { Router } from 'express';
 import { BaseRouter } from './base.router';
 import { UsernameParam } from '../params/username.param';
 import { SettingsModel } from '../models/settings.model';
+import { AvatarService } from '../services/avatar.service';
 
-enum SettingsPathnames {
-  SETTINGS = '/@:username/settings',
-};
+const SETTINGS_PATHNAME: string = '/@:username/settings';
 
 export class SettingsRouter implements BaseRouter {
   router: Router = Router();
+  avatarService: AvatarService = new AvatarService();
 
   static init(): SettingsRouter {
     return new SettingsRouter();
@@ -20,11 +20,16 @@ export class SettingsRouter implements BaseRouter {
 
     this.router
       .post(
-        SettingsPathnames.SETTINGS,
+        SETTINGS_PATHNAME,  
+        this.avatarService.createMiddleware(),
+        SettingsModel.loadUserAvatar,
+      )
+      .post(
+        SETTINGS_PATHNAME,
         SettingsModel.confirmPassword,
       )
       .put(
-        SettingsPathnames.SETTINGS,
+        SETTINGS_PATHNAME,
         SettingsModel.updateUserData,
       );
   }

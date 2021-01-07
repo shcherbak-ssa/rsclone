@@ -40,6 +40,7 @@ enum SettingsEvents {
   UPDATE_LOGIN = 'settings-events/update-login',
   CONFIRM_PASSWORD = 'settings-events/confirm-password',
   UPDATE_USER = 'settings-events/update-user',
+  UPDATE_USER_AVATAR = 'settings-events/update-user-avatar',
   UPDATE_APP = 'settings-events/update-app',
   REMOVE_SETTINGS = 'settings-events/remove-settings',
 };

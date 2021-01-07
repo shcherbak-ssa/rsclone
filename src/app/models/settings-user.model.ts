@@ -5,7 +5,7 @@ import {
   USER_LOCALSTORAGE_LABEL,
 } from "../../constants";
 import { LocalStorageService } from "../../services/localstorage.service";
-import { NetworkResponse } from "../../services/network.service";
+import { NetworkResponse, NetworkService } from "../../services/network.service";
 import { ValidationError } from "../../services/validation.service";
 import { SettingsModel } from "./settings.model";
 
@@ -14,6 +14,11 @@ export type UpdatedUserSettingsType = {
   newUsername?: string;
   successCallback: Function;
   errorCallback: Function;
+};
+
+export type UpdatedUserAvatarType = {
+  avatarUserFile: Blob,
+  successCallback: Function,
 };
 
 export class SettingsUserModel extends SettingsModel {
@@ -25,6 +30,17 @@ export class SettingsUserModel extends SettingsModel {
       updatedUserSettings.errorCallback(response);
     } else {
       this.parseResponse(response, updatedUserSettings);
+    }
+  }
+
+  async updateUserAvatar({avatarUserFile, successCallback}: UpdatedUserAvatarType) {
+    const response: NetworkResponse = await this.startUpdatingUserAvatar(avatarUserFile);
+
+    if (response.type === SUCCESS_RESPONSE_TYPE) {
+      this.updateUserStates(response);
+      successCallback();
+    } else if (response.type === ERROR_RESPONSE_TYPE) {
+      console.log(response);
     }
   }
 
@@ -46,7 +62,21 @@ export class SettingsUserModel extends SettingsModel {
     return updatedSettings;
   }
 
-  private parseResponse(response: NetworkResponse, updatedUserSettings: UpdatedUserSettingsType) {
+  private async startUpdatingUserAvatar(avatarUserFile: Blob) {
+    try {
+      const avatarFileFormData = new FormData();
+      avatarFileFormData.append(InputLabels.AVATAR_INPUT_LABEL, avatarUserFile);
+
+      const networkService = new NetworkService();
+      return await networkService.create(avatarFileFormData);
+    } catch (error) {
+      return this.parseError(error);
+    }
+  }
+
+  private parseResponse(
+    response: NetworkResponse, updatedUserSettings: UpdatedUserSettingsType,
+  ) {
     const {successCallback, errorCallback} = updatedUserSettings;
 
     if (response.type === SUCCESS_RESPONSE_TYPE) {
@@ -59,7 +89,11 @@ export class SettingsUserModel extends SettingsModel {
   }
 
   private updateUserStates(response: NetworkResponse) {
-    const {name, username} = response.payload;
+    const {avatar, name, username} = response.payload;
+
+    if (avatar) {
+      this.dispatchStateAction(InputLabels.AVATAR_INPUT_LABEL, avatar);
+    }
 
     if (name) {
       this.dispatchStateAction(InputLabels.NAME_INPUT_LABEL, name);
