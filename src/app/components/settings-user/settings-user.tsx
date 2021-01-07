@@ -28,23 +28,7 @@ export function SettingsUser() {
     isActive: true,
     title: 'User',
     unsavedDataExist,
-    saveButtonClickHanlder: () => {
-      const updatedUser: UpdatedUserSettingsType = {
-        newName: nameValue.trim() === name ? undefined : nameValue.trim(),
-        newUsername: usernameValue.trim() === username ? undefined : usernameValue.trim(),
-        successCallback: () => {
-          if (avatarUserFile === null) {
-            setUnsavedDataExist(false);
-          }
-        },
-        errorCallback: (result: ValidationError) => {
-          const {message, payload} = result;
-          updateError(message, payload.inputLabel);
-        },
-      };
-
-      settingsController.emit(SettingsEvents.UPDATE_USER, updatedUser);
-
+    saveButtonClickHanlder: async () => {
       if (avatarUserFile !== null) {
         const updatedUserAvatar: UpdatedUserAvatarType = {
           avatarUserFile,
@@ -52,14 +36,18 @@ export function SettingsUser() {
             setAvatarUserFile(null);
             setAvatarArrayBuffer(null);
             setLoadedFilename('');
-
+  
             if (nameValue.trim() === name && usernameValue.trim() === username) {
               setUnsavedDataExist(false);
             }
+  
+            updateUserData();
           },
         };
-
+  
         settingsController.emit(SettingsEvents.UPDATE_USER_AVATAR, updatedUserAvatar);
+      } else {
+        updateUserData();
       }
     },
   };
@@ -107,6 +95,24 @@ export function SettingsUser() {
       }
     },
   };
+
+  function updateUserData() {
+    const updatedUser: UpdatedUserSettingsType = {
+      newName: nameValue.trim() === name ? undefined : nameValue.trim(),
+      newUsername: usernameValue.trim() === username ? undefined : usernameValue.trim(),
+      successCallback: () => {
+        if (avatarUserFile === null) {
+          setUnsavedDataExist(false);
+        }
+      },
+      errorCallback: (result: ValidationError) => {
+        const {message, payload} = result;
+        updateError(message, payload.inputLabel);
+      },
+    };
+
+    settingsController.emit(SettingsEvents.UPDATE_USER, updatedUser);
+  }
 
   function updateError(message: string, inputLabel: InputLabels) {
     switch (inputLabel) {
