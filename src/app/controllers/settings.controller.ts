@@ -2,7 +2,7 @@ import { SettingsEvents } from '../constants';
 import { Events } from '../../services/events.service';
 
 import { SettingsUserModel, SettingsUserType } from '../models/settings-user.model';
-import { SettingsEmailType, SettingsLoginModel } from '../models/settings-login.model';
+import { UpdatedEmailType, SettingsLoginModel } from '../models/settings-login.model';
 import { SettingsAppModel, UpdatedAppSettingsType } from '../models/settings-app.model';
 
 export const settingsController: Events = new Events();
@@ -41,7 +41,7 @@ async function updateUserHandler(updatedUser: SettingsUserType) {
   await settingsUserModel.updateUser(updatedUser);
 }
 
-async function updateEmailHandler(updatedEmail: SettingsEmailType) {
+async function updateEmailHandler(updatedEmail: UpdatedEmailType) {
   await settingsLoginModel.updateEmail(updatedEmail);
 }
 

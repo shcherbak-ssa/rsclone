@@ -6,7 +6,7 @@ import { SettingsSection, SettingsSectionProps } from '../../containers/settings
 import { SettingsAction, SettingsActionProps } from '../../containers/settings-action';
 import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
-import { UpdatedEmailType } from '../../models/settings.model';
+import { UpdatedEmailType } from '../../models/settings-login.model';
 import { ValidationError } from '../../../services/validation.service';
 import { settingsController } from '../../controllers/settings.controller';
 import { SettingsEvents } from '../../constants';
@@ -24,12 +24,11 @@ export function SettingsLogin() {
     saveButtonClickHanlder: () => {
       const updatedEmail: UpdatedEmailType = {
         newEmail: emailValue,
-        callback: (result) => {
-          if (result instanceof ValidationError) {
-            setEmailError(result.message);
-          } else {
-            setUnsavedDataExist(false);
-          }
+        successCallback: () => {
+          setUnsavedDataExist(false);
+        },
+        errorCallback: (message: string) => {
+          setEmailError(message);
         },
       };
 
