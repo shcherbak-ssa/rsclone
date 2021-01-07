@@ -1,1 +1,1 @@
-export { SettingsAvatar } from './settings-avatar';
+export { SettingsAvatarProps, SettingsAvatar } from './settings-avatar';

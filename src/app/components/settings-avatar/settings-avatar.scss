@@ -5,6 +5,7 @@
 
   &-container {
     margin-right: 16px;
+    display: flex;
     -x-size: 126px;
 
     .original-theme & {
@@ -51,6 +52,28 @@
     }
   }
 
+  &-loaded-file {
+    flex-direction: column;
+  }
+
+  &-filename {
+    font-weight: 500;
+    margin-bottom: 12px;
+    -x-font-size: 16px/24px;
+
+    .original-theme & {
+      color: $original-settings-avatar-filename-color;
+    }
+
+    .light-theme & {
+      color: $light-settings-avatar-filename-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-settings-avatar-filename-color;
+    }
+  }
+
   &-link {
     cursor: pointer;
     margin-left: 3px;
@@ -74,5 +97,9 @@
 
   &-container, &-drop {
     border-radius: 3px;
+  }
+
+  input {
+    display: none;
   }
 }

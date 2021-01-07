@@ -4,7 +4,7 @@ import './settings-user.scss';
 
 import { SettingsSection, SettingsSectionProps } from '../../containers/settings-section';
 import { SettingsGroup, SettingsGroupProps } from '../../containers/settings-group';
-import { SettingsAvatar } from '../settings-avatar';
+import { SettingsAvatar, SettingsAvatarProps } from '../settings-avatar';
 import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
 import { UpdatedUserSettingsType } from '../../models/settings-user.model';
@@ -20,6 +20,7 @@ export function SettingsUser() {
   const [usernameValue, setUsernameValue] = useState(username);
   const [usernameError, setUsernameError] = useState('');
   const [unsavedDataExist, setUnsavedDataExist] = useState(false);
+  const [avatarBlob, setAvatarBlob] = useState(null);
 
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
@@ -40,6 +41,11 @@ export function SettingsUser() {
 
       settingsController.emit(SettingsEvents.UPDATE_USER, updatedUser);
     },
+  };
+
+  const settingsAvatarProps: SettingsAvatarProps = {
+    avatarBlob,
+    setAvatarBlob,
   };
 
   const settingsGroupProps: SettingsGroupProps = {
@@ -88,7 +94,7 @@ export function SettingsUser() {
 
   return (
     <SettingsSection {...settingsSectionProps}>
-      <SettingsAvatar />
+      <SettingsAvatar {...settingsAvatarProps} />
       <SettingsGroup {...settingsGroupProps}>
         <Base.Input {...nameInputProps} />
         <Base.Input {...usernameInputProps} />
