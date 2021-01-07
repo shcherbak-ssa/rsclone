@@ -1,71 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import './popup.scss';
 
-import { AppEvents, ButtonTypes } from '../../constants';
+import { ButtonTypes } from '../../constants';
 import { Base, BaseButtonProps } from '../../components/base';
-import { popupController } from '../../controllers/popup.controller';
 import { DocumentBodyService } from '../../../services/document-body.service';
+
+const POPUP_ELEMENT_ID: string = 'popup';
 
 export type PopupProps = {
   title: string,
-  body: React.ReactNode,
   confirmButtonProps: BaseButtonProps,
+  closePopup: Function;
+  children?: React.ReactNode,
 };
 
-export function Popup() {
-  const [popupProps, setPopupProps] = useState(null);
-
+export function Popup({
+  title, confirmButtonProps, closePopup, children,
+}: PopupProps) {
+  const popupDomElement = document.getElementById(POPUP_ELEMENT_ID);
   const cancelButtonProps: BaseButtonProps = {
     type: ButtonTypes.SECONDARY,
     value: 'Cancel',
     clickHandler: (e: React.MouseEvent) => {
       e.stopPropagation();
-      popupController.emit(AppEvents.CLOSE_POPUP);
+      closePopup();
     },
   };
 
-  useEffect(() => {
-    popupController.on(AppEvents.SHOW_POPUP, (currentPopupProps: PopupProps) => {
-      setPopupProps(currentPopupProps);
-      popupController.on(AppEvents.CLOSE_POPUP, closePopupHandler);
-    });
-  }, []);
-
-  useEffect(() => {
-    const documentBodyService = new DocumentBodyService();
-
-    if (popupProps === null) {
-      documentBodyService.removeOverflowHidden();
-    } else {
-      documentBodyService.setOveflowHidden();
-    }
-  }, [popupProps]);
-
-  function closePopup(e: React.MouseEvent) {
-    e.stopPropagation();
-
-    if (e.target.classList.contains('popup')) {
-      popupController.emit(AppEvents.CLOSE_POPUP);
-    }
-  }
-
-  function closePopupHandler() {
-    setPopupProps(null);
-    popupController.off(AppEvents.CLOSE_POPUP, closePopupHandler);
-  }
-
-  if (popupProps === null) return <div></div>;
-
-  return (
-    <div className="popup" onClick={closePopup}>
+  const popupContainer = (
+    <div className="popup" onClick={popupClickHandle}>
       <div className="popup-container">
-        <div className="popup-header">{popupProps.title}</div>
-        <div className="popup-body">{popupProps.body}</div>
+        <div className="popup-header">{title}</div>
+        <div className="popup-body">{children}</div>
         <div className="popup-footer">
           <Base.Button {...cancelButtonProps} />
-          <Base.Button {...popupProps.confirmButtonProps} />
+          <Base.Button {...confirmButtonProps} />
         </div>
       </div>
     </div>
   );
+
+  useEffect(() => {
+    const documentBodyService = new DocumentBodyService();
+    documentBodyService.setOveflowHidden();
+
+    return () => {
+      documentBodyService.removeOverflowHidden();
+    };
+  }, []);
+
+  function popupClickHandle(e: React.MouseEvent) {
+    e.stopPropagation();
+
+    if (e.target.classList.contains('popup')) {
+      closePopup();
+    }
+  }
+
+  return ReactDOM.createPortal(popupContainer, popupDomElement);
 }

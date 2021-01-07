@@ -9,7 +9,6 @@ import { Spaces } from '../../components/spaces';
 import { Settings } from '../../components/settings';
 import { storeSelectors } from '../../store';
 import { AppRoutesService } from '../../../services/app-routes.service';
-import { Popup } from '../popup';
 import { DocumentBodyService } from '../../../services/document-body.service';
 
 export function AppContainer() {
@@ -32,7 +31,6 @@ export function AppContainer() {
       <Router>
         <Sidebar />
         <Menu />
-        <Popup />
         <div className="app-homepage">
           <div className="app-menu"></div>
           <Switch>

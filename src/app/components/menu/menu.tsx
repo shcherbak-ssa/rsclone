@@ -8,13 +8,12 @@ import spacesIcon from '@iconify/icons-uil/apps';
 import settingsIcon from '@iconify/icons-clarity/settings-line';
 import logOutIcon from '@iconify/icons-feather/log-out';
 
-import { AppEvents, IS_OPEN_CLASSNAME, MenuItemLabels } from '../../constants';
+import { IS_OPEN_CLASSNAME, MenuItemLabels } from '../../constants';
 import { storeSelectors } from '../../store';
 import { AppRoutesService } from '../../../services/app-routes.service';
 import { MenuItem } from '../menu-item';
 import { Avatar } from '../avatar';
-import { PopupProps } from '../../containers/popup';
-import { popupController } from '../../controllers/popup.controller';
+import { Popup, PopupProps } from '../../containers/popup';
 import { DeleteUserService } from '../../../services/delete-user.service';
 import { DocumentBodyService } from '../../../services/document-body.service';
 
@@ -25,6 +24,7 @@ export function Menu() {
   const {name: userName} = useSelector(storeSelectors.user.get()); 
   const [activeMenuItem, setActiveMenuItem] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const appRoutesService: AppRoutesService = new AppRoutesService();
   const componentClassnames = classnames('menu', {
@@ -33,13 +33,14 @@ export function Menu() {
 
   const logoutPopupProps: PopupProps = {
     title: 'Log out',
-    body: <div className="popup-body-text">Are you sure you want to exit?</div>,
     confirmButtonProps: {
       value: 'Log out',
       clickHandler: () => {
         new DeleteUserService().deleteFromLocal();
-        popupController.emit(AppEvents.CLOSE_POPUP);
       },
+    },
+    closePopup: () => {
+      setIsPopupOpen(false);
     },
   };
 
@@ -64,7 +65,7 @@ export function Menu() {
       icon: logOutIcon,
       text: 'Log out',
       clickHandler: () => {
-        popupController.emit(AppEvents.SHOW_POPUP, logoutPopupProps);
+        setIsPopupOpen(true);
       },
     },
   };
@@ -117,6 +118,16 @@ export function Menu() {
     documentBodyService.removeClass(SHOW_SIDEBAR_CLASSNAME);
   }
 
+  function showLogoutPopup() {
+    if (!isPopupOpen) return '';
+
+    return (
+      <Popup {...logoutPopupProps}>
+        <div className="popup-body-text">Are you sure you want to exit?</div>
+      </Popup>
+    );
+  }
+
   return (
     <div className={componentClassnames} onClick={closeMenuClickHandle}>
       <div className="menu-container" data-class="flex-column">
@@ -138,6 +149,7 @@ export function Menu() {
           <span></span>
         </div>
       </div>
+      {showLogoutPopup()}
     </div>
   );
 }

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './settings-danger.scss';
 
-import { AppEvents, ButtonTypes, UserEvents } from '../../constants';
+import { ButtonTypes, UserEvents } from '../../constants';
 import { SettingsSection, SettingsSectionProps } from '../../containers/settings-section';
 import { SettingsAction, SettingsActionProps } from '../../containers/settings-action';
-import { PopupProps } from '../../containers/popup';
-import { popupController } from '../../controllers/popup.controller';
+import { PopupProps, Popup } from '../../containers/popup';
 import { userController } from '../../controllers/user.controller';
 import { DeleteUserService } from '../../../services/delete-user.service';
 
 export function SettingsDanger() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
     title: 'Danger Zone',
@@ -17,7 +18,6 @@ export function SettingsDanger() {
 
   const deleteAccountPopupProps: PopupProps = {
     title: 'Delete account',
-    body: <DeleteAccountPopupBody />,
     confirmButtonProps: {
       type: ButtonTypes.DANGER,
       value: 'Delete',
@@ -27,10 +27,12 @@ export function SettingsDanger() {
             new DeleteUserService().deleteFromLocal();
           } else {
             console.log('deleting error');
-            popupController.emit(AppEvents.CLOSE_POPUP);
           }
         });
       },
+    },
+    closePopup: () => {
+      setIsPopupOpen(false);
     },
   };
 
@@ -41,14 +43,25 @@ export function SettingsDanger() {
       type: ButtonTypes.DANGER,
       value: 'Delete',
       clickHandler: () => {
-        popupController.emit(AppEvents.SHOW_POPUP, deleteAccountPopupProps);
+        setIsPopupOpen(true);
       },
     },
   };
 
+  function showDeleteAccountPopup() {
+    if (!isPopupOpen) return '';
+
+    return (
+      <Popup {...deleteAccountPopupProps}>
+        <DeleteAccountPopupBody />
+      </Popup>
+    );
+  }
+
   return (
     <SettingsSection {...settingsSectionProps}>
       <SettingsAction {...settingsActionProps} />
+      {showDeleteAccountPopup()}
     </SettingsSection>
   );
 }

@@ -35,11 +35,6 @@ enum UserEvents {
   DELETE_ACCOUNT = 'user-events/delete-account',
 };
 
-enum AppEvents {
-  SHOW_POPUP = 'app-events/show-popup',
-  CLOSE_POPUP = 'app-events/close-popup',
-};
-
 enum SettingsEvents {
   INIT_SETTINGS = 'settings-events/init',
   UPDATE_EMAIL = 'settings-events/update-email',
