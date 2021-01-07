@@ -21,7 +21,7 @@ export class SettingsModel {
     }
   }
 
-  private validate(updatedData: Array<SettingsType>) {
+  protected validate(updatedData: Array<SettingsType>) {
     const validationService = new ValidationService();
 
     updatedData.forEach(({value, inputLabel}) => {
@@ -48,7 +48,7 @@ export class SettingsModel {
     dispatchAction(userStore.actions.updateData(inputLabel, value));
   }
 
-  private parseError(error: Error) {
+  protected parseError(error: Error) {
     if (error instanceof ValidationError) {
       return error;
     } else {

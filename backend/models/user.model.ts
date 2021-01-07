@@ -51,7 +51,7 @@ export class UserModel {
     const parsedUsersDB: Array<UsersDB> = JSON.parse(usersDB);
 
     const filteredUserDB = parsedUsersDB.filter((user) => user.id !== userID);
-    await fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(filteredUserDB));
+    await fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(filteredUserDB, null, 2));
   }
 
   private async deleteUserDB(username: string) {

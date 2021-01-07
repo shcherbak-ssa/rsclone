@@ -6,7 +6,7 @@ import { UserModel } from "../models/user.model";
 
 enum UserPathnames {
   GET_USER = '/@:username/',
-  DELETE_USER = '/@:username/',
+  DELETE_USER = '/@:username/settings',
 };
 
 export class UserRouter implements BaseRouter {

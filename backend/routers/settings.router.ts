@@ -19,6 +19,10 @@ export class SettingsRouter implements BaseRouter {
     UsernameParam.init(this.router);
 
     this.router
+      .post(
+        SettingsPathnames.SETTINGS,
+        SettingsModel.confirmPassword,
+      )
       .put(
         SettingsPathnames.SETTINGS,
         SettingsModel.updateUserData,

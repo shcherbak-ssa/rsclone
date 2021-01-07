@@ -16,6 +16,7 @@ import {
 
 const USERNAME_LABEL: string = 'username';
 const EMAIL_LABEL: string = 'email';
+const PASSWORD_LABEL: string = 'password';
 
 export const settingsValidationSchema: Schema = {
   name: nameValidation,
@@ -39,6 +40,12 @@ export class SettingsModel {
     await new SettingsModel(req, res).updateUserData();
   }
 
+  static async confirmPassword(req: Request, res: Response, next: NextFunction) {
+    if (!req.user) return next();
+
+    await new SettingsModel(req, res).confirmPassword();
+  }
+
   async updateUserData() {
     try {
       await this.validateBody();
@@ -49,10 +56,37 @@ export class SettingsModel {
       if (user) {
         const updatedUser = await this.update(user, requestBody);
         await this.saveUpdatedUserToDB(updatedUser);
+
+        if (PASSWORD_LABEL in requestBody) {
+          delete requestBody.password;
+        }
+
         await this.responseSender.sendSuccessResponse('success', {...requestBody});
       }
     } catch (error) {
       await this.parseError(error);
+    }
+  }
+
+  async confirmPassword() {
+    try {
+      await this.validateBody();
+
+      const requestBody = await this.getRequestBody();
+      const user: UsersDB | undefined = this.req.user;
+
+      if (user) {
+        await this.checkPassword(user, requestBody.password);
+        await this.responseSender.sendSuccessResponse('success', {});
+      }
+    } catch (error) {
+      await this.parseError(error);
+    }
+  }
+
+  async checkPassword(user: UsersDB, password: string) {
+    if (user.password !== password) {
+      throw new ValidationError('Invalid password', {});
     }
   }
 

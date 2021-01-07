@@ -7,9 +7,11 @@ import { SettingsAction, SettingsActionProps } from '../../containers/settings-a
 import { Popup, PopupProps } from '../../containers/popup';
 import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
-import { UpdatedEmailType } from '../../models/settings-login.model';
+import { ConfirmPasswordType, UpdatedLoginSettingsType } from '../../models/settings-login.model';
 import { settingsController } from '../../controllers/settings.controller';
 import { SettingsEvents } from '../../constants';
+import { ValidationError } from '../../../services/validation.service';
+import { InputLabels } from '../../../constants';
 
 export function SettingsLogin() {
   const {email} = useSelector(storeSelectors.user.get());
@@ -19,23 +21,25 @@ export function SettingsLogin() {
   const [passwordError, setPasswordError] = useState('');
   const [unsavedDataExist, setUnsavedDataExist] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isEnterNewPasswordState, setIsEnterNewPasswordState] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
     title: 'Login',
     unsavedDataExist,
     saveButtonClickHanlder: () => {
-      const updatedEmail: UpdatedEmailType = {
-        newEmail: emailValue,
+      const updatedLoginSettings: UpdatedLoginSettingsType = {
+        newEmail: emailValue === email ? undefined : emailValue,
+        newPassword: passwordValue === '' ? undefined : passwordValue,
         successCallback: () => {
           setUnsavedDataExist(false);
         },
-        errorCallback: (message: string) => {
-          setEmailError(message);
+        errorCallback: ({message, payload}: ValidationError) => {
+          updateError(message, payload.inputLabel);
         },
       };
 
-      settingsController.emit(SettingsEvents.UPDATE_EMAIL, updatedEmail);
+      settingsController.emit(SettingsEvents.UPDATE_LOGIN, updatedLoginSettings);
     },
   };
 
@@ -45,7 +49,9 @@ export function SettingsLogin() {
     error: emailError,
     updateValue: (value: string) => {
       setEmailValue(value);
-      setUnsavedDataExist(value !== email);
+      setUnsavedDataExist(
+        value !== email || (isEnterNewPasswordState && passwordValue !== '')
+      );
 
       if (emailError) {
         setEmailError('');
@@ -69,7 +75,19 @@ export function SettingsLogin() {
     confirmButtonProps: {
       value: 'Confirm password',
       clickHandler: () => {
-        console.log(passwordValue);
+        const confirmPassword: ConfirmPasswordType = {
+          password: passwordValue,
+          successCallback: () => {
+            setIsPopupOpen(false);
+            setPasswordValue('');
+            setIsEnterNewPasswordState(true);
+          },
+          errorCallback: (message: string) => {
+            setPasswordError(message);
+          },
+        };
+
+        settingsController.emit(SettingsEvents.CONFIRM_PASSWORD, confirmPassword);
       },
     },
     closePopup: () => {
@@ -77,16 +95,21 @@ export function SettingsLogin() {
     },
   };
 
-  const confirmPasswordInputProps: BaseInputProps = {
+  const passwordInputProps: BaseInputProps = {
     value: passwordValue,
     placeholder: 'Password',
     error: passwordError,
-    description: 'Enter your current password to contrinue',
     updateValue: (value: string) => {
       setPasswordValue(value);
 
       if (passwordError) {
         setPasswordError('');
+      }
+
+      if (isEnterNewPasswordState) {
+        setUnsavedDataExist(
+          value !== '' || emailValue !== email
+        );
       }
     },
   };
@@ -97,16 +120,31 @@ export function SettingsLogin() {
     return (
       <Popup {...confirmPasswordPopupProps}>
         <div className="confirm-password-popup-body">
-          <Base.Input {...confirmPasswordInputProps} />
+          <Base.Input {...passwordInputProps} description="Enter your current password to contrinue" />
         </div>
       </Popup>
     );
   }
 
+  function updateError(message: string, inputLabel: InputLabels) {
+    switch (inputLabel) {
+      case InputLabels.EMAIL_INPUT_LABEL:
+        setEmailError(message);
+        break;
+      case InputLabels.PASSWORD_INPUT_LABEL:
+        setPasswordError(message);
+        break;
+    }
+  }
+
   return (
     <SettingsSection {...settingsSectionProps}>
       <Base.Input {...emailInputProps} />
-      <SettingsAction {...settingsActionProps} />
+      {
+        isEnterNewPasswordState
+          ? <Base.Input {...passwordInputProps} description="Enter new password" />
+          : <SettingsAction {...settingsActionProps} />
+      }
       {showConfirmPasswordPopup()}
     </SettingsSection>
   );

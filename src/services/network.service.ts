@@ -7,6 +7,7 @@ const USER_ID_URL_PARAM_LABEL: string = 'id';
 
 enum Methods {
   GET = 'GET',
+  POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
   EMPTY = '',
@@ -87,6 +88,11 @@ export class NetworkService {
       fetchRequest.setUrl(url);
     }
 
+    return await this.sendRequest(fetchRequest);
+  }
+
+  async create(body: any) {
+    const fetchRequest = new FetchRequest(Methods.POST, body);
     return await this.sendRequest(fetchRequest);
   }
 

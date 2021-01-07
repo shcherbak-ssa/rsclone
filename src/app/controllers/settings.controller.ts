@@ -2,7 +2,11 @@ import { SettingsEvents } from '../constants';
 import { Events } from '../../services/events.service';
 
 import { SettingsUserModel, UpdatedUserSettingsType } from '../models/settings-user.model';
-import { UpdatedEmailType, SettingsLoginModel } from '../models/settings-login.model';
+import {
+  UpdatedLoginSettingsType,
+  SettingsLoginModel,
+  ConfirmPasswordType,
+} from '../models/settings-login.model';
 import { SettingsAppModel, UpdatedAppSettingsType } from '../models/settings-app.model';
 
 export const settingsController: Events = new Events();
@@ -22,14 +26,16 @@ function initSettingsHandler() {
 
   settingsController
     .on(SettingsEvents.UPDATE_USER, updateUserHandler)
-    .on(SettingsEvents.UPDATE_EMAIL, updateEmailHandler)
+    .on(SettingsEvents.UPDATE_LOGIN, updateLoginHandler)
+    .on(SettingsEvents.CONFIRM_PASSWORD, confirmPasswordHandler)
     .on(SettingsEvents.UPDATE_APP, updateAppHandler);
 }
 
 function removeSettingsHandler() {
   settingsController
     .off(SettingsEvents.UPDATE_USER, updateUserHandler)
-    .off(SettingsEvents.UPDATE_EMAIL, updateEmailHandler)
+    .off(SettingsEvents.UPDATE_LOGIN, updateLoginHandler)
+    .off(SettingsEvents.CONFIRM_PASSWORD, confirmPasswordHandler)
     .off(SettingsEvents.UPDATE_APP, updateAppHandler);
 
   settingsUserModel = null;
@@ -41,8 +47,12 @@ async function updateUserHandler(updatedUserSettings: UpdatedUserSettingsType) {
   await settingsUserModel.updateSettings(updatedUserSettings);
 }
 
-async function updateEmailHandler(updatedEmail: UpdatedEmailType) {
-  await settingsLoginModel.updateEmail(updatedEmail);
+async function updateLoginHandler(updatedLoginSettings: UpdatedLoginSettingsType) {
+  await settingsLoginModel.updateSettings(updatedLoginSettings);
+}
+
+async function confirmPasswordHandler(confirmPassword: ConfirmPasswordType) {
+  await settingsLoginModel.confirmPassword(confirmPassword);
 }
 
 async function updateAppHandler(updatedAppSettings: UpdatedAppSettingsType) {
