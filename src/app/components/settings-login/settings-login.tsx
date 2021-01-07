@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './settings-login.scss';
 
+import eyeIcon from '@iconify/icons-ant-design/eye-outlined';
+
 import { SettingsSection, SettingsSectionProps } from '../../containers/settings-section';
 import { SettingsAction, SettingsActionProps } from '../../containers/settings-action';
 import { Popup, PopupProps } from '../../containers/popup';
@@ -22,6 +24,7 @@ export function SettingsLogin() {
   const [unsavedDataExist, setUnsavedDataExist] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isEnterNewPasswordState, setIsEnterNewPasswordState] = useState(false);
+  const [isInputIconActive, setInputIsIconActive] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
@@ -33,6 +36,8 @@ export function SettingsLogin() {
         newPassword: passwordValue.trim() === '' ? undefined : passwordValue.trim(),
         successCallback: () => {
           setUnsavedDataExist(false);
+          setIsEnterNewPasswordState(false);
+          setPasswordValue('');
         },
         errorCallback: ({message, payload}: ValidationError) => {
           updateError(message, payload.inputLabel);
@@ -100,6 +105,10 @@ export function SettingsLogin() {
     placeholder: 'Password',
     error: passwordError,
     updateValue: (value: string) => {
+      if (!isInputIconActive) {
+        value = removeDots(passwordValue, value);
+      }
+
       setPasswordValue(value);
 
       if (passwordError) {
@@ -112,7 +121,19 @@ export function SettingsLogin() {
         );
       }
     },
+    icon: eyeIcon,
+    iconClickHandler: (isActive: boolean) => {
+      setInputIsIconActive(isActive);
+    },
+    transformValue: (value: string) => {
+      return isInputIconActive ? value : value.replace(/[^\n]/ig, '●');
+    },
   };
+
+  function removeDots(oldValue: string, newValue: string) {
+    const splitedValue = oldValue.split('').reverse();
+    return newValue.replace(/●/g, () => splitedValue.pop() || '');
+  }
 
   function showConfirmPasswordPopup() {
     if (!isPopupOpen) return '';

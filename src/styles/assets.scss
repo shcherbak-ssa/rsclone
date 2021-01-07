@@ -54,6 +54,7 @@ $original-input-color: #fff;
 $original-input-placeholder-color: rgba(255, 255, 255, 0.48);
 $original-input-error-color: #FF4642;
 $original-input-description-color: rgba(255, 255, 255, 0.48);
+$original-input-icon-color: #fff;
 
 $original-select-background-color: #183055;
 $original-select-color: #fff;
@@ -68,10 +69,10 @@ $original-radio-label-hover-background-color: #596d8b;
 $original-radio-span-background-color: #fff;
 $original-radio-description-color: #fff;
 
-$original-popup-background-color: #fff;
-$original-popup-header-border-color: #E6ECF1;
-$original-popup-title-color: #111111;
-$original-popup-body-text-color: #242A31;
+$original-popup-background-color: #2F4566;
+$original-popup-header-border-color: #183055;
+$original-popup-title-color: #fff;
+$original-popup-body-text-color: #fff;
 
 /** light theme */
 $light-app-background-color: #F1F1F1;
@@ -126,6 +127,8 @@ $light-input-color: #111111;
 $light-input-placeholder-color: rgba(#111111, .48);
 $light-input-error-color: #FF4642;
 $light-input-description-color: rgba(#111111, .48);
+$light-input-icon-color: #393E46;
+$light-input-icon-active-color: #111111;
 
 $light-select-background-color: #fff;
 $light-select-color: #111111;
@@ -196,6 +199,7 @@ $dark-input-color: #FFFFFF;
 $dark-input-placeholder-color: rgba(#FFFFFF, .48);
 $dark-input-error-color: #FF4642;
 $dark-input-description-color: rgba(#FFFFFF, .48);
+$dark-input-icon-color: #fff;
 
 $dark-select-background-color: #222222;
 $dark-select-color: #FFFFFF;

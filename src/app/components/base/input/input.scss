@@ -101,13 +101,31 @@
   }
 
   &-icon {
-    opacity: .6;
     transition: .2s;
-    transform: translateY(-50%);
+    transform: translateY(-50%) !important;
     z-index: 1;
     -x-size: 24px;
     -x-position: absolute 50% 12px x x;
 
+    .original-theme & {
+      color: $original-input-icon-color;
+      opacity: .6;
+    }
+  
+    .light-theme & {
+      color: $light-input-icon-color;
+      opacity: .9;
+  
+      &:hover, &.is-active {
+        color: $light-input-icon-active-color;
+      }
+    }
+    
+    .dark-theme & {
+      color: $dark-input-icon-color;
+      opacity: .6;
+    }
+  
     &:hover, &.is-active {
       opacity: 1;
     }
