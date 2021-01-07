@@ -4,8 +4,17 @@
   justify-content: space-between;
   padding: 12px 0 24px;
   z-index: 99;
+  transition: .2s;
   -x-size: 72px 100%;
   -x-position: fixed 0 x x 0;
+
+  @media screen and (max-width: 767px) {
+    left: -72px;
+
+    .show-sidebar & {
+      left: 0;
+    }
+  }
 
   &-icons {
     align-items: center;

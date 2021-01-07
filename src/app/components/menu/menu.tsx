@@ -18,6 +18,8 @@ import { popupController } from '../../controllers/popup.controller';
 import { DeleteUserService } from '../../../services/delete-user.service';
 import { DocumentBodyService } from '../../../services/document-body.service';
 
+const SHOW_SIDEBAR_CLASSNAME: string = 'show-sidebar';
+
 export function Menu() {
   const history = useHistory();
   const {name: userName} = useSelector(storeSelectors.user.get()); 
@@ -82,6 +84,7 @@ export function Menu() {
     history.push(nextRoute);
 
     setIsOpen(false);
+    cleanDocumentBody();
   }
 
   function menuButtonClickHandle(e: React.MouseEvent) {
@@ -92,8 +95,9 @@ export function Menu() {
 
     if (!isOpen) {
       documentBodyService.setOveflowHidden();
+      documentBodyService.addClass(SHOW_SIDEBAR_CLASSNAME);
     } else {
-      documentBodyService.removeOverflowHidden();
+      cleanDocumentBody(documentBodyService);
     }
   }
 
@@ -102,7 +106,15 @@ export function Menu() {
 
     if (e.target.classList.contains('menu')) {
       setIsOpen(false);
+      cleanDocumentBody();
     }
+  }
+
+  function cleanDocumentBody(
+    documentBodyService: DocumentBodyService = new DocumentBodyService()
+  ) {
+    documentBodyService.removeOverflowHidden();
+    documentBodyService.removeClass(SHOW_SIDEBAR_CLASSNAME);
   }
 
   return (
