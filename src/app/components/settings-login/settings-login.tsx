@@ -4,10 +4,10 @@ import './settings-login.scss';
 
 import { SettingsSection, SettingsSectionProps } from '../../containers/settings-section';
 import { SettingsAction, SettingsActionProps } from '../../containers/settings-action';
+import { Popup, PopupProps } from '../../containers/popup';
 import { Base, BaseInputProps } from '../base';
 import { storeSelectors } from '../../store';
 import { UpdatedEmailType } from '../../models/settings-login.model';
-import { ValidationError } from '../../../services/validation.service';
 import { settingsController } from '../../controllers/settings.controller';
 import { SettingsEvents } from '../../constants';
 
@@ -15,7 +15,10 @@ export function SettingsLogin() {
   const {email} = useSelector(storeSelectors.user.get());
   const [emailValue, setEmailValue] = useState(email);
   const [emailError, setEmailError] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [unsavedDataExist, setUnsavedDataExist] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
     isActive: true,
@@ -55,14 +58,56 @@ export function SettingsLogin() {
     description: 'Secure your GitBook Clone account with a strong and unique password',
     buttonProps: {
       value: 'Change password',
-      clickHandler: () => {},
+      clickHandler: () => {
+        setIsPopupOpen(true);
+      },
     },
   };
+
+  const confirmPasswordPopupProps: PopupProps = {
+    title: 'Password confirmation',
+    confirmButtonProps: {
+      value: 'Confirm password',
+      clickHandler: () => {
+        console.log(passwordValue);
+      },
+    },
+    closePopup: () => {
+      setIsPopupOpen(false);
+    },
+  };
+
+  const confirmPasswordInputProps: BaseInputProps = {
+    value: passwordValue,
+    placeholder: 'Password',
+    error: passwordError,
+    description: 'Enter your current password to contrinue',
+    updateValue: (value: string) => {
+      setPasswordValue(value);
+
+      if (passwordError) {
+        setPasswordError('');
+      }
+    },
+  };
+
+  function showConfirmPasswordPopup() {
+    if (!isPopupOpen) return '';
+
+    return (
+      <Popup {...confirmPasswordPopupProps}>
+        <div className="confirm-password-popup-body">
+          <Base.Input {...confirmPasswordInputProps} />
+        </div>
+      </Popup>
+    );
+  }
 
   return (
     <SettingsSection {...settingsSectionProps}>
       <Base.Input {...emailInputProps} />
       <SettingsAction {...settingsActionProps} />
+      {showConfirmPasswordPopup()}
     </SettingsSection>
   );
 }
