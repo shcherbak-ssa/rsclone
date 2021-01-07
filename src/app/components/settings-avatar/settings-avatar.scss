@@ -18,6 +18,10 @@
     .dark-theme & {
       background: $dark-settings-avatar-container-background-color;
     }
+
+    .avatar {
+      font-size: 24px;
+    }
   }
 
   &-drop {

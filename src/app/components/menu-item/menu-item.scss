@@ -8,6 +8,10 @@
   padding: 0 8px;
   -x-size: 100% 30px;
 
+  @media screen and (max-width: 1024px) {
+    height: 42px;
+  }
+
   &-icon {
     margin-right: 8px;
     flex-shrink: 0;
