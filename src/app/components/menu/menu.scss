@@ -2,7 +2,11 @@
 
 .menu {
   width: 224px;
-  -x-position: fixed 80px x x 130px;
+  -x-position: fixed 80px x x x;
+
+  @media screen and (max-width: 1366px) {
+    left: 130px;
+  }
 
   &-user {
     display: flex;

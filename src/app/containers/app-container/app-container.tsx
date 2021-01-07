@@ -28,13 +28,16 @@ export function AppContainer() {
     <div className="app">
       <Router>
         <Sidebar />
-        <Menu />
-        <Popup />
-        <Switch>
-          <Route path={appRoutesService.getRootRoutePath()} exact component={Spaces} />
-          <Route path={appRoutesService.getSpacesRoutePath()} component={Spaces} />
-          <Route path={appRoutesService.getSettingsRoutePath()} component={Settings} />
-        </Switch>
+        <div className="app-homepage">
+          <div className="app-menu"></div>
+          <Menu />
+          <Popup />
+          <Switch>
+            <Route path={appRoutesService.getRootRoutePath()} exact component={Spaces} />
+            <Route path={appRoutesService.getSpacesRoutePath()} component={Spaces} />
+            <Route path={appRoutesService.getSettingsRoutePath()} component={Settings} />
+          </Switch>
+        </div>
       </Router>
     </div>
   );

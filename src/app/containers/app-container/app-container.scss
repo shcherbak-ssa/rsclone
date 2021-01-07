@@ -2,8 +2,6 @@
 @import '../../../styles/assets.scss';
 
 .app {
-  padding: 0 130px 0 460px;
-  position: relative;
   overflow-y: scroll;
   -x-size: 100%;
 
@@ -17,5 +15,29 @@
   
   .dark-theme & {
     background: $dark-app-background-color;
+  }
+
+  &-homepage {
+    display: flex;
+    max-width: 1366px;
+    margin: 0 auto;
+    padding: 0 130px;
+    position: relative;
+    height: 100%;
+
+    @media screen and (max-width: 1366px) {
+      padding: 0 130px 0 434px;
+      display: block;
+    }
+  }
+
+  &-menu {
+    flex-shrink: 0;
+    margin-right: 80px;
+    width: 224px;
+
+    @media screen and (max-width: 1366px) {
+      display: none;
+    }
   }
 }

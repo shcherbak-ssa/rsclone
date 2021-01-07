@@ -8,7 +8,8 @@
   width: 100%;
 
   &-content {
-    width: 75%;
+    // width: 75%;
+    padding-right: 24px;
   }
 
   &-title {
@@ -43,5 +44,9 @@
     .dark-theme & {
       color: $dark-settings-action-description-color;
     }
+  }
+
+  .button {
+    flex-shrink: 0;
   }
 }

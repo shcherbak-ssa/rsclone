@@ -2,13 +2,9 @@
 
 .settings-theme {
   display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
   width: 100%;
-
-  &-item {
-    &:not(:last-child) {
-      margin-right: 24px;
-    }
-  }
 
   &-view {
     background: {
