@@ -29,7 +29,7 @@ export class AvatarService {
     });
   }
 
-  createUserAvatarFilename(userID: number, mimetype: string) {
+  private createUserAvatarFilename(userID: number, mimetype: string) {
     return `${userID}-avatar.${this.getFileTypeFromMimeType(mimetype)}`;
   }
 

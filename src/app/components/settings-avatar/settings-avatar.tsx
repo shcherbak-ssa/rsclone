@@ -49,26 +49,29 @@ export function SettingsAvatar({
 
       setLoadAvatarError('');
       setAvatarUserFile(userFile);
-
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(userFile);
-
-      fileReader.onloadend = () => {
-        setAvatarArrayBuffer(fileReader.result);
-        setLoadedFilename(userFile.name);
-        
-        fileInput.current.value = '';
-      };
-
-      fileReader.onerror = () => {
-        console.log(fileReader.error);
-      };
+      loadFile(userFile);
     }
   }
 
   function isValidateFileType(userFile: any) {
     const assetsService = new AssetsService();
     return assetsService.isValidUserAvatarFileType(userFile.name);
+  }
+
+  function loadFile(userFile: any) {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(userFile);
+
+    fileReader.onloadend = () => {
+      setAvatarArrayBuffer(fileReader.result);
+      setLoadedFilename(userFile.name);
+      
+      fileInput.current.value = '';
+    };
+
+    fileReader.onerror = () => {
+      console.log(fileReader.error);
+    };
   }
 
   function setSettingsAvatarDropContent() {

@@ -3,7 +3,7 @@ import { promises as fsPromises } from 'fs';
 import { NextFunction, Request, Response } from 'express';
 
 import { UsersDB } from './types';
-import { DB_DIRNAME, USER_DB_FILENAME } from '../constants';
+import { AVATARS_DB_DIRNAME, DB_DIRNAME, USER_DB_FILENAME } from '../constants';
 import { ResponseSender } from './response.model';
 
 type User = {
@@ -40,6 +40,7 @@ export class UserModel {
 
       await this.deleteUserFromUsersDB(req.user.id);
       await this.deleteUserDB(req.user.username);
+      await this.deleteUserAvatar(req.user.avatar);
       await this.sendResponse(res);
     } catch (error) {
       console.log(error);
@@ -57,6 +58,11 @@ export class UserModel {
   private async deleteUserDB(username: string) {
     const userDBFilename = join(DB_DIRNAME, `@${username}.json`);
     await fsPromises.unlink(userDBFilename);
+  }
+
+  private async deleteUserAvatar(userAvatar: string) {
+    const userAvatarFilename = join(AVATARS_DB_DIRNAME, userAvatar);
+    await fsPromises.unlink(userAvatarFilename);
   }
 
   private async sendResponse(res: Response, user?: User) {

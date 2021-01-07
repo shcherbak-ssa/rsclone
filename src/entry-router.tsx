@@ -13,7 +13,7 @@ export function EntryRouter() {
   const [appRoute, setAppRoute] = useState(ROOT_ROUTE_PATH);
 
   const AppComponent = lazy(() => import('./app'));
-  // const AuthComponent = lazy(() => import('./auth'));
+  const AuthComponent = lazy(() => import('./auth'));
 
   useEffect(() => {
     const localStorageService: LocalStorageService = new LocalStorageService();
@@ -38,10 +38,10 @@ export function EntryRouter() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Switch>
-        {/* <Route path={ROOT_ROUTE_PATH} exact component={AuthComponent} /> */}
-        <Route path={ROOT_ROUTE_PATH} exact>
+        <Route path={ROOT_ROUTE_PATH} exact component={AuthComponent} />
+        {/* <Route path={ROOT_ROUTE_PATH} exact>
           <div>Auth Component</div>
-        </Route>
+        </Route> */}
         <Route path={appRoute} component={AppComponent} />
       </Switch>
     </Suspense>
