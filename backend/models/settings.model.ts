@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { existsSync, promises as fsPromises } from 'fs';
 import { NextFunction, Request, Response } from 'express';
 import { Schema, validationResult } from 'express-validator';
@@ -12,9 +13,9 @@ import {
   nameValidation,
   ValidationError,
 } from '../validation';
-import { join } from 'path';
 
 const USERNAME_LABEL: string = 'username';
+const EMAIL_LABEL: string = 'email';
 
 export const settingsValidationSchema: Schema = {
   name: nameValidation,
@@ -69,6 +70,11 @@ export class SettingsModel {
   }
 
   async update(user: UsersDB, requestBody: any) {
+    if (EMAIL_LABEL in requestBody) {
+      const {email} = requestBody;
+      await this.checkNewEmailExisting(email);
+    }
+    
     if (USERNAME_LABEL in requestBody) {
       const {username} = requestBody;
 
@@ -77,6 +83,18 @@ export class SettingsModel {
     }
 
     return {...user, ...requestBody};
+  }
+
+  async checkNewEmailExisting(email: string) {
+    const usersDB = await this.readUsersDB();
+    const emailExist = usersDB.findIndex((user) => user.email === email);
+
+    if (emailExist >= 0) {
+      throw new ValidationError(
+        'User with current email is already exist',
+        { inputLabel: EMAIL_LABEL },
+      );
+    }
   }
 
   async checkNewUsernameExisting(newUsername: string) {
