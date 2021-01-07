@@ -37,7 +37,7 @@ export class SettingsUserModel extends SettingsModel {
       const {name, username} = response.payload;
 
       if (name) {
-        this.dispatchActionState(InputLabels.NAME_INPUT_LABEL, name);
+        this.dispatchStateAction(InputLabels.NAME_INPUT_LABEL, name);
       }
 
       if (username) {

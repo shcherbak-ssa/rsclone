@@ -46,7 +46,7 @@ export class SettingsModel {
     return await networkService.update(sendingData);
   }
 
-  protected dispatchActionState(inputLabel: InputLabels, value: string) {
+  protected dispatchStateAction(inputLabel: InputLabels, value: string) {
     dispatchAction(updateData(inputLabel, value));
   }
 

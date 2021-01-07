@@ -7,7 +7,7 @@ import { SettingsGroupProps, SettingsGroup } from '../../containers/settings-gro
 import { Base, BaseSelectProps } from '../base';
 import { storeSelectors } from '../../store';
 import { SettingsEvents } from '../../constants';
-import { UpdatedAppType } from '../../models/settings.model';
+import { UpdatedAppSettingsType } from '../../models/settings-app.model';
 import { settingsController } from '../../controllers/settings.controller';
 import { SettingsTheme, SettingsThemeProps } from '../settings-theme/settings-theme';
 
@@ -25,7 +25,7 @@ export function SettingsApp() {
     title: 'App',
     unsavedDataExist,
     saveButtonClickHanlder: () => {
-      const updatedApp: UpdatedAppType = {
+      const updatedApp: UpdatedAppSettingsType = {
         language: selectedLanguage.label === currentLanguageLabel ? undefined : selectedLanguage.label,
         theme: selectedTheme.label === currentThemeLabel ? undefined : selectedTheme.label,
         callback: () => {
