@@ -11,6 +11,10 @@
 
 ::-webkit-scrollbar {
   width: 8px;
+
+  @media screen and (max-width: 767px) {
+    width: 4px;
+  }
 }
 
 ::-webkit-scrollbar-button {

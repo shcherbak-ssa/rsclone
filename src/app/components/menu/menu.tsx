@@ -83,7 +83,8 @@ export function Menu() {
     setIsOpen(false);
   }
 
-  function menuButtonClickHandle() {
+  function menuButtonClickHandle(e: React.MouseEvent) {
+    e.stopPropagation();
     setIsOpen(!isOpen);
 
     if (!isOpen) {
@@ -93,8 +94,16 @@ export function Menu() {
     }
   }
 
+  function closeMenuClickHandle(e: React.MouseEvent) {
+    e.stopPropagation();
+
+    if (e.target.classList.contains('menu')) {
+      setIsOpen(false);
+    }
+  }
+
   return (
-    <div className={componentClassnames}>
+    <div className={componentClassnames} onClick={closeMenuClickHandle}>
       <div className="menu-container" data-class="flex-column">
         <div className="menu-user">
           <Avatar />

@@ -2,6 +2,7 @@
 
 .app {
   overflow-y: scroll;
+  position: relative;
   -x-size: 100%;
 
   .original-theme & {
@@ -14,6 +15,29 @@
   
   .dark-theme & {
     background: $dark-app-background-color;
+  }
+
+  &-header {
+    display: none;
+    z-index: 2;
+    -x-size: 100% 64px;
+    -x-position: sticky 0 x x 0;
+
+    @media screen and (max-width: 767px) {
+      display: block;
+    }
+
+    .original-theme & {
+      background: $original-app-background-color;
+    }
+    
+    .light-theme & {
+      background: $light-app-background-color;
+    }
+    
+    .dark-theme & {
+      background: $dark-app-background-color;
+    }
   }
 
   &-homepage {
@@ -29,8 +53,17 @@
       display: block;
     }
 
+    @media screen and (max-width: 1124px) {
+      padding: 0 115px 0 419px;
+    }
+
     @media screen and (max-width: 1023px) {
       padding: 0 130px;
+    }
+
+    @media screen and (max-width: 767px) {
+      padding: 0 24px;
+      height: calc(100% - 64px);
     }
   }
 

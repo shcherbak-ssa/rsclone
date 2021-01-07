@@ -9,8 +9,13 @@
   &-container {
     border-radius: 4px;
     max-width: 600px;
+    min-width: 280px;
     transform: translateX(-50%);
     -x-position: absolute 120px x x 50%;
+
+    @media screen and (max-width: 1023px) {
+      top: 80px;
+    }
 
     .original-theme & {
       background: $original-popup-background-color;

@@ -26,6 +26,7 @@ export function AppContainer() {
 
   return (
     <div className="app">
+      <div className="app-header"></div>
       <Router>
         <Sidebar />
         <Menu />

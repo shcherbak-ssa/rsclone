@@ -115,6 +115,10 @@
 
   &-placeholder, &-field, &-description {
     -x-font-size: 16px/24px;
+
+    @media screen and (max-width: 489px) {
+      -x-font-size: 14px/18px;
+    }
   }
 
   &.has-description {

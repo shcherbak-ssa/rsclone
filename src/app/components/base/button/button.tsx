@@ -22,7 +22,7 @@ export function Button({
   return (
     <div
       className={componentClassnames}
-      data-class="click"
+      data-class="click flex-center"
       onClick={clickHandler}
     >
       {
@@ -32,7 +32,7 @@ export function Button({
             </div>
           : ''
       }
-      {value}
+      <div className="button-value">{value}</div>
     </div>
   );
 }
