@@ -4,6 +4,7 @@ import './popup.scss';
 import { AppEvents, ButtonTypes } from '../../constants';
 import { Base, BaseButtonProps } from '../../components/base';
 import { popupController } from '../../controllers/popup.controller';
+import { DocumentBodyService } from '../../../services/document-body.service';
 
 export type PopupProps = {
   title: string,
@@ -31,10 +32,12 @@ export function Popup() {
   }, []);
 
   useEffect(() => {
+    const documentBodyService = new DocumentBodyService();
+
     if (popupProps === null) {
-      document.body.style.overflow = '';
+      documentBodyService.removeOverflowHidden();
     } else {
-      document.body.style.overflow = 'hidden';
+      documentBodyService.setOveflowHidden();
     }
   }, [popupProps]);
 

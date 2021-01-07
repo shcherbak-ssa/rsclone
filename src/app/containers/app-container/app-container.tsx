@@ -10,6 +10,7 @@ import { Settings } from '../../components/settings';
 import { storeSelectors } from '../../store';
 import { AppRoutesService } from '../../../services/app-routes.service';
 import { Popup } from '../popup';
+import { DocumentBodyService } from '../../../services/document-body.service';
 
 export function AppContainer() {
   const theme = useSelector(storeSelectors.user.getCurrentTheme());
@@ -17,10 +18,11 @@ export function AppContainer() {
   const appRoutesService: AppRoutesService = new AppRoutesService();
 
   useEffect(() => {
-    document.body.classList.add(theme);
+    const documentBodyService = new DocumentBodyService();
+    documentBodyService.addClass(theme);
 
     return () => {
-      document.body.classList.remove(theme);
+      documentBodyService.removeClass(theme);
     };
   }, [theme]);
 

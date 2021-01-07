@@ -16,6 +16,7 @@ import { Avatar } from '../avatar';
 import { PopupProps } from '../../containers/popup';
 import { popupController } from '../../controllers/popup.controller';
 import { DeleteUserService } from '../../../services/delete-user.service';
+import { DocumentBodyService } from '../../../services/document-body.service';
 
 export function Menu() {
   const history = useHistory();
@@ -87,10 +88,12 @@ export function Menu() {
     e.stopPropagation();
     setIsOpen(!isOpen);
 
+    const documentBodyService = new DocumentBodyService();
+
     if (!isOpen) {
-      document.body.style.overflow = 'hidden';
+      documentBodyService.setOveflowHidden();
     } else {
-      document.body.style.overflow = '';
+      documentBodyService.removeOverflowHidden();
     }
   }
 
