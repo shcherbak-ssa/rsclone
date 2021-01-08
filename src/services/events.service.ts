@@ -25,7 +25,13 @@ export class Events {
     if (!this.isEventExist(event)) return;
 
     const eventHandlers: Array<Function> = this.getEventHandlers(event);
-    this.removeHandler(eventHandlers, handler);
+    const updatedEventHandlers = this.removeHandler(eventHandlers, handler);
+    
+    if (updatedEventHandlers.length === 0) {
+      this.events.delete(event);
+    } else {
+      this.events.set(event, updatedEventHandlers);
+    }
 
     return this;
   }
@@ -48,6 +54,6 @@ export class Events {
   }
 
   private removeHandler(eventHandlers: Array<Function>, handler: Function) {
-    eventHandlers.filter((eventHandler) => eventHandler !== handler);
+    return eventHandlers.filter((eventHandler) => eventHandler !== handler);
   }
 }

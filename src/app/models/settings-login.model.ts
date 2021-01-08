@@ -72,7 +72,10 @@ export class SettingsLoginModel extends SettingsModel {
 
     if (response.type === SUCCESS_RESPONSE_TYPE) {
       const {email} = response.payload;
-      this.dispatchStateAction(InputLabels.EMAIL_INPUT_LABEL, email);
+
+      if (email) {
+        this.dispatchStateAction(InputLabels.EMAIL_INPUT_LABEL, email);
+      }
 
       successCallback();
     } else {

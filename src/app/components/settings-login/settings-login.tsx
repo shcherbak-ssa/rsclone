@@ -35,9 +35,7 @@ export function SettingsLogin() {
         newEmail: emailValue.trim() === email ? undefined : emailValue.trim(),
         newPassword: passwordValue.trim() === '' ? undefined : passwordValue.trim(),
         successCallback: () => {
-          setUnsavedDataExist(false);
-          setIsEnterNewPasswordState(false);
-          setPasswordValue('');
+          resetStates(false);
         },
         errorCallback: ({message, payload}: ValidationError) => {
           updateError(message, payload.inputLabel);
@@ -83,9 +81,7 @@ export function SettingsLogin() {
         const confirmPassword: ConfirmPasswordType = {
           password: passwordValue,
           successCallback: () => {
-            setIsPopupOpen(false);
-            setPasswordValue('');
-            setIsEnterNewPasswordState(true);
+            resetStates(true);
           },
           errorCallback: (message: string) => {
             setPasswordError(message);
@@ -116,9 +112,7 @@ export function SettingsLogin() {
       }
 
       if (isEnterNewPasswordState) {
-        setUnsavedDataExist(
-          value !== '' || emailValue !== email
-        );
+        setUnsavedDataExist(value !== '' || emailValue !== email);
       }
     },
     icon: eyeIcon,
@@ -129,6 +123,14 @@ export function SettingsLogin() {
       return isInputIconActive ? value : value.replace(/[^\n]/ig, '●');
     },
   };
+
+  function resetStates(nextEnterNewPasswordState: boolean) {
+    setIsPopupOpen(false);
+    setInputIsIconActive(false);
+    setPasswordValue('');
+    setUnsavedDataExist(false);
+    setIsEnterNewPasswordState(nextEnterNewPasswordState);
+  }
 
   function removeDots(oldValue: string, newValue: string) {
     const splitedValue = oldValue.split('').reverse();
