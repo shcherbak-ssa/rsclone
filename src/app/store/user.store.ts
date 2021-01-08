@@ -1,5 +1,5 @@
 import { InputLabels } from "../../constants";
-import { KeyboardShortcutType, UserType } from '../../../core/types';
+import { UserType } from '../../../core/types';
 
 enum Constants {
   UPDATE_STATES = 'user-store/update-states',

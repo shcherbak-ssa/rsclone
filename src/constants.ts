@@ -13,6 +13,7 @@ enum InputLabels {
   LANGUAGE_INPUT_LABEL = 'language',
   THEME_INPUT_LABEL = 'theme',
   AVATAR_INPUT_LABEL = 'avatar',
+  KEYBOARD_SHORTCUTS_LABEL = 'keyboardShortcuts',
 };
 
 export {

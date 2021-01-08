@@ -42,6 +42,7 @@ enum SettingsEvents {
   UPDATE_USER = 'settings-events/update-user',
   UPDATE_USER_AVATAR = 'settings-events/update-user-avatar',
   UPDATE_APP = 'settings-events/update-app',
+  UPDATE_SHORTCUTS = 'settings-events/update-shortcuts',
   REMOVE_SETTINGS = 'settings-events/remove-settings',
 };
 

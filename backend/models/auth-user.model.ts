@@ -9,7 +9,7 @@ const keyboardShortcuts: Array<KeyboardShortcutType> = [
     title: 'Add space',
     description: 'Create yout personal space',
     section: ShortcurtsSections.HOMEPAGE,
-    keys: 'ctrl+shift+s',
+    keys: 'ctrl+alt+s',
     label: ShortcutsLabels.ADD_SPACE,
   },
   {
@@ -23,7 +23,7 @@ const keyboardShortcuts: Array<KeyboardShortcutType> = [
     title: 'Add section',
     description: 'Create a new section in open space',
     section: ShortcurtsSections.SPACE,
-    keys: 'ctrl+shift+s',
+    keys: 'ctrl+alt+s',
     label: ShortcutsLabels.ADD_SECTION,
   },
 ];

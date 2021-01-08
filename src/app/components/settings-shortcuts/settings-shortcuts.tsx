@@ -8,6 +8,9 @@ import { SettingsSection, SettingsSectionProps } from '../../containers/settings
 import { storeSelectors } from '../../store';
 import { ShortcutGroup, ShortcutGroupProps } from '../shortcut-group';
 import { ShortcutsService } from '../../../services/shortcuts.service';
+import { SettingsShortcutsType } from '../../models/settings-shortcuts.model';
+import { settingsController } from '../../controllers/settings.controller';
+import { SettingsEvents } from '../../constants';
 
 export function SettingsShortcuts() {
   const {keyboardShortcuts: userKeyboardShortcuts} = useSelector(storeSelectors.user.get());
@@ -19,7 +22,16 @@ export function SettingsShortcuts() {
   const settingsSectionProps: SettingsSectionProps = {
     title: 'Keyboard Shortcuts',
     unsavedDataExist,
-    saveButtonClickHanlder: () => {},
+    saveButtonClickHanlder: () => {
+      const updatedShortcuts: SettingsShortcutsType = {
+        keyboardShortcuts,
+        successCallback: () => {
+          setUnsavedDataExist(false);
+        },
+      };
+
+      settingsController.emit(SettingsEvents.UPDATE_SHORTCUTS, updatedShortcuts);
+    },
   };
 
   function getShortcutGroups() {
