@@ -27,7 +27,6 @@ export function SettingsLogin() {
   const [isInputIconActive, setInputIsIconActive] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
-    isActive: true,
     title: 'Login',
     unsavedDataExist,
     saveButtonClickHanlder: () => {

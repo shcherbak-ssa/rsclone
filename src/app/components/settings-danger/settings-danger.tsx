@@ -12,7 +12,6 @@ export function SettingsDanger() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
-    isActive: true,
     title: 'Danger Zone',
   };
 

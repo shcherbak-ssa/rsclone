@@ -21,7 +21,6 @@ export function SettingsApp() {
   const [unsavedDataExist, setUnsavedDataExist] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
-    isActive: true,
     title: 'App',
     unsavedDataExist,
     saveButtonClickHanlder: () => {

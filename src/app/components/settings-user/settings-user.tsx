@@ -25,7 +25,6 @@ export function SettingsUser() {
   const [loadedFilename, setLoadedFilename] = useState('');
 
   const settingsSectionProps: SettingsSectionProps = {
-    isActive: true,
     title: 'User',
     unsavedDataExist,
     saveButtonClickHanlder: async () => {

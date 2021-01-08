@@ -5,7 +5,6 @@ import { SettingsSection, SettingsSectionProps } from '../../containers/settings
 
 export function SettingsShortcuts() {
   const settingsSectionProps: SettingsSectionProps = {
-    isActive: false,
     title: 'Keyboard Shortcuts',
     unsavedDataExist: false,
     saveButtonClickHanlder: () => {},
