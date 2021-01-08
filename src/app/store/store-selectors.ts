@@ -12,6 +12,6 @@ export const storeSelectors = {
 
     getKeyboardShortcuts() {},
 
-    getKeyboardShortcut(shor) {},
+    getKeyboardShortcut(shortcutKys) {},
   },
 };

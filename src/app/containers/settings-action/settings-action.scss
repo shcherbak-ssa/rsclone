@@ -7,6 +7,13 @@
   justify-content: space-between;
   width: 100%;
 
+  &.select-type {
+    border-radius: 6px;
+    padding: 6px 12px;
+
+    &.is-selected {}
+  }
+
   @media screen and (max-width: 489px) {
     display: block;
   }

@@ -1,4 +1,5 @@
 import keycode from 'keycode';
+import { upperCaseFirst } from 'upper-case-first';
 
 export class ShortcutsService {
   private pressedKeyboardKeys: Array<string> = [];
@@ -8,6 +9,10 @@ export class ShortcutsService {
 
   constructor(setPressedKeyboardKeys: Function) {
     this.setPressedKeyboardKeys = setPressedKeyboardKeys;
+  }
+
+  static transformShortcutKeys(keys: string) {
+    return upperCaseFirst(keys.replace(/\+/g, ' + '));
   }
 
   initEvents() {
