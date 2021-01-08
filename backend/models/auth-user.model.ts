@@ -1,6 +1,8 @@
 import { Language, Theme } from '../constants';
 import { UsernameService } from '../services/username.service';
-import { UserDB, UsersDB } from './types';
+import { KeyboardShortcutType, UserDB, UsersDB } from './types';
+
+const keyboardShortcuts: Array<KeyboardShortcutType> = [];
 
 interface User {
   name?: string;
@@ -41,6 +43,7 @@ export class AuthUser implements User {
       avatar: '',
       theme: Theme.ORIGINAL,
       language: Language.ENGLISH,
+      keyboardShortcuts,
     }
   }
 
