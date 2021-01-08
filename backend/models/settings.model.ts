@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Schema, validationResult } from 'express-validator';
 
 import { UsersDB } from './types';
-import { DB_DIRNAME, USER_DB_FILENAME } from '../constants';
+import { AVATARS_DB_DIRNAME, DB_DIRNAME, USER_DB_FILENAME } from '../constants';
 import { ResponseSender } from './response.model';
 import {
   usernameValidation,
@@ -95,11 +95,20 @@ export class SettingsModel {
     const user: UsersDB | undefined = this.req.user;
 
     if (user) {
+      if (user.avatar) {
+        await this.deleteCurrentUserAvatar(user.avatar);
+      }
+
       const updatedUser = await this.update(user, { avatar: userAvatarFilename });
       await this.saveUpdatedUserToDB(updatedUser);
   
       this.responseSender.sendSuccessResponse('success', { avatar: userAvatarFilename });
     }
+  }
+
+  async deleteCurrentUserAvatar(userAvatar: string) {
+    const userAvatarFilename = join(AVATARS_DB_DIRNAME, userAvatar);
+    await fsPromises.unlink(userAvatarFilename);
   }
 
   async checkPassword(user: UsersDB, password: string) {

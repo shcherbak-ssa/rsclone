@@ -3,10 +3,18 @@
 .settings-avatar {
   display: flex;
 
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+
   &-container {
     margin-right: 16px;
     display: flex;
     -x-size: 126px;
+
+    @media screen and (max-width: 767px) {
+      margin: 0 0 16px 0;
+    }
 
     .original-theme & {
       background: $original-settings-avatar-container-background-color;
@@ -33,7 +41,7 @@
     -x-font-size: 12px/17px;
 
     @media screen and (max-width: 767px) {
-      display: none;
+      
     }
 
     .original-theme & {

@@ -34,10 +34,10 @@
     border-bottom: 1px solid;
     display: flex;
     align-items: center;
+    font-size: 24px;
     font-weight: 500;
     padding: 0 24px;
     height: 80px;
-    -x-font-size: 24px/56px;
 
     .original-theme & {
       border-bottom-color: $original-popup-header-border-color;

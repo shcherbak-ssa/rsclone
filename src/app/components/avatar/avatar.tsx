@@ -38,11 +38,11 @@ export function Avatar({size = DEFAULT_AVATAR_SIZE, avatarArrayBuffer}: AvatarPr
     return `${firstLetterOfFirstName}${firstLetterOfLastName}`.toUpperCase();
   }
 
-  if (avatar) {
+  if (avatarArrayBuffer) {
+    return <div className="avatar" style={setSizeStyles(avatarArrayBuffer)}></div>;
+  } else if (avatar) {
     const imageUrl = assetsService.getAvatarImageUrl(avatar);
     return <div className="avatar" style={setSizeStyles(imageUrl)}></div>;
-  } else if (avatarArrayBuffer) {
-    return <div className="avatar" style={setSizeStyles(avatarArrayBuffer)}></div>;
   } else {
     return (
       <div className="avatar" style={setSizeStyles()} data-class="flex-center">
