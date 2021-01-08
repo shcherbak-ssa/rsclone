@@ -1,15 +1,15 @@
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
+import { UserType } from '../core/types';
 import { serverConfig } from './server.config';
 import { AppOptions, App } from './app';
 import { AuthRouter, UserRouter, SettingsRouter } from './routers';
-import { UsersDB } from './models/types';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: UsersDB
+      user?: UserType
       userAvatarFilename?: string
     }
   }

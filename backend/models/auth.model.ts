@@ -11,7 +11,7 @@ import {
 } from '../validation';
 import { ResponseSender } from './response.model';
 import { DB_DIRNAME, USER_DB_FILENAME } from '../constants';
-import { UsersDB } from './types';
+import { UserType } from '../../core/types';
 import { AuthUser } from './auth-user.model';
 
 const EMAIL_INPUT_LABEL: string = 'email';
@@ -83,7 +83,7 @@ class AuthModel {
     await this.responseSender.sendSuccessResponse('Success', { userID, username });
   }
 
-  async readUsersDB(): Promise<Array<UsersDB>> {
+  async readUsersDB(): Promise<Array<UserType>> {
     const dbResult: string = await fsPromises.readFile(USER_DB_FILENAME, {encoding: 'utf-8'});
     return JSON.parse(dbResult);
   }
@@ -118,9 +118,9 @@ export class RegistrationModel extends AuthModel {
   }
 
   async checkUserExisting(user: AuthUser) {
-    const usersDB: Array<UsersDB> = await this.readUsersDB();
+    const usersDB: Array<UserType> = await this.readUsersDB();
     const searchUserEmail: string = user.getEmailForCheck();
-    const userExist: UsersDB | undefined = usersDB.find((user) => user.email === searchUserEmail);
+    const userExist: UserType | undefined = usersDB.find((user) => user.email === searchUserEmail);
 
     if (userExist) {
       throw new ValidationError(
@@ -133,10 +133,10 @@ export class RegistrationModel extends AuthModel {
   }
 
   async createNewUser(user: AuthUser) {
-    const usersDB: Array<UsersDB> = await this.readUsersDB();
+    const usersDB: Array<UserType> = await this.readUsersDB();
     
     const newUserID: number = usersDB.length;
-    const newUser: UsersDB = user.getDataForUsersDB(newUserID);
+    const newUser: UserType = user.getDataForUsersDB(newUserID);
     
     usersDB.push(newUser);
     await this.updateUsersDB(usersDB);
@@ -147,7 +147,7 @@ export class RegistrationModel extends AuthModel {
     return { newUserID, username };
   }
 
-  async updateUsersDB(usersDB: Array<UsersDB>) {
+  async updateUsersDB(usersDB: Array<UserType>) {
     fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(usersDB, null, 2));
   }
 
@@ -177,7 +177,7 @@ export class LoginModel extends AuthModel {
   }
 
   async findUser(user: AuthUser) {
-    const usersDB: Array<UsersDB> = await this.readUsersDB();
+    const usersDB: Array<UserType> = await this.readUsersDB();
     const {email, password} = user;
 
     const userID: number = usersDB.findIndex((userItem) => {

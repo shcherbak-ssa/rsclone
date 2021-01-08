@@ -9,5 +9,9 @@ export const storeSelectors = {
     getCurrentTheme() {
       return (state: StoreStateType) => state.user.theme;
     },
+
+    getKeyboardShortcuts() {},
+
+    getKeyboardShortcut(shor) {},
   },
 };

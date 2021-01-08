@@ -3,7 +3,7 @@ import { existsSync, promises as fsPromises } from 'fs';
 import { NextFunction, Request, Response } from 'express';
 import { Schema, validationResult } from 'express-validator';
 
-import { UsersDB } from './types';
+import { UserType } from '../../core/types';
 import { AVATARS_DB_DIRNAME, DB_DIRNAME, USER_DB_FILENAME } from '../constants';
 import { ResponseSender } from './response.model';
 import {
@@ -57,7 +57,7 @@ export class SettingsModel {
       await this.validateBody();
 
       const requestBody = await this.getRequestBody();
-      const user: UsersDB | undefined = this.req.user;
+      const user: UserType | undefined = this.req.user;
 
       if (user) {
         const updatedUser = await this.update(user, requestBody);
@@ -79,7 +79,7 @@ export class SettingsModel {
       await this.validateBody();
 
       const requestBody = await this.getRequestBody();
-      const user: UsersDB | undefined = this.req.user;
+      const user: UserType | undefined = this.req.user;
 
       if (user) {
         await this.checkPassword(user, requestBody.password);
@@ -92,7 +92,7 @@ export class SettingsModel {
 
   async loadUserAvatar() {
     const {userAvatarFilename} = this.req;
-    const user: UsersDB | undefined = this.req.user;
+    const user: UserType | undefined = this.req.user;
 
     if (user) {
       if (user.avatar) {
@@ -111,7 +111,7 @@ export class SettingsModel {
     await fsPromises.unlink(userAvatarFilename);
   }
 
-  async checkPassword(user: UsersDB, password: string) {
+  async checkPassword(user: UserType, password: string) {
     if (user.password !== password) {
       throw new ValidationError('Invalid password', {});
     }
@@ -130,7 +130,7 @@ export class SettingsModel {
     return this.req.body;
   }
 
-  async update(user: UsersDB, requestBody: any) {
+  async update(user: UserType, requestBody: any) {
     if (EMAIL_LABEL in requestBody) {
       const {email} = requestBody;
       await this.checkNewEmailExisting(email);
@@ -175,7 +175,7 @@ export class SettingsModel {
     await fsPromises.rename(currentUsernameFilename, newUsernameFilename);
   }
 
-  async saveUpdatedUserToDB(updatedUser: UsersDB) {
+  async saveUpdatedUserToDB(updatedUser: UserType) {
     const usersDB = await this.readUsersDB();
     usersDB.forEach((user, index, array) => {
       if (user.id === updatedUser.id) {
@@ -186,7 +186,7 @@ export class SettingsModel {
     await fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(usersDB, null, 2));
   }
 
-  async readUsersDB(): Promise<Array<UsersDB>> {
+  async readUsersDB(): Promise<Array<UserType>> {
     const result: string = await fsPromises.readFile(USER_DB_FILENAME, {encoding: 'utf-8'});
     return JSON.parse(result);
   }

@@ -1,19 +1,12 @@
 import { InputLabels } from "../../constants";
+import { KeyboardShortcutType, UserType } from '../../../core/types';
 
 enum Constants {
   UPDATE_STATES = 'user-store/update-states',
   UPDATE_DATA = 'user-store/update-data',
 };
 
-export type UserStateType = {
-  id: number;
-  name: string;
-  email: string;
-  avatar: string;
-  username: string;
-  theme: string;
-  language: string;
-};
+export type UserStateType = UserType;
 
 type UpdateStatesActionType = {
   type: Constants.UPDATE_STATES,
@@ -36,6 +29,7 @@ const initialState: UserStateType = {
   username: '',
   theme: '',
   language: '',
+  keyboardShortcuts: [],
 };
 
 function userReducer(

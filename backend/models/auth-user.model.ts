@@ -1,8 +1,18 @@
+import { ShortcurtsSections, ShortcutsLabels } from '../../core/constants';
+import { KeyboardShortcutType, UserType } from '../../core/types';
 import { Language, Theme } from '../constants';
+import { UserDB } from './types';
 import { UsernameService } from '../services/username.service';
-import { KeyboardShortcutType, UserDB, UsersDB } from './types';
 
-const keyboardShortcuts: Array<KeyboardShortcutType> = [];
+const keyboardShortcuts: Array<KeyboardShortcutType> = [
+  {
+    title: 'Add space',
+    description: 'Create yout personal space',
+    section: ShortcurtsSections.HOMEPAGE,
+    keys: 'ctrl+shift+s',
+    label: ShortcutsLabels.ADD_SPACE,
+  },
+];
 
 interface User {
   name?: string;
@@ -33,7 +43,7 @@ export class AuthUser implements User {
     }
   }
 
-  getDataForUsersDB(newUserID: number): UsersDB {
+  getDataForUsersDB(newUserID: number): UserType {
     return {
       id: newUserID,
       name: this.name,

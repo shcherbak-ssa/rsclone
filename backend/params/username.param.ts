@@ -2,7 +2,7 @@ import { promises as fsPromises } from 'fs';
 import { NextFunction, Request, Response, Router } from 'express';
 
 import { USER_DB_FILENAME } from '../constants';
-import { UsersDB } from '../models/types';
+import { UserType } from '../../core/types';
 
 const USERNAME_PARAM: string = 'username';
 
@@ -21,7 +21,7 @@ export class UsernameParam {
     const usersDB = await this.readUsersDB();
     await this.validateUser(userID, username, usersDB);
 
-    const user: UsersDB | undefined = usersDB.find((user) => user.username === username);
+    const user: UserType | undefined = usersDB.find((user) => user.username === username);
     req.user = user;
 
     next();
@@ -35,12 +35,12 @@ export class UsernameParam {
     }
   }
 
-  private async validateUser(userID: number, username: string, usersDB: Array<UsersDB>) {
+  private async validateUser(userID: number, username: string, usersDB: Array<UserType>) {
     if (usersDB[userID].username === username) return;
     throw new Error('Invalid user');
   }
 
-  private async readUsersDB(): Promise<Array<UsersDB>> {
+  private async readUsersDB(): Promise<Array<UserType>> {
     const result: string = await fsPromises.readFile(USER_DB_FILENAME, {encoding: 'utf-8'});
     return JSON.parse(result);
   }

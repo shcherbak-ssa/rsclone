@@ -2,12 +2,12 @@ import { join } from 'path';
 import { promises as fsPromises } from 'fs';
 import { NextFunction, Request, Response } from 'express';
 
-import { UsersDB } from './types';
+import { UserType } from '../../core/types';
 import { AVATARS_DB_DIRNAME, DB_DIRNAME, USER_DB_FILENAME } from '../constants';
 import { ResponseSender } from './response.model';
 
 type User = {
-  user: UsersDB,
+  user: UserType,
   spaces: [],
 };
 
@@ -49,7 +49,7 @@ export class UserModel {
 
   private async deleteUserFromUsersDB(userID: number) {
     const usersDB: string = await fsPromises.readFile(USER_DB_FILENAME, {encoding: 'utf-8'});
-    const parsedUsersDB: Array<UsersDB> = JSON.parse(usersDB);
+    const parsedUsersDB: Array<UserType> = JSON.parse(usersDB);
 
     const filteredUserDB = parsedUsersDB.filter((user) => user.id !== userID);
     await fsPromises.writeFile(USER_DB_FILENAME, JSON.stringify(filteredUserDB, null, 2));
