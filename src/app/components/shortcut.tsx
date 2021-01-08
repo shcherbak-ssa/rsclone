@@ -6,16 +6,16 @@ import { SettingsActionProps, SettingsAction } from '../containers/settings-acti
 
 export type ShortcutProps = {
   keyboardShortcut: KeyboardShortcutType,
-  selectedItemLabel: string | null,
-  toggleSelection: Function,
+  selectedShortcutLabel: string | null,
+  updateSelectedShortcut: Function,
 };
 
 export function Shortcut({
   keyboardShortcut: {title, description, label, keys},
-  selectedItemLabel,
-  toggleSelection,
+  selectedShortcutLabel,
+  updateSelectedShortcut,
 }: ShortcutProps) {
-  const isSelected = label === selectedItemLabel;
+  const isSelected = label === selectedShortcutLabel;
   const settingsActionProps: SettingsActionProps = {
     title,
     description,
@@ -26,7 +26,7 @@ export function Shortcut({
     isSelectType: true,
     isSelected,
     toggleSelection: () => {
-      toggleSelection(isSelected ? null : label);
+      updateSelectedShortcut(isSelected ? null : label);
     },
   };
 

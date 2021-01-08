@@ -30,6 +30,8 @@ $original-settings-section-line-color: #183055;
 
 $original-settings-action-title-color: #fff;
 $original-settings-action-description-color: rgba(255, 255, 255, 0.48);
+$original-settings-action-hover-background-color: rgba(#596D8B, 0.4);
+$original-settings-action-selected-background-color: #596D8B;
 
 $original-settings-shortcuts-message-color: rgba(255, 255, 255, 0.48);
 
@@ -103,6 +105,8 @@ $light-settings-section-line-color: rgba(#111111, .4);
 
 $light-settings-action-title-color: #393E46;
 $light-settings-action-description-color: #111;
+$light-settings-action-hover-background-color: rgba(#393E46, 0.1);
+$light-settings-action-selected-background-color: rgba(#393E46, 0.2);
 
 $light-settings-shortcuts-message-color: #111;
 
@@ -177,6 +181,8 @@ $dark-settings-section-line-color: rgba(#fff, .4);
 
 $dark-settings-action-title-color: #fff;
 $dark-settings-action-description-color: rgba(255, 255, 255, 0.48);
+$dark-settings-action-hover-background-color: rgba(#fff, .2);
+$dark-settings-action-selected-background-color: rgba(#fff, .3);
 
 $dark-settings-shortcuts-message-color: rgba(255, 255, 255, 0.48);
 

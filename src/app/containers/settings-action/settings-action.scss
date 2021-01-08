@@ -10,8 +10,35 @@
   &.select-type {
     border-radius: 6px;
     padding: 6px 12px;
+    transition: .2s;
 
-    &.is-selected {}
+    &:hover {
+      .original-theme & {
+        background: $original-settings-action-hover-background-color;
+      }
+  
+      .light-theme & {
+        background: $light-settings-action-hover-background-color;
+      }
+      
+      .dark-theme & {
+        background: $dark-settings-action-hover-background-color;
+      }
+    }
+
+    &.is-selected {
+      .original-theme & {
+        background: $original-settings-action-selected-background-color;
+      }
+  
+      .light-theme & {
+        background: $light-settings-action-selected-background-color;
+      }
+      
+      .dark-theme & {
+        background: $dark-settings-action-selected-background-color;
+      }
+    }
   }
 
   @media screen and (max-width: 489px) {
@@ -32,6 +59,10 @@
     font-weight: 500;
     margin-bottom: 8px;
     -x-font-size: 16px/24px;
+
+    .select-type & {
+      margin-bottom: 0;
+    }
 
     .original-theme & {
       color: $original-settings-action-title-color;

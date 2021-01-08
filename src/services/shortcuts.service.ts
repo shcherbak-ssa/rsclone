@@ -14,14 +14,14 @@ export class ShortcutsService {
   }
 
   static transformShortcutKeys(keys: string) {
-    return upperCaseFirst(keys.replace(/\+/g, ' + '));
+    return keys.split('+').map(upperCaseFirst).join(' + ');
   }
 
   static getSectionShortcuts(
     sectionLabel: string, keyboardShortcuts: Array<KeyboardShortcutType>,
   ) {
     return keyboardShortcuts.filter((keyboardShortcut) => {
-      return keyboardShortcut.label === sectionLabel;
+      return keyboardShortcut.section === sectionLabel;
     });
   }
 

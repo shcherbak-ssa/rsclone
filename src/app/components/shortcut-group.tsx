@@ -8,12 +8,12 @@ import { Shortcut, ShortcutProps } from './shortcut';
 export type ShortcutGroupProps = {
   sectionLabel: string,
   keyboardShortcuts: Array<KeyboardShortcutType>,
-  selectedItemLabel: string | null,
-  toggleSelection: Function,
+  selectedShortcutLabel: string | null,
+  updateSelectedShortcut: Function,
 };
 
 export function ShortcutGroup({
-  sectionLabel, keyboardShortcuts, selectedItemLabel, toggleSelection,
+  sectionLabel, keyboardShortcuts, selectedShortcutLabel, updateSelectedShortcut,
 }: ShortcutGroupProps) {
   const settingsGroupProps: SettingsGroupProps = {
     title: sectionLabel,
@@ -25,11 +25,11 @@ export function ShortcutGroup({
       .map((keyboardShortcut, index) => {
         const shortcutProps: ShortcutProps = {
           keyboardShortcut,
-          selectedItemLabel,
-          toggleSelection,
+          selectedShortcutLabel,
+          updateSelectedShortcut,
         };
 
-        return <Shortcut key={index} {...shortcutProps} />
+        return <Shortcut key={index} {...shortcutProps} />;
       });
   }
 
