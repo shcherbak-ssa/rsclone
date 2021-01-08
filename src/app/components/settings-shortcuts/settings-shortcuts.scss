@@ -1,3 +1,20 @@
 @import '../../../styles/assets.scss';
 
-.settings-shortcuts {}
+.settings-shortcuts {
+  &-message {
+    margin-bottom: 24px;
+    -x-font-size: 14px/20px;
+
+    .original-theme & {
+      color: $original-settings-shortcuts-message-color;
+    }
+
+    .light-theme & {
+      color: $light-settings-shortcuts-message-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-settings-shortcuts-message-color;
+    }
+  }
+}

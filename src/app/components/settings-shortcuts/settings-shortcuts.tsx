@@ -11,6 +11,8 @@ export function SettingsShortcuts() {
   };
 
   return (
-    <SettingsSection {...settingsSectionProps}></SettingsSection>
+    <SettingsSection {...settingsSectionProps}>
+      <div className="settings-shortcuts-message">Select any shortcut and press your combination</div>
+    </SettingsSection>
   );
 }
