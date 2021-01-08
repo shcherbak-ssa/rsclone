@@ -1,7 +1,9 @@
-import keycode from 'keycode';
+import getKeycode from 'keycode';
 import { upperCaseFirst } from 'upper-case-first';
 
 import { KeyboardShortcutType } from '../../core/types';
+
+const PLUS_STRING: string = '+';
 
 export class ShortcutsService {
   private pressedKeyboardKeys: Array<string> = [];
@@ -14,7 +16,7 @@ export class ShortcutsService {
   }
 
   static transformShortcutKeys(keys: string) {
-    return keys.split('+').map(upperCaseFirst).join(' + ');
+    return keys.split(PLUS_STRING).map(upperCaseFirst).join(' + ');
   }
 
   static getSectionShortcuts(
@@ -33,20 +35,17 @@ export class ShortcutsService {
   removeEvents() {
     document.removeEventListener('keydown', this.keydownHandler);
     document.removeEventListener('keyup', this.keyupHandler);
-
-    this.cleanPressesKeyboardKeys();
   }
 
   private handleKeydownEvent(e: KeyboardEvent) {
-    const pressedKeyboardKey = keycode(e);
+    const pressedKeyboardKey = getKeycode(e);
     this.pressedKeyboardKeys.push(pressedKeyboardKey);
   }
 
   private handleKeyupEvent() {
     this.removeDuplicatesFromPressedKeyboardKeys();
-    this.setPressedKeyboardKeys([...this.pressedKeyboardKeys]);
-
-    this.removeEvents();
+    this.setPressedKeyboardKeys([...this.pressedKeyboardKeys].join(PLUS_STRING));
+    this.cleanPressesKeyboardKeys();
   }
 
   private removeDuplicatesFromPressedKeyboardKeys() {
