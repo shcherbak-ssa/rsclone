@@ -1,6 +1,8 @@
 import keycode from 'keycode';
 import { upperCaseFirst } from 'upper-case-first';
 
+import { KeyboardShortcutType } from '../../core/types';
+
 export class ShortcutsService {
   private pressedKeyboardKeys: Array<string> = [];
   private keydownHandler = this.handleKeydownEvent.bind(this);
@@ -13,6 +15,14 @@ export class ShortcutsService {
 
   static transformShortcutKeys(keys: string) {
     return upperCaseFirst(keys.replace(/\+/g, ' + '));
+  }
+
+  static getSectionShortcuts(
+    sectionLabel: string, keyboardShortcuts: Array<KeyboardShortcutType>,
+  ) {
+    return keyboardShortcuts.filter((keyboardShortcut) => {
+      return keyboardShortcut.label === sectionLabel;
+    });
   }
 
   initEvents() {
