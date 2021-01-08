@@ -12,6 +12,20 @@ const keyboardShortcuts: Array<KeyboardShortcutType> = [
     keys: 'ctrl+shift+s',
     label: ShortcutsLabels.ADD_SPACE,
   },
+  {
+    title: 'Add page',
+    description: 'Create a new page in open space',
+    section: ShortcurtsSections.SPACE,
+    keys: 'ctrl+alt+p',
+    label: ShortcutsLabels.ADD_PAGE,
+  },
+  {
+    title: 'Add section',
+    description: 'Create a new section in open space',
+    section: ShortcurtsSections.SPACE,
+    keys: 'ctrl+shift+s',
+    label: ShortcutsLabels.ADD_SECTION,
+  },
 ];
 
 interface User {

@@ -61,8 +61,10 @@ export class UserModel {
   }
 
   private async deleteUserAvatar(userAvatar: string) {
-    const userAvatarFilename = join(AVATARS_DB_DIRNAME, userAvatar);
-    await fsPromises.unlink(userAvatarFilename);
+    if (userAvatar) {
+      const userAvatarFilename = join(AVATARS_DB_DIRNAME, userAvatar);
+      await fsPromises.unlink(userAvatarFilename);
+    }
   }
 
   private async sendResponse(res: Response, user?: User) {
