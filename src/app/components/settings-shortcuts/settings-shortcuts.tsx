@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import cloneDeep from 'clone-deep';
 import './settings-shortcuts.scss';
 
 import { shortcutsSectionsLabels } from '../../../../core/constants';
@@ -9,14 +10,15 @@ import { ShortcutGroup, ShortcutGroupProps } from '../shortcut-group';
 import { ShortcutsService } from '../../../services/shortcuts.service';
 
 export function SettingsShortcuts() {
-  const user = useSelector(storeSelectors.user.get());
-  const [keyboardShortcuts] = useState(user.keyboardShortcuts);
+  const {keyboardShortcuts: userKeyboardShortcuts} = useSelector(storeSelectors.user.get());
+  const [keyboardShortcuts] = useState(cloneDeep(userKeyboardShortcuts));
   const [selectedShortcutLabel, setSelectedShortcutLabel] = useState(null);
   const [pressedKeyboardKeys, setPressedKeyboardKeys] = useState('');
+  const [unsavedDataExist, setUnsavedDataExist] = useState(false);
 
   const settingsSectionProps: SettingsSectionProps = {
     title: 'Keyboard Shortcuts',
-    unsavedDataExist: false,
+    unsavedDataExist,
     saveButtonClickHanlder: () => {},
   };
 
@@ -44,10 +46,10 @@ export function SettingsShortcuts() {
 
   useEffect(() => {
     if (selectedShortcutLabel !== null) {
-      console.log(pressedKeyboardKeys);
       updateKeyboardShortcuts();
       updateSelectedShortcut(null);
       setPressedKeyboardKeys('');
+      updateUnsavedDataExist();
     }
   }, [pressedKeyboardKeys]);
 
@@ -73,9 +75,19 @@ export function SettingsShortcuts() {
     selectedKeyboardShortcut.keys = pressedKeyboardKeys;
   }
 
+  function updateUnsavedDataExist() {
+    const changedKeyboardShortcut = keyboardShortcuts.find((keyboardShortcut, index) => {
+      return keyboardShortcut.keys !== userKeyboardShortcuts[index].keys;
+    });
+
+    setUnsavedDataExist(!!changedKeyboardShortcut);
+  }
+
   return (
     <SettingsSection {...settingsSectionProps}>
-      <div className="settings-shortcuts-message">Select any shortcut and press your combination</div>
+      <div className="settings-shortcuts-message">
+        Select any shortcut and press your combination
+      </div>
       {getShortcutGroups()}
     </SettingsSection>
   );
