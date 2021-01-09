@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 
 import { App, AppOptions } from './app';
 import { AuthController } from './controllers/auth.controller';
+import { ConnectionDatabase } from './database/connection.database';
 
 import serverConfig from '../config/server.config.json';
 
@@ -26,4 +27,14 @@ const appOptions: AppOptions = {
   ],
 };
 
-App.init(appOptions).listen();
+ConnectionDatabase.init()
+  .connect()
+  .then((connectionDatabase) => {
+    connectionDatabase.createUsersCollection();
+  })
+  .then(() => {
+    App.init(appOptions).listen();
+  })
+  .catch((error) => {
+    console.log(error);
+  });

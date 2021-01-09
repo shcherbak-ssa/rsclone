@@ -1,8 +1,9 @@
-import { Application, NextFunction, Request, Response } from 'express';
 import { extname, join } from 'path';
-import { ResponseSenderService } from 'services/response-sender.service';
-import { ResponseFileSender } from 'types/response-sender.types';
+import { Application, NextFunction, Request, Response } from 'express';
+
 import { RequestHeaders, StatusCodes } from '../../common/constants';
+import { ResponseFileSender } from '../types/response-sender.types';
+import { ResponseSenderService } from '../services/response-sender.service';
 
 const INDEX_FILENAME: string = 'index.html';
 const ASSETS_EXTNAME_REGEXP: RegExp = /^.(png|svg|ico)$/;
