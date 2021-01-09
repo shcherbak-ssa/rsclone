@@ -1,8 +1,9 @@
 import { Response } from 'express';
 
-import { ResponseData, ResponseSender } from '../data/response.data';
+import { ResponseFileSender, ResponseSender } from '../types/response-sender.types'; 
+import { ResponseData } from '../data/response.data';
 
-export class ResponseSenderService implements ResponseSender {
+export class ResponseSenderService implements ResponseSender, ResponseFileSender {
   private response: Response | null = null;
 
   setResponseObject(response: Response) {
@@ -10,4 +11,8 @@ export class ResponseSenderService implements ResponseSender {
   }
 
   async sendJsonResponse(responseData: ResponseData) {}
+
+  async sendFile(statusCode: number, filePath: string) {
+    this.response?.status(statusCode).sendFile(filePath);
+  }
 }

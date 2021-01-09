@@ -1,4 +1,3 @@
-import { Response } from 'express';
 import { StatusCodes } from '../../common/constants';
 
 export class ResponseData {
@@ -17,9 +16,4 @@ export class ResponseData {
   getBody() {
     return this.body;
   }
-}
-
-export interface ResponseSender {
-  setResponseObject(response: Response): void;
-  sendJsonResponse(responseData: ResponseData): void;
 }

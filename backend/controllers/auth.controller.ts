@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 
 import { StatusCodes } from '../../common/constants';
 import { ErrorNames } from '../constants';
-import { ResponseData, ResponseSender } from '../data/response.data';
+import { ResponseSender } from '../types/response-sender.types';
+import { ResponseData } from '../data/response.data';
 import { MiddlewareController } from './middleware.controller';
 import { AccessTokenService } from '../services/access-token.service';
 import { ResponseSenderService } from '../services/response-sender.service';
