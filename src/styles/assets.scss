@@ -1,0 +1,232 @@
+/** auth */
+$auth-background: #FAFAFA;
+$decoration-background: #183055;
+$button-form-background: #6E41E2;
+$dark-color: #111;
+$link-color: #6E41E2;
+
+/** original theme */
+$original-app-background-color: #183055;
+$original-sidebar-icon-color: #fff;
+$original-sidebar-line-background-color: rgba(255, 255, 255, 0.1);
+
+$original-avatar-color: #fff;
+$original-avatar-border-color: #183055;
+$original-avatar-background-color: #596D8B;
+
+$original-menu-username-color: #fff;
+$original-menu-line-background: #596D8B;
+$original-menu-item-color: #9DAAB6;
+$original-menu-item-color-hover: #fff;
+$original-menu-item-background-color-hover: #2F4566;
+$original-menu-item-color-active: #fff;
+$original-menu-button-span-background-color: #fff;
+
+$original-homepage-section-title-color: #fff;
+
+$original-settings-section-background-color: #2F4566;
+$original-settings-section-title-color: #fff;
+$original-settings-section-line-color: #183055;
+
+$original-settings-action-title-color: #fff;
+$original-settings-action-description-color: rgba(255, 255, 255, 0.48);
+$original-settings-action-hover-background-color: rgba(#596D8B, 0.4);
+$original-settings-action-selected-background-color: #596D8B;
+
+$original-settings-shortcuts-message-color: rgba(255, 255, 255, 0.48);
+
+$original-settings-group-title-color: #9DAAB6;
+
+$original-settings-avatar-container-background-color: #183055;
+$original-settings-avatar-drop-color: #9DAAB6;
+$original-settings-avatar-drop-border-color: #183055;
+$original-settings-avatar-link-color: #3884FF;
+$original-settings-avatar-filename-color: #fff;
+
+$original-button-primary-color: #fff;
+$original-button-primary-background-color: #3884FF;
+$original-button-primary-background-color-hover: #1F65D6;
+$original-button-secondary-color: #74818D;
+$original-button-secondary-background-color: #E6ECF1;
+$original-button-secondary-background-color-hover: #d3dce4;
+$original-button-danger-color: #fff;
+$original-button-danger-background-color: #FF4642;
+$original-button-danger-background-color-hover: #f62520;
+
+$original-input-background-color: #183055;
+$original-input-color: #fff;
+$original-input-placeholder-color: rgba(255, 255, 255, 0.48);
+$original-input-error-color: #FF4642;
+$original-input-description-color: rgba(255, 255, 255, 0.48);
+$original-input-icon-color: #fff;
+
+$original-select-background-color: #183055;
+$original-select-color: #fff;
+$original-select-placeholder-color: rgba(255, 255, 255, 0.48);
+$original-select-icon-color: rgba(255, 255, 255, 0.48);
+$original-select-icon-color-hover: #fff;
+$original-select-item-active-background-color: #596D8B;
+
+$original-radio-label-background-color: #183055;
+$original-radio-label-selected-background-color: #3884FF;
+$original-radio-label-hover-background-color: #596d8b;
+$original-radio-span-background-color: #fff;
+$original-radio-description-color: #fff;
+
+$original-popup-background-color: #2F4566;
+$original-popup-header-border-color: #183055;
+$original-popup-title-color: #fff;
+$original-popup-body-text-color: #fff;
+
+/** light theme */
+$light-app-background-color: #F1F1F1;
+$light-sidebar-icon-color: #393E46;
+$light-sidebar-icon-active-color: #111111;
+$light-sidebar-line-background-color: rgba(#111, 0.4);
+
+$light-avatar-color: #111;
+$light-avatar-border-color: #393E46;
+$light-avatar-background-color: #F1F1F1;
+
+$light-menu-username-color: #393E46;
+$light-menu-line-background: rgba(#111111, .4);
+$light-menu-item-color: rgba(#393E46, .8);
+$light-menu-item-color-hover: #000;
+$light-menu-item-background-color-hover: rgba(#393E46, .1);
+$light-menu-item-color-active: #000;
+$light-menu-button-span-background-color: #393E46;
+$light-menu-button-span-background-active-color: #111111;
+
+$light-homepage-section-title-color: #393E46;
+
+$light-settings-section-background-color: #fff;
+$light-settings-section-title-color: #111111;
+$light-settings-section-line-color: rgba(#111111, .4);
+
+$light-settings-action-title-color: #393E46;
+$light-settings-action-description-color: #111;
+$light-settings-action-hover-background-color: rgba(#393E46, 0.1);
+$light-settings-action-selected-background-color: rgba(#393E46, 0.2);
+
+$light-settings-shortcuts-message-color: #111;
+
+$light-settings-group-title-color: #393E46;
+
+$light-settings-avatar-container-background-color: #F1F1F1;
+$light-settings-avatar-drop-color: #111111;
+$light-settings-avatar-drop-border-color: #4D4D4D;
+$light-settings-avatar-link-color: #6E41E2;
+$light-settings-avatar-filename-color: #111111;
+
+$light-button-primary-color: #FFFFFF;
+$light-button-primary-background-color: #6E41E2;
+$light-button-primary-background-color-hover: #5835B0;
+$light-button-secondary-color: #6E41E2;
+$light-button-secondary-border-color: #6E41E2;
+$light-button-secondary-background-color: #fff;
+$light-button-secondary-hover-color: #5835B0;
+$light-button-secondary-hover-border-color: #5835B0;
+$light-button-danger-color: #fff;
+$light-button-danger-background-color: #DB524E;
+$light-button-danger-background-color-hover: #C7302B;
+
+$light-input-background-color: #fff;
+$light-input-color: #111111;
+$light-input-placeholder-color: rgba(#111111, .48);
+$light-input-error-color: #FF4642;
+$light-input-description-color: rgba(#111111, .48);
+$light-input-icon-color: #393E46;
+$light-input-icon-active-color: #111111;
+
+$light-select-background-color: #fff;
+$light-select-color: #111111;
+$light-select-placeholder-color: rgba(#111111, .48);
+$light-select-icon-color: rgba(#111111, .48);
+$light-select-icon-color-hover: #111111;
+$light-select-item-active-background-color: #f1f1f1;
+
+$light-radio-label-background-color: #f1f1f1;
+$light-radio-label-selected-background-color: #6E41E2;
+$light-radio-label-hover-background-color: #d4d4d4;
+$light-radio-span-background-color: #fff;
+$light-radio-description-color: #111;
+
+$light-popup-background-color: #fff;
+$light-popup-header-border-color: #E6ECF1;
+$light-popup-title-color: #393E46;
+$light-popup-body-text-color: #111111;
+
+/** dark theme */
+$dark-app-background-color: #222222;
+$dark-sidebar-icon-color: #fff;
+$dark-sidebar-line-background-color: rgba(#fff, 0.4);
+
+$dark-avatar-color: #fff;
+$dark-avatar-border-color: #222222;
+$dark-avatar-background-color: #393E46;
+
+$dark-menu-username-color: #fff;
+$dark-menu-line-background: rgba(#fff, .4);
+$dark-menu-item-color: rgba(#fff, .5);
+$dark-menu-item-color-hover: #fff;
+$dark-menu-item-background-color-hover: rgba(#fff, .2);
+$dark-menu-item-color-active: #fff;
+$dark-menu-button-span-background-color: #fff;
+
+$dark-homepage-section-title-color: #fff;
+
+$dark-settings-section-background-color: #333333;
+$dark-settings-section-title-color: #fff;
+$dark-settings-section-line-color: rgba(#fff, .4);
+
+$dark-settings-action-title-color: #fff;
+$dark-settings-action-description-color: rgba(255, 255, 255, 0.48);
+$dark-settings-action-hover-background-color: rgba(#fff, .2);
+$dark-settings-action-selected-background-color: rgba(#fff, .3);
+
+$dark-settings-shortcuts-message-color: rgba(255, 255, 255, 0.48);
+
+$dark-settings-group-title-color: rgba(#fff, .6);
+
+$dark-settings-avatar-container-background-color: #222222;
+$dark-settings-avatar-drop-color: #FFFFFF;
+$dark-settings-avatar-drop-border-color: #4D4D4D;
+$dark-settings-avatar-link-color: #6E41E2;
+$dark-settings-avatar-filename-color: #fff;
+
+$dark-button-primary-color: #6E41E2;
+$dark-button-primary-background-color: #fff;
+$dark-button-primary-background-color-hover: #f1f1f1;
+$dark-button-secondary-color: #fff;
+$dark-button-secondary-border-color: #fff;
+$dark-button-secondary-background-color: transparent;
+$dark-button-secondary-hover-color: #f1f1f1;
+$dark-button-secondary-hover-border-color: #f1f1f1;
+$dark-button-danger-color: #fff;
+$dark-button-danger-background-color: #DB524E;
+$dark-button-danger-background-color-hover: #C7302B;
+
+$dark-input-background-color: #222222;
+$dark-input-color: #FFFFFF;
+$dark-input-placeholder-color: rgba(#FFFFFF, .48);
+$dark-input-error-color: #FF4642;
+$dark-input-description-color: rgba(#FFFFFF, .48);
+$dark-input-icon-color: #fff;
+
+$dark-select-background-color: #222222;
+$dark-select-color: #FFFFFF;
+$dark-select-placeholder-color: rgba(#FFFFFF, .48);
+$dark-select-icon-color: rgba(#FFFFFF, .48);
+$dark-select-icon-color-hover: #FFFFFF;
+$dark-select-item-active-background-color: #393E46;
+
+$dark-radio-label-background-color: #222;
+$dark-radio-label-selected-background-color: #fff;
+$dark-radio-label-hover-background-color: #393E46;
+$dark-radio-span-background-color: #6E41E2;
+$dark-radio-description-color: #fff;
+
+$dark-popup-background-color: #393E46;
+$dark-popup-header-border-color: rgba(#F1F1F1, .6);
+$dark-popup-title-color: #fff;
+$dark-popup-body-text-color: #fff;
