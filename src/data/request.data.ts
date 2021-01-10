@@ -1,4 +1,10 @@
+import { RequestHeaders } from '../../common/constants';
+import { USER_LOCALSTORAGE_KEY } from '../constants';
+import { UserLocalStorageType } from '../types/user.types';
 import { UsernameService } from "../services/username.service";
+import { LocalStorageService } from '../services/localstorage.service';
+
+const JSON_CONTENT_TYPE: string = 'application/json';
 
 type RequestType = {
   method: string;
@@ -31,25 +37,52 @@ export class Request {
 export class RequestCreator {
   private url: string = location.origin;
   private body?: any;
-  private headers: Map<string, string> = new Map();
+  private headers: any = {};
+
+  constructor() {
+    this.setNecessaryHeaders();
+  }
 
   appendUrlPathname(pathname: string) {
     this.url += pathname;
+    return this;
   }
 
-  addUsernamePathname() {
+  addUsernameToUrlPathname() {
     const usernameService = new UsernameService();
     this.appendUrlPathname(usernameService.getUsernamePathname());
   }
 
+  setBody(body: any) {
+    if (body instanceof FormData) {
+      this.body = body;
+      return;
+    }
+    
+    if (typeof body === 'object') {
+      this.body = JSON.stringify(body);
+      this.headers[RequestHeaders.CONTENT_TYPE] = JSON_CONTENT_TYPE;
+    }
+  }
+
   createRequest() {
     const body = this.body ? { body: this.body } : {};
-    const headers = Object.fromEntries(this.headers.entries());
 
     return new Request(this.url, {
       method: '',
-      headers,
+      headers: this.headers,
       ...body,      
     });
+  }
+
+  private setNecessaryHeaders() {
+    const localStorageService = new LocalStorageService();
+    const localStorageUser: UserLocalStorageType = localStorageService.get(USER_LOCALSTORAGE_KEY);
+
+    if (localStorageUser) {
+      this.headers[RequestHeaders.AUTHORIZATION] = localStorageUser.token;
+    }
+
+    this.headers[RequestHeaders.REQUEST_FROM_CODE] = 'true';
   }
 }

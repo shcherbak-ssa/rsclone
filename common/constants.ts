@@ -1,4 +1,6 @@
 export enum RequestHeaders {
+  AUTHORIZATION = 'Authorization',
+  CONTENT_TYPE = 'Content-Type',
   REQUEST_FROM_CODE = 'request-from-code',
 };
 
