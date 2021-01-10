@@ -4,7 +4,7 @@ import { ResponseData } from '../data/response.data';
 import { RequestService } from '../services/request.service';
 
 export class AppModel {
-  async initApp() {
+  async initApp(renderAppCallback: Function) {
     try {
       const requestData = this.createRequest();
       const responseData = await RequestService.get(requestData).sendRequest();
@@ -13,6 +13,10 @@ export class AppModel {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async initAuthorization(renderAppCallback: Function) {
+
   }
 
   private createRequest() {

@@ -4,20 +4,13 @@ import { LocalStorageService } from './services/localstorage.service';
 
 export class AppIniter {
   static async init(renderAppCallback: Function) {
-    const appIniter = new AppIniter();
-
     const localStorageService = new LocalStorageService();
     const localStorageUser = localStorageService.get(USER_LOCALSTORAGE_KEY);
 
     if (localStorageUser) {
-      appIniter.initApp();
+      appController.emit(AppEvents.INIT_APP, renderAppCallback);
+    } else {
+      appController.emit(AppEvents.INIT_AUTHORIZATION, renderAppCallback);
     }
-
-    renderAppCallback();
-  }
-
-  initApp() {
-    appController.emit(AppEvents.INIT_APP);
-    console.log('initApp');
   }
 }
