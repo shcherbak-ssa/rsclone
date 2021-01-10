@@ -8,14 +8,13 @@ import './index.html';
 
 import { DocumentElementIDs } from './constants';
 import { AppIniter } from './app-initer';
+import { EntryContainer } from './containers/entry.container';
 
 AppIniter.init(renderApp);
 
-function renderApp() {
-  console.log('renderApp');
-
+function renderApp(initialRoutePathname: string) {
   ReactDOM.render(
-    <div>Hello, world!</div>,
+    <EntryContainer initialRoutePathname={initialRoutePathname} />,
     document.getElementById(DocumentElementIDs.ROOT),
   );
 }

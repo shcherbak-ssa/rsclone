@@ -21,6 +21,9 @@ export enum AppEvents {
 };
 
 export enum AppRoutePathnames {
+  ROOT = '/',
+  SPACES = '/spaces',
+  SETTINGS = '/settings',
   REGUSTRATION = '/registration',
   LOGIN = '/login',
 };
