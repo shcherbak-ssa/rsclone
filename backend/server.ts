@@ -12,7 +12,7 @@ import { usersCollectionDatabase } from './database/users-collection.database';
 declare global {
   namespace Express {
     interface Request {
-      user?: UserData;
+      username?: string;
     }
   }
 }

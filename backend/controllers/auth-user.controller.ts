@@ -33,14 +33,14 @@ export class AuthUserController implements MiddlewareController {
       const username = request.params.username;
 
       const authUserModel = new AuthUserModel();
-      const foundUser = await authUserModel.getValidUser({userID, username});
+      const isValidUser = await authUserModel.isValidUser({userID, username});
 
-      if (foundUser === null) {
-        throw new ClientError('Invalid username', StatusCodes.FORBIDDEN);
+      if (isValidUser) {
+        request.username = authUserModel.getAuthorizedUserUsername();
+        return next();
       }
 
-      request.user = foundUser;
-      next();
+      throw new ClientError('Invalid username', StatusCodes.FORBIDDEN);
     } catch (error) {
       const errorResponse: ResponseData = await this.parseError(error);
       this.responseSender.sendJsonResponse(errorResponse);
