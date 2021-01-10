@@ -16,11 +16,10 @@ export type StoreReducer = (state: StoreStates, action: StoreAction) => StoreSta
 
 export type StoreType = {
   storeName: string;
-  states: StoreStates;
   reducer: StoreReducer;
 };
 
 export type StoreStateGetter = {
   storeName: string;
-  filter?: (store: StoreStates) => any;
+  filter?: (states: StoreStates) => any;
 };

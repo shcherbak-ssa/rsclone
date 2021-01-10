@@ -43,3 +43,14 @@ export enum ButtonTypes {
   SECONDARY = 'secondary',
   DANGER = 'danger',
 };
+
+export enum UserDataLabels {
+  AVATAR = 'avatar',
+  FULLNAME = 'fullname',
+  EMAIL = 'email',
+  PASSWORD = 'password',
+  USERNAME = 'username',
+  LANGUAGE = 'language',
+  THEME = 'theme',
+  SHORTCUTS = 'shortcuts',
+};

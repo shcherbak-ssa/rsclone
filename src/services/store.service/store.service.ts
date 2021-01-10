@@ -5,11 +5,11 @@ import {
 export let store: StoreService;
 
 export class StoreService {
-  private states: Map<string, StoreStates>;
+  private states: { [key: string]: StoreStates };
   private reducers: Map<string, StoreReducer>;
 
   constructor() {
-    this.states = new Map();
+    this.states = {};
     this.reducers = new Map();
   }
 
@@ -18,20 +18,20 @@ export class StoreService {
     stores.forEach((newStore: StoreType) => store.addStore(newStore));
   }
 
-  addStore({storeName, states, reducer}: StoreType) {
-    this.states.set(storeName, states);
+  addStore({storeName, reducer}: StoreType) {
+    this.states[storeName] = reducer(undefined, {type: ''});
     this.reducers.set(storeName, reducer);
   }
 
   removeStore(storeName: string) {
-    this.states.delete(storeName);
+    delete this.states[storeName];
     this.reducers.delete(storeName);
   }
 
   getStates(stateGetter?: StoreStateGetter) {
     if (stateGetter) {
       const {storeName, filter} = stateGetter;
-      const currentStates = this.states.get(storeName);
+      const currentStates = this.states[storeName];
       return filter ? filter(currentStates) : currentStates;
     }
 
@@ -44,15 +44,28 @@ export class StoreService {
     } else {
       const {action} = storeDispatch;
 
-      for (const storeName of this.states.keys()) {
+      for (const storeName of Object.keys(this.states)) {
         this.runReducer({storeName, action});
       }
     }
   }
 
   private runReducer({storeName, action}: StoreDispatch) {
-    const currentStates = this.states.get(storeName);
+    const currentStates = this.states[storeName];
     const currentReducer = this.reducers.get(storeName);
-    currentReducer(currentStates, action);
+
+    const updatedState = currentReducer(currentStates, action);
+    this.states[storeName] = updatedState;
+  }
+}
+
+export class Store {
+  protected storeName: string;
+
+  protected getStoreDispatch(type: string, payload: any = {}): StoreDispatch {
+    return {
+      storeName: this.storeName,
+      action: { type, payload },
+    };
   }
 }
