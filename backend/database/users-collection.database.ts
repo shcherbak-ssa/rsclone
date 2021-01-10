@@ -25,7 +25,9 @@ export class UsersCollectionDatabase {
     const getUserQuery = { _id: new ObjectID(userID) };
     const foundUser = await this.collectionDatabase.getDocument(getUserQuery);
 
-    foundUser.userID = userID;
-    return UserData.create(foundUser);
+    if (foundUser) {
+      foundUser.userID = userID;
+      return UserData.create(foundUser);
+    }
   }
 }

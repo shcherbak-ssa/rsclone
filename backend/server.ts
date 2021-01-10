@@ -7,6 +7,7 @@ import { ConnectionDatabase } from './database/connection.database';
 import { App, AppOptions } from './app';
 
 import serverConfig from '../config/server.config.json';
+import { usersCollectionDatabase } from './database/users-collection.database';
 
 declare global {
   namespace Express {
@@ -34,6 +35,9 @@ ConnectionDatabase.init()
   .then((connectionDatabase) => {
     connectionDatabase.createUsersCollection();
   })
+  // .then((result) => {
+  //   console.log('result', result);
+  // })
   .then(() => {
     App.init(appOptions).listen();
   })

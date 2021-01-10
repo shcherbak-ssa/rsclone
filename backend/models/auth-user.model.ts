@@ -8,7 +8,7 @@ export type VerifyUserType = {
 
 export class AuthUserModel {
   async getValidUser({userID, username}: VerifyUserType) {
-    const foundUser: UserData = await usersCollectionDatabase.getUser(userID);
-    return foundUser.getUsername() === username ? foundUser : null;
+    const foundUser: UserData | undefined = await usersCollectionDatabase.getUser(userID);
+    return foundUser && foundUser.getUsername() === username ? foundUser : null;
   }
 }
