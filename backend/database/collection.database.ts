@@ -2,6 +2,9 @@ import { Collection } from 'mongodb';
 
 export class CollectionDatabase {
   private collection: Collection;
+  private findOneOptions: any = {
+    projection: { _id: 0 },
+  };
 
   constructor(collection: Collection) {
     this.collection = collection;
@@ -12,7 +15,8 @@ export class CollectionDatabase {
   }
 
   async getDocument(query: any, options: any = {}) {
-    return this.collection.findOne(query, options);
+    const findOneOptions = {...options, ...this.findOneOptions};
+    return this.collection.findOne(query, findOneOptions) as any;
   }
 
   async getDocuments() {}

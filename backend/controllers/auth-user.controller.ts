@@ -8,9 +8,10 @@ import { MiddlewareController } from './middleware.controller';
 import { AccessTokenService } from '../services/access-token.service';
 import { ResponseSenderService } from '../services/response-sender.service';
 import { ClientError, ServerError } from '../data/errors.data';
+import { AuthUserModel } from '../models/auth-user.model';
 
 export type TokenPayloadType = {
-  userID: number;
+  userID: string;
 };
 
 export interface AuthAccessToken {
@@ -18,7 +19,7 @@ export interface AuthAccessToken {
   getTokenFromAuthHeader(authHeader: string | undefined): string | null;
 };
 
-export class AuthController implements MiddlewareController {
+export class AuthUserController implements MiddlewareController {
   pathname: string = '/@:username';
   private authAccessToken: AuthAccessToken = new AccessTokenService();
   private responseSender: ResponseSender = new ResponseSenderService();
@@ -28,10 +29,17 @@ export class AuthController implements MiddlewareController {
 
     try {
       const token = await this.getToken(request);
-      const tokenPayload = await this.authAccessToken.verifyToken(token);
+      const {userID} = await this.authAccessToken.verifyToken(token);
+      const username = request.params.username;
 
-      // @todo: find user and asign to request
+      const authUserModel = new AuthUserModel();
+      const foundUser = await authUserModel.getValidUser({userID, username});
 
+      if (foundUser === null) {
+        throw new ClientError('Invalid username', StatusCodes.UNAUTHORIZED);
+      }
+
+      request.user = foundUser;
       next();
     } catch (error) {
       const errorResponse: ResponseData = await this.parseError(error);
@@ -44,17 +52,15 @@ export class AuthController implements MiddlewareController {
     const token = this.authAccessToken.getTokenFromAuthHeader(authHeader);
 
     if (token === null) {
-      throw new ClientError('', StatusCodes.UNAUTHORIZED);
+      throw new ClientError('Did not find authorization header', StatusCodes.UNAUTHORIZED);
     }
 
     return token;
   }
 
   private async parseError(error: Error | ClientError) {
-    if (error instanceof ClientError) {
-      if (error.name === ErrorNames.CLIENT_ERROR) {
-        return error.getResponseData();
-      }
+    if (error instanceof ClientError && error.name === ErrorNames.CLIENT_ERROR) {
+      return error.getResponseData();
     }
 
     console.log(error); // @todo: add logger

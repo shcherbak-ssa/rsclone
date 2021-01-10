@@ -1,7 +1,7 @@
 import { verify, VerifyOptions } from 'jsonwebtoken';
 
 import { StatusCodes } from '../../common/constants';
-import { AuthAccessToken, TokenPayloadType } from '../controllers/auth.controller';
+import { AuthAccessToken, TokenPayloadType } from '../controllers/auth-user.controller';
 import { ClientError } from '../data/errors.data';
 
 import serverConfig from '../../config/server.config.json';

@@ -1,5 +1,7 @@
 import { ObjectID } from 'mongodb';
+
 import { DatabaseNames, UsersDatabaseCollectionNames } from '../constants';
+import { UserData } from '../data/user.data';
 import { CollectionDatabase } from './collection.database';
 import { DBDatabase } from './db.database';
 
@@ -20,10 +22,10 @@ export class UsersCollectionDatabase {
   }
 
   async getUser(userID: string) {
-    return this.collectionDatabase.getDocument({ _id: new ObjectID(userID) });
-  }
+    const getUserQuery = { _id: new ObjectID(userID) };
+    const foundUser = await this.collectionDatabase.getDocument(getUserQuery);
 
-  async createUser(user: any) {
-    return this.collectionDatabase.createDocument(user);
+    foundUser.userID = userID;
+    return UserData.create(foundUser);
   }
 }

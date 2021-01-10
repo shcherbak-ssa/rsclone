@@ -1,15 +1,17 @@
 import { join } from 'path';
 import bodyParser from 'body-parser';
 
-import { App, AppOptions } from './app';
-import { AuthController } from './controllers/auth.controller';
+import { UserData } from './data/user.data';
+import { AuthUserController } from './controllers/auth-user.controller';
 import { ConnectionDatabase } from './database/connection.database';
+import { App, AppOptions } from './app';
 
 import serverConfig from '../config/server.config.json';
 
 declare global {
   namespace Express {
     interface Request {
+      user?: UserData;
     }
   }
 }
@@ -23,7 +25,7 @@ const appOptions: AppOptions = {
     bodyParser.json(),
   ],
   middlewareControllers: [
-    new AuthController(),
+    new AuthUserController(),
   ],
 };
 
