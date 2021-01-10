@@ -12,7 +12,7 @@ type RequestType = {
   headers: any;
 };
 
-export class Request {
+export class RequestData {
   private url: string;
   private options: RequestType;
 
@@ -45,12 +45,11 @@ export class RequestCreator {
 
   appendUrlPathname(pathname: string) {
     this.url += pathname;
-    return this;
   }
 
-  addUsernameToUrlPathname() {
-    const usernameService = new UsernameService();
-    this.appendUrlPathname(usernameService.getUsernamePathname());
+  setFullUrl(pathname: string) {
+    this.addUsernameToUrlPathname();
+    this.appendUrlPathname(pathname);
   }
 
   setBody(body: any) {
@@ -68,7 +67,7 @@ export class RequestCreator {
   createRequest() {
     const body = this.body ? { body: this.body } : {};
 
-    return new Request(this.url, {
+    return new RequestData(this.url, {
       method: '',
       headers: this.headers,
       ...body,      
@@ -84,5 +83,10 @@ export class RequestCreator {
     }
 
     this.headers[RequestHeaders.REQUEST_FROM_CODE] = 'true';
+  }
+
+  private addUsernameToUrlPathname() {
+    const usernameService = new UsernameService();
+    this.appendUrlPathname(usernameService.getUsernamePathname());
   }
 }

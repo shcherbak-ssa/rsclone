@@ -1,34 +1,50 @@
 import { RequestMethods } from "../constants";
-import { Request } from "../data/request.data";
+import { RequestData } from "../data/request.data";
+import { ResponseData } from "../data/response.data";
 
 export class RequestService {
-  private request: Request;
+  private requestData: RequestData;
 
-  constructor(request: Request) {
-    this.request = request;
+  constructor(requestData: RequestData) {
+    this.requestData = requestData;
   }
 
-  static get(request: Request) {
-    request.setMethod(RequestMethods.GET);
-    return new RequestService(request);
+  static get(requestData: RequestData) {
+    requestData.setMethod(RequestMethods.GET);
+    return new RequestService(requestData);
   }
 
-  static create(request: Request) {
-    request.setMethod(RequestMethods.POST);
-    return new RequestService(request);
+  static create(requestData: RequestData) {
+    requestData.setMethod(RequestMethods.POST);
+    return new RequestService(requestData);
   }
 
-  static update(request: Request) {
-    request.setMethod(RequestMethods.PUT);
-    return new RequestService(request);
+  static update(requestData: RequestData) {
+    requestData.setMethod(RequestMethods.PUT);
+    return new RequestService(requestData);
   }
 
-  static delete(request: Request) {
-    request.setMethod(RequestMethods.DELETE);
-    return new RequestService(request);
+  static delete(requestData: RequestData) {
+    requestData.setMethod(RequestMethods.DELETE);
+    return new RequestService(requestData);
   }
   
   async sendRequest() {
-    return fetch(this.request.getUrl(), this.request.getOptions());
+    try {
+      const response = await this.sendFetchRequest();
+      return await this.parseResponse(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  private async sendFetchRequest() {
+    return fetch(this.requestData.getUrl(), this.requestData.getOptions());
+  }
+
+  private async parseResponse(response: Response) {
+    const statusCode = response.status;
+    const payload: any = await response.json();
+    return ResponseData.create(statusCode, payload);
   }
 }

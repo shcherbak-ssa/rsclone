@@ -7,8 +7,15 @@ import './assets/styles/main.scss';
 import './index.html';
 
 import { DocumentElementIDs } from './constants';
+import { AppIniter } from './app-initer';
 
-ReactDOM.render(
-  <div>Hello, world!</div>,
-  document.getElementById(DocumentElementIDs.ROOT),
-);
+AppIniter.init(renderApp);
+
+function renderApp() {
+  console.log('renderApp');
+
+  ReactDOM.render(
+    <div>Hello, world!</div>,
+    document.getElementById(DocumentElementIDs.ROOT),
+  );
+}

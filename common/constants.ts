@@ -4,6 +4,11 @@ export enum RequestHeaders {
   REQUEST_FROM_CODE = 'request-from-code',
 };
 
+export enum RequestPathnames {
+  LOGIN = '/login',
+  USERS = '/users',
+};
+
 export enum StatusCodes {
   SUCCESS = 200,
   UNAUTHORIZED = 401,

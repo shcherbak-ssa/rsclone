@@ -1,18 +1,9 @@
-const EVENT_EMITTER_ERROR: string = 'EventEmitterError';
+import { Controller } from "../types/controller.types";
 
 type EventHandlers = Array<Function>;
 type Events = Map<string, EventHandlers>;
 
-class EventEmitterError implements Error {
-  name: string = EVENT_EMITTER_ERROR;
-  message: string;
-
-  constructor(message: string) {
-    this.message = message;
-  }
-}
-
-export class EventEmitter {
+export class EventEmitter implements Controller {
   private events: Events = new Map();
   private onceEvents: Events = new Map();
 
@@ -56,12 +47,12 @@ export class EventEmitter {
       this.onceEvents.delete(event);
     }
 
-    if (!this.isEventExist(event)) {
-      throw new EventEmitterError(`Event '${event}' does not exist`);
+    if (this.isEventExist(event)) {
+      const eventHandlers: EventHandlers = this.getEventHandlers(event);
+      this.executeHandlers(eventHandlers, payload);
+    } else {
+      console.log(`Event '${event} does not exist'`); // @TODO: need to remove
     }
-
-    const eventHandlers: EventHandlers = this.getEventHandlers(event);
-    this.executeHandlers(eventHandlers, payload);
   }
 
   private getEventHandlers(event: string): EventHandlers {

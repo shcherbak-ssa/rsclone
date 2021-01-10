@@ -15,7 +15,7 @@ export class ConnectionDatabase {
   async connect() {
     try {
       await connectedMongoDatabase.connect();
-      console.log('Connected successfully to server');
+      console.log('Connected successfully to mongodb');
     } catch (error) {
       console.log(error);
       connectedMongoDatabase.close();
