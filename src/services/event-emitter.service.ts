@@ -26,6 +26,10 @@ export class EventEmitter implements Controller {
   }
 
   off(event: string, handler: Function) {
+    if (this.isOnceEventExist(event)) {
+      this.onceEvents.delete(event);
+    }
+
     if (!this.isEventExist(event)) return;
 
     const eventHandlers: EventHandlers = this.getEventHandlers(event);
@@ -51,7 +55,7 @@ export class EventEmitter implements Controller {
       const eventHandlers: EventHandlers = this.getEventHandlers(event);
       this.executeHandlers(eventHandlers, payload);
     } else {
-      console.log(`Event '${event} does not exist'`); // @TODO: need to remove
+      console.log(new Error(`Event '${event} does not exist'`)); // @TODO: need to remove
     }
   }
 

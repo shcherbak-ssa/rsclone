@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { StatusCodes } from '../../common/constants';
-import { ErrorNames } from '../constants';
+import { StatusCodes, ErrorNames } from '../../common/constants';
 import { ResponseSender } from '../types/response-sender.types';
 import { ResponseData } from '../data/response.data';
 import { MiddlewareController } from './middleware.controller';

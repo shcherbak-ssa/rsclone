@@ -1,5 +1,4 @@
-import { StatusCodes } from '../../common/constants';
-import { ErrorNames } from '../constants';
+import { StatusCodes, ErrorNames } from '../../common/constants';
 import { ResponseData } from './response.data';
 
 class CustomError implements Error {
@@ -8,14 +7,20 @@ class CustomError implements Error {
   private statusCode: number;
   private body: any;
 
-  constructor(message: string, statusCode: number, body: any = {}) {
+  constructor(message: string, statusCode: number, body: any) {
     this.message = message;
     this.statusCode = statusCode;
     this.body = body;
+
+    this.addErrorMessageToBody();
   }
 
   getResponseData() {
     return new ResponseData(this.statusCode, this.body);
+  }
+
+  private addErrorMessageToBody() {
+    this.body.message = this.message;
   }
 }
 

@@ -6,6 +6,7 @@ export enum RequestHeaders {
 
 export enum RequestPathnames {
   LOGIN = '/login',
+  REGISTRATION = '/registration',
   USERS = '/users',
 };
 
@@ -14,4 +15,9 @@ export enum StatusCodes {
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   INTERNAL_SERVER_ERROR = 500,
+};
+
+export enum ErrorNames {
+  CLIENT_ERROR = 'ClientError',
+  SERVER_ERROR = 'ServerError',
 };

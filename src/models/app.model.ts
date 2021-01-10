@@ -1,25 +1,40 @@
-import { RequestPathnames } from '../../common/constants';
+import { RequestPathnames, StatusCodes } from '../../common/constants';
+import { AppEvents, AppRoutePathnames, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
+
+import { User } from '../types/user.types';
 import { RequestCreator } from '../data/request.data';
 import { ResponseData } from '../data/response.data';
+import { ClientError, ServerError } from '../data/errors.data';
+
+import { appController } from '../controllers/app.controller';
+import { AppRoutesService } from '../services/app-routes.service';
 import { RequestService } from '../services/request.service';
 
 export class AppModel {
-  async initApp(renderAppCallback: Function) {
+  async initApp(renderAppCallback: (initialRoutePathname: string) => void) {
     try {
-      const requestData = this.createRequest();
+      const requestData = this.createUserRequest();
       const responseData = await RequestService.get(requestData).sendRequest();
 
-      this.parseResponse(responseData);
+      const user: User = this.parseResponse(responseData);
+      // @TODO: init user.store;
+
+      const appInitialRoutePathname = this.getAppInitialRoutePathname();
+      renderAppCallback(appInitialRoutePathname);
     } catch (error) {
-      console.log(error);
+      if (error instanceof ClientError) {
+        appController.emit(AppEvents.INIT_AUTHORIZATION, renderAppCallback);
+      } else {
+        console.log(error);
+      }
     }
   }
 
-  async initAuthorization(renderAppCallback: Function) {
-
+  async initAuthorization(renderAppCallback: (initialRoutePathname: string) => void) {
+    renderAppCallback(AppRoutePathnames.LOGIN);
   }
 
-  private createRequest() {
+  private createUserRequest() {
     const requestCreator = new RequestCreator();
     requestCreator.setFullUrl(RequestPathnames.USERS);
 
@@ -28,9 +43,35 @@ export class AppModel {
 
   private parseResponse(responseData: ResponseData) {
     if (responseData.isSuccessStatusCode()) {
-      console.log('success');
+      return responseData.getPayload() as User;
     } else {
-      console.log('error', responseData.getStatusCode());
+      const statusCode = responseData.getStatusCode();
+      const {message, ...payload} = responseData.getPayload();
+
+      if (statusCode === StatusCodes.INTERNAL_SERVER_ERROR) {
+        throw new ServerError(message, payload);
+      } else {
+        throw new ClientError(message, payload);
+      }
+    }
+  }
+
+  private getAppInitialRoutePathname() {
+    if (location.pathname.startsWith(USERNAME_PATHNAME_INITIAL_STRING)) {
+      return location.pathname;
+    } else {
+      const appRoutesService = new AppRoutesService();
+      return appRoutesService.getRootRoutePath();
+    }
+  }
+
+  private getAuthorizationInitialRoutePathname() {
+    switch (location.pathname) {
+      case AppRoutePathnames.LOGIN:
+      case AppRoutePathnames.REGISTRATION:
+        return location.pathname;
+      default:
+        return AppRoutePathnames.LOGIN;
     }
   }
 }

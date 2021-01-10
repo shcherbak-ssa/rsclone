@@ -18,13 +18,14 @@ export enum RequestMethods {
 export enum AppEvents {
   INIT_APP = 'app-events/init-app',
   INIT_AUTHORIZATION = 'app-events/init-authorization',
+  REMOVE_INIT_EVENTS = 'app-events/remove-init-events',
 };
 
 export enum AppRoutePathnames {
   ROOT = '/',
   SPACES = '/spaces',
   SETTINGS = '/settings',
-  REGUSTRATION = '/registration',
+  REGISTRATION = '/registration',
   LOGIN = '/login',
 };
 
