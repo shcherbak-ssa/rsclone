@@ -1,0 +1,171 @@
+@import '../../../assets/styles/assets.scss';
+
+.select {
+  margin-bottom: 24px;
+
+  &-selected {
+    border-radius: 4px;
+    padding: 26px 16px 0;
+    -x-font-size: 16px/24px;
+    -x-size: 100% 56px;
+
+    @media screen and (max-width: 489px) {
+      -x-font-size: 14px/18px;
+    }
+
+    .original-theme & {
+      background: $original-select-background-color;
+      color: $original-select-color;
+
+      &:hover {
+        .select-icon {
+          color: $original-select-icon-color-hover;
+        }
+      }
+    }
+
+    .light-theme & {
+      background: $light-select-background-color;
+      box-shadow: 0 4px 4px rgba(51, 51, 51, 0.04), 0 4px 16px rgba(51, 51, 51, 0.08);
+      color: $light-select-color;
+      
+      &:hover {
+        box-shadow: 0px 4px 4px rgba(51, 51, 51, 0.04), 0px 4px 56px rgba(51, 51, 51, 0.16);
+
+        .select-icon {
+          color: $light-select-icon-color-hover;
+        }
+      }
+    }
+    
+    .dark-theme & {
+      background: $dark-select-background-color;
+      color: $dark-select-color;
+
+      &:hover {
+        .select-icon {
+          color: $dark-select-icon-color-hover;
+        }
+      }
+    }
+  }
+
+  &-placeholder {
+    -x-font-size: 13px/20px;
+    -x-position: absolute 6px x x 16px;
+
+    .original-theme & {
+      color: $original-select-placeholder-color;
+    }
+
+    .light-theme & {
+      color: $light-select-placeholder-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-select-placeholder-color;
+    }
+  }
+
+  &-icon {
+    transform: translateY(-50%) rotate(360deg) !important;
+    transition: .2s;
+    -x-position: absolute 50% 12px x x;
+
+    .original-theme & {
+      color: $original-select-icon-color;
+    }
+
+    .light-theme & {
+      color: $light-select-icon-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-select-icon-color;
+    }
+  }
+
+  &-items {
+    border-radius: 4px;
+    opacity: 0;
+    width: 100%;
+    transition: .2s;
+
+    .original-theme & {
+      background: $original-select-background-color;
+    }
+
+    .light-theme & {
+      background: $light-select-background-color;
+    }
+    
+    .dark-theme & {
+      background: $dark-select-background-color;
+    }
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    transition: .2s;
+    -x-size: 100% 0;
+
+    .original-theme & {
+      color: $original-select-color;
+
+      &:hover, &.is-selected {
+        background: $original-select-item-active-background-color;
+      }
+    }
+
+    .light-theme & {
+      color: $light-select-color;
+
+      &:hover, &.is-selected {
+        background: $light-select-item-active-background-color;
+      }
+    }
+    
+    .dark-theme & {
+      color: $dark-select-color;
+
+      &:hover, &.is-selected {
+        background: $dark-select-item-active-background-color;
+      }
+    }
+  }
+
+  &.is-open {
+    .select {
+      &-selected {
+        margin-bottom: 4px;
+      }
+
+      &-icon {
+        transform: translateY(-50%) rotate(180deg) !important;
+
+        .original-theme & {
+          color: $original-select-icon-color-hover;
+        }
+
+        .light-theme & {
+          color: $light-select-icon-color-hover;
+        }
+        
+        .dark-theme & {
+          color: $dark-select-icon-color-hover;
+        }
+      }
+
+      &-items {
+        opacity: 1;
+        padding: 8px 0;
+      }
+
+      &-item {
+        height: 40px;
+      }
+    }
+  }
+}

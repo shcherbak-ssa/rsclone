@@ -1,0 +1,107 @@
+@import '../../../assets/styles/assets.scss';
+
+.button {
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  height: 30px;
+  padding: 0 16px;
+  transition: .2s;
+  text-align: center;
+
+  &-icon {
+    margin-right: 8px;
+    -x-size: 18px;
+  }
+
+  .original-theme & {
+    &.primary {
+      background: $original-button-primary-background-color;
+      color: $original-button-primary-color;
+  
+      &:hover {
+        background: $original-button-primary-background-color-hover;
+      }
+    }
+
+    &.secondary {
+      background: $original-button-secondary-background-color;
+      color: $original-button-secondary-color;
+  
+      &:hover {
+        background: $original-button-secondary-background-color-hover;
+      }
+    }
+
+    &.danger {
+      background: $original-button-danger-background-color;
+      color: $original-button-danger-color;
+  
+      &:hover {
+        background: $original-button-danger-background-color-hover;
+      }
+    }
+  }
+
+  .light-theme & {
+    &.primary {
+      background: $light-button-primary-background-color;
+      color: $light-button-primary-color;
+  
+      &:hover {
+        background: $light-button-primary-background-color-hover;
+      }
+    }
+
+    &.secondary {
+      background: $light-button-secondary-background-color;
+      border: 1px solid $light-button-secondary-border-color;
+      color: $light-button-secondary-color;
+  
+      &:hover {
+        color: $light-button-secondary-hover-color;
+        border-color: $light-button-secondary-hover-border-color;
+      }
+    }
+
+    &.danger {
+      background: $light-button-danger-background-color;
+      color: $light-button-danger-color;
+  
+      &:hover {
+        background: $light-button-danger-background-color-hover;
+      }
+    }
+  }
+
+  .dark-theme & {
+    &.primary {
+      background: $dark-button-primary-background-color;
+      color: $dark-button-primary-color;
+  
+      &:hover {
+        background: $dark-button-primary-background-color-hover;
+      }
+    }
+
+    &.secondary {
+      background: $dark-button-secondary-background-color;
+      border: 1px solid $dark-button-secondary-border-color;
+      color: $dark-button-secondary-color;
+  
+      &:hover {
+        color: $dark-button-secondary-hover-color;
+        border-color: $dark-button-secondary-hover-border-color;
+      }
+    }
+
+    &.danger {
+      background: $dark-button-danger-background-color;
+      color: $dark-button-danger-color;
+  
+      &:hover {
+        background: $dark-button-danger-background-color-hover;
+      }
+    }
+  }
+}

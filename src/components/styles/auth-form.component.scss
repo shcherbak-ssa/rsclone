@@ -1,0 +1,63 @@
+@import '../../assets/styles/assets.scss';
+
+.auth-form {
+  color: $auth-dark-color;
+  -x-size: 100%;
+
+  &-title {
+    font: bold 32px/40px 'Montserrat', sans-serif;
+    margin-bottom: 32px;
+
+    @media screen and (max-width: 530px) {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+  }
+
+  &-error {
+    background: $auth-form-error-background;
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 0 32px -32px;
+    padding: 0 32px;
+    transition: .2s;
+    -x-size: calc(100% + 64px) 1px;
+    -x-font-size: 18px/24px;
+
+    @media screen and (max-width: 530px) {
+      width: calc(100% + 32px);
+      margin: 0 0 16px -16px;
+    }
+  }
+
+  &-inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+  }
+
+  &-link {
+    color: $auth-link-color;
+    cursor: pointer;
+    text-align: center;
+    -x-font-size: 16px/24px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .button {
+    height: 44px;
+  }
+
+  &.is-error {
+    .auth-form-error {
+      color: $auth-form-error;
+      height: 60px;
+    }
+  }
+}

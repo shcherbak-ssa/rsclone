@@ -1,18 +1,20 @@
 import React from 'react';
 import classnames from 'classnames';
-import './auth.component.scss';
+import './styles/auth.component.scss';
 
-import { Classnames } from '../../constants';
-import { AssetsService } from "../../services/assets.service";
+import { Classnames } from '../constants';
+import { AssetsService } from "../services/assets.service";
+import { AuthFormComponent, AuthFormComponentProps } from './auth-form.component';
 
 const LOGO_ICON: string = 'logo';
 const LOGO_LOGIN_ICON: string = 'logo-login';
 
 export type AuthComponentProps = {
   isLogin: boolean;
+  authFormProps: AuthFormComponentProps;
 };
 
-export function AuthComponent({isLogin}: AuthComponentProps) {
+export function AuthComponent({isLogin, authFormProps}: AuthComponentProps) {
   const componentClassnames = classnames('auth', {
     [Classnames.IS_LOGIN_MODE]: isLogin,
   });
@@ -30,7 +32,7 @@ export function AuthComponent({isLogin}: AuthComponentProps) {
           Gitbook Clone
         </div>
         <div className="auth-form" data-class="shadow">
-          
+          <AuthFormComponent {...authFormProps} />
         </div>
       </div>
       <div className="auth-decoration"></div>
