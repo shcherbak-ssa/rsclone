@@ -36,7 +36,7 @@ export class AuthUserController implements MiddlewareController {
       const foundUser = await authUserModel.getValidUser({userID, username});
 
       if (foundUser === null) {
-        throw new ClientError('Invalid username', StatusCodes.UNAUTHORIZED);
+        throw new ClientError('Invalid username', StatusCodes.FORBIDDEN);
       }
 
       request.user = foundUser;
@@ -59,6 +59,7 @@ export class AuthUserController implements MiddlewareController {
   }
 
   private async parseError(error: Error | ClientError) {
+    console.log(error.name, error.message);
     if (error instanceof ClientError && error.name === ErrorNames.CLIENT_ERROR) {
       return error.getResponseData();
     }

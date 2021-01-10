@@ -5,5 +5,6 @@ export enum RequestHeaders {
 export enum StatusCodes {
   SUCCESS = 200,
   UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
   INTERNAL_SERVER_ERROR = 500,
 };
