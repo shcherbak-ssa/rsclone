@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { AppRoutePathnames } from '../constants';
 import { AuthComponentProps, AuthComponent } from '../components/auth.component';
 
-export function LoginContainer() {
+export default function LoginContainer() {
   const history = useHistory();
 
   const authComponentProps: AuthComponentProps = {

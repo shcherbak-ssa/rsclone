@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom';
 import { AppRoutePathnames } from '../constants';
 import { AuthComponentProps, AuthComponent } from '../components/auth.component';
 
-export function RegistrationContainer() {
+export default function RegistrationContainer() {
   const history = useHistory();
 
   const authComponentProps: AuthComponentProps = {
-    isLogin: true,
+    isLogin: false,
     authFormProps: {
       title: 'Registration',
       inputsProps: [],
