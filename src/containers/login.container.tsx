@@ -10,14 +10,17 @@ import { AuthFormComponent, AuthFormComponentProps } from '../components/auth-fo
 export default function LoginContainer() {
   const history = useHistory();
   const authError = useAuthError();
-  const fullnameInputProps = useUserInputProps(UserDataLabels.FULLNAME);
+
+  const emailInputProps = useUserInputProps(UserDataLabels.EMAIL);
+  const passwordInputProps = useUserInputProps(UserDataLabels.PASSWORD);
 
   const authFormComponentProps: AuthFormComponentProps = {
     title: 'Login',
     linkText: 'Do not have an account?',
     authError,
     inputsProps: [
-      fullnameInputProps,
+      emailInputProps,
+      passwordInputProps,
     ],
     buttonProps: {
       value: 'Login',
