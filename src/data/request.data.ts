@@ -79,7 +79,7 @@ export class RequestCreator {
     const localStorageUser: UserLocalStorageType = localStorageService.get(USER_LOCALSTORAGE_KEY);
 
     if (localStorageUser) {
-      this.headers[RequestHeaders.AUTHORIZATION] = localStorageUser.token;
+      this.headers[RequestHeaders.AUTHORIZATION] = `Basic ${localStorageUser.token}`;
     }
 
     this.headers[RequestHeaders.REQUEST_FROM_CODE] = 'true';

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { StatusCodes, ErrorNames } from '../../common/constants';
+import { StatusCodes } from '../../common/constants';
 import { MiddlewarePathnames, Parameters } from '../constants';
 import { ResponseSender } from '../types/response-sender.types';
 
@@ -66,7 +66,8 @@ export class AuthUserMiddleware implements BaseMiddleware {
 
   private async parseError(error: Error | ClientError) {
     console.log(`${error.name}: ${error.message}`);
-    if (error instanceof ClientError && error.name === ErrorNames.CLIENT_ERROR) {
+
+    if (error instanceof ClientError) {
       return error.getResponseData();
     }
 

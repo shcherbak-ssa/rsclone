@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { RequestMethods, RequestHeaders, StatusCodes } from '../../common/constants';
 import { MiddlewarePathnames } from '../constants';
 
-import { StaticEntryMiddleware } from '../types/static.types';
+import { StaticEntry } from '../types/static.types';
 import { ResponseSender } from '../types/response-sender.types';
 import { ServerError } from '../data/errors.data';
 
@@ -14,7 +14,7 @@ import { ResponseSenderService } from '../services/response-sender.service';
 
 export class EntryMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.ENTRY;
-  private staticService: StaticEntryMiddleware;
+  private staticService: StaticEntry;
 
   constructor() {
     this.staticService = new StaticService();

@@ -2,10 +2,10 @@ import { extname, join } from 'path';
 import { Request } from 'express';
 
 import { ASSETS_EXTNAME_REGEXP, INDEX_FILENAME } from '../constants';
-import { StaticEntryMiddleware } from '../types/static.types';
+import { StaticEntry } from '../types/static.types';
 import serverConfig from '../../config/server.config.json';
 
-export class StaticService implements StaticEntryMiddleware {
+export class StaticService implements StaticEntry {
   static publicPath: string = join(process.cwd(), serverConfig.app.publicFolder);
 
   isAssetsRequest(request: Request) {

@@ -5,7 +5,7 @@ import { MiddlewarePathnames, Parameters } from '../constants';
 import { ResponseSender } from '../types/response-sender.types';
 
 import { validLanguages } from '../data/valid.data';
-import { ClientError } from '../data/errors.data';
+import { ClientError, ServerError } from '../data/errors.data';
 
 import { BaseMiddleware } from "./base.middleware";
 import { ResponseSenderService } from '../services/response-sender.service';
@@ -36,5 +36,15 @@ export class LanguageMiddleware implements BaseMiddleware {
         StatusCodes.NOT_FOUND,
       );
     }
+  }
+
+  private parseError(error: Error | ClientError) {
+    console.log(`${error.name}: ${error.message}`);
+
+    if (error instanceof ClientError) {}
+
+    console.log(error); // @todo: add logger
+    const serverError = new ServerError(error.message, {});
+    return serverError.getResponseData();
   }
 }
