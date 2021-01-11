@@ -22,13 +22,13 @@ export function InputIconComponent({icon, iconClickHandler}: InputIconComponentP
     icon, height: ICON_HEIGHT,
   };
 
-  function iconClickHandle() {
+  function handleIconClick() {
     setIsIconActive(!isIconActive);
     iconClickHandler(!isIconActive);
   }
 
   return (
-    <div className={iconClassnames} data-class="click" onClick={iconClickHandle}>
+    <div className={iconClassnames} data-class="click" onClick={handleIconClick}>
       <Icon {...iconProps} />
     </div> 
   );
