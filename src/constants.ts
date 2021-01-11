@@ -56,4 +56,5 @@ export enum UserDataLabels {
 
 export enum Stores {
   AUTH_STORE = 'auth-store',
+  USER_INPUTS_STORE = 'user-inputs-store',
 };

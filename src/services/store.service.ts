@@ -6,10 +6,10 @@ export type Store = {
   actions: { [key: string]: Function };
 };
 
-export interface StoreCreator {
-  getStoreName(): Stores;
-  getReducer(): Reducer<any, AnyAction>;
-  getStore(): Store;
+export type StoreCreator = {
+  store: Store;
+  storeName: Stores;
+  storeReducer: Reducer<any, AnyAction>;
 };
 
 export let storeService: StoreService;
@@ -45,13 +45,11 @@ export class StoreService {
     return this.getStore(storeName).actions;
   }
 
-  addStore(storeCreator: StoreCreator) {
-    const storeName: Stores = storeCreator.getStoreName();
-
+  addStore({store, storeName, storeReducer}: StoreCreator) {
     if (this.reducers[storeName]) return;
 
-    this.reducers[storeName] = storeCreator.getReducer();
-    this.stores.set(storeName, storeCreator.getStore());
+    this.stores.set(storeName, store);
+    this.reducers[storeName] = storeReducer;
 
     this.updateCombinedReducers();
   }
@@ -59,11 +57,15 @@ export class StoreService {
   deleteStore(storeName: Stores) {
     if (!storeName || !this.reducers[storeName]) return;
 
-    delete this.reducers[storeName];
     this.stores.delete(storeName);
+    delete this.reducers[storeName];
 
     this.deletedStoreNames.push(storeName);
     this.updateCombinedReducers();
+  }
+
+  getStates() {
+    return this.store.getState();
   }
 
   dispatchAction(action: AnyAction) {

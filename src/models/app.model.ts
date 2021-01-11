@@ -32,8 +32,8 @@ export class AppModel {
   }
 
   async initAuthorization(renderAppCallback: (initialRoutePathname: string) => void) {
-    const { AuthStoreCreator } = await import('../store/auth.store');
-    storeService.addStore(new AuthStoreCreator());
+    const {authStoreCreator} = await import('../store/auth.store');
+    storeService.addStore(authStoreCreator);
 
     const authorizationInitialRoutePathname = this.getAuthorizationInitialRoutePathname();
     renderAppCallback(authorizationInitialRoutePathname);

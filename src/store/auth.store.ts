@@ -8,6 +8,7 @@ enum Constants {
   REMOVE_AUTH_ERROR = 'auth-store/remove-auth-error',
 };
 
+/** types */
 type AuthStoreState = {
   authError: string;
 };
@@ -28,6 +29,7 @@ type RemoveAuthErrorAction = {
 
 type AuthStoreAction = AnyAction | SetAuthErrorAction | RemoveAuthErrorAction;
 
+/** constants */
 const initialState: AuthStoreState = {
   authError: '',
 };
@@ -52,20 +54,14 @@ const authStore: Store = {
   },
 }
 
-export class AuthStoreCreator implements StoreCreator {
-  getStoreName() {
-    return Stores.AUTH_STORE;
-  }
+/** store creator */
+export const authStoreCreator: StoreCreator = {
+  store: authStore,
+  storeName: Stores.AUTH_STORE,
+  storeReducer: authStoreReducer,
+};
 
-  getReducer() {
-    return authStoreReducer;
-  }
-
-  getStore() {
-    return authStore;
-  }
-}
-
+/** reducer */
 function authStoreReducer(
   state: AuthStoreState = initialState, {type, payload}: AuthStoreAction,
 ): AuthStoreState {
@@ -79,6 +75,7 @@ function authStoreReducer(
   }
 }
 
+/** actions */
 function setAuthErrorAction(error: string): SetAuthErrorAction {
   return {
     type: Constants.SET_AUTH_ERROR,
