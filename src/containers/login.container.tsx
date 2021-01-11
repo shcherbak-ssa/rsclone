@@ -1,9 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AppRoutePathnames, UserDataLabels } from '../constants';
+import { AppRoutePathnames, UserDataLabels, UserInputsEvents } from '../constants';
 import { useAuthError } from '../hooks/auth-error.hooks';
 import { useUserInputProps } from '../hooks/user-input-props.hooks';
+
+import { userInputsController } from '../controllers/user-inputs.controller';
 import { AuthComponent } from '../components/auth.component';
 import { AuthFormComponent, AuthFormComponentProps } from '../components/auth-form.component';
 
@@ -27,6 +29,7 @@ export default function LoginContainer() {
       clickHandler: () => {},
     },
     linkClickHanlder: () => {
+      userInputsController.emit(UserInputsEvents.RESET_STATES);
       history.push(AppRoutePathnames.REGISTRATION);
     },
   }

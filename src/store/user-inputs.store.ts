@@ -1,8 +1,9 @@
 import { AnyAction } from "redux";
-import cloneDeep from "clone-deep";
 
 import { Stores, UserDataLabels } from "../constants";
+import { UserInputState } from "../types/user.types";
 import { Store, StoreCreator, storeService } from "../services/store.service";
+import { ToolsService } from "../services/tools.service";
 
 enum Constants {
   UPDATE_INPUT_VALUE = 'user-inputs-store/update-input-value',
@@ -12,11 +13,6 @@ enum Constants {
 };
 
 /** types */
-type UserInputState = {
-  value: string;
-  error: string;
-};
-
 type UserInputsStoreState = {
   [key: string]: UserInputState;
 };
@@ -28,7 +24,7 @@ type UserInputsStoreSelectorState = {
 type UpdateInputValueAction = {
   type: Constants.UPDATE_INPUT_VALUE;
   payload: {
-    updatedInput: { [key: string]: UserInputState; };
+    updatedInput: {[key: string]: UserInputState};
   };
 };
 
@@ -62,13 +58,13 @@ type UserInputsStoreAction =
   AddInputsAction;
 
 /** constants */
-const initialInputState = () => ({value: '', error: ''});
+const initialInputState = new ToolsService().getInitialInputState();
 const dispatchAction = storeService.dispatchAction.bind(storeService);
 
 const initialState: UserInputsStoreState = {
-  [UserDataLabels.FULLNAME]: initialInputState(),
-  [UserDataLabels.EMAIL]: initialInputState(),
-  [UserDataLabels.PASSWORD]: initialInputState(),
+  [UserDataLabels.FULLNAME]: initialInputState,
+  [UserDataLabels.EMAIL]: initialInputState,
+  [UserDataLabels.PASSWORD]: initialInputState,
 };
 
 const userInputsStore: Store = {
@@ -80,9 +76,9 @@ const userInputsStore: Store = {
     },
   },
   actions: {
-    updateInputValue: (value: string, inputLabel: UserDataLabels) => {
+    updateInputValue: (updatedInput: {[key: string]: UserInputState}) => {
       dispatchAction(
-        updateInputValueAction(value, inputLabel)
+        updateInputValueAction(updatedInput)
       );
     },
     setInputError: (error: string, inputLabel: UserDataLabels) => {
@@ -90,14 +86,14 @@ const userInputsStore: Store = {
         setInputErrorAction(error, inputLabel)
       );
     },
-    resetStates: () => {
+    resetStates: (resetedState: UserInputsStoreState) => {
       dispatchAction(
-        resetStatesAction(storeService.getStates()[Stores.USER_INPUTS_STORE])
+        resetStatesAction(resetedState)
       );
     },
-    addInputs: (inputNames: UserDataLabels[]) => {
+    addInputs: (inputs: {[key: string]: UserInputState}) => {
       dispatchAction(
-        addInputsAction(inputNames)
+        addInputsAction(inputs)
       );
     },
   },
@@ -121,7 +117,7 @@ function userInputsStoreReducer(
       const {inputLabel, error} = payload, {value} = state[inputLabel];
       return {...state, [inputLabel]: { value, error }};
     case Constants.RESET_STATES:
-      return payload.payload.resetedState;
+      return payload.resetedState;
     case Constants.ADD_INPUTS:
       return {...state, ...payload.inputs};
     default:
@@ -131,15 +127,11 @@ function userInputsStoreReducer(
 
 /** actions */
 function updateInputValueAction(
-  value: string, inputLabel: UserDataLabels,
+  updatedInput: {[key: string]: UserInputState},
 ): UpdateInputValueAction {
   return {
     type: Constants.UPDATE_INPUT_VALUE,
-    payload: {
-      updatedInput: {
-        [inputLabel]: { value, error: '' },
-      },
-    },
+    payload: { updatedInput },
   };
 }
 
@@ -152,26 +144,18 @@ function setInputErrorAction(
   };
 }
 
-function resetStatesAction(state: UserInputsStoreState): ResetStatesAction {
-  const clonedState = cloneDeep(state);
-
-  for (const inputLabel of Object.keys(clonedState)) {
-    clonedState[inputLabel] = initialInputState();
-  }
-
+function resetStatesAction(
+  resetedState: UserInputsStoreState,
+): ResetStatesAction {
   return {
     type: Constants.RESET_STATES,
-    payload: { resetedState: clonedState }
+    payload: { resetedState }
   };
 }
 
-function addInputsAction(inputNames: UserDataLabels[]): AddInputsAction {
-  const inputs = {};
-
-  for (const inputName of inputNames) {
-    inputs[inputName] = initialInputState();
-  }
-
+function addInputsAction(
+  inputs: {[key: string]: UserInputState},
+): AddInputsAction {
   return {
     type: Constants.ADD_INPUTS,
     payload: { inputs },

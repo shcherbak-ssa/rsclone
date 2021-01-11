@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import eyeIcon from '@iconify/icons-ant-design/eye-outlined';
 
-import { Stores, UserDataLabels } from '../constants';
+import { Stores, UserDataLabels, UserInputsEvents } from '../constants';
 import { storeService } from '../services/store.service';
 import { BaseInputProps } from '../components/base';
+import { userInputsController } from '../controllers/user-inputs.controller';
 
 // @TODO: need to remove
 const placeholder = {
@@ -15,7 +16,6 @@ const placeholder = {
 
 export function useUserInputProps(inputLabel: UserDataLabels): BaseInputProps {
   const userInputsStoreSelectros = storeService.getStoreSelectors(Stores.USER_INPUTS_STORE);
-  const userInputStateActions = storeService.getStoreActions(Stores.USER_INPUTS_STORE);
   const inputStateSelector = userInputsStoreSelectros.getInputState(inputLabel);
 
   const {value, error} = useSelector(inputStateSelector) as any;
@@ -50,7 +50,10 @@ export function useUserInputProps(inputLabel: UserDataLabels): BaseInputProps {
   }
 
   function updateValue(newValue: string) {
-    userInputStateActions.updateInputValue(newValue, inputLabel);
+    userInputsController.emit(
+      UserInputsEvents.UPDATE_INPUT_VALUE,
+      { value: newValue, inputLabel },
+    );
   }
   
   return {

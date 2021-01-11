@@ -1,13 +1,14 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 
-import { AppRoutePathnames } from '../constants';
+import { AppRoutePathnames, UserInputsEvents } from '../constants';
+import { userInputsController } from '../controllers/user-inputs.controller';
 
-type AppContainerProps = {
+type EntryContainerProps = {
   initialRoutePathname: string;
 };
 
-export function EntryContainer({initialRoutePathname}: AppContainerProps) {
+export function EntryContainer({initialRoutePathname}: EntryContainerProps) {
   const history = useHistory();
 
   const LoginContainer = lazy(() => import('./login.container'));
@@ -15,6 +16,7 @@ export function EntryContainer({initialRoutePathname}: AppContainerProps) {
 
   useEffect(() => {
     history.push(initialRoutePathname);
+    userInputsController.emit(UserInputsEvents.INIT_EVENTS);
   }, []);
 
   return (

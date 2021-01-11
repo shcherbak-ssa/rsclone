@@ -11,3 +11,8 @@ export type User = {
   language: string;
   theme: string;
 };
+
+export type UserInputState = {
+  value: string;
+  error: string;
+};
