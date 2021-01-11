@@ -2,7 +2,7 @@ import { Reducer, AnyAction, combineReducers, createStore, Store as ReduxStore }
 import { Stores } from '../constants';
 
 export type Store = {
-  selectors: { [key: string]: (state: any) => any };
+  selectors: { [key: string]: (state: any) => any | Function };
   actions: { [key: string]: Function };
 };
 

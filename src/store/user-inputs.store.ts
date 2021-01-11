@@ -75,7 +75,7 @@ const userInputsStore: Store = {
   selectors: {
     getInputState: (inputLabel: UserDataLabels) => {
       return (state: UserInputsStoreSelectorState) => {
-        return state[inputLabel];
+        return state[Stores.USER_INPUTS_STORE][inputLabel];
       };
     },
   },

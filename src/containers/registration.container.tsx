@@ -12,6 +12,7 @@ export default function RegistrationContainer() {
     title: 'Registration',
     linkText: 'Already have an account?',
     authError,
+    inputsProps: [],
     buttonProps: {
       value: 'Create account',
       clickHandler: () => {},
@@ -21,7 +22,7 @@ export default function RegistrationContainer() {
 
   return (
     <AuthComponent>
-      <AuthFormComponent {...authFormComponentProps}></AuthFormComponent>
+      <AuthFormComponent {...authFormComponentProps} />
     </AuthComponent>
   );
 }

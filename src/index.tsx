@@ -26,7 +26,6 @@ async function initApp() {
 
 function renderApp(store: ReduxStore, initialRoutePathname: string) {
   appController.emit(AppEvents.REMOVE_INIT_EVENTS);
-  console.log(storeService);
 
   ReactDOM.render(
     <Provider store={store}>
