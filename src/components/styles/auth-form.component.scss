@@ -7,9 +7,9 @@
     font: bold 32px/40px 'Montserrat', sans-serif;
     margin-bottom: 32px;
 
-    @media screen and (max-width: 530px) {
+    @media screen and (max-width: 450px) {
       font-size: 28px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
   }
 
@@ -24,7 +24,7 @@
     -x-size: calc(100% + 64px) 1px;
     -x-font-size: 18px/24px;
 
-    @media screen and (max-width: 530px) {
+    @media screen and (max-width: 450px) {
       width: calc(100% + 32px);
       margin: 0 0 16px -16px;
     }

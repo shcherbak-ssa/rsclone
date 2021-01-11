@@ -4,8 +4,8 @@
   padding: 20px 64px;
   -x-size: 100%;
 
-  @media screen and (max-width: 768px) {
-    padding: 20px 24px;
+  @media screen and (max-width: 767px) {
+    padding: 20px 16px;
   }
 
   .original-theme & {
@@ -50,7 +50,7 @@
     transition: .2s;
     -x-position: absolute 50% x x 50%;
 
-    @media screen and (max-width: 530px) {
+    @media screen and (max-width: 450px) {
       width: 100%;
       padding: 16px;
     }
