@@ -10,7 +10,13 @@ export class ResponseSenderService implements ResponseSender, ResponseFileSender
     this.response = response;
   }
 
-  async sendJsonResponse(responseData: ResponseData) {}
+  async sendJsonResponse(responseData: ResponseData) {
+    if (this.response) {
+      this.response
+        .status(responseData.getStatusCode())
+        .json(responseData.getBody());
+    }
+  }
 
   async sendFile(statusCode: number, filePath: string) {
     this.response?.status(statusCode).sendFile(filePath);

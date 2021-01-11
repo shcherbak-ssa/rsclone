@@ -3,7 +3,7 @@ import { appController } from './controllers/app.controller';
 import { LocalStorageService } from './services/localstorage.service';
 
 export class AppIniter {
-  static async init(renderAppCallback: (initialRoutePathname: string) => void) {
+  static init(renderAppCallback: (initialRoutePathname: string) => void) {
     const localStorageService = new LocalStorageService();
     const localStorageUser = localStorageService.get(USER_LOCALSTORAGE_KEY);
 

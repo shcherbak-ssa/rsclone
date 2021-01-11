@@ -3,25 +3,30 @@ import { useHistory } from 'react-router-dom';
 
 import { AppRoutePathnames } from '../constants';
 import { AuthComponentProps, AuthComponent } from '../components/auth.component';
+import { AuthFormComponent, AuthFormComponentProps } from '../components/auth-form.component';
 
 export default function RegistrationContainer() {
   const history = useHistory();
 
   const authComponentProps: AuthComponentProps = {
     isLogin: false,
-    authFormProps: {
-      title: 'Registration',
-      inputsProps: [],
-      buttonProps: {
-        value: 'Create account',
-        clickHandler: () => {},
-      },
-      linkText: 'Already have an account? Login',
-      linkClickHanlder: () => {
-        history.push(AppRoutePathnames.LOGIN);
-      },
-    },
   };
 
-  return <AuthComponent {...authComponentProps} />
+  const authFormComponentProps: AuthFormComponentProps = {
+    title: 'Registration',
+    linkText: 'Already have an account?',
+    buttonProps: {
+      value: 'Create account',
+      clickHandler: () => {},
+    },
+    linkClickHanlder: () => {
+      history.push(AppRoutePathnames.LOGIN);
+    },
+  }
+
+  return (
+    <AuthComponent {...authComponentProps}>
+      <AuthFormComponent {...authFormComponentProps}></AuthFormComponent>
+    </AuthComponent>
+  );
 }

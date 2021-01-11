@@ -20,7 +20,7 @@ async function initAuthorizationHeandler(renderAppCallback: (initialRoutePathnam
   await appModel.initAuthorization(renderAppCallback);
 }
 
-function removeInitEventsHandler() {
+async function removeInitEventsHandler() {
   appController
     .off(AppEvents.INIT_APP, initAppHeadler)
     .off(AppEvents.INIT_AUTHORIZATION, initAuthorizationHeandler);

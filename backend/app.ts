@@ -50,7 +50,10 @@ export class App {
 
   private initMiddlewareControllers(middlewareControllers: Array<MiddlewareController>) {
     middlewareControllers.forEach((middlewareController) => {
-      this.application.use(middlewareController.pathname, middlewareController.handler);
+      this.application.use(
+        middlewareController.pathname,
+        middlewareController.handler.bind(middlewareController)
+      );
     });
   }
 

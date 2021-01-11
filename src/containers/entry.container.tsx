@@ -1,5 +1,5 @@
-import React, { lazy, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
 
 import { AppRoutePathnames } from '../constants';
 
@@ -18,11 +18,11 @@ export function EntryContainer({initialRoutePathname}: AppContainerProps) {
   }, []);
 
   return (
-    <Router>
+    <Suspense fallback={<div>...loading</div>}>
       <Switch>
         <Route path={AppRoutePathnames.LOGIN} component={LoginContainer} />
-        <Route path={AppRoutePathnames.REGUSTRATION} component={RegistrationContainer} />
+        <Route path={AppRoutePathnames.REGISTRATION} component={RegistrationContainer} />
       </Switch>
-    </Router>
+    </Suspense>
   );
 }

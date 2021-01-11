@@ -6,10 +6,10 @@ import { ResponseFileSender } from '../types/response-sender.types';
 import { ResponseSenderService } from '../services/response-sender.service';
 
 const INDEX_FILENAME: string = 'index.html';
-const ASSETS_EXTNAME_REGEXP: RegExp = /^.(png|svg|ico)$/;
+const ASSETS_EXTNAME_REGEXP: RegExp = /^\.(js|css|png|svg|ico)$/;
 
 enum InitialRouterPathnames {
-  ROOT = '/',
+  INITIAL_REQUEST = '*',
   REGISTRATION = '/registration',
   LOGIN = '/login',
 };
@@ -30,7 +30,7 @@ export class InitialRouter {
   initRouter() {
     this.application
       .get(
-        InitialRouterPathnames.ROOT,
+        InitialRouterPathnames.INITIAL_REQUEST,
         this.rootRequestHandler.bind(this),
       )
       .post(
@@ -42,7 +42,7 @@ export class InitialRouter {
   }
 
   async rootRequestHandler(request: Request, response: Response, next: NextFunction) {
-    if (this.isFirstRequest(request) && !this.isAssetsRequest) {
+    if (!this.isRequestFromCode(request) && !this.isAssetsRequest(request)) {
       const responseSender: ResponseFileSender = new ResponseSenderService();
       responseSender.setResponseObject(response);
       
@@ -53,8 +53,8 @@ export class InitialRouter {
     }
   }
 
-  isFirstRequest(request: Request) {
-    return !request.headers[RequestHeaders.REQUEST_FROM_CODE];
+  isRequestFromCode(request: Request) {
+    return !!request.headers[RequestHeaders.REQUEST_FROM_CODE];
   }
 
   isAssetsRequest(request: Request) {

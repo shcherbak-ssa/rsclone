@@ -23,7 +23,7 @@
     transition: .4s;
 
     .is-login-mode & {
-      color: $dark-color;
+      color: $auth-dark-color;
     }
   }
 
@@ -32,7 +32,7 @@
     -x-size: 36px;
   }
 
-  &-form {
+  &-form-container {
     background: #fff;
     border-radius: 8px;
     padding: 32px;
@@ -45,19 +45,6 @@
     @media screen and (max-width: 530px) {
       width: 100%;
       padding: 16px;
-    }
-  }
-
-  &-decoration {
-    background: $decoration-background;
-    transform: rotate(-22.6deg) translate(20%, -50%);
-    transition: .4s;
-    -x-position: absolute 36px x x -406px;
-    -x-size: 1751px 768px;
-
-    .is-login-mode & {
-      top: 120%;
-      transform: rotate(-22.6deg) translate(30%, -50%);
     }
   }
 }

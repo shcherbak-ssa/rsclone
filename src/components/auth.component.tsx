@@ -4,17 +4,16 @@ import './styles/auth.component.scss';
 
 import { Classnames } from '../constants';
 import { AssetsService } from "../services/assets.service";
-import { AuthFormComponent, AuthFormComponentProps } from './auth-form.component';
 
 const LOGO_ICON: string = 'logo';
 const LOGO_LOGIN_ICON: string = 'logo-login';
 
 export type AuthComponentProps = {
   isLogin: boolean;
-  authFormProps: AuthFormComponentProps;
+  children?: React.ReactNode;
 };
 
-export function AuthComponent({isLogin, authFormProps}: AuthComponentProps) {
+export function AuthComponent({isLogin, children}: AuthComponentProps) {
   const componentClassnames = classnames('auth', {
     [Classnames.IS_LOGIN_MODE]: isLogin,
   });
@@ -31,8 +30,8 @@ export function AuthComponent({isLogin, authFormProps}: AuthComponentProps) {
           <img src={updateLogoIcon()} className="auth-logo" />
           Gitbook Clone
         </div>
-        <div className="auth-form" data-class="shadow">
-          <AuthFormComponent {...authFormProps} />
+        <div className="auth-form-container" data-class="shadow">
+          {children}
         </div>
       </div>
       <div className="auth-decoration"></div>

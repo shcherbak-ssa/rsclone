@@ -31,15 +31,11 @@ export class RequestService {
   
   async sendRequest() {
     try {
-      const response = await this.sendFetchRequest();
+      const response = await fetch(this.requestData.getUrl(), this.requestData.getOptions());
       return await this.parseResponse(response);
     } catch (error) {
-      console.log(error);
+      console.error(error.name);
     }
-  }
-  
-  private async sendFetchRequest() {
-    return fetch(this.requestData.getUrl(), this.requestData.getOptions());
   }
 
   private async parseResponse(response: Response) {

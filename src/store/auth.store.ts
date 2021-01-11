@@ -1,45 +1,36 @@
+import cloneDeep from 'clone-deep';
+import { Reducer } from 'react';
+import { AnyAction } from 'redux';
+
 import { UserDataLabels } from '../constants';
-import { Store, store, StoreAction, StoreReducer, StoreStateGetter, StoreStates, StoreType } from '../services/store.service';
+import { storeService } from '../services/store.service';
+import { InputsSelectors } from '../types/selectors.types';
 
 enum Constants {
   AUTH_STORE = 'auth-store',
   UPDATE_INPUT_VALUE = 'auth-store/update-input-value',
-  UPDATE_INPUT_ERROR = 'auth-store/update-input-error',
-  SET_FORM_ERROR = 'auth-store/set-form-error',
-  REMOVE_FORM_ERROR = 'auth-store/remove-form-error',
+  SET_INPUT_ERROR = 'auth-store/set-input-error',
+  SET_AUTH_ERROR = 'auth-store/set-auth-error',
+  REMOVE_AUTH_ERROR = 'auth-store/remove-auth-error',
   RESET_INPUTS_STATES = 'auth-store/reset-inputs-states',
 };
 
-type AuthStoreStates = StoreStates | {
+type AuthStoreState = {
   formError: string;
   inputs: {
     [UserDataLabels.FULLNAME]: {
       value: string;
       error: string;
     };
-    [UserDataLabels.EMAIL]: {
-      value: string;
-      error: string;
-    };
-    [UserDataLabels.PASSWORD]: {
-      value: string;
-      error: string;
-    };
   };
 };
 
-const initialState: AuthStoreStates = {
+type SelectorState = { [Constants.AUTH_STORE]: AuthStoreState };
+
+const initialState: AuthStoreState = {
   formError: '',
   inputs: {
     [UserDataLabels.FULLNAME]: {
-      value: '',
-      error: '',
-    },
-    [UserDataLabels.EMAIL]: {
-      value: '',
-      error: '',
-    },
-    [UserDataLabels.PASSWORD]: {
       value: '',
       error: '',
     },
@@ -54,52 +45,50 @@ type UpdateInputValueAction = {
   };
 };
 
-type AuthStoreAction = StoreAction | UpdateInputValueAction;
+type AuthStoreAction = AnyAction | UpdateInputValueAction;
 
-const authStoreReducer: StoreReducer = (
-  state: AuthStoreStates = initialState, {type, payload}: AuthStoreAction,
-): AuthStoreStates => {
+class AuthStoreSelectors implements InputsSelectors {
+  getAuthError() {}
+
+  getFullnameInput() {
+    return (state: SelectorState) => {
+      return state[Constants.AUTH_STORE].inputs[UserDataLabels.FULLNAME];
+    };
+  }
+}
+
+export const authStoreSelectors = new AuthStoreSelectors();
+
+export class AuthStore {
+  static storeName: string = Constants.AUTH_STORE;
+  static storeReducer: Reducer<AuthStoreState, AuthStoreAction> = authStoreReducer;
+
+  updateInputValue(value: string, inputLabel: UserDataLabels) {
+    storeService.dispatchAction(
+      updateInputValueAction(value, inputLabel)
+    );
+  }
+}
+
+function authStoreReducer(
+  state: AuthStoreState = initialState, {type, payload}: AuthStoreAction,
+): AuthStoreState {
+  const clonedState = cloneDeep(state);
+
   switch (type) {
     case Constants.UPDATE_INPUT_VALUE:
-      return Object.assign(
-        {},
-        state,
-        {
-          [payload.inputLabel]: {
-            value: payload.value, 
-          }
-        }
-      );
+      const {value, inputLabel} = payload;
+      clonedState.inputs[inputLabel] = {value, error: ''};
+      return clonedState;
     default:
       return state;
   }
 }
 
-export const authStore: StoreType = {
-  storeName: Constants.AUTH_STORE,
-  reducer: authStoreReducer,
-};
-
-export const authStoreGetters: { [key: string]: StoreStateGetter } = {
-  [UserDataLabels.FULLNAME]: {
-    storeName: Constants.AUTH_STORE,
-    filter: (states: AuthStoreStates) => {
-      return states[UserDataLabels.FULLNAME];
-    },
-  },
-};
-
-export class AuthStore extends Store {
-  constructor() {
-    super();
-    this.storeName = Constants.AUTH_STORE;
-  }
-
-  updateInputValue(value: string, inputLabel: UserDataLabels) {
-    store.dispatchAction(
-      this.getStoreDispatch(
-        Constants.UPDATE_INPUT_VALUE, { value, inputLabel },
-      )
-    );
-  }
+function updateInputValueAction(
+  value: string, inputLabel: UserDataLabels,
+): UpdateInputValueAction {
+  return {
+    type: Constants.UPDATE_INPUT_VALUE, payload: { value, inputLabel },
+  };
 }
