@@ -1,12 +1,26 @@
 @import '../../assets/styles/assets.scss';
 
 .auth {
-  background: $auth-background;
   padding: 20px 64px;
   -x-size: 100%;
 
   @media screen and (max-width: 768px) {
     padding: 20px 24px;
+  }
+
+  .original-theme & {
+    background: $original-auth-background-color;
+    color: $original-auth-color;
+  }
+
+  .light-theme & {
+    background: $light-auth-background-color;
+    color: $light-auth-color;
+  }
+
+  .dark-theme & {
+    background: $dark-auth-background-color;
+    color: $dark-auth-color;
   }
 
   &-content {
@@ -16,15 +30,10 @@
   }
 
   &-header {
-    color: #fff;
     display: flex;
     align-items: center;
     font: bold 24px/32px Montserrat, sans-serif;
     transition: .4s;
-
-    .is-login-mode & {
-      color: $auth-dark-color;
-    }
   }
 
   &-logo {
@@ -33,18 +42,29 @@
   }
 
   &-form-container {
-    background: #fff;
     border-radius: 8px;
     padding: 32px;
     transform: translate(-50%, -50%);
     z-index: 99;
-    width: 480px;
+    width: 420px;
     transition: .2s;
     -x-position: absolute 50% x x 50%;
 
     @media screen and (max-width: 530px) {
       width: 100%;
       padding: 16px;
+    }
+
+    .original-theme & {
+      background: $original-auth-form-container-background-color;
+    }
+  
+    .light-theme & {
+      background: $light-auth-form-container-background-color;
+    }
+  
+    .dark-theme & {
+      background: $dark-auth-form-container-background-color;
     }
   }
 }

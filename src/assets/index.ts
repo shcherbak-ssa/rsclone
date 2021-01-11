@@ -1,5 +1,3 @@
-import './icons/view.svg';
-import './icons/logo.svg';
 import './icons/logo-login.svg';
 
 import './images/original-theme.png';

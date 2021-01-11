@@ -30,7 +30,6 @@ export enum AppRoutePathnames {
 };
 
 export enum Classnames {
-  IS_LOGIN_MODE = 'is-login-mode',
   IS_ERROR = 'is-error',
   IS_SELECTED = 'is-selected',
   IS_ACTIVE = 'is-active',

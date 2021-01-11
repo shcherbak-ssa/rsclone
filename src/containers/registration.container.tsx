@@ -2,15 +2,11 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { AppRoutePathnames } from '../constants';
-import { AuthComponentProps, AuthComponent } from '../components/auth.component';
+import { AuthComponent } from '../components/auth.component';
 import { AuthFormComponent, AuthFormComponentProps } from '../components/auth-form.component';
 
 export default function RegistrationContainer() {
   const history = useHistory();
-
-  const authComponentProps: AuthComponentProps = {
-    isLogin: false,
-  };
 
   const authFormComponentProps: AuthFormComponentProps = {
     title: 'Registration',
@@ -25,7 +21,7 @@ export default function RegistrationContainer() {
   }
 
   return (
-    <AuthComponent {...authComponentProps}>
+    <AuthComponent>
       <AuthFormComponent {...authFormComponentProps}></AuthFormComponent>
     </AuthComponent>
   );

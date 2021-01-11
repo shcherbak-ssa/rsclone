@@ -1,12 +1,11 @@
-/** auth */
-$auth-background: #FAFAFA;
-$auth-decoration-background: #183055;
-$auth-dark-color: #111;
-$auth-link-color: #6E41E2;
-$auth-form-error: #DB524E;
-$auth-form-error-background: #F1F1F1;
-
 /** original theme */
+$original-auth-color: #fff;
+$original-auth-background-color: #183055;
+$original-auth-form-container-background-color: #2F4566;
+$original-auth-form-link-color: #7badff;
+$original-auth-form-error-color: #FF4642;
+$original-auth-form-error-background-color: #596D8B;
+
 $original-app-background-color: #183055;
 $original-sidebar-icon-color: #fff;
 $original-sidebar-line-background-color: rgba(255, 255, 255, 0.1);
@@ -80,6 +79,14 @@ $original-popup-title-color: #fff;
 $original-popup-body-text-color: #fff;
 
 /** light theme */
+$light-auth-color: #393E46;
+$light-auth-background-color: #F1F1F1;
+$light-auth-form-container-background-color: #fff;
+$light-auth-form-link-color: #6E41E2;
+$light-auth-form-link-hover-color: #5835B0;
+$light-auth-form-error-color: #DB524E;
+$light-auth-form-error-background-color: #FAFAFA;
+
 $light-app-background-color: #F1F1F1;
 $light-sidebar-icon-color: #393E46;
 $light-sidebar-icon-active-color: #111111;
@@ -158,6 +165,13 @@ $light-popup-title-color: #393E46;
 $light-popup-body-text-color: #111111;
 
 /** dark theme */
+$dark-auth-color: #fff;
+$dark-auth-background-color: #222;
+$dark-auth-form-container-background-color: #333;
+$dark-auth-form-link-color: #F1F1F1;
+$dark-auth-form-error-color: #DB524E;
+$dark-auth-form-error-background-color: rgba(#fff, .4);
+
 $dark-app-background-color: #222222;
 $dark-sidebar-icon-color: #fff;
 $dark-sidebar-line-background-color: rgba(#fff, 0.4);

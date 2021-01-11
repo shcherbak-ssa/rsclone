@@ -63,7 +63,7 @@ export function InputComponent({
 
   return (
     <div className={componentClassnames} onClick={clickHandle}>
-      <div className="input-container" data-class="click">
+      <div className="input-container" data-class="click shadow">
         <input
           ref={inputField}
           type="text"

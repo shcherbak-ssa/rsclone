@@ -1,7 +1,6 @@
 @import '../../assets/styles/assets.scss';
 
 .auth-form {
-  color: $auth-dark-color;
   -x-size: 100%;
 
   &-title {
@@ -15,8 +14,6 @@
   }
 
   &-error {
-    background: $auth-form-error-background;
-    color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +28,25 @@
       width: calc(100% + 32px);
       margin: 0 0 16px -16px;
     }
+
+    .original-theme & {
+      background: $original-auth-form-error-background-color;
+      color: $original-auth-form-error-color;
+    }
+  
+    .light-theme & {
+      background: $light-auth-form-error-background-color;
+      color: $light-auth-form-error-color;
+    }
+  
+    .dark-theme & {
+      background: $dark-auth-form-error-background-color;
+      color: $dark-auth-form-error-color;
+    }
+
+    .is-error & {
+      height: 60px;
+    }
   }
 
   &-inputs {
@@ -40,7 +56,6 @@
   }
 
   &-link {
-    color: $auth-link-color;
     cursor: pointer;
     text-align: center;
     -x-font-size: 16px/24px;
@@ -48,18 +63,27 @@
     &:hover {
       text-decoration: underline;
     }
+
+    .original-theme & {
+      color: $original-auth-form-link-color;
+    }
+  
+    .light-theme & {
+      color: $light-auth-form-link-color;
+
+      &:hover {
+        color: $light-auth-form-link-hover-color;
+      }
+    }
+  
+    .dark-theme & {
+      color: $dark-auth-form-link-color;
+    }
   }
 
   .button {
     font-size: 16px;
     height: 44px;
     margin-bottom: 12px;
-  }
-
-  &.is-error {
-    .auth-form-error {
-      color: $auth-form-error;
-      height: 60px;
-    }
   }
 }

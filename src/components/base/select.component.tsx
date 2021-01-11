@@ -56,7 +56,7 @@ export function SelectComponent({
 
   return (
     <div className={componentClassname}>
-      <div className="select-selected" data-class="click" onClick={clickHandle}>
+      <div className="select-selected" data-class="click shadow" onClick={clickHandle}>
         <div className="select-placeholder">{placeholder}</div>
         <Icon {...iconProps} />
         {selected.value}
