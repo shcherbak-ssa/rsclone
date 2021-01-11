@@ -1,13 +1,15 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { AppRoutePathnames, UserDataLabels } from '../constants';
-import { useAuthForm } from '../hooks/auth-form.hooks';
+import { useAuthError } from '../hooks/auth-error.hooks';
 import { useUserInputProps } from '../hooks/user-input-props.hooks';
 import { AuthComponent } from '../components/auth.component';
 import { AuthFormComponent, AuthFormComponentProps } from '../components/auth-form.component';
 
 export default function LoginContainer() {
-  const [authError, authFormLinkClickHandler] = useAuthForm(AppRoutePathnames.LOGIN);
+  const history = useHistory();
+  const authError = useAuthError();
   const fullnameInputProps = useUserInputProps(UserDataLabels.FULLNAME);
 
   const authFormComponentProps: AuthFormComponentProps = {
@@ -21,7 +23,9 @@ export default function LoginContainer() {
       value: 'Login',
       clickHandler: () => {},
     },
-    linkClickHanlder: authFormLinkClickHandler,
+    linkClickHanlder: () => {
+      history.push(AppRoutePathnames.REGISTRATION);
+    },
   }
 
   return (

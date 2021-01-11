@@ -1,12 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { AppRoutePathnames } from '../constants';
+import { useAuthError } from '../hooks/auth-error.hooks';
 import { AuthComponent } from '../components/auth.component';
 import { AuthFormComponent, AuthFormComponentProps } from '../components/auth-form.component';
-import { useAuthForm } from '../hooks/auth-form.hooks';
 
 export default function RegistrationContainer() {
-  const [authError, authFormLinkClickHandler] = useAuthForm(AppRoutePathnames.LOGIN);
+  const history = useHistory();
+  const authError = useAuthError();
   
   const authFormComponentProps: AuthFormComponentProps = {
     title: 'Registration',
@@ -17,7 +19,9 @@ export default function RegistrationContainer() {
       value: 'Create account',
       clickHandler: () => {},
     },
-    linkClickHanlder: authFormLinkClickHandler,
+    linkClickHanlder: () => {
+      history.push(AppRoutePathnames.LOGIN);
+    },
   }
 
   return (
