@@ -1,20 +1,33 @@
-import { Reducer, AnyAction, combineReducers, createStore, Store } from 'redux';
+import { Reducer, AnyAction, combineReducers, createStore, Store as ReduxStore } from 'redux';
+import { Stores } from '../constants';
+
+export type Store = {
+  selectors: { [key: string]: (state: any) => any };
+  actions: { [key: string]: Function };
+};
+
+export interface StoreCreator {
+  getStoreName(): Stores;
+  getReducer(): Reducer<any, AnyAction>;
+  getStore(): Store;
+};
 
 export let storeService: StoreService;
 
 export class StoreService {
-  store: Store;
+  store: ReduxStore;
+  private stores: Map<Stores, Store> = new Map();
   private reducers: { [key: string]: Reducer<any, AnyAction> } = {};
   private combinedReducers: Reducer<any, AnyAction> = combineReducers({});
-  private deletedReducerNames: Array<string> = [];
+  private deletedStoreNames: Array<string> = [];
+
+  constructor() {
+    this.store = createStore(this.reduce.bind(this));
+  }
 
   static createStore() {
     storeService = new StoreService();
-
-    const store: Store = createStore(storeService.reduce.bind(storeService));
-    storeService.store = store;
-
-    return store;
+    return storeService.store;
   }
 
   reduce(state: any, action: AnyAction) {
@@ -24,20 +37,32 @@ export class StoreService {
     return this.combinedReducers(updatedState, action);
   }
 
-  addReducer(reducerName: string, reducer: Reducer<any, AnyAction>) {
-    if (!reducerName || this.reducers[reducerName]) return;
-
-    this.reducers[reducerName] = reducer;
-    this.updateCombinedReducers();
-    this.dispatchAction({type: 'action'});
+  getStoreSelectors(storeName: Stores) {
+    return this.getStore(storeName).selectors;
   }
 
-  deleteReducer(reducerName: string) {
-    if (!reducerName || !this.reducers[reducerName]) return;
+  getStoreActions(storeName: Stores) {
+    return this.getStore(storeName).actions;
+  }
 
-    delete this.reducers[reducerName];
-    this.deletedReducerNames.push(reducerName);
+  addStore(storeCreator: StoreCreator) {
+    const storeName: Stores = storeCreator.getStoreName();
 
+    if (this.reducers[storeName]) return;
+
+    this.reducers[storeName] = storeCreator.getReducer();
+    this.stores.set(storeName, storeCreator.getStore());
+
+    this.updateCombinedReducers();
+  }
+
+  deleteStore(storeName: Stores) {
+    if (!storeName || !this.reducers[storeName]) return;
+
+    delete this.reducers[storeName];
+    this.stores.delete(storeName);
+
+    this.deletedStoreNames.push(storeName);
     this.updateCombinedReducers();
   }
 
@@ -45,16 +70,20 @@ export class StoreService {
     this.store.dispatch(action);
   }
 
+  private getStore(storeName: Stores) {
+    return this.stores.get(storeName);
+  }
+
   private removeDeletedReducersFromState(state: any) {
-    this.deletedReducerNames.forEach((deletedReducerName) => {
+    this.deletedStoreNames.forEach((deletedReducerName) => {
       delete state[deletedReducerName];
     });
 
-    this.deletedReducerNames = [];
+    this.deletedStoreNames = [];
   }
 
   private updateCombinedReducers() {
     this.combinedReducers = combineReducers(this.reducers);
+    this.dispatchAction({type: ''});
   }
-
 }

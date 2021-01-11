@@ -53,3 +53,7 @@ export enum UserDataLabels {
   THEME = 'theme',
   SHORTCUTS = 'shortcuts',
 };
+
+export enum Stores {
+  AUTH_STORE = 'auth-store',
+};

@@ -1,94 +1,94 @@
-import cloneDeep from 'clone-deep';
-import { Reducer } from 'react';
 import { AnyAction } from 'redux';
 
-import { UserDataLabels } from '../constants';
-import { storeService } from '../services/store.service';
-import { InputsSelectors } from '../types/selectors.types';
+import { Stores } from '../constants';
+import { StoreCreator, Store, storeService } from '../services/store.service';
 
 enum Constants {
-  AUTH_STORE = 'auth-store',
-  UPDATE_INPUT_VALUE = 'auth-store/update-input-value',
-  SET_INPUT_ERROR = 'auth-store/set-input-error',
   SET_AUTH_ERROR = 'auth-store/set-auth-error',
   REMOVE_AUTH_ERROR = 'auth-store/remove-auth-error',
-  RESET_INPUTS_STATES = 'auth-store/reset-inputs-states',
 };
 
 type AuthStoreState = {
-  formError: string;
-  inputs: {
-    [UserDataLabels.FULLNAME]: {
-      value: string;
-      error: string;
-    };
+  authError: string;
+};
+
+type AuthStoreSelectorState = { [Stores.AUTH_STORE]: AuthStoreState };
+
+type SetAuthErrorAction = {
+  type: Constants.SET_AUTH_ERROR;
+  payload: {
+    error: string;
   };
 };
 
-type SelectorState = { [Constants.AUTH_STORE]: AuthStoreState };
+type RemoveAuthErrorAction = {
+  type: Constants.REMOVE_AUTH_ERROR;
+  payload: {};
+};
+
+type AuthStoreAction = AnyAction | SetAuthErrorAction | RemoveAuthErrorAction;
 
 const initialState: AuthStoreState = {
-  formError: '',
-  inputs: {
-    [UserDataLabels.FULLNAME]: {
-      value: '',
-      error: '',
+  authError: '',
+};
+
+const authStore: Store = {
+  selectors: {
+    getAuthError: (state: AuthStoreSelectorState) => {
+      return state[Stores.AUTH_STORE].authError;
     },
   },
-};
-
-type UpdateInputValueAction = {
-  type: Constants.UPDATE_INPUT_VALUE;
-  payload: {
-    value: string;
-    inputLabel: UserDataLabels;
-  };
-};
-
-type AuthStoreAction = AnyAction | UpdateInputValueAction;
-
-class AuthStoreSelectors implements InputsSelectors {
-  getAuthError() {}
-
-  getFullnameInput() {
-    return (state: SelectorState) => {
-      return state[Constants.AUTH_STORE].inputs[UserDataLabels.FULLNAME];
-    };
-  }
+  actions: {
+    setAuthError: (error: string) => {
+      storeService.dispatchAction(
+        setAuthErrorAction(error)
+      );
+    },
+    removeAuthError: () => {
+      storeService.dispatchAction(
+        removeAuthErrorAction()
+      );
+    },
+  },
 }
 
-export const authStoreSelectors = new AuthStoreSelectors();
+export class AuthStoreCreator implements StoreCreator {
+  getStoreName() {
+    return Stores.AUTH_STORE;
+  }
 
-export class AuthStore {
-  static storeName: string = Constants.AUTH_STORE;
-  static storeReducer: Reducer<AuthStoreState, AuthStoreAction> = authStoreReducer;
+  getReducer() {
+    return authStoreReducer;
+  }
 
-  updateInputValue(value: string, inputLabel: UserDataLabels) {
-    storeService.dispatchAction(
-      updateInputValueAction(value, inputLabel)
-    );
+  getStore() {
+    return authStore;
   }
 }
 
 function authStoreReducer(
   state: AuthStoreState = initialState, {type, payload}: AuthStoreAction,
 ): AuthStoreState {
-  const clonedState = cloneDeep(state);
-
   switch (type) {
-    case Constants.UPDATE_INPUT_VALUE:
-      const {value, inputLabel} = payload;
-      clonedState.inputs[inputLabel] = {value, error: ''};
-      return clonedState;
+    case Constants.SET_AUTH_ERROR:
+      return { authError: payload.error };
+    case Constants.REMOVE_AUTH_ERROR:
+      return initialState;
     default:
       return state;
   }
 }
 
-function updateInputValueAction(
-  value: string, inputLabel: UserDataLabels,
-): UpdateInputValueAction {
+function setAuthErrorAction(error: string): SetAuthErrorAction {
   return {
-    type: Constants.UPDATE_INPUT_VALUE, payload: { value, inputLabel },
+    type: Constants.SET_AUTH_ERROR,
+    payload: { error },
+  };
+}
+
+function removeAuthErrorAction(): RemoveAuthErrorAction {
+  return {
+    type: Constants.REMOVE_AUTH_ERROR,
+    payload: {},
   };
 }

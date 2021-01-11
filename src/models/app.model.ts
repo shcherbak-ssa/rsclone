@@ -10,7 +10,6 @@ import { appController } from '../controllers/app.controller';
 import { AppRoutesService } from '../services/app-routes.service';
 import { RequestService } from '../services/request.service';
 import { storeService } from '../services/store.service';
-import { AuthStore } from '../store/auth.store';
 
 export class AppModel {
   async initApp(renderAppCallback: (initialRoutePathname: string) => void) {
@@ -33,8 +32,11 @@ export class AppModel {
   }
 
   async initAuthorization(renderAppCallback: (initialRoutePathname: string) => void) {
-    storeService.addReducer(AuthStore.storeName, AuthStore.storeReducer);
-    renderAppCallback(AppRoutePathnames.LOGIN);
+    const { AuthStoreCreator } = await import('../store/auth.store');
+    storeService.addStore(new AuthStoreCreator());
+
+    const authorizationInitialRoutePathname = this.getAuthorizationInitialRoutePathname();
+    renderAppCallback(authorizationInitialRoutePathname);
   }
 
   private createUserRequest() {
