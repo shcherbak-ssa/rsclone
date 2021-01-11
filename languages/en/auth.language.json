@@ -1,0 +1,12 @@
+{
+  "login": {
+    "formTitle": "Login",
+    "buttonValue": "Login",
+    "linkText": "Do not have an account?"
+  },
+  "registration": {
+    "formTitle": "Registration",
+    "buttonValue": "Create account",
+    "linkText": "Already have an account?"
+  }
+}

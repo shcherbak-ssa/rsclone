@@ -1,0 +1,11 @@
+{
+  "fullname": {
+    "placeholder": "Full name"
+  },
+  "email": {
+    "placeholder": "E-mail"
+  },
+  "password": {
+    "placeholder": "Password"
+  }
+}
