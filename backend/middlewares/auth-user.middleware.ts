@@ -1,13 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { StatusCodes, ErrorNames } from '../../common/constants';
+import { MiddlewarePathnames, Parameters } from '../constants';
 import { ResponseSender } from '../types/response-sender.types';
+
 import { ResponseData } from '../data/response.data';
-import { MiddlewareController } from './middleware.controller';
-import { AccessTokenService } from '../services/access-token.service';
-import { ResponseSenderService } from '../services/response-sender.service';
 import { ClientError, ServerError } from '../data/errors.data';
 import { AuthUserModel } from '../models/auth-user.model';
+
+import { BaseMiddleware } from "./base.middleware";
+import { AccessTokenService } from '../services/access-token.service';
+import { ResponseSenderService } from '../services/response-sender.service';
 
 export type TokenPayloadType = {
   userID: string;
@@ -18,8 +21,8 @@ export interface AuthAccessToken {
   getTokenFromAuthHeader(authHeader: string | undefined): string | null;
 };
 
-export class AuthUserController implements MiddlewareController {
-  pathname: string = '/@:username';
+export class AuthUserMiddleware implements BaseMiddleware {
+  pathname: string = MiddlewarePathnames.AUTH_USER;
   private authAccessToken: AuthAccessToken = new AccessTokenService();
   private responseSender: ResponseSender = new ResponseSenderService();
 
@@ -29,7 +32,7 @@ export class AuthUserController implements MiddlewareController {
     try {
       const token = await this.getToken(request);
       const {userID} = await this.authAccessToken.verifyToken(token);
-      const username = request.params.username;
+      const username = this.getUsernameFromParameters(request);
 
       const authUserModel = new AuthUserModel();
       const isValidUser = await authUserModel.isValidUser({userID, username});
@@ -55,6 +58,10 @@ export class AuthUserController implements MiddlewareController {
     }
 
     return token;
+  }
+
+  private getUsernameFromParameters(request: Request) {
+    return request.params[Parameters.USERNAME];
   }
 
   private async parseError(error: Error | ClientError) {

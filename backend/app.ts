@@ -1,17 +1,15 @@
 import express from 'express';
 import { Application } from 'express';
 
+import { BaseMiddleware } from './middlewares/base.middleware';
 import { BaseRouter } from './routes/base.router';
-import { InitialRouter } from './routes/initial.router';
-import { MiddlewareController } from './controllers/middleware.controller';
+import { StaticService } from './services/static.service';
 
 export type AppOptions = {
-  port: number,
-  hostname: string,
-  publicPath: string,
-  routers: Array<BaseRouter>,
-  middlewares: Array<any>,
-  middlewareControllers: Array<MiddlewareController>,
+  port: number;
+  hostname: string;
+  routers: Array<BaseRouter>;
+  middlewares: Array<any | BaseMiddleware>;
 };
 
 export class App {
@@ -20,17 +18,14 @@ export class App {
   private hostname: string;
 
   constructor({
-    port, hostname, publicPath, routers, middlewares, middlewareControllers,
+    port, hostname, routers, middlewares,
   }: AppOptions) {
     this.application = express();
     this.port = port;
     this.hostname = hostname;
 
-    InitialRouter.init(this.application, publicPath);
-
     this.initMiddlewares(middlewares);
-    this.initMiddlewareControllers(middlewareControllers);
-    this.initPublic(publicPath);
+    this.initPublic();
     this.initRouters(routers);
   }
 
@@ -44,16 +39,16 @@ export class App {
     });
   }
 
-  private initMiddlewares(middlewares: Array<any>) {
-    middlewares.forEach((middleware) => this.application.use(middleware));
-  }
-
-  private initMiddlewareControllers(middlewareControllers: Array<MiddlewareController>) {
-    middlewareControllers.forEach((middlewareController) => {
-      this.application.use(
-        middlewareController.pathname,
-        middlewareController.handler.bind(middlewareController)
-      );
+  private initMiddlewares(middlewares: Array<any | BaseMiddleware>) {
+    middlewares.forEach((middleware) => {
+      if ('pathname' in middleware) {
+        this.application.use(
+          middleware.pathname,
+          middleware.handler.bind(middleware),
+        );
+      } else {
+        this.application.use(middleware)
+      }
     });
   }
 
@@ -61,7 +56,7 @@ export class App {
     routers.forEach((router) => this.application.use(router.initRouter()));
   }
 
-  private initPublic(publicPath: string) {
-    this.application.use(express.static(publicPath));
+  private initPublic() {
+    this.application.use(express.static(StaticService.publicPath));
   }
 };

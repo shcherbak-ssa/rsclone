@@ -1,4 +1,4 @@
-import { RequestMethods } from "../constants";
+import { RequestMethods } from "../../common/constants";
 import { RequestData } from "../data/request.data";
 import { ResponseData } from "../data/response.data";
 

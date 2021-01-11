@@ -8,13 +8,6 @@ export enum DocumentElementIDs {
   POPUP = 'popup',
 };
 
-export enum RequestMethods {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-};
-
 export enum AppEvents {
   INIT_APP = 'app-events/init-app',
   INIT_AUTHORIZATION = 'app-events/init-authorization',
