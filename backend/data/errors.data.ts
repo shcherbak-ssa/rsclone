@@ -15,11 +15,11 @@ class CustomError implements Error {
     this.addErrorMessageToBody();
   }
 
-  getResponseData() {
+  getResponseData(): ResponseData {
     return new ResponseData(this.statusCode, this.body);
   }
 
-  private addErrorMessageToBody() {
+  private addErrorMessageToBody(): void {
     this.body.message = this.message;
   }
 }

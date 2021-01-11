@@ -7,20 +7,8 @@ export type VerifyUserType = {
 };
 
 export class AuthUserModel {
-  private usernameCache: string = '';
-
-  async isValidUser({userID, username}: VerifyUserType) {
+  async isValidUser({userID, username}: VerifyUserType): Promise<boolean> {
     const foundUser: UserData | undefined = await usersCollectionDatabase.getUser(userID);
-    
-    if (foundUser && foundUser.getUsername() === username) {
-      this.usernameCache = foundUser.getUsername();
-      return true;
-    }
-
-    return false;
-  }
-
-  getAuthorizedUserUsername() {
-    return this.usernameCache;
+    return !!foundUser && foundUser.getUsername() === username;
   }
 }

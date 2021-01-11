@@ -29,7 +29,7 @@ export class App {
     this.initRouters(routers);
   }
 
-  static init(appOptions: AppOptions) {
+  static init(appOptions: AppOptions): App {
     return new App(appOptions);
   }
 
@@ -39,9 +39,9 @@ export class App {
     });
   }
 
-  private initMiddlewares(middlewares: Array<any | BaseMiddleware>) {
+  private initMiddlewares(middlewares: Array<any | BaseMiddleware>): void {
     middlewares.forEach((middleware) => {
-      if ('pathname' in middleware) {
+      if ('pathname' in middleware) { // @TODO: remove magic string
         this.application.use(
           middleware.pathname,
           middleware.handler.bind(middleware),
@@ -52,11 +52,11 @@ export class App {
     });
   }
 
-  private initRouters(routers: Array<BaseRouter>) {
+  private initRouters(routers: Array<BaseRouter>): void {
     routers.forEach((router) => this.application.use(router.initRouter()));
   }
 
-  private initPublic() {
+  private initPublic(): void {
     this.application.use(express.static(StaticService.publicPath));
   }
 };

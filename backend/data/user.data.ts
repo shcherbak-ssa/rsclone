@@ -7,15 +7,15 @@ export class UserData {
     this.user = user;
   }
 
-  static create(user: UserType) {
+  static create(user: UserType): UserData {
     return new UserData(user);
   }
 
-  getUserID() {
+  getUserID(): string {
     return this.user.userID;
   }
 
-  getUsername() {
+  getUsername(): string {
     return this.user.username;
   }
 }

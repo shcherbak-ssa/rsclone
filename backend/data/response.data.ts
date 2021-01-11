@@ -9,11 +9,11 @@ export class ResponseData {
     this.body = body;
   }
 
-  getStatusCode() {
+  getStatusCode(): number {
     return this.statusCode;
   }
 
-  getBody() {
+  getBody(): any {
     return this.body;
   }
 }

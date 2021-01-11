@@ -3,11 +3,8 @@ import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from '../../common/constants';
 import { MiddlewarePathnames, Parameters } from '../constants';
 import { ResponseSender } from '../types/response-sender.types';
-
-import { ResponseData } from '../data/response.data';
-import { ClientError, ServerError } from '../data/errors.data';
-import { AuthUserModel } from '../models/auth-user.model';
-
+import { ClientError } from '../data/errors.data';
+import { AuthUserModel, VerifyUserType } from '../models/auth-user.model';
 import { BaseMiddleware } from "./base.middleware";
 import { AccessTokenService } from '../services/access-token.service';
 import { ResponseSenderService } from '../services/response-sender.service';
@@ -30,49 +27,54 @@ export class AuthUserMiddleware implements BaseMiddleware {
     this.responseSender.setResponseObject(response);
 
     try {
-      const token = await this.getToken(request);
-      const {userID} = await this.authAccessToken.verifyToken(token);
-      const username = this.getUsernameFromParameters(request);
-
-      const authUserModel = new AuthUserModel();
-      const isValidUser = await authUserModel.isValidUser({userID, username});
+      const verifyUser: VerifyUserType = await this.verifyToken(request);
+      const isValidUser: boolean = await this.verifyUser(verifyUser);
 
       if (isValidUser) {
-        request.username = authUserModel.getAuthorizedUserUsername();
+        request.username = verifyUser.username;
         return next();
       }
 
-      throw new ClientError('Invalid username', StatusCodes.FORBIDDEN);
+      throw new ClientError(
+        `Invalid username '@${verifyUser.username}'`,
+        StatusCodes.FORBIDDEN
+      );
     } catch (error) {
-      const errorResponse: ResponseData = await this.parseError(error);
-      this.responseSender.sendJsonResponse(errorResponse);
+      this.responseSender.sendErrorResponse(error);
     }
   }
 
+  private async verifyToken(request: Request): Promise<VerifyUserType> {
+    const token = await this.getToken(request);
+    const {userID} = await this.authAccessToken.verifyToken(token);
+    const username = this.getUsernameFromParameters(request);
+    return {userID, username};
+  }
+
   private async getToken(request: Request): Promise<string> {
-    const authHeader = request.headers.authorization;
-    const token = this.authAccessToken.getTokenFromAuthHeader(authHeader);
+    const authHeader: string | undefined = this.getAuthorizationHeader(request);
+    const token: string | null = this.authAccessToken.getTokenFromAuthHeader(authHeader);
 
     if (token === null) {
-      throw new ClientError('Did not find authorization header', StatusCodes.UNAUTHORIZED);
+      throw new ClientError(
+        'Did not find authorization token',
+        StatusCodes.UNAUTHORIZED
+      );
     }
 
     return token;
   }
 
-  private getUsernameFromParameters(request: Request) {
+  private getAuthorizationHeader(request: Request): string | undefined {
+    return request.headers.authorization;
+  }
+
+  private getUsernameFromParameters(request: Request): string {
     return request.params[Parameters.USERNAME];
   }
 
-  private async parseError(error: Error | ClientError) {
-    console.log(`${error.name}: ${error.message}`);
-
-    if (error instanceof ClientError) {
-      return error.getResponseData();
-    }
-
-    console.log(error); // @todo: add logger
-    const serverError = new ServerError(error.message, {});
-    return serverError.getResponseData();
+  private async verifyUser(verifyUser: VerifyUserType): Promise<boolean> {
+    const authUserModel = new AuthUserModel();
+    return await authUserModel.isValidUser(verifyUser);
   }
 }

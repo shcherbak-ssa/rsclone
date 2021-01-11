@@ -1,10 +1,13 @@
 import { Request } from 'express';
+import { LanguageParts } from '../../common/constants';
 
 export interface StaticEntry {
   isAssetsRequest(request: Request): boolean;
-  getRootFilePath(): string;
+  getEntryFilePath(): string;
 }
 
 export interface StaticLanguage {
-  createLanguageFilePath(): string;
+  createRequestedLanguagePartFilePath(
+    requestedLanguage: string, requestedLanguagePart: LanguageParts,
+  ): string;
 }

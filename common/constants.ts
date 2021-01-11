@@ -35,3 +35,8 @@ export enum LanguageLabels {
   RUSSIAN = 'ru',
   ITALIAN = 'it',
 }
+
+export enum LanguageParts {
+  AUTH = 'auth',
+  USER_INPUTS = 'user-inputs',
+}
