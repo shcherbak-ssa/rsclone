@@ -14,7 +14,7 @@ export class AccessTokenService implements AuthAccessToken {
       const {jwt} = serverConfig;
       return verify(token, jwt.secretKey, jwt.options as VerifyOptions) as TokenPayloadType;
     } catch (error) {
-      throw new ClientError('', StatusCodes.UNAUTHORIZED);
+      throw new ClientError('Did not find authorization token', StatusCodes.UNAUTHORIZED);
     }
   }
 

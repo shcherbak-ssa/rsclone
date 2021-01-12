@@ -21,10 +21,14 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
   } else {
     languageController.emit(
       LanguageEvents.ADD_PARTS,
-      { language: 'en', languageParts: [LanguageParts.USER_INPUTS] }
+      { 
+        language: 'en',
+        languageParts: [LanguageParts.USER_INPUTS],
+        callback: () => {
+          renderAppCallback(initialRoutePathname);
+        },
+      },
     );
-
-    renderAppCallback(initialRoutePathname);
   }
 }
 
@@ -37,10 +41,11 @@ async function initAuthorizationHeandler(renderAppCallback: (initialRoutePathnam
     {
       language: 'en',
       languageParts: [LanguageParts.USER_INPUTS, LanguageParts.AUTH],
+      callback: () => {
+        renderAppCallback(initialRoutePathname);
+      },
     }
   );
-
-  renderAppCallback(initialRoutePathname);
 }
 
 async function removeInitEventsHandler() {

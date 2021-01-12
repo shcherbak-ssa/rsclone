@@ -27,8 +27,7 @@ export class LanguageModel {
       const responseData: ResponseData = await this.requestSender.send(requestData).get();
       const requestedLanguageParts: any = responseData.parseResponse();
 
-      console.log(requestedLanguageParts);
-      this.languageStoreActions.addPart(requestedLanguageParts);
+      this.languageStoreActions.addParts(requestedLanguageParts);
     } catch (error) {
       console.log(error);
     }

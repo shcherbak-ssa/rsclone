@@ -16,4 +16,6 @@ function changeLanguageHandler() {}
 async function addLanguagePartsHandler(updateLanguage: UpdateLanguage) {
   const languageModel: LanguageModel = new LanguageModel();
   await languageModel.addLanguageParts(updateLanguage);
+
+  updateLanguage.callback();
 }

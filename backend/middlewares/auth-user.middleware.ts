@@ -43,7 +43,6 @@ export class AuthUserMiddleware implements BaseMiddleware {
         StatusCodes.FORBIDDEN
       );
     } catch (error) {
-      console.log(error);
       this.responseSender.sendErrorResponse(error);
     }
   }

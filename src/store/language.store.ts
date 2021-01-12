@@ -52,9 +52,9 @@ const languageStore: Store = {
         changeLanguageAction(newLanguage)
       );
     },
-    addPart: (newParts: LanguageStoreState) => {
+    addParts: (newParts: LanguageStoreState) => {
       dispatchAction(
-        addPartAction(newParts)
+        addPartsAction(newParts)
       );
     },
   },
@@ -82,7 +82,7 @@ function languageStoreReducer(
     case Constants.CHANGE_LANGUAGE:
       return payload.newLanguage;
     case Constants.ADD_PARTS:
-      return {...state, ...payload.newPart};
+      return {...state, ...payload.newParts};
     default:
       return state;
   }
@@ -96,7 +96,7 @@ function changeLanguageAction(newLanguage: LanguageStoreState): ChangeLanguageAc
   };
 }
 
-function addPartAction(newParts: LanguageStoreState): AddPartsAction {
+function addPartsAction(newParts: LanguageStoreState): AddPartsAction {
   return {
     type: Constants.ADD_PARTS,
     payload: { newParts },
