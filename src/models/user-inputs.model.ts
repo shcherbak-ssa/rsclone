@@ -1,19 +1,20 @@
-import cloneDeep from "clone-deep";
+import cloneDeep from 'clone-deep';
 
-import { Stores, UserDataLabels } from "../constants";
-import { UserInputState } from "../types/user.types";
-import { InitialInputState } from "../types/tools.types";
-import { storeService } from "../services/store.service";
-import { ToolsService } from "../services/tools.service";
+import { Stores, UserDataLabels } from '../constants';
+import { UserInputState } from '../types/user.types';
+import { InitialInputState } from '../types/tools.types';
+import { storeService } from '../services/store.service';
+import { ToolsService } from '../services/tools.service';
+import { StoreActions } from '../types/store.types';
 
 export class UserInputsModel {
   private initialInputState: UserInputState;
-  private actions: { [key: string]: Function; };
+  private storeActions: StoreActions;
 
   constructor() {
     const toolsService: InitialInputState = new ToolsService();
     this.initialInputState = toolsService.getInitialInputState();
-    this.actions = storeService.getStoreActions(Stores.USER_INPUTS_STORE);
+    this.storeActions = storeService.getStoreActions(Stores.USER_INPUTS_STORE);
   }
   
   updateInputValue(value: string, inputLabel: UserDataLabels) {
@@ -21,11 +22,11 @@ export class UserInputsModel {
       [inputLabel]: { value, error: '' },
     };
 
-    this.actions.updateInputValue(updatedInput);
+    this.storeActions.updateInputValue(updatedInput);
   }
 
   setInputError(error: string, inputLabel: UserDataLabels) {
-    this.actions.setInputError(error, inputLabel);
+    this.storeActions.setInputError(error, inputLabel);
   }
 
   resetStates() {
@@ -36,7 +37,7 @@ export class UserInputsModel {
       resetedState[inputLabel] = this.initialInputState;
     }
 
-    this.actions.resetStates(resetedState);
+    this.storeActions.resetStates(resetedState);
   }
 
   addInputs(inputNames: UserDataLabels[]) {
@@ -46,6 +47,6 @@ export class UserInputsModel {
       inputs[inputName] = this.initialInputState;
     }
 
-    this.actions.addInputs(inputs);
+    this.storeActions.addInputs(inputs);
   }
 }

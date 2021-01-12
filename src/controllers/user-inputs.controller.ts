@@ -1,7 +1,6 @@
 import { UserDataLabels, UserInputsEvents } from '../constants';
-import { Controller } from '../types/controller.types';
+import { Controller } from '../types/services.types';
 import { SetError, UpdateInput } from '../types/input.types';
-
 import { UserInputsModel } from '../models/user-inputs.model';
 import { EventEmitter } from '../services/event-emitter.service';
 

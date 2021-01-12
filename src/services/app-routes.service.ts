@@ -3,7 +3,7 @@ import {
   USER_LOCALSTORAGE_KEY,
   USERNAME_PATHNAME_INITIAL_STRING,
 } from '../constants';
-import { AppRoutes } from '../types/app-routers.types';
+import { AppRoutes, LocalStorage } from '../types/services.types';
 import { UserLocalStorageType } from '../types/user.types';
 import { LocalStorageService } from './localstorage.service';
 
@@ -11,7 +11,7 @@ export class AppRoutesService implements AppRoutes {
   private initialPath: string;
 
   constructor() {
-    const localStorageService: LocalStorageService = new LocalStorageService();
+    const localStorageService: LocalStorage = new LocalStorageService();
     const localStorageUser: UserLocalStorageType = localStorageService.get(USER_LOCALSTORAGE_KEY);
 
     this.initialPath = USERNAME_PATHNAME_INITIAL_STRING + localStorageUser.username;

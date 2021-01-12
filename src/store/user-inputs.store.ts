@@ -2,8 +2,9 @@ import { AnyAction } from "redux";
 
 import { Stores, UserDataLabels } from "../constants";
 import { UserInputState } from "../types/user.types";
-import { Store, StoreCreator, storeService } from "../services/store.service";
+import { storeService } from "../services/store.service";
 import { ToolsService } from "../services/tools.service";
+import { Store, StoreCreator } from "../types/store.types";
 
 enum Constants {
   UPDATE_INPUT_VALUE = 'user-inputs-store/update-input-value',
@@ -58,8 +59,8 @@ type UserInputsStoreAction =
   AddInputsAction;
 
 /** constants */
-const initialInputState = new ToolsService().getInitialInputState();
-const dispatchAction = storeService.dispatchAction.bind(storeService);
+const initialInputState: UserInputState = new ToolsService().getInitialInputState();
+const dispatchAction: Function = storeService.dispatchAction.bind(storeService);
 
 const initialState: UserInputsStoreState = {
   [UserDataLabels.FULLNAME]: initialInputState,

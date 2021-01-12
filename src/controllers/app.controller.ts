@@ -1,7 +1,7 @@
 import { AppEvents } from "../constants";
 import { AppModel } from "../models/app.model";
-import { Controller } from "../types/controller.types";
 import { EventEmitter } from "../services/event-emitter.service";
+import { Controller } from "../types/services.types";
 
 export const appController: Controller = new EventEmitter();
 

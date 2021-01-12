@@ -23,6 +23,11 @@ export enum UserInputsEvents {
   ADD_INPUTS = 'user-inputs-events/add-inputs',
 };
 
+export enum LanguageEvents {
+  CHANGE_LANGUAGE = 'language-events/change-language',
+  ADD_PARTS = 'language-events/add-parts',
+};
+
 export enum AppRoutePathnames {
   ROOT = '/',
   SPACES = '/spaces',
@@ -57,6 +62,7 @@ export enum UserDataLabels {
 };
 
 export enum Stores {
+  LANGUAGE_STORE = 'language-store',
   AUTH_STORE = 'auth-store',
   USER_INPUTS_STORE = 'user-inputs-store',
 };

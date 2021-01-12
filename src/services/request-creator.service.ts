@@ -6,12 +6,13 @@ import { UserLocalStorageType } from '../types/user.types';
 import { RequestData, RequestOptions } from '../data/request.data';
 import { UsernameService } from "./username.service";
 import { LocalStorageService } from './localstorage.service';
+import { LocalStorage, RequestCreator, Username } from '../types/services.types';
 
 const JSON_CONTENT_TYPE: string = 'application/json';
 
-export class RequestCreator {
+export class RequestCreatorService implements RequestCreator {
   private url: string = location.origin;
-  private queryString: string;
+  private queryString: string = '';
   private body?: any;
   private headers: any = {};
 
@@ -54,7 +55,7 @@ export class RequestCreator {
   }
 
   private setNecessaryHeaders() {
-    const localStorageService = new LocalStorageService();
+    const localStorageService: LocalStorage = new LocalStorageService();
     const localStorageUser: UserLocalStorageType = localStorageService.get(USER_LOCALSTORAGE_KEY);
 
     if (localStorageUser) {
@@ -65,12 +66,12 @@ export class RequestCreator {
   }
 
   private addUsernameToUrlPathname() {
-    const usernameService = new UsernameService();
+    const usernameService: Username = new UsernameService();
     this.appendUrlPathname(usernameService.getUsernamePathname());
   }
 
   private getRequestUrl(): string {
-    return `${this.url}?${this.queryString}`;
+    return this.queryString ? `${this.url}?${this.queryString}` : this.url;
   }
 
   private getRequestOptions(): RequestOptions {

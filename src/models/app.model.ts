@@ -1,21 +1,22 @@
 import { RequestPathnames, StatusCodes } from '../../common/constants';
 import { AppEvents, AppRoutePathnames, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
 import { User } from '../types/user.types';
-import { AppRoutes } from '../types/app-routers.types';
 import { RequestData } from '../data/request.data';
 import { ResponseData } from '../data/response.data';
 import { ClientError, ServerError } from '../data/errors.data';
 import { appController } from '../controllers/app.controller';
 import { AppRoutesService } from '../services/app-routes.service';
-import { RequestCreator } from '../services/request-creator.service';
-import { RequestService } from '../services/request.service';
+import { RequestCreatorService } from '../services/request-creator.service';
+import { RequestSenderService } from '../services/request-sender.service';
 import { storeService } from '../services/store.service';
+import { AppRoutes, RequestCreator, RequestSender } from '../types/services.types';
 
 export class AppModel {
   async initApp(renderAppCallback: (initialRoutePathname: string) => void): Promise<void> {
     try {
       const requestData: RequestData = this.createUserRequest();
-      const responseData: ResponseData = await RequestService.get(requestData).sendRequest();
+      const requestSender: RequestSender = new RequestSenderService();
+      const responseData: ResponseData = await requestSender.send(requestData).get();
 
       const user: User = this.parseResponse(responseData);
       // @TODO: init user.store;
@@ -40,7 +41,7 @@ export class AppModel {
   }
 
   private createUserRequest(): RequestData {
-    const requestCreator: RequestCreator = new RequestCreator();
+    const requestCreator: RequestCreator = new RequestCreatorService();
     requestCreator.setFullUrl(RequestPathnames.USERS);
 
     return requestCreator.createRequest();
@@ -65,8 +66,8 @@ export class AppModel {
     if (location.pathname.startsWith(USERNAME_PATHNAME_INITIAL_STRING)) {
       return location.pathname;
     } else {
-      const appRoutesService: AppRoutes = new AppRoutesService();
-      return appRoutesService.getRootRoutePath();
+      const appRoutes: AppRoutes = new AppRoutesService();
+      return appRoutes.getRootRoutePath();
     }
   }
 

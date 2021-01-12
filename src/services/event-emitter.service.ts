@@ -1,4 +1,4 @@
-import { Controller } from "../types/controller.types";
+import { Controller } from "../types/services.types";
 
 type EventHandlers = Array<Function>;
 type Events = Map<string, EventHandlers>;

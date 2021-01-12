@@ -1,31 +1,24 @@
 import { Reducer, AnyAction, combineReducers, createStore, Store as ReduxStore } from 'redux';
+
 import { Stores } from '../constants';
-
-export type Store = {
-  selectors: { [key: string]: (state: any) => any | Function };
-  actions: { [key: string]: Function };
-};
-
-export type StoreCreator = {
-  store: Store;
-  storeName: Stores;
-  storeReducer: Reducer<any, AnyAction>;
-};
+import { StoreCreator, StoreController } from '../types/store.types';
+import { StoresGetterService } from './stores-getter.service';
 
 export let storeService: StoreService;
 
-export class StoreService {
+export class StoreService extends StoresGetterService implements StoreController {
   store: ReduxStore;
-  private stores: Map<Stores, Store> = new Map();
+
   private reducers: { [key: string]: Reducer<any, AnyAction> } = {};
   private combinedReducers: Reducer<any, AnyAction> = combineReducers({});
   private deletedStoreNames: Array<string> = [];
 
   constructor() {
+    super();
     this.store = createStore(this.reduce.bind(this));
   }
 
-  static createStore() {
+  static createStore(): ReduxStore {
     storeService = new StoreService();
     return storeService.store;
   }
@@ -37,19 +30,11 @@ export class StoreService {
     return this.combinedReducers(updatedState, action);
   }
 
-  getStoreSelectors(storeName: Stores) {
-    return this.getStore(storeName).selectors;
-  }
-
-  getStoreActions(storeName: Stores) {
-    return this.getStore(storeName).actions;
-  }
-
   addStore({store, storeName, storeReducer}: StoreCreator) {
     if (this.reducers[storeName]) return;
 
     this.stores.set(storeName, store);
-    this.reducers[storeName] = storeReducer;
+    this.addReducer(storeName, storeReducer);
 
     this.updateCombinedReducers();
   }
@@ -58,13 +43,13 @@ export class StoreService {
     if (!storeName || !this.reducers[storeName]) return;
 
     this.stores.delete(storeName);
-    delete this.reducers[storeName];
+    this.deleteReducer(storeName);
 
     this.deletedStoreNames.push(storeName);
     this.updateCombinedReducers();
   }
 
-  getStates() {
+  getStates(): any {
     return this.store.getState();
   }
 
@@ -72,8 +57,12 @@ export class StoreService {
     this.store.dispatch(action);
   }
 
-  private getStore(storeName: Stores) {
-    return this.stores.get(storeName);
+  private addReducer(storeName: Stores, storeReducer: Reducer<any, AnyAction>) {
+    this.reducers[storeName] = storeReducer;
+  }
+
+  private deleteReducer(storeName: Stores) {
+    delete this.reducers[storeName];
   }
 
   private removeDeletedReducersFromState(state: any) {

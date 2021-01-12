@@ -1,7 +1,8 @@
 import { AnyAction } from 'redux';
 
 import { Stores } from '../constants';
-import { StoreCreator, Store, storeService } from '../services/store.service';
+import { Store, StoreCreator } from '../types/store.types';
+import { storeService } from '../services/store.service';
 
 enum Constants {
   SET_AUTH_ERROR = 'auth-store/set-auth-error',
