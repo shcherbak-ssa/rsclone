@@ -2,11 +2,12 @@ import {
   AppRoutePathnames,
   USER_LOCALSTORAGE_KEY,
   USERNAME_PATHNAME_INITIAL_STRING,
-} from "../constants";
-import { UserLocalStorageType } from "../types/user.types";
-import { LocalStorageService } from "./localstorage.service";
+} from '../constants';
+import { AppRoutes } from '../types/app-routers.types';
+import { UserLocalStorageType } from '../types/user.types';
+import { LocalStorageService } from './localstorage.service';
 
-export class AppRoutesService {
+export class AppRoutesService implements AppRoutes {
   private initialPath: string;
 
   constructor() {
@@ -16,19 +17,19 @@ export class AppRoutesService {
     this.initialPath = USERNAME_PATHNAME_INITIAL_STRING + localStorageUser.username;
   }
 
-  getRootRoutePath() {
+  getRootRoutePath(): string {
     return this.concatPaths(AppRoutePathnames.ROOT);
   }
 
-  getSpacesRoutePath() {
+  getSpacesRoutePath(): string {
     return this.concatPaths(AppRoutePathnames.SPACES);
   }
 
-  getSettingsRoutePath() {
+  getSettingsRoutePath(): string {
     return this.concatPaths(AppRoutePathnames.SETTINGS);
   }
 
-  private concatPaths(routePath: string) {
+  private concatPaths(routePath: string): string {
     return this.initialPath + routePath;
   }
 }
