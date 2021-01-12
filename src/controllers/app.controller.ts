@@ -1,7 +1,9 @@
-import { AppEvents } from "../constants";
-import { AppModel } from "../models/app.model";
-import { EventEmitter } from "../services/event-emitter.service";
+import { AppEvents, LanguageEvents } from "../constants";
 import { Controller } from "../types/services.types";
+import { AppModel } from "../models/app.model";
+import { languageController } from './language.controller';
+import { EventEmitter } from "../services/event-emitter.service";
+import { LanguageParts } from "../../common/constants";
 
 export const appController: Controller = new EventEmitter();
 
@@ -11,13 +13,34 @@ appController
   .once(AppEvents.REMOVE_INIT_EVENTS, removeInitEventsHandler);
 
 async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) => void) {
-  const appModel = new AppModel();
-  await appModel.initApp(renderAppCallback);
+  const appModel: AppModel = new AppModel();
+  const initialRoutePathname: string | null = await appModel.initApp();
+
+  if (initialRoutePathname === null) {
+    appController.emit(AppEvents.INIT_AUTHORIZATION, renderAppCallback);
+  } else {
+    languageController.emit(
+      LanguageEvents.ADD_PARTS,
+      { language: 'en', languageParts: [LanguageParts.USER_INPUTS] }
+    );
+
+    renderAppCallback(initialRoutePathname);
+  }
 }
 
 async function initAuthorizationHeandler(renderAppCallback: (initialRoutePathname: string) => void) {
-  const appModel = new AppModel();
-  await appModel.initAuthorization(renderAppCallback);
+  const appModel: AppModel = new AppModel();
+  const initialRoutePathname: string = await appModel.initAuthorization();
+
+  languageController.emit(
+    LanguageEvents.ADD_PARTS,
+    {
+      language: 'en',
+      languageParts: [LanguageParts.USER_INPUTS, LanguageParts.AUTH],
+    }
+  );
+
+  renderAppCallback(initialRoutePathname);
 }
 
 async function removeInitEventsHandler() {

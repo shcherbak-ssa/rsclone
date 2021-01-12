@@ -1,10 +1,9 @@
-import { RequestPathnames, StatusCodes } from '../../common/constants';
-import { AppEvents, AppRoutePathnames, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
+import { RequestPathnames } from '../../common/constants';
+import { AppRoutePathnames, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
 import { User } from '../types/user.types';
 import { RequestData } from '../data/request.data';
 import { ResponseData } from '../data/response.data';
-import { ClientError, ServerError } from '../data/errors.data';
-import { appController } from '../controllers/app.controller';
+import { ClientError } from '../data/errors.data';
 import { AppRoutesService } from '../services/app-routes.service';
 import { RequestCreatorService } from '../services/request-creator.service';
 import { RequestSenderService } from '../services/request-sender.service';
@@ -12,32 +11,32 @@ import { storeService } from '../services/store.service';
 import { AppRoutes, RequestCreator, RequestSender } from '../types/services.types';
 
 export class AppModel {
-  async initApp(renderAppCallback: (initialRoutePathname: string) => void): Promise<void> {
+  async initApp(): Promise<string | null> {
     try {
       const requestData: RequestData = this.createUserRequest();
       const requestSender: RequestSender = new RequestSenderService();
       const responseData: ResponseData = await requestSender.send(requestData).get();
 
-      const user: User = this.parseResponse(responseData);
+      const user: User = responseData.parseResponse();
       // @TODO: init user.store;
 
-      const appInitialRoutePathname: string = this.getAppInitialRoutePathname();
-      renderAppCallback(appInitialRoutePathname);
+      return this.getAppInitialRoutePathname();
     } catch (error) {
       if (error instanceof ClientError) {
-        appController.emit(AppEvents.INIT_AUTHORIZATION, renderAppCallback);
+        console.log(error.message);
       } else {
         console.log(error);
       }
+
+      return null;
     }
   }
 
-  async initAuthorization(renderAppCallback: (initialRoutePathname: string) => void): Promise<void> {
+  async initAuthorization(): Promise<string> {
     const {authStoreCreator} = await import('../store/auth.store');
     storeService.addStore(authStoreCreator);
 
-    const authorizationInitialRoutePathname: string = this.getAuthorizationInitialRoutePathname();
-    renderAppCallback(authorizationInitialRoutePathname);
+    return this.getAuthorizationInitialRoutePathname();
   }
 
   private createUserRequest(): RequestData {
@@ -45,21 +44,6 @@ export class AppModel {
     requestCreator.setFullUrl(RequestPathnames.USERS);
 
     return requestCreator.createRequest();
-  }
-
-  private parseResponse(responseData: ResponseData): User {
-    if (responseData.isSuccessStatusCode()) {
-      return responseData.getPayload() as User;
-    } else {
-      const statusCode: number = responseData.getStatusCode();
-      const {message, ...payload} = responseData.getPayload();
-
-      if (statusCode === StatusCodes.INTERNAL_SERVER_ERROR) {
-        throw new ServerError(message, payload);
-      } else {
-        throw new ClientError(message, payload);
-      }
-    }
   }
 
   private getAppInitialRoutePathname(): string {

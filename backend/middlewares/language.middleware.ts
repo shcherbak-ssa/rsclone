@@ -33,10 +33,6 @@ export class LanguageMiddleware implements BaseMiddleware {
     return request.params[Parameters.LANGUAGE];
   }
 
-  private getRequestedLanguagePartFromUrl(request: Request): string {
-    return request.originalUrl.split('/').reverse()[0];
-  }
-
   private validateRequestedLanguageRequest(requestedLanguage: string, request: Request) {
     if (!validLanguages.includes(requestedLanguage)) {
       throw new ClientError(

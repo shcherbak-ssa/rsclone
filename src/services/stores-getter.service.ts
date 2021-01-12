@@ -14,7 +14,7 @@ export class StoresGetterService implements StoreGetter {
     return this.getStore(storeName).actions;
   }
 
-  getStoreetters(storeName: Stores): StoreGetters {
+  getStoreGetters(storeName: Stores): StoreGetters {
     return this.getStore(storeName).getters;
   }
 

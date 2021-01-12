@@ -33,5 +33,5 @@ export interface StoreController {
 export interface StoreGetter {
   getStoreSelectors(storeName: Stores): StoreSelectors;
   getStoreActions(storeName: Stores): StoreActions;
-  getStoreetters(storeName: Stores): StoreGetters
+  getStoreGetters(storeName: Stores): StoreGetters
 };
