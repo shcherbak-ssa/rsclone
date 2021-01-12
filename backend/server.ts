@@ -24,6 +24,8 @@ const appOptions: AppOptions = {
   routers: [],
   middlewares: [
     bodyParser.json(),
+  ],
+  appMiddlewares: [
     new EntryMiddleware(),
     new AuthUserMiddleware(),
     new LanguageMiddleware(),

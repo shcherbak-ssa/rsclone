@@ -12,6 +12,8 @@ import { ResponseData } from '../data/response.data';
 
 export class EntryMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.ENTRY;
+  method: string = RequestMethods.GET;
+
   private staticService: StaticEntry;
   private responseSender: ResponseSender;
 
@@ -30,10 +32,6 @@ export class EntryMiddleware implements BaseMiddleware {
   }
 
   private isEntryRequest(request: Request): boolean {
-    if (!this.isGetRequest(request)) {
-      return false;
-    }
-
     if (this.isRequestFromCode(request)) {
       return false;
     }
@@ -43,10 +41,6 @@ export class EntryMiddleware implements BaseMiddleware {
     }
 
     return true;
-  }
-
-  private isGetRequest(request: Request): boolean {
-    return request.method === RequestMethods.GET;
   }
 
   private isRequestFromCode(request: Request): boolean {

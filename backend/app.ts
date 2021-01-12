@@ -1,5 +1,6 @@
 import express from 'express';
 import { Application } from 'express';
+import { RequestMethods } from '../common/constants';
 
 import { BaseMiddleware } from './middlewares/base.middleware';
 import { BaseRouter } from './routes/base.router';
@@ -9,7 +10,8 @@ export type AppOptions = {
   port: number;
   hostname: string;
   routers: Array<BaseRouter>;
-  middlewares: Array<any | BaseMiddleware>;
+  middlewares: Array<any>;
+  appMiddlewares: Array<BaseMiddleware>;
 };
 
 export class App {
@@ -18,13 +20,14 @@ export class App {
   private hostname: string;
 
   constructor({
-    port, hostname, routers, middlewares,
+    port, hostname, routers, middlewares, appMiddlewares,
   }: AppOptions) {
     this.application = express();
     this.port = port;
     this.hostname = hostname;
 
     this.initMiddlewares(middlewares);
+    this.initAppMiddlewares(appMiddlewares);
     this.initPublic();
     this.initRouters(routers);
   }
@@ -39,15 +42,20 @@ export class App {
     });
   }
 
-  private initMiddlewares(middlewares: Array<any | BaseMiddleware>): void {
-    middlewares.forEach((middleware) => {
-      if ('pathname' in middleware) { // @TODO: remove magic string
-        this.application.use(
-          middleware.pathname,
-          middleware.handler.bind(middleware),
-        );
-      } else {
-        this.application.use(middleware)
+  private initMiddlewares(middlewares: Array<any>): void {
+    middlewares.forEach((middleware) => this.application.use(middleware));
+  }
+
+  private initAppMiddlewares(appMiddlewares: Array<BaseMiddleware>): void {
+    appMiddlewares.forEach((middleware) => {
+      const {method, pathname, handler} = middleware;
+
+      switch (method) {
+        case RequestMethods.GET:
+          this.application.get(pathname, handler.bind(middleware));
+          break;
+        default:
+          this.application.use(pathname, handler.bind(middleware));
       }
     });
   }

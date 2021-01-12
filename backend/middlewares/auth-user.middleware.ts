@@ -20,6 +20,8 @@ export interface AuthAccessToken {
 
 export class AuthUserMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.AUTH_USER;
+  method: null = null;
+
   private authAccessToken: AuthAccessToken = new AccessTokenService();
   private responseSender: ResponseSender = new ResponseSenderService();
 

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { StatusCodes } from '../../common/constants';
+import { RequestMethods, StatusCodes } from '../../common/constants';
 import { MiddlewarePathnames, Parameters } from '../constants';
 import { ResponseSender } from '../types/response-sender.types';
 import { validLanguageParts, validLanguages } from '../data/valid.data';
@@ -10,6 +10,8 @@ import { ResponseSenderService } from '../services/response-sender.service';
 
 export class LanguageMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.LANGUAGES;
+  method: string = RequestMethods.GET;
+
   private responseSender: ResponseSender = new ResponseSenderService();
 
   async handler(request: Request, response: Response): Promise<void> {
