@@ -7,7 +7,5 @@ export interface StaticEntry {
 }
 
 export interface StaticLanguage {
-  createRequestedLanguagePartFilePath(
-    requestedLanguage: string, requestedLanguagePart: LanguageParts,
-  ): string;
+  readLanguageFile(language: string, languagePart: LanguageParts): Promise<any>;
 }

@@ -24,10 +24,10 @@ export class LanguageModel {
   async addLanguageParts(updateLanguage: UpdateLanguage) {
     try {
       const requestData: RequestData = this.createRequestForAddingLaguageParts(updateLanguage);
-      console.log(requestData);
       const responseData: ResponseData = await this.requestSender.send(requestData).get();
       const requestedLanguageParts: any = responseData.parseResponse();
 
+      console.log(requestedLanguageParts);
       this.languageStoreActions.addPart(requestedLanguageParts);
     } catch (error) {
       console.log(error);

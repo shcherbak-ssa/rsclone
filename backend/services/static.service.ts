@@ -1,4 +1,5 @@
 import { extname, join } from 'path';
+import { promises as fsPromises } from 'fs';
 import { Request } from 'express';
 
 import { LanguageParts } from '../../common/constants';
@@ -7,9 +8,9 @@ import { StaticEntry, StaticLanguage } from '../types/static.types';
 import serverConfig from '../../config/server.config.json';
 
 export class StaticService implements StaticEntry, StaticLanguage {
-  static publicPath: string = join(process.cwd(), serverConfig.app.publicFolder);
-
   private languagesFolder: string = serverConfig.app.languagesFolder;
+
+  static publicPath: string = join(process.cwd(), serverConfig.app.publicFolder);
 
   isAssetsRequest(request: Request): boolean {
     return ASSETS_EXTNAME_REGEXP.test(extname(request.originalUrl));
@@ -19,14 +20,15 @@ export class StaticService implements StaticEntry, StaticLanguage {
     return join(StaticService.publicPath, INDEX_FILENAME);
   }
 
-  createRequestedLanguagePartFilePath(
-    requestedLanguage: string, requestedLanguagePart: LanguageParts,
-  ): string {
+  async readLanguageFile(language: string, languagePart: LanguageParts): Promise<any> {
+    const languagePartFilePath: string = this.createLanguagePartFilePath(language, languagePart);
+    const fileContent: string = await fsPromises.readFile(languagePartFilePath, {encoding: 'utf-8'});
+    return [languagePart, JSON.parse(fileContent)];
+  }
+
+  private createLanguagePartFilePath(language: string, languagePart: LanguageParts): string {
     return join(
-      process.cwd(),
-      this.languagesFolder,
-      requestedLanguage,
-      `${requestedLanguagePart}.language.json`,
+      process.cwd(), this.languagesFolder, language, `${languagePart}.language.json`,
     );
   }
 }

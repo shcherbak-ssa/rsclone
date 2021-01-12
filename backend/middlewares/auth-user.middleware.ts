@@ -22,6 +22,7 @@ export class AuthUserMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.AUTH_USER;
   method: null = null;
 
+  private authUserModel: AuthUserModel = new AuthUserModel();
   private authAccessToken: AuthAccessToken = new AccessTokenService();
   private responseSender: ResponseSender = new ResponseSenderService();
 
@@ -42,6 +43,7 @@ export class AuthUserMiddleware implements BaseMiddleware {
         StatusCodes.FORBIDDEN
       );
     } catch (error) {
+      console.log(error);
       this.responseSender.sendErrorResponse(error);
     }
   }
@@ -76,7 +78,6 @@ export class AuthUserMiddleware implements BaseMiddleware {
   }
 
   private async verifyUser(verifyUser: VerifyUserType): Promise<boolean> {
-    const authUserModel = new AuthUserModel();
-    return await authUserModel.isValidUser(verifyUser);
+    return await this.authUserModel.isValidUser(verifyUser);
   }
 }
