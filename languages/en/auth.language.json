@@ -15,6 +15,7 @@
   },
   "initialSettingsPopup": {
     "title": "Initial settings",
-    "confirmButtonValue": "Save changes"
+    "confirmButtonValue": "Save changes",
+    "settingsGroupTitle": "Theme"
   }
 }

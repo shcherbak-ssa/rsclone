@@ -7,11 +7,10 @@ import { PopupPropsHookParameters, usePopupProps } from '../hooks/popup-props.ho
 import { useLanguagePart } from '../hooks/language-part.hook';
 import { LanguageParts } from '../../common/constants';
 import { PopupNames } from '../constants/ui.constants';
-import { SelectLanguageContainer, SelectLanguageContainerProps } from './select-language.container';
 import { storeSelectorsService } from '../services/store-selectors.service';
 import { Stores, UserDataLabels } from '../constants';
 import { UpdatesControllerHookParameters, useUpdatesController } from '../hooks/updates-controller.hook';
-import { SelectThemeContainer, SelectThemeContainerProps } from './select-theme.container';
+import { SettingsAppContainer, SettingsAppContainerProps } from './settings-app.container';
 
 export function PopupInitialSettingsContainer() {
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
@@ -46,18 +45,15 @@ export function PopupInitialSettingsContainer() {
 
   if (popupProps === null) return <div></div>;
 
-  const selectLanguageContainerProps: SelectLanguageContainerProps = {
-    initialItemLabel: currentLanguageState,
-  };
-
-  const selectThemeContainerProps: SelectThemeContainerProps = {
-    initialItemLabel: currentThemeState,
+  const settingsAppContainerProps: SettingsAppContainerProps = {
+    settingsGroupTitle: authLanguage.initialSettingsPopup.settingsGroupTitle,
+    currentLanguageState,
+    currentThemeState,
   };
 
   return (
     <PopupComponent {...popupProps}>
-      <SelectLanguageContainer {...selectLanguageContainerProps} />
-      <SelectThemeContainer {...selectThemeContainerProps} />
+      <SettingsAppContainer {...settingsAppContainerProps} />
     </PopupComponent>
   );
 }
