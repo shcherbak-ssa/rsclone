@@ -40,3 +40,9 @@ export enum LanguageParts {
   AUTH = 'auth',
   USER_INPUTS = 'user-inputs',
 }
+
+export enum Themes {
+  ORIGINAL = 'original-theme',
+  LIGHT = 'light-theme',
+  DARK = 'dark-theme',
+};

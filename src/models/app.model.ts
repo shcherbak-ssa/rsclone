@@ -34,8 +34,8 @@ export class AppModel {
   }
 
   async initAuthorization(): Promise<string> {
-    // const storeManager: StoreManager = new StoreManagerService();
-    // await storeManager.addStore(Stores.AUTH_STORE);
+    const storeManager: StoreManager = new StoreManagerService();
+    await storeManager.addStore(Stores.AUTH_STORE);
 
     return this.getAuthorizationInitialRoutePathname();
   }

@@ -50,7 +50,20 @@ const userInputsStoreSelectors: StoreSelectors = {
     return (state: UserInputsStoreSelectorState) => {
       return state[Stores.USER_INPUTS_STORE][dataLabel];
     };
-  }
+  },
+  getStoreStates: (requestedDataLabels: UserDataLabels[]) => {
+    return (state: UserInputsStoreSelectorState) => {
+      const storeStates: UserInputsStoreState = state[Stores.USER_INPUTS_STORE];
+      const requestedResult = requestedDataLabels.map((dataLabel) => {
+        const currentState = storeStates[dataLabel];
+        const returnedValue = typeof currentState === 'object' ? currentState.value : currentState;
+
+        return [dataLabel, returnedValue];
+      });
+
+      return new Map(requestedResult as Iterable<[string, string | boolean]>);
+    };
+  },
 };
 
 class UserInputsStoreImpl implements UserInputsStore {

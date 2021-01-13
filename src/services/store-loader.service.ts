@@ -8,8 +8,8 @@ export class StoreLoaderService {
         return await this.loadLanguageStore();
       case Stores.USER_INPUTS_STORE:
         return await this.loadUserInputsStore();
-      // case Stores.AUTH_STORE:
-      //   return await import('../store/auth.store');
+      case Stores.AUTH_STORE:
+        return await this.loadAuthStore();
     }
   }
 
@@ -21,5 +21,10 @@ export class StoreLoaderService {
   private async loadUserInputsStore(): Promise<StoreCreator> {
     const {userInputsStoreCreator} = await import('../store/user-inputs.store');
     return userInputsStoreCreator;
+  }
+
+  private async loadAuthStore(): Promise<StoreCreator> {
+    const {authStoreCreator} = await import('../store/auth.store');
+    return authStoreCreator;
   }
 }
