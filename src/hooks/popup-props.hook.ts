@@ -3,18 +3,14 @@ import { useState } from 'react';
 import { BaseButtonProps } from '../components/base';
 import { PopupComponentProps } from '../components/popup.component';
 
-export type PopupPropsParameters = {
+export type PopupPropsHookParameters = {
   popupTitle: string;
   popupConfirmButtonProps: BaseButtonProps;
 };
 
-export type OpenPopupProps = {
-  openPopup: () => void;
-};
-
 export function usePopupProps(
-  {popupTitle, popupConfirmButtonProps}: PopupPropsParameters
-): PopupComponentProps | OpenPopupProps {
+  {popupTitle, popupConfirmButtonProps}: PopupPropsHookParameters
+): PopupComponentProps | null {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const popupProps: PopupComponentProps = {
@@ -25,11 +21,5 @@ export function usePopupProps(
     },
   };
 
-  const openPopupProps: OpenPopupProps = {
-    openPopup: () => {
-      setIsPopupOpen(true);
-    },
-  };
-
-  return isPopupOpen ? popupProps : openPopupProps;
+  return isPopupOpen ? popupProps : null;
 }

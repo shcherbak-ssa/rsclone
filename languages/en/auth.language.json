@@ -12,5 +12,9 @@
   "actionIconDescription": {
     "info": "Information",
     "settings": "Settings"
+  },
+  "initialSettingsPopup": {
+    "title": "Initial settings",
+    "confirmButtonValue": "Save changes"
   }
 }
