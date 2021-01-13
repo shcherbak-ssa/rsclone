@@ -7,18 +7,21 @@ import { useUserInputProps } from './user-input-props.hook';
 import { AuthFormComponentProps } from '../components/auth-form.component';
 import { userInputsController } from '../controllers/user-inputs.controller';
 import { UserInputsEvents } from '../constants/events.constants';
+import { BaseInputProps } from '../components/base';
 
 export type AuthFormPropsParameters = {
   mode: AuthModes;
   nextRoutePathname: AppRoutePathnames;
 };
 
-export function useAuthFormProps({mode, nextRoutePathname}: AuthFormPropsParameters) {
+export function useAuthFormProps(
+  {mode, nextRoutePathname}: AuthFormPropsParameters
+): AuthFormComponentProps {
   const history = useHistory();
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
 
-  const emailInputProps = useUserInputProps(UserDataLabels.EMAIL);
-  const passwordInputProps = useUserInputProps(UserDataLabels.PASSWORD);
+  const emailInputProps: BaseInputProps = useUserInputProps(UserDataLabels.EMAIL);
+  const passwordInputProps: BaseInputProps = useUserInputProps(UserDataLabels.PASSWORD);
 
   const authFormProps: AuthFormComponentProps = {
     title: authLanguage[mode].title,

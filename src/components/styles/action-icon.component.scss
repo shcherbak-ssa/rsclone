@@ -1,0 +1,39 @@
+@import '../../assets/styles/assets.scss';
+
+.action-icon {
+  flex-direction: column;
+  transition: .2s;
+  -x-size: 40px;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  .original-theme & {
+    color: $original-sidebar-icon-color;
+    opacity: .6;
+  }
+
+  .light-theme & {
+    color: $light-sidebar-icon-color;
+    opacity: .9;
+
+    &:hover, &.is-active {
+      color: $light-sidebar-icon-active-color;
+    }
+  }
+  
+  .dark-theme & {
+    color: $dark-sidebar-icon-color;
+    opacity: .6;
+  }
+
+  &:hover, &.is-active {
+    opacity: 1;
+  }
+
+  &-description {
+    margin-top: 4px;
+    -x-font-size: 10px/10px;
+  }
+}

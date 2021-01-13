@@ -16,3 +16,9 @@ export enum ButtonTypes {
   SECONDARY = 'secondary',
   DANGER = 'danger',
 };
+
+export enum ActionIconLabels {
+  INFO = 'info',
+  LOGO = 'logo',
+  SETTINGS = 'settings',
+};
