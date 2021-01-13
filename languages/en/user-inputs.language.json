@@ -7,5 +7,18 @@
   },
   "password": {
     "placeholder": "Password"
+  },
+  "themes": {
+    "original-theme": "Original",
+    "light-theme": "Light",
+    "dark-theme": "Dark"
+  },
+  "languages": {
+    "placeholder": "",
+    "items": {
+      "en": "English",
+      "ru": "Russian",
+      "it": "Italian"
+    }
   }
 }

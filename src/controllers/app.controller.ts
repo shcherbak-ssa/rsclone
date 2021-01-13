@@ -10,8 +10,6 @@ export const appController: Controller = new EventEmitter();
 
 const defaultLanguageParts: LanguageParts[] = [
   LanguageParts.USER_INPUTS,
-  LanguageParts.THEMES,
-  LanguageParts.LANGUAGES,
 ];
 
 appController
