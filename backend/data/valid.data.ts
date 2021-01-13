@@ -9,4 +9,6 @@ export const validLanguages: string[] = [
 export const validLanguageParts: string[] = [
   LanguageParts.AUTH as string,
   LanguageParts.USER_INPUTS as string,
+  LanguageParts.THEMES as string,
+  LanguageParts.LANGUAGES as string,
 ];

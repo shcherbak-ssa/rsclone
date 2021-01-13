@@ -8,6 +8,12 @@ import { RequestedLanguage } from "../types/language.types";
 
 export const appController: Controller = new EventEmitter();
 
+const defaultLanguageParts: LanguageParts[] = [
+  LanguageParts.USER_INPUTS,
+  LanguageParts.THEMES,
+  LanguageParts.LANGUAGES,
+];
+
 appController
   .once(AppEvents.INIT_APP, initAppHeadler)
   .once(AppEvents.INIT_AUTHORIZATION, initAuthorizationHeandler)
@@ -22,7 +28,7 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
   } else {
     const requestedLanguage: RequestedLanguage = {
       language: LanguageLabels.ENGLISH,
-      languageParts: [LanguageParts.USER_INPUTS]
+      languageParts: [...defaultLanguageParts],
     };
 
     languageController.emit(
@@ -40,9 +46,10 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
 async function initAuthorizationHeandler(renderAppCallback: (initialRoutePathname: string) => void) {
   const appModel: AppModel = new AppModel();
   const initialRoutePathname: string = await appModel.initAuthorization();
+
   const requestedLanguage: RequestedLanguage = {
     language: LanguageLabels.ENGLISH,
-    languageParts: [LanguageParts.USER_INPUTS, LanguageParts.AUTH]
+    languageParts: [LanguageParts.AUTH, ...defaultLanguageParts],
   };
 
   languageController.emit(
