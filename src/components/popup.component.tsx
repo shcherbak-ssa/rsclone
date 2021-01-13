@@ -6,16 +6,16 @@ import { ButtonTypes, DocumentElementIDs } from '../constants/ui.constants';
 import { DocumentBodyService } from '../services/document-body.service';
 import { BaseButtonProps, Base } from './base';
 
-export type PopupProps = {
+export type PopupComponentProps = {
   title: string,
   confirmButtonProps: BaseButtonProps,
   closePopup: Function;
   children?: React.ReactNode,
 };
 
-export function Popup({
+export function PopupComponent({
   title, confirmButtonProps, closePopup, children,
-}: PopupProps) {
+}: PopupComponentProps) {
   const popupDomContainer = document.getElementById(DocumentElementIDs.POPUP);
 
   const cancelButtonProps: BaseButtonProps = {
