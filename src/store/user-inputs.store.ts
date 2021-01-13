@@ -11,42 +11,61 @@ import {
 import { reduxStore } from "../services/store.service";
 import { StoreCreator } from "../services/store-manager.service";
 import { StoreSelectors } from "../services/store-selectors.service";
+import { LanguageLabels, Themes } from "../../common/constants";
 
 enum Constants {
   UPDATE_INPUT_VALUE = 'user-inputs-store/update-input-value',
   SET_INPUT_ERROR = 'user-inputs-store/set-input-error',
+  CHANGE_LANGUAGE = 'user-inputs-store/change-language',
+  CHANGE_THEME = 'user-inputs-store/change-theme',
   RESET_STATES = 'user-inputs-store/reset-states',
 };
 
 /** types */
 type UserInputsStoreSelectorState = {
-  [Stores.USER_INPUTS_STORE]: UserInputsStoreState;
+  [Stores.USER_INPUTS_STORE]: UserInputsStoreState,
 };
 
 type UpdateInputValueAction = {
-  type: Constants.UPDATE_INPUT_VALUE;
+  type: Constants.UPDATE_INPUT_VALUE,
   payload: {
-    updatedInput: UpdatedInput;
+    updatedInput: UpdatedInput,
   };
 };
 
 type SetInputErrorAction = {
-  type: Constants.SET_INPUT_ERROR;
+  type: Constants.SET_INPUT_ERROR,
   payload: {
-    updatedInput: UpdatedInput;
+    updatedInput: UpdatedInput,
   };
 };
 
-type ResetStatesAction = {
-  type: Constants.RESET_STATES;
-  payload: {};
+type ChangeLanguageAction = {
+  type: Constants.CHANGE_LANGUAGE,
+  payload: { language: LanguageLabels, },
 };
 
-type UserInputsStoreAction = AnyAction | UpdateInputValueAction | SetInputErrorAction | ResetStatesAction;
+type ChangeThemeAction = {
+  type: Constants.CHANGE_THEME,
+  payload: { theme: Themes, },
+};
+
+type ResetStatesAction = {
+  type: Constants.RESET_STATES,
+  payload: {},
+};
+
+type UserInputsStoreAction =
+  | AnyAction
+  | UpdateInputValueAction
+  | SetInputErrorAction
+  | ChangeLanguageAction
+  | ChangeThemeAction
+  | ResetStatesAction;
 
 /** constants */
 const userInputsStoreSelectors: StoreSelectors = {
-  getInputStates: (dataLabel: UserDataLabels) => {
+  getState: (dataLabel: UserDataLabels) => {
     return (state: UserInputsStoreSelectorState) => {
       return state[Stores.USER_INPUTS_STORE][dataLabel];
     };
@@ -83,6 +102,18 @@ class UserInputsStoreImpl implements UserInputsStore {
     );
   }
 
+  changeLanguage(nextLanguage: LanguageLabels): void {
+    reduxStore.dispatch(
+      changeLanguageAction(nextLanguage)
+    );
+  }
+
+  changeTheme(nextTheme: Themes): void {
+    reduxStore.dispatch(
+      changeThemeAction(nextTheme)
+    );
+  }
+
   resetStates(): void {
     reduxStore.dispatch(
       resetStatesAction()
@@ -106,6 +137,12 @@ function userInputsStoreReducer(
       return {...state, ...payload.updatedInput};
     case Constants.SET_INPUT_ERROR:
       return {...state, ...payload.updatedInput};
+    case Constants.CHANGE_LANGUAGE:
+      const {language} = payload;
+      return {...state, language};
+    case Constants.CHANGE_THEME:
+      const {theme} = payload;
+      return {...state, theme};
     case Constants.RESET_STATES:
       return initialState;
     default:
@@ -125,6 +162,20 @@ function setInputErrorAction(updatedInput: UpdatedInput): SetInputErrorAction {
   return {
     type: Constants.SET_INPUT_ERROR,
     payload: { updatedInput },
+  };
+}
+
+function changeLanguageAction(language: LanguageLabels): ChangeLanguageAction {
+  return {
+    type: Constants.CHANGE_LANGUAGE,
+    payload: { language },
+  };
+}
+
+function changeThemeAction(theme: Themes): ChangeThemeAction {
+  return {
+    type: Constants.CHANGE_THEME,
+    payload: { theme },
   };
 }
 

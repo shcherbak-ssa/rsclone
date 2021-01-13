@@ -22,7 +22,7 @@ export function useSelectProps(
   const selectProps: BaseSelectProps = {
     placeholder: userInputsLanguage[dataLabel].placeholder,
     selected: selectedItem,
-    items,
+    items: addLanguageToItems(),
     updateSelectedItem: (label: string) => {
       if (label === selectedItem.label) return;
       
@@ -30,6 +30,15 @@ export function useSelectProps(
       setSelectedItem(toolsService.getSelectedValue(items, label));
     },
   };
+
+  function addLanguageToItems(): SelectItemType[] {
+    return items.map(({label}) => {
+      return {
+        value: userInputsLanguage[dataLabel].items[label],
+        label,
+      };
+    });
+  }
 
   return selectProps;
 }

@@ -15,7 +15,7 @@ export function useUserInputProps(dataLabel: UserDataLabels): BaseInputProps {
   const [isPasswordInputIconActive, setPasswordInputIsIconActive] = useState(false);
 
   const userInputsStoreSelectors = storeSelectorsService.get(Stores.USER_INPUTS_STORE);
-  const getInputStatesSelector = userInputsStoreSelectors.getInputStates(dataLabel);
+  const getInputStatesSelector = userInputsStoreSelectors.getState(dataLabel);
   
   const {value, error} = useSelector(getInputStatesSelector) as InputState;
   const userInputsLanguage = useLanguagePart(LanguageParts.USER_INPUTS);

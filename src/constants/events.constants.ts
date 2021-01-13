@@ -9,6 +9,8 @@ export enum UserInputsEvents {
   REMOVE_EVENTS = 'user-inputs-events/remove-events',
   UPDATE_INPUT_VALUE = 'user-inputs-events/update-input-value',
   SET_INPUT_ERROR = 'user-inputs-events/set-input-error',
+  CHANGE_LANGUAGE = 'user-inputs-events/change-language',
+  CHANGE_THEME = 'user-inputs-events/change-theme',
   RESET_STATES = 'user-inputs-events/reset-states',
 };
 

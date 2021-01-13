@@ -7,6 +7,7 @@ import { ResponseModel } from "./response.model";
 import { LanguageStore, RequestedLanguage, LanguageStoreState } from "../types/language.types";
 import { StoreManager } from "../types/store.types";
 import { StoreManagerService } from '../services/store-manager.service';
+import { LanguageLabels, LanguageParts } from "../../common/constants";
 
 export class LanguageModel {
   private requestCreator: RequestCreator;
@@ -21,11 +22,26 @@ export class LanguageModel {
     this.languageStore = storeManager.getStore(Stores.LANGUAGE_STORE) as LanguageStore;
   }
 
-  async changeLanguage() {}
+  async changeLanguage(nextLanguage: LanguageLabels) {
+    try {
+      const currentLanguageParts: LanguageParts[] = this.languageStore.getParts();
+      const requestModel: RequestModel = this.createRequestLanguageParts({
+        language: nextLanguage,
+        languageParts: currentLanguageParts,
+      });
+  
+      const responseModel: ResponseModel = await this.requestSender.send(requestModel).get();
+      const changedLanguage: LanguageStoreState = responseModel.parseResponse();
+  
+      this.languageStore.changeLanguage(changedLanguage);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async addLanguageParts(requestedLanguage: RequestedLanguage) {
     try {
-      const requestModel: RequestModel = this.createRequestForAddingLanguageParts(requestedLanguage);
+      const requestModel: RequestModel = this.createRequestLanguageParts(requestedLanguage);
       const responseModel: ResponseModel = await this.requestSender.send(requestModel).get();
       const updatedLanguage: LanguageStoreState = responseModel.parseResponse();
 
@@ -35,7 +51,7 @@ export class LanguageModel {
     }
   }
 
-  private createRequestForAddingLanguageParts({language, languageParts}: RequestedLanguage): RequestModel {
+  private createRequestLanguageParts({language, languageParts}: RequestedLanguage): RequestModel {
     this.requestCreator.appendUrlPathname(`/languages/${language}`);
     this.requestCreator.appendUrlQuery({languageParts});
     return this.requestCreator.createRequest();

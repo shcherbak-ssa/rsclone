@@ -12,5 +12,7 @@ export type RequestedLanguage = {
 };
 
 export interface LanguageStore {
+  getParts(): LanguageParts[];
+  changeLanguage(changedLanguage: LanguageStoreState): void;
   addParts(updatedLanguage: LanguageStoreState): void;
 };

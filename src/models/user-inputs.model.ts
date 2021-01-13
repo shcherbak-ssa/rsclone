@@ -2,6 +2,7 @@ import { Stores, UserDataLabels } from '../constants';
 import { InputState, UpdatedInput, UserInputsStore, UserInputState } from '../types/user-inputs.types';
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
+import { LanguageLabels, Themes } from '../../common/constants';
 
 export class UserInputsModel {
   private userInputsStore: UserInputsStore;
@@ -11,7 +12,7 @@ export class UserInputsModel {
     this.userInputsStore = storeManager.getStore(Stores.USER_INPUTS_STORE) as UserInputsStore;
   }
   
-  updateInputValue(value: string, dataLabel: UserDataLabels) {
+  updateInputValue(value: string, dataLabel: UserDataLabels): void {
     const updatedInput: UpdatedInput = {
       [dataLabel]: { value, error: '' },
     };
@@ -19,7 +20,7 @@ export class UserInputsModel {
     this.userInputsStore.updateInputValue(updatedInput);
   }
 
-  setInputError(error: string, dataLabel: UserDataLabels) {
+  setInputError(error: string, dataLabel: UserDataLabels): void {
     const currentInput: UserInputState = this.userInputsStore.getInputStates(dataLabel) as InputState;
     const updatedInput: UpdatedInput = {
       [dataLabel]: { value: currentInput.value, error },
@@ -28,7 +29,15 @@ export class UserInputsModel {
     this.userInputsStore.setInputError(updatedInput);
   }
 
-  resetStates() {
+  changeLanguage(nextLanguage: LanguageLabels): void {
+    this.userInputsStore.changeLanguage(nextLanguage);
+  }
+
+  changeTheme(nextTheme: Themes): void {
+    this.userInputsStore.changeTheme(nextTheme);
+  }
+
+  resetStates(): void {
     this.userInputsStore.resetStates();
   }
 }

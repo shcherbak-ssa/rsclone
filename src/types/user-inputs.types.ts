@@ -1,3 +1,4 @@
+import { LanguageLabels, Themes } from "../../common/constants";
 import { UserDataLabels } from "../constants";
 import { ToolsService } from "../services/tools.service";
 
@@ -9,8 +10,8 @@ export const initialState: UserInputsStoreState = {
   [UserDataLabels.EMAIL]: initialInputState,
   [UserDataLabels.PASSWORD]: initialInputState,
   [UserDataLabels.USERNAME]: initialInputState,
-  [UserDataLabels.THEME]: '',
-  [UserDataLabels.LANGUAGE]: '',
+  [UserDataLabels.THEME]: Themes.ORIGINAL,
+  [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH,
 };
 
 export type UserInputsStoreState = {
@@ -32,5 +33,7 @@ export interface UserInputsStore {
   getInputStates(dataLabel: UserDataLabels): UserInputState;
   updateInputValue(updatedInput: UpdatedInput): void;
   setInputError(updatedInput: UpdatedInput): void;
+  changeLanguage(nextLanguage: LanguageLabels): void;
+  changeTheme(nextTheme: Themes): void;
   resetStates(): void;
 };

@@ -1,6 +1,6 @@
 import { LanguageLabels } from '../../common/constants';
 
-export const languages = [
+export const languagesData = [
   {
     label: LanguageLabels.ENGLISH,
     value: LanguageLabels.ENGLISH,

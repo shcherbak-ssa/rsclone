@@ -8,13 +8,18 @@ import { StoreSelectors } from '../services/store-selectors.service';
 import { LanguageParts } from '../../common/constants';
 
 enum Constants {
-  CHANGE_LANGUAGE = 'language-store/change-language', // @TODO: add logic for this
+  CHANGE_LANGUAGE = 'language-store/change-language',
   ADD_PARTS = 'language-store/add-parts',
 }
 
 /** types */
 type LanguageStoreSelectorState = {
   [Stores.LANGUAGE_STORE]: LanguageStoreState;
+};
+
+type ChangeLanguageAction = {
+  type: Constants.CHANGE_LANGUAGE,
+  payload: { changedLanguage: LanguageStoreState },
 };
 
 type AddPartsAction = {
@@ -24,7 +29,7 @@ type AddPartsAction = {
   };
 };
 
-type LanguageStoreAction = AnyAction | AddPartsAction;
+type LanguageStoreAction = AnyAction | AddPartsAction | ChangeLanguageAction;
 
 /** constants */
 const langaugeStoreSelectors: StoreSelectors = {
@@ -36,6 +41,16 @@ const langaugeStoreSelectors: StoreSelectors = {
 };
 
 class LanguageStoreImpl implements LanguageStore {
+  getParts(): LanguageParts[] {
+    return Object.keys(reduxStore.getState()[Stores.LANGUAGE_STORE]) as LanguageParts[];
+  }
+
+  changeLanguage(changedLanguage: LanguageStoreState): void {
+    reduxStore.dispatch(
+      changeLanguageAction(changedLanguage)
+    );
+  }
+
   addParts(updatedLanguage: LanguageStoreState) {
     reduxStore.dispatch(
       addPartsAction(updatedLanguage)
@@ -56,7 +71,7 @@ function languageStoreReducer(
 ): LanguageStoreState {
   switch (type) {
     case Constants.CHANGE_LANGUAGE:
-      return payload.newLanguage;
+      return payload.changedLanguage;
     case Constants.ADD_PARTS:
       return {...state, ...payload.newParts};
     default:
@@ -65,6 +80,13 @@ function languageStoreReducer(
 }
 
 /** actions */
+function changeLanguageAction(changedLanguage: LanguageStoreState): ChangeLanguageAction {
+  return {
+    type: Constants.CHANGE_LANGUAGE,
+    payload: { changedLanguage },
+  };
+}
+
 function addPartsAction(updatedLanguage: LanguageStoreState): AddPartsAction {
   return {
     type: Constants.ADD_PARTS,
