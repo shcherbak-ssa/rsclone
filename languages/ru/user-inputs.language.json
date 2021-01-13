@@ -1,0 +1,24 @@
+{
+  "fullname": {
+    "placeholder": "Полное имя"
+  },
+  "email": {
+    "placeholder": "Эл. почта"
+  },
+  "password": {
+    "placeholder": "Пароль"
+  },
+  "theme": {
+    "original-theme": "Оригинал",
+    "light-theme": "Светлая",
+    "dark-theme": "Темная"
+  },
+  "language": {
+    "placeholder": "Язык",
+    "items": {
+      "en": "Английский",
+      "ru": "Русский",
+      "it": "Итальянский"
+    }
+  }
+}

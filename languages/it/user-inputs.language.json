@@ -1,0 +1,24 @@
+{
+  "fullname": {
+    "placeholder": "Nome e cognome"
+  },
+  "email": {
+    "placeholder": "E-mail"
+  },
+  "password": {
+    "placeholder": "Password"
+  },
+  "theme": {
+    "original-theme": "Originale",
+    "light-theme": "Bianca",
+    "dark-theme": "Scuro"
+  },
+  "language": {
+    "placeholder": "Linguaggio",
+    "items": {
+      "en": "Inglese",
+      "ru": "Russo",
+      "it": "Italiano"
+    }
+  }
+}

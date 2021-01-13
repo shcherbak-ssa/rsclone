@@ -1,0 +1,21 @@
+{
+  "login": {
+    "title": "Авторизоваться",
+    "buttonValue": "Войти",
+    "linkText": "Еще не регистрировались?"
+  },
+  "registration": {
+    "title": "Регистрация",
+    "buttonValue": "Создать аккаунт",
+    "linkText": "Уже есть аккаунт?"
+  },
+  "actionIconDescription": {
+    "info": "Информация",
+    "settings": "Настройки"
+  },
+  "initialSettingsPopup": {
+    "title": "Начальные настройки",
+    "confirmButtonValue": "Сохранить",
+    "settingsGroupTitle": "Тема"
+  }
+}

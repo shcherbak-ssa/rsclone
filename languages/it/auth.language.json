@@ -1,0 +1,21 @@
+{
+  "login": {
+    "title": "Login",
+    "buttonValue": "Login",
+    "linkText": "Non hai un account?"
+  },
+  "registration": {
+    "title": "Registrazione",
+    "buttonValue": "Creare un profilo",
+    "linkText": "Hai già un account?"
+  },
+  "actionIconDescription": {
+    "info": "Informazione",
+    "settings": "Impostazioni"
+  },
+  "initialSettingsPopup": {
+    "title": "Impostazioni iniziali",
+    "confirmButtonValue": "Salvare le modifiche",
+    "settingsGroupTitle": "Тема"
+  }
+}
