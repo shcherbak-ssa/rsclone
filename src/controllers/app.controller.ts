@@ -9,6 +9,7 @@ import { RequestedLanguage } from "../types/language.types";
 export const appController: Controller = new EventEmitter();
 
 const defaultLanguageParts: LanguageParts[] = [
+  LanguageParts.ASSETS,
   LanguageParts.USER_INPUTS,
 ];
 

@@ -66,7 +66,7 @@ export function useSelectProps(
   function addLanguageSelectThemeDescriptions(): SelectItemTheme[] {
     return (items as SelectItemTheme[]).map(({label, image}) => {
       return {
-        description: userInputsLanguage[dataLabel][initialItemLabel],
+        description: userInputsLanguage[dataLabel][label],
         label,
         image
       };

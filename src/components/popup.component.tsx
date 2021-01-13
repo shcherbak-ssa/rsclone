@@ -5,6 +5,8 @@ import './styles/popup.component.scss';
 import { ButtonTypes, DocumentElementIDs } from '../constants/ui.constants';
 import { DocumentBodyService } from '../services/document-body.service';
 import { BaseButtonProps, Base } from './base';
+import { useLanguagePart } from '../hooks/language-part.hook';
+import { LanguageParts } from '../../common/constants';
 
 export type PopupComponentProps = {
   title: string,
@@ -17,10 +19,11 @@ export function PopupComponent({
   title, confirmButtonProps, closePopup, children,
 }: PopupComponentProps) {
   const popupDomContainer = document.getElementById(DocumentElementIDs.POPUP);
+  const assetsLanguage = useLanguagePart(LanguageParts.ASSETS);
 
   const cancelButtonProps: BaseButtonProps = {
     type: ButtonTypes.SECONDARY,
-    value: 'Cancel',
+    value: assetsLanguage.popupCloseButtonValue,
     clickHandler: (e: React.MouseEvent) => {
       e.stopPropagation();
       closePopup();

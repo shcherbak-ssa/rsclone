@@ -38,7 +38,6 @@ export function PopupInitialSettingsContainer() {
       icon: saveIcon,
       value: authLanguage.initialSettingsPopup.confirmButtonValue,
       clickHandler: () => {
-        console.log('save changes');
         authSettingsController.emit(AuthEvents.SAVE_SETTINGS, () => {
           
         });

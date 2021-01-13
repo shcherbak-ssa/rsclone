@@ -39,6 +39,7 @@ export enum LanguageLabels {
 export enum LanguageParts {
   AUTH = 'auth',
   USER_INPUTS = 'user-inputs',
+  ASSETS = 'assets',
 }
 
 export enum Themes {
