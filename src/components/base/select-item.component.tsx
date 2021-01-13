@@ -2,11 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import { Classnames } from '../../constants/ui.constants';
-
-export type SelectItemType = {
-  label: string;
-  value: string;
-};
+import { SelectItemType } from '../../types/select-item.types';
 
 export type SelectItemComponentProps = {
   item: SelectItemType,

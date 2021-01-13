@@ -4,6 +4,7 @@
   background: rgba(17, 17, 17, 0.5);
   z-index: 9999;
   padding: 16px;
+  overflow: hidden;
   -x-size: 100%;
   -x-position: fixed 0 x x 0;
   
@@ -63,6 +64,11 @@
       border-bottom-color: $dark-popup-header-border-color;
       color: $dark-popup-title-color;
     }
+  }
+
+  &-scroll {
+    overflow-y: scroll;
+    height: 75vh;
   }
 
   &-body {

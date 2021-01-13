@@ -11,16 +11,19 @@ import { SelectLanguageContainer, SelectLanguageContainerProps } from './select-
 import { storeSelectorsService } from '../services/store-selectors.service';
 import { Stores, UserDataLabels } from '../constants';
 import { UpdatesControllerHookParameters, useUpdatesController } from '../hooks/updates-controller.hook';
+import { SelectThemeContainer, SelectThemeContainerProps } from './select-theme.container';
 
 export function PopupInitialSettingsContainer() {
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
 
   const authStoreSelectors = storeSelectorsService.get(Stores.AUTH_STORE);
   const currentLanguageState = useSelector(authStoreSelectors.getLanguageState());
+  const currentThemeState = useSelector(authStoreSelectors.getThemeState());
 
   const updatesControllerHookParameters: UpdatesControllerHookParameters = {
     initialStates: {
       [UserDataLabels.LANGUAGE]: currentLanguageState,
+      [UserDataLabels.THEME]: currentThemeState,
     },
   };
 
@@ -47,9 +50,14 @@ export function PopupInitialSettingsContainer() {
     initialItemLabel: currentLanguageState,
   };
 
+  const selectThemeContainerProps: SelectThemeContainerProps = {
+    initialItemLabel: currentThemeState,
+  };
+
   return (
     <PopupComponent {...popupProps}>
       <SelectLanguageContainer {...selectLanguageContainerProps} />
+      <SelectThemeContainer {...selectThemeContainerProps} />
     </PopupComponent>
   );
 }

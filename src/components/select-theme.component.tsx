@@ -1,29 +1,27 @@
 import React from 'react';
 import './styles/select-theme.component.scss';
+
+import { SelectItemTheme } from '../types/select-item.types';
 import { SelectThemeItemComponent, SelectThemeItemComponentProps } from './select-theme-item.component';
 
-type SettingsThemeItemType = {
-  label: string;
-  image: string;
-  description: string;
-};
-
 export type SelectThemeComponentProps = {
-  selected: string;
-  items: SettingsThemeItemType[],
-  selectItem: (label: string) => void;
+  selectedItemLabel: string;
+  items: SelectItemTheme[],
+  updateSelectedItem: (label: string) => void;
 };
 
-export function SelectThemeComponent({selected, items, selectItem}: SelectThemeComponentProps) {
+export function SelectThemeComponent(
+  {selectedItemLabel, items, updateSelectedItem}: SelectThemeComponentProps
+) {
   function selectThemeItem(label: string) {
-    selectItem(label);
+    updateSelectedItem(label);
   }
 
   function drawItems() {
     return items.map((item, index) => {
       const settingsThemeItemProps: SelectThemeItemComponentProps = {
         ...item,
-        selected,
+        selectedItemLabel,
         selectThemeItem,
       };
 

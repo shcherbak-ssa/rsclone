@@ -17,7 +17,7 @@ export function SelectLanguageContainer({initialItemLabel}: SelectLanguageContai
     userInputsEvent: UserInputsEvents.CHANGE_LANGUAGE,
   };
 
-  const selectProps: BaseSelectProps = useSelectProps(selectPropsHookParameters);
+  const selectProps: BaseSelectProps = useSelectProps(selectPropsHookParameters) as BaseSelectProps;
 
   return (
     <Base.Select {...selectProps} />

@@ -31,10 +31,12 @@ export function PopupComponent({
     <div className="popup" onClick={popupClickHandle}>
       <div className="popup-container">
         <div className="popup-header">{title}</div>
-        <div className="popup-body">{children}</div>
-        <div className="popup-footer">
-          <Base.Button {...cancelButtonProps} />
-          <Base.Button {...confirmButtonProps} />
+        <div className="popup-scroll">
+          <div className="popup-body">{children}</div>
+          <div className="popup-footer">
+            <Base.Button {...cancelButtonProps} />
+            <Base.Button {...confirmButtonProps} />
+          </div>
         </div>
       </div>
     </div>

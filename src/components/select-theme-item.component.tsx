@@ -8,16 +8,16 @@ export type SelectThemeItemComponentProps = {
   label: string;
   image: string;
   description: string;
-  selected: string;
+  selectedItemLabel: string;
   selectThemeItem: (label: string) => void;
 };
 
 export function SelectThemeItemComponent({
-  label, image, description, selected, selectThemeItem,
+  label, image, description, selectedItemLabel, selectThemeItem,
 }: SelectThemeItemComponentProps) {
   const radioProps: BaseRadioProps = {
     label,
-    isSelected: label === selected,
+    isSelected: label === selectedItemLabel,
     description,
     clickHanlder: selectThemeItem,
   };
@@ -31,8 +31,8 @@ export function SelectThemeItemComponent({
   }
 
   return (
-    <div className="settings-theme-item">
-      <div className="settings-theme-view" style={setBackgroundStyles()}></div>
+    <div className="select-theme-item">
+      <div className="select-theme-view" style={setBackgroundStyles()}></div>
       <Base.Radio {...radioProps} />
     </div>
   );
