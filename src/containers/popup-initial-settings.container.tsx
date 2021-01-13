@@ -13,6 +13,7 @@ import { UpdatesControllerHookParameters, useUpdatesController } from '../hooks/
 import { SettingsAppContainer, SettingsAppContainerProps } from './settings-app.container';
 import { authSettingsController } from '../controllers/auth-settings.controller';
 import { AuthEvents } from '../constants/events.constants';
+import { PopupService } from '../services/popup.service';
 
 export function PopupInitialSettingsContainer() {
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
@@ -39,7 +40,8 @@ export function PopupInitialSettingsContainer() {
       value: authLanguage.initialSettingsPopup.confirmButtonValue,
       clickHandler: () => {
         authSettingsController.emit(AuthEvents.SAVE_SETTINGS, () => {
-          
+          const popupService: PopupService = new PopupService();
+          popupService.closePopup(PopupNames.INITIAL_SETTINGS);
         });
       },
     },

@@ -19,14 +19,12 @@ export function usePopupProps(
   const popupProps: PopupComponentProps = {
     title: popupTitle,
     confirmButtonProps: popupConfirmButtonProps,
-    closePopup: () => {
-      setIsPopupOpen(false);
-    },
+    closePopup,
   };
 
   useEffect(() => {
     const popupService: PopupService = new PopupService();
-    popupService.subscribePopup(popupName, openPopup);
+    popupService.subscribePopup(popupName, openPopup, closePopup);
 
     return () => {
       popupService.unsubscribePopup(popupName);
@@ -35,6 +33,10 @@ export function usePopupProps(
 
   function openPopup() {
     setIsPopupOpen(true);
+  }
+
+  function closePopup() {
+    setIsPopupOpen(false);
   }
 
   return isPopupOpen ? popupProps : null;

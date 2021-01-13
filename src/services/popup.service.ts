@@ -1,10 +1,10 @@
 import { PopupNames } from '../constants/ui.constants';
 
-const subscribedPopups: Map<PopupNames, Function> = new Map;
+const subscribedPopups: Map<PopupNames, [Function, Function]> = new Map();
 
 export class PopupService {
-  subscribePopup(popupName: PopupNames, openPopupFunction: Function) {
-    subscribedPopups.set(popupName, openPopupFunction);
+  subscribePopup(popupName: PopupNames, openPopup: Function, closePopup: Function) {
+    subscribedPopups.set(popupName, [openPopup, closePopup]);
   }
 
   unsubscribePopup(popupName: PopupNames) {
@@ -12,6 +12,10 @@ export class PopupService {
   }
 
   openPopup(popupName: PopupNames) {
-    subscribedPopups.get(popupName)();
+    subscribedPopups.get(popupName)[0]();
+  }
+
+  closePopup(popupName: PopupNames) {
+    subscribedPopups.get(popupName)[1]();
   }
 }
