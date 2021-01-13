@@ -1,12 +1,12 @@
-import { RequestData } from "../data/request.data";
-import { ResponseData } from "../data/response.data";
+import { RequestModel } from "../models/request.model";
+import { ResponseModel } from "../models/response.model";
 
 export interface RequestSender {
-  send(requestData: RequestData): RequestSender
-  get(): Promise<ResponseData>;
-  create(): Promise<ResponseData>;
-  update(): Promise<ResponseData>;
-  delete(): Promise<ResponseData>;
+  send(requestModel: RequestModel): RequestSender;
+  get(): Promise<ResponseModel>;
+  create(): Promise<ResponseModel>;
+  update(): Promise<ResponseModel>;
+  delete(): Promise<ResponseModel>;
 }
 
 export interface Controller {
@@ -37,5 +37,5 @@ export interface RequestCreator {
   setFullUrl(pathname: string): void;
   appendUrlQuery(queryObject: any): void;
   setBody(body: any): void;
-  createRequest(): RequestData;
+  createRequest(): RequestModel;
 }

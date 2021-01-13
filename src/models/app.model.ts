@@ -1,9 +1,9 @@
 import { RequestPathnames } from '../../common/constants';
 import { AppRoutePathnames, Stores, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
 import { User } from '../types/user.types';
-import { RequestData } from '../data/request.data';
-import { ResponseData } from '../data/response.data';
-import { ClientError } from '../data/errors.data';
+import { RequestModel } from './request.model';
+import { ResponseModel } from './response.model';
+import { ClientError } from './errors.model';
 import { AppRoutesService } from '../services/app-routes.service';
 import { RequestCreatorService } from '../services/request-creator.service';
 import { RequestSenderService } from '../services/request-sender.service';
@@ -14,11 +14,11 @@ import { StoreManagerService } from '../services/store-manager.service';
 export class AppModel {
   async initApp(): Promise<string | null> {
     try {
-      const requestData: RequestData = this.createUserRequest();
+      const requestModel: RequestModel = this.createUserRequest();
       const requestSender: RequestSender = new RequestSenderService();
-      const responseData: ResponseData = await requestSender.send(requestData).get();
+      const responseModel: ResponseModel = await requestSender.send(requestModel).get();
 
-      const user: User = responseData.parseResponse();
+      const user: User = responseModel.parseResponse();
       // @TODO: init user.store;
 
       return this.getAppInitialRoutePathname();
@@ -40,7 +40,7 @@ export class AppModel {
     return this.getAuthorizationInitialRoutePathname();
   }
 
-  private createUserRequest(): RequestData {
+  private createUserRequest(): RequestModel {
     const requestCreator: RequestCreator = new RequestCreatorService();
     requestCreator.setFullUrl(RequestPathnames.USERS);
 

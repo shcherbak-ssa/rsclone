@@ -4,7 +4,7 @@ export type RequestOptions = {
   headers: any;
 };
 
-export class RequestData {
+export class RequestModel {
   private url: string;
   private options: RequestOptions;
 

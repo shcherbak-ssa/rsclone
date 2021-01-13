@@ -1,10 +1,10 @@
 import { StatusCodes } from "../../common/constants";
-import { ClientError, ServerError } from './errors.data';
+import { ClientError, ServerError } from './errors.model';
 
 const MIN_SUCCESS_STATUS_CODE: number = StatusCodes.SUCCESS;
 const MAX_SUCCESS_STATUS_CODE: number = 299;
 
-export class ResponseData {
+export class ResponseModel {
   private isSuccessStatus: boolean;
   private statusCode: number;
   private payload: any;
@@ -18,7 +18,7 @@ export class ResponseData {
   }
 
   static create(statusCode: number, payload: any) {
-    return new ResponseData(statusCode, payload);
+    return new ResponseModel(statusCode, payload);
   }
 
   parseResponse(): any {

@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import { RequestHeaders } from '../../common/constants';
 import { USER_LOCALSTORAGE_KEY } from '../constants';
 import { UserLocalStorageType } from '../types/user.types';
-import { RequestData, RequestOptions } from '../data/request.data';
+import { RequestModel, RequestOptions } from '../models/request.model';
 import { UsernameService } from "./username.service";
 import { LocalStorageService } from './localstorage.service';
 import { LocalStorage, RequestCreator, Username } from '../types/services.types';
@@ -47,11 +47,11 @@ export class RequestCreatorService implements RequestCreator {
     }
   }
 
-  createRequest(): RequestData {
+  createRequest(): RequestModel {
     const url: string = this.getRequestUrl();
     const options: RequestOptions = this.getRequestOptions();
 
-    return new RequestData(url, options);
+    return new RequestModel(url, options);
   }
 
   private setNecessaryHeaders() {

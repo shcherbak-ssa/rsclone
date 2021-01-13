@@ -2,8 +2,8 @@ import { RequestCreator, RequestSender } from "../types/services.types";
 import { RequestCreatorService } from "../services/request-creator.service";
 import { RequestSenderService } from "../services/request-sender.service";
 import { Stores } from "../constants";
-import { RequestData } from "../data/request.data";
-import { ResponseData } from "../data/response.data";
+import { RequestModel } from "./request.model";
+import { ResponseModel } from "./response.model";
 import { LanguageStore, RequestedLanguage, LanguageStoreState } from "../types/language.types";
 import { StoreManager } from "../types/store.types";
 import { StoreManagerService } from '../services/store-manager.service';
@@ -25,9 +25,9 @@ export class LanguageModel {
 
   async addLanguageParts(requestedLanguage: RequestedLanguage) {
     try {
-      const requestData: RequestData = this.createRequestForAddingLanguageParts(requestedLanguage);
-      const responseData: ResponseData = await this.requestSender.send(requestData).get();
-      const updatedLanguage: LanguageStoreState = responseData.parseResponse();
+      const requestModel: RequestModel = this.createRequestForAddingLanguageParts(requestedLanguage);
+      const responseModel: ResponseModel = await this.requestSender.send(requestModel).get();
+      const updatedLanguage: LanguageStoreState = responseModel.parseResponse();
 
       this.languageStore.addParts(updatedLanguage);
     } catch (error) {
@@ -35,9 +35,7 @@ export class LanguageModel {
     }
   }
 
-  private createRequestForAddingLanguageParts(
-    {language, languageParts}: RequestedLanguage
-  ): RequestData {
+  private createRequestForAddingLanguageParts({language, languageParts}: RequestedLanguage): RequestModel {
     this.requestCreator.appendUrlPathname(`/languages/${language}`);
     this.requestCreator.appendUrlQuery({languageParts});
     return this.requestCreator.createRequest();

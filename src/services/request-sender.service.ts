@@ -1,33 +1,33 @@
 import { RequestMethods } from '../../common/constants';
-import { RequestData } from '../data/request.data';
-import { ResponseData } from '../data/response.data';
+import { RequestModel } from '../models/request.model';
+import { ResponseModel } from '../models/response.model';
 import { RequestSender } from '../types/services.types';
 
 export class RequestSenderService implements RequestSender {
-  private requestData: RequestData;
+  private requestModel: RequestModel;
 
-  send(requestData: RequestData): RequestSender {
-    this.requestData = requestData;
+  send(requestModel: RequestModel): RequestSender {
+    this.requestModel = requestModel;
     return this;
   }
 
-  async get(): Promise<ResponseData> {
-    this.requestData.setMethod(RequestMethods.GET);
+  async get(): Promise<ResponseModel> {
+    this.requestModel.setMethod(RequestMethods.GET);
     return this.sendRequest();
   }
 
-  async create(): Promise<ResponseData> {
-    this.requestData.setMethod(RequestMethods.POST);
+  async create(): Promise<ResponseModel> {
+    this.requestModel.setMethod(RequestMethods.POST);
     return this.sendRequest();
   }
 
-  async update(): Promise<ResponseData> {
-    this.requestData.setMethod(RequestMethods.PUT);
+  async update(): Promise<ResponseModel> {
+    this.requestModel.setMethod(RequestMethods.PUT);
     return this.sendRequest();
   }
 
-  async delete(): Promise<ResponseData> {
-    this.requestData.setMethod(RequestMethods.DELETE);
+  async delete(): Promise<ResponseModel> {
+    this.requestModel.setMethod(RequestMethods.DELETE);
     return this.sendRequest();
   }
   
@@ -41,12 +41,12 @@ export class RequestSenderService implements RequestSender {
   }
 
   private async sendFetchRequest() {
-    return fetch(this.requestData.getUrl(), this.requestData.getOptions());
+    return fetch(this.requestModel.getUrl(), this.requestModel.getOptions());
   }
 
   private async parseResponse(response: Response) {
     const statusCode = response.status;
     const payload: any = await response.json();
-    return ResponseData.create(statusCode, payload);
+    return ResponseModel.create(statusCode, payload);
   }
 }
