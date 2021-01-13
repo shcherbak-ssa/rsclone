@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { AppRoutePathnames, AuthModes, UserDataLabels } from '../constants';
-import { AuthFormComponentProps } from '../components/auth-form.component';
+import { AuthFormComponent, AuthFormComponentProps } from '../components/auth-form.component';
 import { AuthFormPropsParameters, useAuthFormProps } from '../hooks/auth-form-props.hook';
 import { useUserInputProps } from '../hooks/user-input-props.hook';
-import { AuthContainer, AuthContainerProps } from './auth.container';
 import { BaseInputProps } from '../components/base';
 
 export default function RegistrationContainer() {
@@ -18,11 +17,5 @@ export default function RegistrationContainer() {
 
   authFormComponentProps.inputsProps.unshift(fullnameInputProps);
 
-  const authContainerProps: AuthContainerProps = {
-    authFormComponentProps,
-  };
-
-  return (
-    <AuthContainer {...authContainerProps} />
-  );
+  return <AuthFormComponent {...authFormComponentProps} />;
 }

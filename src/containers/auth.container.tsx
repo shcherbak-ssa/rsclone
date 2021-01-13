@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Route } from 'react-router-dom';
 
-import { AuthFormComponent, AuthFormComponentProps } from "../components/auth-form.component";
+import { AppRoutePathnames, Stores } from '../constants';
 import { AuthComponent, AuthComponentProps } from "../components/auth.component";
 import { PopupNames } from '../constants/ui.constants';
 import { PopupService } from '../services/popup.service';
 import { PopupInitialSettingsContainer } from './popup-initial-settings.container';
+import { DocumentBodyService } from '../services/document-body.service';
+import { storeSelectorsService } from '../services/store-selectors.service';
 
-export type AuthContainerProps = {
-  authFormComponentProps: AuthFormComponentProps;
-};
+export default function AuthContainer() {
+  const LoginContainer = lazy(() => import('./login.container'));
+  const RegistrationContainer = lazy(() => import('./registration.container'));
+  
+  const authStoreSelectors = storeSelectorsService.get(Stores.AUTH_STORE);
+  const currentTheme = useSelector(authStoreSelectors.getThemeState());
 
-export function AuthContainer({authFormComponentProps}: AuthContainerProps) {
   const authComponentProps: AuthComponentProps = {
     settingsActionIconClickHandler: () => {
       const popupService: PopupService = new PopupService();
@@ -18,9 +24,21 @@ export function AuthContainer({authFormComponentProps}: AuthContainerProps) {
     },
   };
 
+  useEffect(() => {
+    const documentBodyService = new DocumentBodyService();
+    documentBodyService.addClass(currentTheme);
+
+    return () => {
+      documentBodyService.removeClass(currentTheme);
+    };
+  }, [currentTheme]);
+
   return (
     <AuthComponent {...authComponentProps}>
-      <AuthFormComponent {...authFormComponentProps} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Route path={AppRoutePathnames.LOGIN} component={LoginContainer} />
+        <Route path={AppRoutePathnames.REGISTRATION} component={RegistrationContainer} />
+      </Suspense>
       <PopupInitialSettingsContainer />
     </AuthComponent>
   );
