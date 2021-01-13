@@ -1,0 +1,93 @@
+@import '../../assets/styles/assets.scss';
+
+.popup {
+  background: rgba(17, 17, 17, 0.5);
+  z-index: 9999;
+  -x-size: 100%;
+  -x-position: fixed 0 x x 0;
+  
+  &-container {
+    border-radius: 4px;
+    max-width: 600px;
+    min-width: 280px;
+    transform: translateX(-50%);
+    -x-position: absolute 120px x x 50%;
+
+    @media screen and (max-width: 1023px) {
+      top: 80px;
+    }
+
+    .original-theme & {
+      background: $original-popup-background-color;
+    }
+
+    .light-theme & {
+      background: $light-popup-background-color;
+    }
+    
+    .dark-theme & {
+      background: $dark-popup-background-color;
+    }
+  }
+
+  &-header {
+    border-bottom: 1px solid;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 0 24px;
+    height: 80px;
+
+    .original-theme & {
+      border-bottom-color: $original-popup-header-border-color;
+      color: $original-popup-title-color;
+    }
+
+    .light-theme & {
+      border-bottom-color: $light-popup-header-border-color;
+      color: $light-popup-title-color;
+    }
+    
+    .dark-theme & {
+      border-bottom-color: $dark-popup-header-border-color;
+      color: $dark-popup-title-color;
+    }
+  }
+
+  &-body {
+    padding: 32px 24px 8px;
+
+    &-text {
+      padding: 16px 12px;
+      text-align: center;
+      -x-font-size: 18px/24px;
+
+      .original-theme & {
+        color: $original-popup-body-text-color;
+      }
+
+      .light-theme & {
+        color: $light-popup-body-text-color;
+      }
+      
+      .dark-theme & {
+        color: $dark-popup-body-text-color;
+      }
+    }
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px;
+
+    .button {
+      height: 40px;
+
+      &:not(:last-child) {
+        margin-right: 24px;
+      }
+    }
+  }
+}
