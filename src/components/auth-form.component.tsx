@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import './styles/auth-form.component.scss';
 
-import { Classnames } from '../constants';
+import { Classnames } from '../constants/ui.constants';
 import { Base, BaseButtonProps, BaseInputProps } from './base';
 
 export type AuthFormComponentProps = {

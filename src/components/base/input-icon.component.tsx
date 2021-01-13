@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classnames from 'classnames';
 
 import { Icon } from '@iconify/react';
-import { Classnames } from '../../constants';
+import { Classnames } from '../../constants/ui.constants';
 
 const ICON_HEIGHT: number = 24;
 

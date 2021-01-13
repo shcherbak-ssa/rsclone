@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import './styles/radio.component.scss';
 
-import { Classnames } from '../../constants';
+import { Classnames } from '../../constants/ui.constants';
 
 export type BaseRadioProps = {
   label: string;

@@ -1,4 +1,4 @@
-import { AppEvents, LanguageEvents } from "../constants";
+import { AppEvents, LanguageEvents } from "../constants/events.constants";
 import { Controller } from "../types/services.types";
 import { AppModel } from "../models/app.model";
 import { languageController } from './language.controller';

@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import eyeIcon from '@iconify/icons-ant-design/eye-outlined';
 
-import { Stores, UserDataLabels, UserInputsEvents } from '../constants';
+import { UserInputsEvents } from '../constants/events.constants';
+import { Stores, UserDataLabels } from '../constants';
 import { BaseInputProps } from '../components/base';
 import { UpdatedInputValue, userInputsController } from '../controllers/user-inputs.controller';
 import { storeSelectorsService } from '../services/store-selectors.service';

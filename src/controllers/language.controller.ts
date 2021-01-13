@@ -1,6 +1,6 @@
+import { LanguageEvents } from '../constants/events.constants';
 import { Controller } from '../types/services.types';
 import { EventEmitter } from '../services/event-emitter.service';
-import { LanguageEvents } from '../constants';
 import { LanguageModel } from '../models/language.model';
 import { RequestedLanguage } from '../types/language.types';
 

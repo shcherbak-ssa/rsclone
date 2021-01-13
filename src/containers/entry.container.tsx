@@ -1,7 +1,8 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 
-import { AppRoutePathnames, UserInputsEvents } from '../constants';
+import { UserInputsEvents } from '../constants/events.constants';
+import { AppRoutePathnames } from '../constants';
 import { userInputsController } from '../controllers/user-inputs.controller';
 
 type EntryContainerProps = {

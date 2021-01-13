@@ -5,7 +5,7 @@ import './styles/select.component.scss';
 import Icon from '@iconify/react';
 import arrowIcon from '@iconify/icons-eva/arrow-ios-downward-fill';
 
-import { Classnames } from '../../constants';
+import { Classnames } from '../../constants/ui.constants';
 import {
   SelectItemComponent,
   SelectItemComponentProps,

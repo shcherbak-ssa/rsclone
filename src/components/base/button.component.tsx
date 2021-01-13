@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import './styles/button.component.scss';
 
 import { Icon } from '@iconify/react';
-import { ButtonTypes } from '../../constants';
+import { ButtonTypes } from '../../constants/ui.constants';
 
 const BUTTON_ICON_HEIGHT: number = 18;
 

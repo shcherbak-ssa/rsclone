@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { Classnames } from '../../constants';
+import { Classnames } from '../../constants/ui.constants';
 
 export type SelectItemType = {
   label: string;

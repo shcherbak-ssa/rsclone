@@ -1,7 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AppRoutePathnames, UserDataLabels, UserInputsEvents } from '../constants';
+import { AppRoutePathnames, UserDataLabels } from '../constants';
+import { UserInputsEvents } from '../constants/events.constants';
 import { userInputsController } from '../controllers/user-inputs.controller';
 import { AuthComponent } from '../components/auth.component';
 import { AuthFormComponent, AuthFormComponentProps } from '../components/auth-form.component';

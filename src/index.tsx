@@ -8,7 +8,9 @@ import { Store as ReduxStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { AppEvents, DocumentElementIDs, Stores, USER_LOCALSTORAGE_KEY } from './constants';
+import { DocumentElementIDs } from './constants/ui.constants';
+import { AppEvents } from './constants/events.constants';
+import { Stores, USER_LOCALSTORAGE_KEY } from './constants';
 import { UserLocalStorageType } from './types/user.types';
 import { EntryContainer } from './containers/entry.container';
 import { appController } from './controllers/app.controller';

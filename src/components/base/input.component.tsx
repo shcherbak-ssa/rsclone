@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import './styles/input.component.scss';
 
-import { Classnames, EMPTY_VALUE_LENGTH } from '../../constants';
+import { Classnames } from '../../constants/ui.constants';
+import { EMPTY_VALUE_LENGTH } from '../../constants';
 import { InputIconComponent, InputIconComponentProps } from './input-icon.component';
 
 export type InputIconProps = InputIconComponentProps;

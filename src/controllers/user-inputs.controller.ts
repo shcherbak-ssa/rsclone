@@ -1,4 +1,5 @@
-import { UserDataLabels, UserInputsEvents } from '../constants';
+import { UserInputsEvents } from '../constants/events.constants';
+import { UserDataLabels } from '../constants';
 import { Controller } from '../types/services.types';
 import { UserInputsModel } from '../models/user-inputs.model';
 import { EventEmitter } from '../services/event-emitter.service';
