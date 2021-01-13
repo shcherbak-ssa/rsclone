@@ -22,3 +22,7 @@ export enum ActionIconLabels {
   LOGO = 'logo',
   SETTINGS = 'settings',
 };
+
+export enum PopupNames {
+  INITIAL_SETTINGS = 'initial-settings',
+};

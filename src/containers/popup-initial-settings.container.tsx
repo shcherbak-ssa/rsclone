@@ -4,11 +4,13 @@ import { PopupComponent, PopupComponentProps } from '../components/popup.compone
 import { PopupPropsHookParameters, usePopupProps } from '../hooks/popup-props.hook';
 import { useLanguagePart } from '../hooks/language-part.hook';
 import { LanguageParts } from '../../common/constants';
+import { PopupNames } from '../constants/ui.constants';
 
 export function PopupInitialSettingsContainer() {
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
 
   const popupPropsHookParameters: PopupPropsHookParameters = {
+    popupName: PopupNames.INITIAL_SETTINGS,
     popupTitle: authLanguage.initialSettingsPopup.title,
     popupConfirmButtonProps: {
       value: authLanguage.initialSettingsPopup.confirmButtonValue,
@@ -18,9 +20,9 @@ export function PopupInitialSettingsContainer() {
 
   const popupProps: PopupComponentProps | null = usePopupProps(popupPropsHookParameters);
 
+  if (popupProps === null) return <div></div>;
+
   return (
-    <>
-      {popupProps !== null ? <PopupComponent {...popupProps} /> : ''}
-    </>
+    <PopupComponent {...popupProps}></PopupComponent>
   );
 }
