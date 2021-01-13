@@ -1,44 +1,26 @@
-import { LanguageLabels, Themes } from "../../common/constants";
-import { UserDataLabels } from "../constants";
+import { LanguageLabels, Themes } from '../../common/constants';
+import { UserDataLabels } from '../constants';
 
 export const initialState: AuthStoreState = {
   authError: '',
-  user: {
-    [UserDataLabels.FULLNAME]: '',
-    [UserDataLabels.EMAIL]: '',
-    [UserDataLabels.PASSWORD]: '',
-    [UserDataLabels.THEME]: Themes.ORIGINAL,
-    [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH,    
-  },
-};
-
-export type AuthUserStoreState = {
-  [UserDataLabels.FULLNAME]: string,
-  [UserDataLabels.EMAIL]: string,
-  [UserDataLabels.PASSWORD]: string,
-  [UserDataLabels.THEME]: Themes,
-  [UserDataLabels.LANGUAGE]: LanguageLabels,
+  [UserDataLabels.THEME]: Themes.ORIGINAL,
+  [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH, 
 };
 
 export type AuthStoreState = {
   authError: string,
-  user: AuthUserStoreState,
+  [UserDataLabels.THEME]: Themes,
+  [UserDataLabels.LANGUAGE]: LanguageLabels,
 };
 
-export type AuthUserValue = string | Themes | LanguageLabels;
-
-export type UpdatedAuthUserValue = {
-  value: AuthUserValue,
-  dataLabel: UserDataLabels,
-};
-
-export type UpdatedAuthUserData = {
-  [key: string]: AuthUserValue;
+export type AuthUserData = {
+  [UserDataLabels.THEME]: Themes,
+  [UserDataLabels.LANGUAGE]: LanguageLabels,
 };
 
 export interface AuthStore {
-  getRegistrationData(): AuthUserStoreState;
-  getLoginData(): AuthUserStoreState;
+  getAuthUserData(): AuthUserData;
   setAuthError(authError: string): void;
-  updateUserData(updatedData: UpdatedAuthUserData): void;
+  updateTheme(updatedTheme: Themes): void;
+  updateLanguage(updatedLanguage: LanguageLabels): void;
 }

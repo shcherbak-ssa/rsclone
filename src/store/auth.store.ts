@@ -1,13 +1,15 @@
 import { AnyAction } from "redux";
-import { Stores, UserDataLabels } from "../constants";
+import { LanguageLabels, Themes } from "../../common/constants";
+import { Stores } from "../constants";
 import { StoreCreator } from "../services/store-manager.service";
 import { StoreSelectors } from "../services/store-selectors.service";
 import { reduxStore } from "../services/store.service";
-import { AuthStore, AuthStoreState, AuthUserStoreState, initialState, UpdatedAuthUserData } from "../types/auth.types";
+import { AuthStore, AuthStoreState, AuthUserData, initialState } from "../types/auth.types";
 
 enum Constants {
   SET_AUTH_ERROR = 'auth-store/set-auth-error',
-  UPDATE_USER_DATA = 'auth-store/update-user-data',
+  UPDATE_THEME = 'auth-store/update-theme',
+  UPDATE_LANGUAGE = 'auth-store/update-language',
 }
 
 /** types */
@@ -20,34 +22,32 @@ type SetAuthErrorAction = {
   payload: { authError: string },
 };
 
-type UpdateUserDataAction = {
-  type: Constants.UPDATE_USER_DATA,
-  payload: { updatedData: UpdatedAuthUserData },
+type UpdateThemeAction = {
+  type: Constants.UPDATE_THEME,
+  payload: { theme: Themes },
 };
 
-type AuthStoreAction = AnyAction | SetAuthErrorAction | UpdateUserDataAction;
+type UpdateLanguageAction = {
+  type: Constants.UPDATE_LANGUAGE,
+  payload: { language: LanguageLabels },
+};
+
+type AuthStoreAction = AnyAction | SetAuthErrorAction | UpdateThemeAction | UpdateLanguageAction;
 
 /** constants */
 const authStoreSelectors: StoreSelectors = {
-  getStoreStates: (requestedDataLabels: UserDataLabels[]) => {
-    return (state: AuthStoreSelectorState) => {
-      const storeStates: AuthStoreState = state[Stores.AUTH_STORE];
-      const requestedResult = requestedDataLabels.map((dataLabel) => {
-        return [dataLabel, storeStates[dataLabel]];
-      });
-
-      return new Map(requestedResult as Iterable<[string, string | boolean]>);
-    };
+  getThemeState: (state: AuthStoreSelectorState) => {
+    return state[Stores.AUTH_STORE].theme as any;
+  },
+  getLanguageState: (state: AuthStoreSelectorState) => {
+    return state[Stores.AUTH_STORE].language as any;
   },
 };
 
 class AuthStoreImpl implements AuthStore {
-  getRegistrationData(): AuthUserStoreState {
-    return this.getAuthUserStoreState();
-  }
-  
-  getLoginData(): AuthUserStoreState {
-    return this.getAuthUserStoreState();
+  getAuthUserData(): AuthUserData {
+    const {theme, language} = reduxStore.getState()[Stores.AUTH_STORE];
+    return {theme, language};
   }
   
   setAuthError(authError: string): void {
@@ -56,14 +56,16 @@ class AuthStoreImpl implements AuthStore {
     );
   }
 
-  updateUserData(updatedData: UpdatedAuthUserData): void {
+  updateTheme(theme: Themes): void {
     reduxStore.dispatch(
-      updateUserDataAction(updatedData)
+      updateThemeAction(theme)
     );
   }
 
-  private getAuthUserStoreState(): AuthUserStoreState {
-    return reduxStore.getState()[Stores.AUTH_STORE].user;
+  updateLanguage(language: LanguageLabels): void {
+    reduxStore.dispatch(
+      updateLanguageAction(language)
+    );
   }
 }
 
@@ -81,8 +83,10 @@ function authStoreReducer(
   switch (type) {
     case Constants.SET_AUTH_ERROR:
       return {...state, authError: payload.authError};
-    case Constants.UPDATE_USER_DATA:
-      return {...state, user: {...state.user, ...payload.updatedData}};
+    case Constants.UPDATE_THEME:
+      return {...state, theme: payload.theme};
+    case Constants.UPDATE_LANGUAGE:
+      return {...state, language: payload.language};
     default:
       return state;
   }
@@ -95,8 +99,14 @@ function setAuthErrorAction(authError: string): SetAuthErrorAction {
   };
 }
 
-function updateUserDataAction(updatedData: UpdatedAuthUserData): UpdateUserDataAction {
+function updateThemeAction(theme: Themes): UpdateThemeAction {
   return {
-    type: Constants.UPDATE_USER_DATA, payload: { updatedData },
+    type: Constants.UPDATE_THEME, payload: { theme },
+  };
+}
+
+function updateLanguageAction(language: LanguageLabels): UpdateLanguageAction {
+  return {
+    type: Constants.UPDATE_LANGUAGE, payload: { language },
   };
 }
