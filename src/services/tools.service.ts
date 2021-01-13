@@ -10,7 +10,7 @@ export class ToolsService implements InitialInputState {
     };
   }
 
-  getSelectedValue(items: SelectItemType[], label: string) {
+  getSelectedItem(items: SelectItemType[], label: string): SelectItemType {
     return items.find((item) => item.label === label);
   }
 }

@@ -1,19 +1,20 @@
 import React from 'react';
 import { Base, BaseSelectProps } from '../components/base';
-import { SelectItemType } from '../components/base/select-item.component';
 import { UserDataLabels } from '../constants';
+import { UserInputsEvents } from '../constants/events.constants';
 import { languagesData } from '../data/languages.data';
 import { SelectPropsHookParameters, useSelectProps } from '../hooks/select-props.hook';
 
 export type SelectLanguageContainerProps = {
-  initialState: SelectItemType,
+  initialItemLabel: string,
 };
 
-export function SelectLanguageContainer({initialState}: SelectLanguageContainerProps) {
+export function SelectLanguageContainer({initialItemLabel}: SelectLanguageContainerProps) {
   const selectPropsHookParameters: SelectPropsHookParameters = {
-    initialItem: initialState,
+    initialItemLabel,
     items: languagesData,
     dataLabel: UserDataLabels.LANGUAGE,
+    userInputsEvent: UserInputsEvents.CHANGE_LANGUAGE,
   };
 
   const selectProps: BaseSelectProps = useSelectProps(selectPropsHookParameters);

@@ -13,8 +13,8 @@
     "light-theme": "Light",
     "dark-theme": "Dark"
   },
-  "languages": {
-    "placeholder": "",
+  "language": {
+    "placeholder": "Language",
     "items": {
       "en": "English",
       "ru": "Russian",

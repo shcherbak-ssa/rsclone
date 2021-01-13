@@ -3,18 +3,24 @@
 .popup {
   background: rgba(17, 17, 17, 0.5);
   z-index: 9999;
+  padding: 16px;
   -x-size: 100%;
   -x-position: fixed 0 x x 0;
   
   &-container {
     border-radius: 4px;
     max-width: 600px;
-    min-width: 280px;
+    min-width: 480px;
     transform: translateX(-50%);
     -x-position: absolute 120px x x 50%;
 
     @media screen and (max-width: 1023px) {
       top: 80px;
+    }
+
+    @media screen and (max-width: 520px) {
+      width: calc(100% - 32px);
+      min-width: 0;
     }
 
     .original-theme & {
@@ -39,6 +45,10 @@
     padding: 0 24px;
     height: 80px;
 
+    @media screen and (max-width: 520px) {
+      padding: 0 16px;
+    }
+
     .original-theme & {
       border-bottom-color: $original-popup-header-border-color;
       color: $original-popup-title-color;
@@ -57,6 +67,10 @@
 
   &-body {
     padding: 32px 24px 8px;
+
+    @media screen and (max-width: 520px) {
+      padding: 32px 16px 8px;
+    }
 
     &-text {
       padding: 16px 12px;
@@ -81,6 +95,10 @@
     display: flex;
     justify-content: flex-end;
     padding: 24px;
+
+    @media screen and (max-width: 520px) {
+      padding: 24px 16px;
+    }
 
     .button {
       height: 40px;

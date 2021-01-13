@@ -16,13 +16,14 @@ const ICON_HEIGHT: number = 28;
 
 export type BaseSelectProps = {
   placeholder: string;
-  selected: SelectItemType;
+  selectedItemValue: string;
+  selectedItemLabel: string;
   items: Array<SelectItemType>,
   updateSelectedItem: (label: string) => void,
 };
 
 export function SelectComponent({
-  placeholder, selected, items, updateSelectedItem,
+  placeholder, selectedItemValue, selectedItemLabel, items, updateSelectedItem,
 }: BaseSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const componentClassname = classnames('select', {
@@ -47,7 +48,7 @@ export function SelectComponent({
   function drawSelectItems() {
     return items.map((item, index) => {
       const selectItemProps: SelectItemComponentProps = {
-        item, selected, clickHandler: selectItemClickHandler,
+        item, selectedItemLabel, clickHandler: selectItemClickHandler,
       };
 
       return <SelectItemComponent key={index} {...selectItemProps} />
@@ -59,7 +60,7 @@ export function SelectComponent({
       <div className="select-selected" data-class="click shadow" onClick={clickHandle}>
         <div className="select-placeholder">{placeholder}</div>
         <Icon {...iconProps} />
-        {selected.value}
+        {selectedItemValue}
       </div>
       <div className="select-items" data-class="shadow">
         {drawSelectItems()}

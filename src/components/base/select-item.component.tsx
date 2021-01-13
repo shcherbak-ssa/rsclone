@@ -10,15 +10,15 @@ export type SelectItemType = {
 
 export type SelectItemComponentProps = {
   item: SelectItemType,
-  selected: SelectItemType,
+  selectedItemLabel: string,
   clickHandler: (label: string) => void,
 };
 
 export function SelectItemComponent({
-  item, selected, clickHandler,
+  item, selectedItemLabel, clickHandler,
 }: SelectItemComponentProps) {
   const componentClassname = classnames('select-item', {
-    [Classnames.IS_SELECTED]: item.label === selected.label,
+    [Classnames.IS_SELECTED]: item.label === selectedItemLabel,
   });
 
   function clickHandle() {
