@@ -3,7 +3,8 @@ import { Controller } from "../types/services.types";
 import { AppModel } from "../models/app.model";
 import { languageController } from './language.controller';
 import { EventEmitter } from "../services/event-emitter.service";
-import { LanguageParts } from "../../common/constants";
+import { LanguageLabels, LanguageParts } from "../../common/constants";
+import { RequestedLanguage } from "../types/language.types";
 
 export const appController: Controller = new EventEmitter();
 
@@ -19,11 +20,15 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
   if (initialRoutePathname === null) {
     appController.emit(AppEvents.INIT_AUTHORIZATION, renderAppCallback);
   } else {
+    const requestedLanguage: RequestedLanguage = {
+      language: LanguageLabels.ENGLISH,
+      languageParts: [LanguageParts.USER_INPUTS]
+    };
+
     languageController.emit(
       LanguageEvents.ADD_PARTS,
       { 
-        language: 'en',
-        languageParts: [LanguageParts.USER_INPUTS],
+        requestedLanguage,
         callback: () => {
           renderAppCallback(initialRoutePathname);
         },
@@ -35,12 +40,15 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
 async function initAuthorizationHeandler(renderAppCallback: (initialRoutePathname: string) => void) {
   const appModel: AppModel = new AppModel();
   const initialRoutePathname: string = await appModel.initAuthorization();
+  const requestedLanguage: RequestedLanguage = {
+    language: LanguageLabels.ENGLISH,
+    languageParts: [LanguageParts.USER_INPUTS, LanguageParts.AUTH]
+  };
 
   languageController.emit(
     LanguageEvents.ADD_PARTS,
     {
-      language: 'en',
-      languageParts: [LanguageParts.USER_INPUTS, LanguageParts.AUTH],
+      requestedLanguage,
       callback: () => {
         renderAppCallback(initialRoutePathname);
       },

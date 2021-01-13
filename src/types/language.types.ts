@@ -1,7 +1,16 @@
 import { LanguageLabels, LanguageParts } from "../../common/constants";
 
-export type UpdateLanguage = {
+export const initialState: LanguageStoreState = {};
+
+export type LanguageStoreState = {
+  [key: string]: any;
+};
+
+export type RequestedLanguage = {
   language: LanguageLabels;
   languageParts: LanguageParts[];
-  callback: Function;
+};
+
+export interface LanguageStore {
+  addParts(updatedLanguage: LanguageStoreState): void;
 };

@@ -20,7 +20,6 @@ export enum UserInputsEvents {
   UPDATE_INPUT_VALUE = 'user-inputs-events/update-input-value',
   SET_INPUT_ERROR = 'user-inputs-events/set-input-error',
   RESET_STATES = 'user-inputs-events/reset-states',
-  ADD_INPUTS = 'user-inputs-events/add-inputs',
 };
 
 export enum LanguageEvents {

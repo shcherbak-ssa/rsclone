@@ -3,26 +3,24 @@ import { useSelector } from 'react-redux';
 import eyeIcon from '@iconify/icons-ant-design/eye-outlined';
 
 import { Stores, UserDataLabels, UserInputsEvents } from '../constants';
-import { storeService } from '../services/store.service';
 import { BaseInputProps } from '../components/base';
-import { userInputsController } from '../controllers/user-inputs.controller';
+import { UpdatedInputValue, userInputsController } from '../controllers/user-inputs.controller';
+import { storeSelectorsService } from '../services/store-selectors.service';
+import { InputState } from '../types/user-inputs.types';
+import { useLanguagePart } from './language-part.hook';
+import { LanguageParts } from '../../common/constants';
 
-// @TODO: need to remove
-const placeholder = {
-  [UserDataLabels.FULLNAME]: 'Full name',
-  [UserDataLabels.EMAIL]: 'E-mail',
-  [UserDataLabels.PASSWORD]: 'Password',
-};
-
-export function useUserInputProps(inputLabel: UserDataLabels): BaseInputProps {
-  const userInputsStoreSelectros = storeService.getStoreSelectors(Stores.USER_INPUTS_STORE);
-  const inputStateSelector = userInputsStoreSelectros.getInputState(inputLabel);
-
-  const {value, error} = useSelector(inputStateSelector) as any;
+export function useUserInputProps(dataLabel: UserDataLabels): BaseInputProps {
   const [isPasswordInputIconActive, setPasswordInputIsIconActive] = useState(false);
 
+  const userInputsStoreSelectors = storeSelectorsService.get(Stores.USER_INPUTS_STORE);
+  const getInputStatesSelector = userInputsStoreSelectors.getInputStates(dataLabel);
+  
+  const {value, error} = useSelector(getInputStatesSelector) as InputState;
+  const userInputsLanguage = useLanguagePart(LanguageParts.USER_INPUTS);
+
   function appendPasswordInputProps() {
-    if (inputLabel !== UserDataLabels.PASSWORD) return {};
+    if (dataLabel !== UserDataLabels.PASSWORD) return {};
 
     return {
       updateValue: (newValue: string) => {
@@ -50,16 +48,18 @@ export function useUserInputProps(inputLabel: UserDataLabels): BaseInputProps {
   }
 
   function updateValue(newValue: string) {
-    userInputsController.emit(
-      UserInputsEvents.UPDATE_INPUT_VALUE,
-      { value: newValue, inputLabel },
-    );
+    const updatedInputValue: UpdatedInputValue = {
+      value: newValue,
+      dataLabel,
+    };
+
+    userInputsController.emit(UserInputsEvents.UPDATE_INPUT_VALUE, updatedInputValue);
   }
   
   return {
     value,
     error,
-    placeholder: placeholder[inputLabel],
+    placeholder: userInputsLanguage[dataLabel].placeholder,
     updateValue,
     ...appendPasswordInputProps(),
   };

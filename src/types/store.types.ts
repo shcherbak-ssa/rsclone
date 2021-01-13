@@ -1,37 +1,11 @@
-import { Reducer, AnyAction } from 'redux';
-import { Stores } from "../constants";
+import { Stores } from '../constants';
+import { LanguageStore } from './language.types';
+import { UserInputsStore } from './user-inputs.types';
 
-export type StoreSelectors = {
-  [key: string]: (state: any) => any | Function;
-};
+export type Store = UserInputsStore | LanguageStore;
 
-export type StoreActions = {
-  [key: string]: Function;
-};
-
-export type StoreGetters = {
-  [key: string]: Function;
-};
-
-export type Store = {
-  selectors: StoreSelectors;
-  actions: StoreActions;
-  getters?: StoreGetters,
-};
-
-export type StoreCreator = {
-  store: Store;
-  storeName: Stores;
-  storeReducer: Reducer<any, AnyAction>;
-};
-
-export interface StoreController {
-  addStore(storeCreator: StoreCreator): void;
-  deleteStore(storeName: Stores): void
-};
-
-export interface StoreGetter {
-  getStoreSelectors(storeName: Stores): StoreSelectors;
-  getStoreActions(storeName: Stores): StoreActions;
-  getStoreGetters(storeName: Stores): StoreGetters
+export interface StoreManager {
+  getStore(storeName: Stores): Store;
+  addStore(storeName: Stores): Promise<void>;
+  deleteStore(storeName: Stores): void;
 };

@@ -1,40 +1,42 @@
 import { RequestCreator, RequestSender } from "../types/services.types";
 import { RequestCreatorService } from "../services/request-creator.service";
 import { RequestSenderService } from "../services/request-sender.service";
-import { StoreActions } from "../types/store.types";
-import { storeService } from "../services/store.service";
 import { Stores } from "../constants";
 import { RequestData } from "../data/request.data";
 import { ResponseData } from "../data/response.data";
-import { UpdateLanguage } from "../types/language.types";
+import { LanguageStore, RequestedLanguage, LanguageStoreState } from "../types/language.types";
+import { StoreManager } from "../types/store.types";
+import { StoreManagerService } from '../services/store-manager.service';
 
 export class LanguageModel {
   private requestCreator: RequestCreator;
   private requestSender: RequestSender;
-  private languageStoreActions: StoreActions;
+  private languageStore: LanguageStore;
 
   constructor() {
     this.requestCreator = new RequestCreatorService();
     this.requestSender = new RequestSenderService();
-    this.languageStoreActions = storeService.getStoreActions(Stores.LANGUAGE_STORE);
+
+    const storeManager: StoreManager = new StoreManagerService();
+    this.languageStore = storeManager.getStore(Stores.LANGUAGE_STORE) as LanguageStore;
   }
 
   async changeLanguage() {}
 
-  async addLanguageParts(updateLanguage: UpdateLanguage) {
+  async addLanguageParts(requestedLanguage: RequestedLanguage) {
     try {
-      const requestData: RequestData = this.createRequestForAddingLaguageParts(updateLanguage);
+      const requestData: RequestData = this.createRequestForAddingLanguageParts(requestedLanguage);
       const responseData: ResponseData = await this.requestSender.send(requestData).get();
-      const requestedLanguageParts: any = responseData.parseResponse();
+      const updatedLanguage: LanguageStoreState = responseData.parseResponse();
 
-      this.languageStoreActions.addParts(requestedLanguageParts);
+      this.languageStore.addParts(updatedLanguage);
     } catch (error) {
       console.log(error);
     }
   }
 
-  private createRequestForAddingLaguageParts(
-    {language, languageParts}: UpdateLanguage
+  private createRequestForAddingLanguageParts(
+    {language, languageParts}: RequestedLanguage
   ): RequestData {
     this.requestCreator.appendUrlPathname(`/languages/${language}`);
     this.requestCreator.appendUrlQuery({languageParts});

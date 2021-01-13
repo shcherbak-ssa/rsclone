@@ -1,5 +1,5 @@
 import { RequestPathnames } from '../../common/constants';
-import { AppRoutePathnames, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
+import { AppRoutePathnames, Stores, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
 import { User } from '../types/user.types';
 import { RequestData } from '../data/request.data';
 import { ResponseData } from '../data/response.data';
@@ -7,8 +7,9 @@ import { ClientError } from '../data/errors.data';
 import { AppRoutesService } from '../services/app-routes.service';
 import { RequestCreatorService } from '../services/request-creator.service';
 import { RequestSenderService } from '../services/request-sender.service';
-import { storeService } from '../services/store.service';
 import { AppRoutes, RequestCreator, RequestSender } from '../types/services.types';
+import { StoreManager } from '../types/store.types';
+import { StoreManagerService } from '../services/store-manager.service';
 
 export class AppModel {
   async initApp(): Promise<string | null> {
@@ -33,8 +34,8 @@ export class AppModel {
   }
 
   async initAuthorization(): Promise<string> {
-    const {authStoreCreator} = await import('../store/auth.store');
-    storeService.addStore(authStoreCreator);
+    // const storeManager: StoreManager = new StoreManagerService();
+    // await storeManager.addStore(Stores.AUTH_STORE);
 
     return this.getAuthorizationInitialRoutePathname();
   }

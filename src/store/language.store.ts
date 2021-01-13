@@ -1,28 +1,20 @@
 import { AnyAction } from 'redux';
 
 import { Stores } from '../constants';
-import { storeService } from '../services/store.service';
-import { Store, StoreCreator } from '../types/store.types';
+import { reduxStore } from '../services/store.service';
+import { LanguageStoreState, initialState, LanguageStore } from '../types/language.types';
+import { StoreCreator } from '../services/store-manager.service';
+import { StoreSelectors } from '../services/store-selectors.service';
+import { LanguageParts } from '../../common/constants';
 
 enum Constants {
-  CHANGE_LANGUAGE = 'language-store/change-language',
+  CHANGE_LANGUAGE = 'language-store/change-language', // @TODO: add logic for this
   ADD_PARTS = 'language-store/add-parts',
 }
 
 /** types */
-type LanguageStoreState = {
-  [key: string]: any;
-};
-
 type LanguageStoreSelectorState = {
   [Stores.LANGUAGE_STORE]: LanguageStoreState;
-};
-
-type ChangeLanguageAction = {
-  type: Constants.CHANGE_LANGUAGE,
-  payload: {
-    newLanguage: LanguageStoreState;
-  };
 };
 
 type AddPartsAction = {
@@ -32,45 +24,29 @@ type AddPartsAction = {
   };
 };
 
-type LanguageStoreAction = AnyAction | ChangeLanguageAction | AddPartsAction;
+type LanguageStoreAction = AnyAction | AddPartsAction;
 
 /** constants */
-const initialState: LanguageStoreState = {};
-const dispatchAction: Function = storeService.dispatchAction.bind(storeService);
+const langaugeStoreSelectors: StoreSelectors = {
+  getLanguagePart(languagePart: LanguageParts) {
+    return (state: LanguageStoreSelectorState) => {
+      return state[Stores.LANGUAGE_STORE][languagePart];
+    };
+  } 
+};
 
-const languageStore: Store = {
-  selectors: {
-    getLanguagePart: (languagePart: string) => {
-      return (state: LanguageStoreSelectorState) => {
-        return state[Stores.LANGUAGE_STORE][languagePart];
-      };
-    },
-  },
-  actions: {
-    changeLanguage: (newLanguage: LanguageStoreState) => {
-      dispatchAction(
-        changeLanguageAction(newLanguage)
-      );
-    },
-    addParts: (newParts: LanguageStoreState) => {
-      dispatchAction(
-        addPartsAction(newParts)
-      );
-    },
-  },
-  getters: {
-    getParts: () => {
-      const storeStates: LanguageStoreSelectorState = storeService.getStates();
-      const languageStoreStates: LanguageStoreState = storeStates[Stores.LANGUAGE_STORE];
-      return Object.keys(languageStoreStates);
-    },
-  },
+class LanguageStoreImpl implements LanguageStore {
+  addParts(updatedLanguage: LanguageStoreState) {
+    reduxStore.dispatch(
+      addPartsAction(updatedLanguage)
+    );
+  }
 }
 
 /** store creator */
 export const languageStoreCreator: StoreCreator = {
-  store: languageStore,
-  storeName: Stores.LANGUAGE_STORE,
+  store: new LanguageStoreImpl(),
+  storeSelectors: langaugeStoreSelectors,
   storeReducer: languageStoreReducer,
 }
 
@@ -89,16 +65,9 @@ function languageStoreReducer(
 }
 
 /** actions */
-function changeLanguageAction(newLanguage: LanguageStoreState): ChangeLanguageAction {
-  return {
-    type: Constants.CHANGE_LANGUAGE,
-    payload: { newLanguage },
-  };
-}
-
-function addPartsAction(newParts: LanguageStoreState): AddPartsAction {
+function addPartsAction(updatedLanguage: LanguageStoreState): AddPartsAction {
   return {
     type: Constants.ADD_PARTS,
-    payload: { newParts },
+    payload: { newParts: updatedLanguage },
   };
 }

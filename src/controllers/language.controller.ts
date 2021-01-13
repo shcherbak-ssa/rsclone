@@ -1,11 +1,15 @@
-import { LanguageLabels, LanguageParts } from '../../common/constants';
 import { Controller } from '../types/services.types';
 import { EventEmitter } from '../services/event-emitter.service';
 import { LanguageEvents } from '../constants';
 import { LanguageModel } from '../models/language.model';
-import { UpdateLanguage } from '../types/language.types';
+import { RequestedLanguage } from '../types/language.types';
 
 export const languageController: Controller = new EventEmitter();
+
+export type UpdatingLanguageData = {
+  requestedLanguage: RequestedLanguage;
+  callback: Function;
+};
 
 languageController
   .on(LanguageEvents.CHANGE_LANGUAGE, changeLanguageHandler)
@@ -13,9 +17,9 @@ languageController
 
 function changeLanguageHandler() {}
 
-async function addLanguagePartsHandler(updateLanguage: UpdateLanguage) {
+async function addLanguagePartsHandler({requestedLanguage, callback}: UpdatingLanguageData) {
   const languageModel: LanguageModel = new LanguageModel();
-  await languageModel.addLanguageParts(updateLanguage);
+  await languageModel.addLanguageParts(requestedLanguage);
 
-  updateLanguage.callback();
+  callback();
 }

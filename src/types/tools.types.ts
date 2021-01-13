@@ -1,5 +1,5 @@
-import { UserInputState } from "./user.types";
+import { InputState } from "./user-inputs.types";
 
 export interface InitialInputState {
-  getInitialInputState(): UserInputState; 
+  getInitialInputState(): InputState; 
 }

@@ -8,12 +8,14 @@ import { Store as ReduxStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { AppEvents, DocumentElementIDs, USER_LOCALSTORAGE_KEY } from './constants';
+import { AppEvents, DocumentElementIDs, Stores, USER_LOCALSTORAGE_KEY } from './constants';
 import { UserLocalStorageType } from './types/user.types';
 import { EntryContainer } from './containers/entry.container';
 import { appController } from './controllers/app.controller';
 import { LocalStorageService } from './services/localstorage.service';
-import { storeService, StoreService } from './services/store.service';
+import { StoreService } from './services/store.service';
+import { StoreManager } from './types/store.types';
+import { StoreManagerService } from './services/store-manager.service';
 
 class AppIniter {
   store: ReduxStore;
@@ -27,11 +29,9 @@ class AppIniter {
   async initStore(): Promise<void> {
     this.store = StoreService.createStore();
 
-    const { userInputsStoreCreator } = await import('./store/user-inputs.store');
-    const { languageStoreCreator } = await import('./store/language.store');
-
-    storeService.addStore(userInputsStoreCreator);
-    storeService.addStore(languageStoreCreator);
+    const storeManager: StoreManager = new StoreManagerService();
+    await storeManager.addStore(Stores.LANGUAGE_STORE);
+    await storeManager.addStore(Stores.USER_INPUTS_STORE);
   }
 
   initMode(): void {
