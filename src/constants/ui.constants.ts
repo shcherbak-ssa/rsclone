@@ -8,6 +8,7 @@ export enum Classnames {
   IS_SELECTED = 'is-selected',
   IS_ACTIVE = 'is-active',
   IS_OPEN = 'is-open',
+  IS_DISABLE = 'is-disable',
   HAS_DESCRIPTION = 'has-description',
 };
 

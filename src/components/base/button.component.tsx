@@ -3,11 +3,12 @@ import classnames from 'classnames';
 import './styles/button.component.scss';
 
 import { Icon } from '@iconify/react';
-import { ButtonTypes } from '../../constants/ui.constants';
+import { ButtonTypes, Classnames } from '../../constants/ui.constants';
 
 const BUTTON_ICON_HEIGHT: number = 18;
 
 export type BaseButtonProps = {
+  isDisable?: boolean,
   type?: ButtonTypes,
   icon?: object,
   value: string,
@@ -15,9 +16,17 @@ export type BaseButtonProps = {
 };
 
 export function ButtonComponent({
-  type = ButtonTypes.PRIMARY, icon, value, clickHandler,
+  isDisable = false, type = ButtonTypes.PRIMARY, icon, value, clickHandler,
 }: BaseButtonProps) {
-  const componentClassnames = classnames('button', type);
+  const componentClassnames = classnames('button', type, {
+    [Classnames.IS_DISABLE]: isDisable,
+  });
+
+  function handleClick(e: React.MouseEvent) {
+    if (!isDisable) {
+      clickHandler(e);
+    }
+  }
 
   function drawButtonIcon() {
     if (!icon) return '';
@@ -33,7 +42,7 @@ export function ButtonComponent({
     <div
       className={componentClassnames}
       data-class="click flex-center"
-      onClick={clickHandler}
+      onClick={handleClick}
     >
       {drawButtonIcon()}
       <div className="button-value">{value}</div>
