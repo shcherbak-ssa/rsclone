@@ -10,14 +10,9 @@
   
   &-container {
     border-radius: 4px;
-    max-width: 600px;
     min-width: 480px;
     transform: translateX(-50%);
-    -x-position: absolute 120px x x 50%;
-
-    @media screen and (max-width: 1023px) {
-      top: 80px;
-    }
+    -x-position: absolute 80px x x 50%;
 
     @media screen and (max-width: 520px) {
       width: calc(100% - 32px);
@@ -68,7 +63,7 @@
 
   &-scroll {
     overflow-y: scroll;
-    height: 75vh;
+    max-height: 75vh;
   }
 
   &-body {
