@@ -44,6 +44,10 @@ export function InputComponent({
     }
   }
 
+  function focusHandle() {
+    setIsActive(true);
+  }
+
   function blurHandle() {
     if (value.length === EMPTY_VALUE_LENGTH) {
       setIsActive(false);
@@ -70,6 +74,7 @@ export function InputComponent({
           type="text"
           className="input-field"
           value={transformValue ? transformValue(value) : value}
+          onFocus={focusHandle}
           onBlur={blurHandle}
           onChange={changeHandle}
         />
