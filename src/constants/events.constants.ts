@@ -18,3 +18,7 @@ export enum LanguageEvents {
   CHANGE_LANGUAGE = 'language-events/change-language',
   ADD_PARTS = 'language-events/add-parts',
 };
+
+export enum AuthEvents {
+  SAVE_SETTINGS = 'auth-events/save-settings',
+}

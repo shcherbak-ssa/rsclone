@@ -7,7 +7,12 @@ import { LanguageLabels } from '../../common/constants';
 
 export const languageController: Controller = new EventEmitter();
 
-export type UpdatingLanguageData = {
+export type ChangingLanguage = {
+  nextLanguage: LanguageLabels,
+  callback: Function,
+}
+
+export type UpdatingLanguage = {
   requestedLanguage: RequestedLanguage;
   callback: Function;
 };
@@ -16,13 +21,17 @@ languageController
   .on(LanguageEvents.CHANGE_LANGUAGE, changeLanguageHandler)
   .on(LanguageEvents.ADD_PARTS, addLanguagePartsHandler);
 
-async function changeLanguageHandler(nextLanguage: LanguageLabels): Promise<void> {
+async function changeLanguageHandler(
+  {nextLanguage, callback}: ChangingLanguage
+): Promise<void> {
   const languageModel: LanguageModel = new LanguageModel();
   await languageModel.changeLanguage(nextLanguage);
+
+  callback();
 }
 
 async function addLanguagePartsHandler(
-  {requestedLanguage, callback}: UpdatingLanguageData
+  {requestedLanguage, callback}: UpdatingLanguage
 ): Promise<void> {
   const languageModel: LanguageModel = new LanguageModel();
   await languageModel.addLanguageParts(requestedLanguage);
