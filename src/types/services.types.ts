@@ -1,20 +1,28 @@
-import { RequestModel } from "../models/request.model";
-import { ResponseModel } from "../models/response.model";
 import { UserLocalStorageType } from "./user.types";
+
+export interface Response {
+  parseResponse(): any;
+}
+
+export interface Request {
+  setMethod(method: string): void;
+  getUrl(): string;
+  getOptions(): any;
+}
 
 export interface RequestCreator {
   appendUrlPathname(pathname: string): RequestCreator;
   appendUrlQuery(queryObject: any): RequestCreator;
   setBody(body: any): RequestCreator;
-  createRequest(): RequestModel;
+  createRequest(): Request;
 }
 
 export interface RequestSender {
-  send(requestModel: RequestModel): RequestSender;
-  get(): Promise<ResponseModel>;
-  create(): Promise<ResponseModel>;
-  update(): Promise<ResponseModel>;
-  delete(): Promise<ResponseModel>;
+  send(request: Request): RequestSender;
+  get(): Promise<Response>;
+  create(): Promise<Response>;
+  update(): Promise<Response>;
+  delete(): Promise<Response>;
 }
 
 export interface Controller {

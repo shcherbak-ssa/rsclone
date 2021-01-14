@@ -1,33 +1,32 @@
 import { RequestMethods } from '../../common/constants';
-import { RequestModel } from '../models/request.model';
-import { ResponseModel } from '../models/response.model';
-import { RequestSender } from '../types/services.types';
+import { Request, RequestSender, Response } from '../types/services.types';
+import { ResponseService } from './response.service';
 
 export class RequestSenderService implements RequestSender {
-  private requestModel: RequestModel;
+  private request: Request;
 
-  send(requestModel: RequestModel): RequestSender {
-    this.requestModel = requestModel;
+  send(request: Request): RequestSender {
+    this.request = request;
     return this;
   }
 
-  async get(): Promise<ResponseModel> {
-    this.requestModel.setMethod(RequestMethods.GET);
+  async get(): Promise<Response> {
+    this.request.setMethod(RequestMethods.GET);
     return this.sendRequest();
   }
 
-  async create(): Promise<ResponseModel> {
-    this.requestModel.setMethod(RequestMethods.POST);
+  async create(): Promise<Response> {
+    this.request.setMethod(RequestMethods.POST);
     return this.sendRequest();
   }
 
-  async update(): Promise<ResponseModel> {
-    this.requestModel.setMethod(RequestMethods.PUT);
+  async update(): Promise<Response> {
+    this.request.setMethod(RequestMethods.PUT);
     return this.sendRequest();
   }
 
-  async delete(): Promise<ResponseModel> {
-    this.requestModel.setMethod(RequestMethods.DELETE);
+  async delete(): Promise<Response> {
+    this.request.setMethod(RequestMethods.DELETE);
     return this.sendRequest();
   }
   
@@ -41,12 +40,12 @@ export class RequestSenderService implements RequestSender {
   }
 
   private async sendFetchRequest() {
-    return fetch(this.requestModel.getUrl(), this.requestModel.getOptions());
+    return fetch(this.request.getUrl(), this.request.getOptions());
   }
 
-  private async parseResponse(response: Response) {
+  private async parseResponse(response: any) {
     const statusCode = response.status;
     const payload: any = await response.json();
-    return ResponseModel.create(statusCode, payload);
+    return ResponseService.create(statusCode, payload);
   }
 }

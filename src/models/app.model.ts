@@ -1,12 +1,10 @@
 import { AppRoutePathnames, Stores, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
 import { User, UsersUrlPathname } from '../types/user.types';
-import { RequestModel } from './request.model';
-import { ResponseModel } from './response.model';
-import { ClientError } from './errors.model';
+import { ClientError } from '../services/errors.service';
 import { AppRoutesService } from '../services/app-routes.service';
 import { RequestCreatorService } from '../services/request-creator.service';
 import { RequestSenderService } from '../services/request-sender.service';
-import { AppRoutes, RequestCreator, RequestSender } from '../types/services.types';
+import { AppRoutes, Request, RequestCreator, RequestSender, Response } from '../types/services.types';
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
 import { UrlPathnameService } from '../services/url-pathname.service';
@@ -14,11 +12,11 @@ import { UrlPathnameService } from '../services/url-pathname.service';
 export class AppModel {
   async initApp(): Promise<string | null> {
     try {
-      const requestModel: RequestModel = this.createUserRequest();
       const requestSender: RequestSender = new RequestSenderService();
-      const responseModel: ResponseModel = await requestSender.send(requestModel).get();
+      const request: Request = this.createUserRequest();
+      const response: Response = await requestSender.send(request).get();
 
-      const user: User = responseModel.parseResponse();
+      const user: User = response.parseResponse();
       // @TODO: init user.store;
 
       return this.getAppInitialRoutePathname();
@@ -40,7 +38,7 @@ export class AppModel {
     return this.getAuthorizationInitialRoutePathname();
   }
 
-  private createUserRequest(): RequestModel {
+  private createUserRequest(): Request {
     const usersUrlPathname: UsersUrlPathname = new UrlPathnameService();
     const usersPathname: string = usersUrlPathname.getUsersPathname();
     const requestCreator: RequestCreator = new RequestCreatorService();

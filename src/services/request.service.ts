@@ -1,10 +1,12 @@
+import { Request } from '../types/services.types';
+
 export type RequestOptions = {
   method: string;
   body?: any;
   headers: any;
 };
 
-export class RequestModel {
+export class RequestService implements Request {
   private url: string;
   private options: RequestOptions;
 
@@ -13,15 +15,15 @@ export class RequestModel {
     this.options = options;
   }
 
-  setMethod(method: string) {
+  setMethod(method: string): void {
     this.options.method = method;
   }
 
-  getUrl() {
+  getUrl(): string {
     return this.url;
   }
 
-  getOptions() {
+  getOptions(): any {
     return {...this.options};
   }
 }
