@@ -1,6 +1,5 @@
-import { RequestPathnames } from '../../common/constants';
 import { AppRoutePathnames, Stores, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
-import { User } from '../types/user.types';
+import { User, UsersUrlPathname } from '../types/user.types';
 import { RequestModel } from './request.model';
 import { ResponseModel } from './response.model';
 import { ClientError } from './errors.model';
@@ -10,6 +9,7 @@ import { RequestSenderService } from '../services/request-sender.service';
 import { AppRoutes, RequestCreator, RequestSender } from '../types/services.types';
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
+import { UrlPathnameService } from '../services/url-pathname.service';
 
 export class AppModel {
   async initApp(): Promise<string | null> {
@@ -41,10 +41,13 @@ export class AppModel {
   }
 
   private createUserRequest(): RequestModel {
+    const usersUrlPathname: UsersUrlPathname = new UrlPathnameService();
+    const usersPathname: string = usersUrlPathname.getUsersPathname();
     const requestCreator: RequestCreator = new RequestCreatorService();
-    requestCreator.setFullUrl(RequestPathnames.USERS);
 
-    return requestCreator.createRequest();
+    return requestCreator
+      .appendUrlPathname(usersPathname)
+      .createRequest();
   }
 
   private getAppInitialRoutePathname(): string {

@@ -11,3 +11,7 @@ export type User = {
   language: string;
   theme: string;
 };
+
+export interface UsersUrlPathname {
+  getUsersPathname(): string;
+}

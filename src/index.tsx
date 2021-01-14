@@ -10,14 +10,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { DocumentElementIDs } from './constants/ui.constants';
 import { AppEvents } from './constants/events.constants';
-import { Stores, USER_LOCALSTORAGE_KEY } from './constants';
-import { UserLocalStorageType } from './types/user.types';
+import { Stores } from './constants';
 import { EntryContainer } from './containers/entry.container';
 import { appController } from './controllers/app.controller';
-import { LocalStorageService } from './services/localstorage.service';
 import { StoreService } from './services/store.service';
 import { StoreManager } from './types/store.types';
 import { StoreManagerService } from './services/store-manager.service';
+import { UserLocalStorage } from './types/services.types';
+import { UserLocalStorageService } from './services/user-local-storage.service';
 
 class AppIniter {
   store: ReduxStore;
@@ -37,10 +37,9 @@ class AppIniter {
   }
 
   initMode(): void {
-    const localStorageService = new LocalStorageService();
-    const localStorageUser: UserLocalStorageType = localStorageService.get(USER_LOCALSTORAGE_KEY);
+    const userLocalStorage: UserLocalStorage = new UserLocalStorageService();
 
-    if (localStorageUser) {
+    if (userLocalStorage.exist()) {
       appController.emit(AppEvents.INIT_APP, this.renderApp.bind(this));
     } else {
       appController.emit(AppEvents.INIT_AUTHORIZATION, this.renderApp.bind(this));

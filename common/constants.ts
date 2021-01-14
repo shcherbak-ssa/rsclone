@@ -1,7 +1,7 @@
 export enum RequestPathnames {
   LOGIN = '/login',
   REGISTRATION = '/registration',
-  USERS = '/users',
+  USERS = '/@:username/users',
 };
 
 export enum MiddlewarePathnames {

@@ -3,7 +3,7 @@ import { Application } from 'express';
 import { RequestMethods } from '../common/constants';
 
 import { BaseMiddleware } from './middlewares/base.middleware';
-import { BaseRouter } from './routes/base.router';
+import { BaseRouter } from './routers/base.router';
 import { StaticService } from './services/static.service';
 
 export type AppOptions = {

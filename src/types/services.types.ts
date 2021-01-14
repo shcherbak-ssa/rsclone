@@ -1,5 +1,13 @@
 import { RequestModel } from "../models/request.model";
 import { ResponseModel } from "../models/response.model";
+import { UserLocalStorageType } from "./user.types";
+
+export interface RequestCreator {
+  appendUrlPathname(pathname: string): RequestCreator;
+  appendUrlQuery(queryObject: any): RequestCreator;
+  setBody(body: any): RequestCreator;
+  createRequest(): RequestModel;
+}
 
 export interface RequestSender {
   send(requestModel: RequestModel): RequestSender;
@@ -22,20 +30,10 @@ export interface AppRoutes {
   getSettingsRoutePath(): string;
 }
 
-export interface Username {
-  getUsernamePathname(): string;
-}
-
-export interface LocalStorage {
-  save(storageLabel: string, payload: object): void;
-  remove(storageLabel: string): void;
-  get(storageLabel: string): any | null;
-}
-
-export interface RequestCreator {
-  appendUrlPathname(pathname: string): RequestCreator;
-  setFullUrl(pathname: string): RequestCreator;
-  appendUrlQuery(queryObject: any): RequestCreator;
-  setBody(body: any): RequestCreator;
-  createRequest(): RequestModel;
+export interface UserLocalStorage {
+  exist(): boolean;
+  getToken(): string;
+  getUsername(): string;
+  saveUser(user: UserLocalStorageType): void;
+  removeUser(): void;
 }

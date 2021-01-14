@@ -1,12 +1,9 @@
 import queryString from 'query-string';
 
 import { RequestHeaders } from '../../common/constants';
-import { USER_LOCALSTORAGE_KEY } from '../constants';
-import { UserLocalStorageType } from '../types/user.types';
 import { RequestModel, RequestOptions } from '../models/request.model';
-import { UsernameService } from "./username.service";
-import { LocalStorageService } from './localstorage.service';
-import { LocalStorage, RequestCreator, Username } from '../types/services.types';
+import { RequestCreator, UserLocalStorage } from '../types/services.types';
+import { UserLocalStorageService } from './user-local-storage.service';
 
 const JSON_CONTENT_TYPE: string = 'application/json';
 
@@ -22,13 +19,6 @@ export class RequestCreatorService implements RequestCreator {
 
   appendUrlPathname(pathname: string): RequestCreatorService {
     this.url += pathname;
-    return this;
-  }
-
-  setFullUrl(pathname: string): RequestCreatorService {
-    this.addUsernameToUrlPathname();
-    this.appendUrlPathname(pathname);
-
     return this;
   }
 
@@ -59,19 +49,13 @@ export class RequestCreatorService implements RequestCreator {
   }
 
   private setNecessaryHeaders() {
-    const localStorageService: LocalStorage = new LocalStorageService();
-    const localStorageUser: UserLocalStorageType = localStorageService.get(USER_LOCALSTORAGE_KEY);
+    const userLocalStorage: UserLocalStorage = new UserLocalStorageService();
 
-    if (localStorageUser) {
-      this.headers[RequestHeaders.AUTHORIZATION] = `Basic ${localStorageUser.token}`;
+    if (userLocalStorage.exist()) {
+      this.headers[RequestHeaders.AUTHORIZATION] = `Basic ${userLocalStorage.getToken()}`;
     }
 
     this.headers[RequestHeaders.REQUEST_FROM_CODE] = 'true';
-  }
-
-  private addUsernameToUrlPathname() {
-    const usernameService: Username = new UsernameService();
-    this.appendUrlPathname(usernameService.getUsernamePathname());
   }
 
   private getRequestUrl(): string {
