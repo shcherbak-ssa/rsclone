@@ -87,7 +87,15 @@ const userInputsStoreSelectors: StoreSelectors = {
 
 class UserInputsStoreImpl implements UserInputsStore {
   getInputStates(dataLabel: UserDataLabels): UserInputState {
-    return reduxStore.getState()[Stores.USER_INPUTS_STORE][dataLabel];
+    return this.getUserInputsStore()[dataLabel];
+  }
+
+  getLanguage(): LanguageLabels {
+    return this.getUserInputsStore()[UserDataLabels.LANGUAGE];
+  }
+
+  getTheme(): Themes {
+    return this.getUserInputsStore()[UserDataLabels.THEME];
   }
 
   updateInputValue(updatedInput: UpdatedInput): void {
@@ -118,6 +126,10 @@ class UserInputsStoreImpl implements UserInputsStore {
     reduxStore.dispatch(
       resetStatesAction()
     );
+  }
+
+  private getUserInputsStore() {
+    return reduxStore.getState()[Stores.USER_INPUTS_STORE];
   }
 }
 

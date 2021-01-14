@@ -31,6 +31,8 @@ export type UpdatedInput = {
 
 export interface UserInputsStore {
   getInputStates(dataLabel: UserDataLabels): UserInputState;
+  getLanguage(): LanguageLabels;
+  getTheme(): Themes;
   updateInputValue(updatedInput: UpdatedInput): void;
   setInputError(updatedInput: UpdatedInput): void;
   changeLanguage(nextLanguage: LanguageLabels): void;

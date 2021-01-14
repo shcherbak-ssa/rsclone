@@ -6,7 +6,7 @@ import { AppRoutePathnames, Stores } from '../constants';
 import { AuthComponent, AuthComponentProps } from "../components/auth.component";
 import { PopupNames } from '../constants/ui.constants';
 import { PopupService } from '../services/popup.service';
-import { PopupInitialSettingsContainer } from './popup-initial-settings.container';
+import { InitialSettingsPopupContainer } from './popups/initial-settings-popup.container';
 import { DocumentBodyService } from '../services/document-body.service';
 import { storeSelectorsService } from '../services/store-selectors.service';
 
@@ -39,7 +39,7 @@ export default function AuthContainer() {
         <Route path={AppRoutePathnames.LOGIN} component={LoginContainer} />
         <Route path={AppRoutePathnames.REGISTRATION} component={RegistrationContainer} />
       </Suspense>
-      <PopupInitialSettingsContainer />
+      <InitialSettingsPopupContainer />
     </AuthComponent>
   );
 }
