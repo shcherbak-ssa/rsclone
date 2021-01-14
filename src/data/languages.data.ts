@@ -1,4 +1,4 @@
-import { LanguageLabels } from '../../common/constants';
+import { LanguageLabels, LanguageParts } from '../../common/constants';
 
 export const languagesData = [
   {
@@ -13,4 +13,9 @@ export const languagesData = [
     label: LanguageLabels.ITALIAN,
     value: LanguageLabels.ITALIAN,
   },
+];
+
+export const defaultLanguageParts: LanguageParts[] = [
+  LanguageParts.ASSETS,
+  LanguageParts.USER_INPUTS,
 ];

@@ -5,13 +5,9 @@ import { languageController } from './language.controller';
 import { EventEmitter } from "../services/event-emitter.service";
 import { LanguageLabels, LanguageParts } from "../../common/constants";
 import { RequestedLanguage } from "../types/language.types";
+import { defaultLanguageParts } from "../data/languages.data";
 
 export const appController: Controller = new EventEmitter();
-
-const defaultLanguageParts: LanguageParts[] = [
-  LanguageParts.ASSETS,
-  LanguageParts.USER_INPUTS,
-];
 
 appController
   .once(AppEvents.INIT_APP, initAppHeadler)
