@@ -6,13 +6,14 @@ import { PopupNames } from '../constants/ui.constants';
 import { PopupService } from '../services/popup.service';
 
 export type PopupPropsHookParameters = {
-  popupName: PopupNames;
-  popupTitle: string;
-  popupConfirmButtonProps: BaseButtonProps;
+  popupName: PopupNames,
+  popupTitle: string,
+  popupConfirmButtonProps: BaseButtonProps,
+  popupCloseHanlder?: Function,
 };
 
 export function usePopupProps(
-  {popupName, popupTitle, popupConfirmButtonProps}: PopupPropsHookParameters
+  {popupName, popupTitle, popupConfirmButtonProps, popupCloseHanlder}: PopupPropsHookParameters
 ): PopupComponentProps | null {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -37,6 +38,10 @@ export function usePopupProps(
 
   function closePopup() {
     setIsPopupOpen(false);
+
+    if (popupCloseHanlder) {
+      popupCloseHanlder();
+    }
   }
 
   return isPopupOpen ? popupProps : null;

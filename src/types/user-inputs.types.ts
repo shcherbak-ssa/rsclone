@@ -37,5 +37,5 @@ export interface UserInputsStore {
   setInputError(updatedInput: UpdatedInput): void;
   changeLanguage(nextLanguage: LanguageLabels): void;
   changeTheme(nextTheme: Themes): void;
-  resetStates(): void;
+  resetStates(resetedStates: UserInputsStoreState): void;
 };

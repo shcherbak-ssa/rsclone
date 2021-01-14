@@ -36,7 +36,16 @@ export function useAuthFormProps(
       clickHandler: () => {},
     },
     linkClickHanlder: () => {
-      userInputsController.emit(UserInputsEvents.RESET_STATES);
+      const resetDataLabels: UserDataLabels[] = [
+        UserDataLabels.EMAIL,
+        UserDataLabels.PASSWORD,
+      ];
+
+      if (mode === AuthModes.REGISTRATION) {
+        resetDataLabels.push(UserDataLabels.FULLNAME);
+      }
+
+      userInputsController.emit(UserInputsEvents.RESET_STATES, resetDataLabels);
       history.push(nextRoutePathname);
     },
   };

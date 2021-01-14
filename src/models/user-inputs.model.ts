@@ -1,5 +1,12 @@
+import {
+  initialState,
+  InputState,
+  UpdatedInput,
+  UserInputsStore,
+  UserInputsStoreState,
+  UserInputState,
+} from '../types/user-inputs.types';
 import { Stores, UserDataLabels } from '../constants';
-import { InputState, UpdatedInput, UserInputsStore, UserInputState } from '../types/user-inputs.types';
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
 import { LanguageLabels, Themes } from '../../common/constants';
@@ -37,7 +44,13 @@ export class UserInputsModel {
     this.userInputsStore.changeTheme(nextTheme);
   }
 
-  resetStates(): void {
-    this.userInputsStore.resetStates();
+  resetStates(resetDataLabels: UserDataLabels[]): void {
+    const resetedStates: UserInputsStoreState = {};
+
+    resetDataLabels.forEach((dataLabel) => {
+      resetedStates[dataLabel] = initialState[dataLabel];
+    });
+
+    this.userInputsStore.resetStates(resetedStates);
   }
 }

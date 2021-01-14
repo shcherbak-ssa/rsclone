@@ -63,6 +63,6 @@ function changeThemeHandler(nextTheme: Themes): void {
   userInputsModel.changeTheme(nextTheme);
 }
 
-function resetStatesHandler(): void {
-  userInputsModel.resetStates();
+function resetStatesHandler(resetDataLabels: UserDataLabels[]): void {
+  userInputsModel.resetStates(resetDataLabels);
 }

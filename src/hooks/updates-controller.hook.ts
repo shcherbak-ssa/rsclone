@@ -5,7 +5,7 @@ import { Stores, UserDataLabels } from '../constants';
 import { storeSelectorsService } from '../services/store-selectors.service';
 
 export type UpdatesControllerHookParameters = {
-  initialStates: { [key: string]: string };
+  initialStates: { [key: string]: string },
 };
 
 export function useUpdatesController(

@@ -42,17 +42,23 @@ type SetInputErrorAction = {
 
 type ChangeLanguageAction = {
   type: Constants.CHANGE_LANGUAGE,
-  payload: { language: LanguageLabels, },
+  payload: {
+    language: LanguageLabels,
+  },
 };
 
 type ChangeThemeAction = {
   type: Constants.CHANGE_THEME,
-  payload: { theme: Themes, },
+  payload: {
+    theme: Themes,
+  },
 };
 
 type ResetStatesAction = {
   type: Constants.RESET_STATES,
-  payload: {},
+  payload: {
+    resetedStates: UserInputsStoreState,
+  },
 };
 
 type UserInputsStoreAction =
@@ -122,9 +128,9 @@ class UserInputsStoreImpl implements UserInputsStore {
     );
   }
 
-  resetStates(): void {
+  resetStates(resetedStates: UserInputsStoreState): void {
     reduxStore.dispatch(
-      resetStatesAction()
+      resetStatesAction(resetedStates)
     );
   }
 
@@ -156,7 +162,7 @@ function userInputsStoreReducer(
       const {theme} = payload;
       return {...state, theme};
     case Constants.RESET_STATES:
-      return initialState;
+      return {...state, ...payload.resetedStates};
     default:
       return state;
   }
@@ -191,9 +197,9 @@ function changeThemeAction(theme: Themes): ChangeThemeAction {
   };
 }
 
-function resetStatesAction(): ResetStatesAction {
+function resetStatesAction(resetedStates: UserInputsStoreState): ResetStatesAction {
   return {
     type: Constants.RESET_STATES,
-    payload: {}
+    payload: { resetedStates },
   };
 }
