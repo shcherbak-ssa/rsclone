@@ -13,8 +13,3 @@ export enum Parameters {
   USERNAME = 'username',
   LANGUAGE = 'language',
 };
-
-export enum AuthRouterPathnames {
-  REGISTRATION = 'auth/registration',
-  LOGIN = 'auth/login',
-};

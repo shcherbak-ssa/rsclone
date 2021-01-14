@@ -1,13 +1,13 @@
-import { KeyboardShortcutType } from "./keyboard-shortcuts.types";
+import { LanguageLabels, Themes } from '../../common/constants';
+import { KeyboardShortcutType } from './keyboard-shortcuts.types';
 
-export type UserType = {
-  userID: string;
-  name: string;
+export type User = {
+  fullname: string;
   email: string;
   password: string;
   username: string;
   avatar: boolean;
-  language: string;
-  theme: string;
+  language: LanguageLabels;
+  theme: Themes;
   shortcuts: Array<KeyboardShortcutType>;
 };

@@ -1,7 +1,8 @@
 import bodyParser from 'body-parser';
 
 import serverConfig from '../config/server.config.json';
-import { ConnectionDatabase } from './database/connection.database';
+import { DatabaseConnectionService } from './services/database-connection.service';
+import { UsersCollectionDatabase } from './database/users-collection.database';
 import { App, AppOptions } from './app';
 import {
   EntryMiddleware,
@@ -32,14 +33,10 @@ const appOptions: AppOptions = {
   ],
 };
 
-ConnectionDatabase.init()
-  .connect()
-  .then((connectionDatabase) => {
-    connectionDatabase.createUsersCollection();
+DatabaseConnectionService.init().connect()
+  .then(() => {
+    UsersCollectionDatabase.create();
   })
-  // .then((result) => {
-  //   console.log('result', result);
-  // })
   .then(() => {
     App.init(appOptions).listen();
   })

@@ -2,20 +2,20 @@ import { ObjectID } from 'mongodb';
 
 import { DatabaseNames, UsersDatabaseCollectionNames } from '../constants';
 import { UserData } from '../data/user.data';
-import { CollectionDatabase } from './collection.database';
-import { DBDatabase } from './db.database';
+import { DatabaseCollectionService } from '../services/database-collection.service';
+import { DatabaseDBService } from '../services/database-db.service';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
 export class UsersCollectionDatabase {
-  private collectionDatabase: CollectionDatabase;
+  private databaseCollection: DatabaseCollectionService;
   
-  constructor(collectionDatabase: CollectionDatabase) {
-    this.collectionDatabase = collectionDatabase;
+  constructor(databaseCollection: DatabaseCollectionService) {
+    this.databaseCollection = databaseCollection;
   }
 
   static create() {
-    const usersDatabase = DBDatabase.createDatabase(DatabaseNames.USERS);
+    const usersDatabase = DatabaseDBService.createDatabase(DatabaseNames.USERS);
     const collectionDatabase = usersDatabase.createCollection(UsersDatabaseCollectionNames.USERS);
     
     usersCollectionDatabase = new UsersCollectionDatabase(collectionDatabase);
@@ -23,7 +23,7 @@ export class UsersCollectionDatabase {
 
   async getUser(userID: string) {
     const getUserQuery = { _id: new ObjectID(userID) };
-    const foundUser = await this.collectionDatabase.getDocument(getUserQuery);
+    const foundUser = await this.databaseCollection.getDocument(getUserQuery);
 
     if (foundUser) {
       foundUser.userID = userID;

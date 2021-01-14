@@ -1,6 +1,6 @@
 import { Collection } from 'mongodb';
 
-export class CollectionDatabase {
+export class DatabaseCollectionService {
   private collection: Collection;
   private findOneOptions: any = {
     projection: { _id: 0 },
@@ -10,8 +10,8 @@ export class CollectionDatabase {
     this.collection = collection;
   }
   
-  static createCollection(collection: Collection) {
-    return new CollectionDatabase(collection);
+  static createCollection(collection: Collection): DatabaseCollectionService {
+    return new DatabaseCollectionService(collection);
   }
 
   async getDocument(query: any, options: any = {}) {

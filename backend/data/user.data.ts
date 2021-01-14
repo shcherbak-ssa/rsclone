@@ -1,18 +1,14 @@
-import { UserType } from '../types/user.types';
+import { User } from '../types/user.types';
 
 export class UserData {
-  private user: UserType;
+  private user: User;
 
-  constructor(user: UserType) {
+  constructor(user: User) {
     this.user = user;
   }
 
-  static create(user: UserType): UserData {
+  static create(user: User): UserData {
     return new UserData(user);
-  }
-
-  getUserID(): string {
-    return this.user.userID;
   }
 
   getUsername(): string {

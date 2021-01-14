@@ -1,9 +1,9 @@
 import { Db } from 'mongodb';
 
-import { CollectionDatabase } from './collection.database';
-import { connectedMongoDatabase } from './connection.database';
+import { DatabaseCollectionService } from './database-collection.service';
+import { connectedMongoDatabase } from './database-connection.service';
 
-export class DBDatabase {
+export class DatabaseDBService {
   private database: Db;
 
   constructor(database: Db) {
@@ -11,12 +11,12 @@ export class DBDatabase {
   }
 
   static createDatabase(databaseName: string) {
-    return new DBDatabase(connectedMongoDatabase.db(databaseName));
+    return new DatabaseDBService(connectedMongoDatabase.db(databaseName));
   }
 
   createCollection(collectionName: string) {
     const collection = this.database.collection(collectionName);
-    return CollectionDatabase.createCollection(collection);
+    return DatabaseCollectionService.createCollection(collection);
   }
 
   renameDatabase(newDatabaseName: string) {}
