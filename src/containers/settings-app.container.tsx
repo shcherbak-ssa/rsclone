@@ -15,9 +15,9 @@ export type SettingsAppContainerProps = {
   currentThemeState: string,
 };
 
-export function SettingsAppContainer(
-  {settingsGroupTitle, currentLanguageState, currentThemeState}: SettingsAppContainerProps
-) {
+export function SettingsAppContainer({
+  settingsGroupTitle, currentLanguageState, currentThemeState
+}: SettingsAppContainerProps) {
   const selectPropsHookParametersForLanguage: SelectPropsHookParameters = {
     initialItemLabel: currentLanguageState,
     items: languagesData,

@@ -14,7 +14,9 @@ export type ActionIconComponentProps = {
   clickHandler: () => void;
 };
 
-export function ActionIconComponent({description, iconProps, clickHandler}: ActionIconComponentProps) {
+export function ActionIconComponent({
+  description, iconProps, clickHandler
+}: ActionIconComponentProps) {
   function drawDescription() {
     return description ? <div className="action-icon-description">{description}</div> : '';
   }

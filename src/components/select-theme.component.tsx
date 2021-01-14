@@ -10,9 +10,9 @@ export type SelectThemeComponentProps = {
   updateSelectedItem: (label: string) => void;
 };
 
-export function SelectThemeComponent(
-  {selectedItemLabel, items, updateSelectedItem}: SelectThemeComponentProps
-) {
+export function SelectThemeComponent({
+  selectedItemLabel, items, updateSelectedItem
+}: SelectThemeComponentProps) {
   function selectThemeItem(label: string) {
     updateSelectedItem(label);
   }
