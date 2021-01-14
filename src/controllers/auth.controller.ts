@@ -1,13 +1,13 @@
 import { Controller } from '../types/services.types';
 import { EventEmitter } from '../services/event-emitter.service';
-import { AuthSettingsModel } from '../models/auth-settings.model';
+import { AuthSettingsModel } from '../models/auth/auth-settings.model';
 import { LanguageLabels } from '../../common/constants';
 import { ChangingLanguage, languageController } from './language.controller';
 import { AuthEvents, LanguageEvents } from '../constants/events.constants';
 
-export const authSettingsController: Controller = new EventEmitter();
+export const authController: Controller = new EventEmitter();
 
-authSettingsController.on(AuthEvents.SAVE_SETTINGS, saveChangesHandler);
+authController.on(AuthEvents.SAVE_SETTINGS, saveChangesHandler);
 
 async function saveChangesHandler(callback: Function) {
   const authSettingsModel: AuthSettingsModel = new AuthSettingsModel();

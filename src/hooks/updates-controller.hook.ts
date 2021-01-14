@@ -8,9 +8,7 @@ export type UpdatesControllerHookParameters = {
   initialStates: { [key: string]: string },
 };
 
-export function useUpdatesController(
-  {initialStates}: UpdatesControllerHookParameters
-) {
+export function useUpdatesController({initialStates}: UpdatesControllerHookParameters) {
   const [isUpdatesExist, setIsUpdatesExist] = useState(false);
 
   const userInpustStoreSelectors = storeSelectorsService.get(Stores.USER_INPUTS_STORE);

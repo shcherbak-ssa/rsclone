@@ -17,9 +17,9 @@ export type SelectPropsHookParameters = {
   userInputsEvent: UserInputsEvents,
 };
 
-export function useSelectProps(
-  {initialItemLabel, dataLabel, items, userInputsEvent}: SelectPropsHookParameters
-): BaseSelectProps | SelectThemeComponentProps {
+export function useSelectProps({
+  initialItemLabel, dataLabel, items, userInputsEvent
+}: SelectPropsHookParameters): BaseSelectProps | SelectThemeComponentProps {
   const toolsService: ToolsService = new ToolsService();
 
   const [selectedItemLabel, setSelectedItemLabel] = useState(initialItemLabel);

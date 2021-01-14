@@ -1,9 +1,9 @@
-import { LanguageLabels, Themes } from "../../common/constants";
-import { Stores } from "../constants";
-import { StoreManagerService } from "../services/store-manager.service";
-import { AuthStore } from "../types/auth.types";
-import { StoreManager } from "../types/store.types";
-import { UserInputsStore } from "../types/user-inputs.types";
+import { LanguageLabels, Themes } from "../../../common/constants";
+import { Stores } from "../../constants";
+import { StoreManagerService } from "../../services/store-manager.service";
+import { AuthStore } from "../../types/auth.types";
+import { StoreManager } from "../../types/store.types";
+import { UserInputsStore } from "../../types/user-inputs.types";
 
 export class AuthSettingsModel {
   private authStore: AuthStore;

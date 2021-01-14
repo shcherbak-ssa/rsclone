@@ -12,9 +12,9 @@ export type PopupPropsHookParameters = {
   popupCloseHanlder?: Function,
 };
 
-export function usePopupProps(
-  {popupName, popupTitle, popupConfirmButtonProps, popupCloseHanlder}: PopupPropsHookParameters
-): PopupComponentProps | null {
+export function usePopupProps({
+  popupName, popupTitle, popupConfirmButtonProps, popupCloseHanlder
+}: PopupPropsHookParameters): PopupComponentProps | null {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const popupProps: PopupComponentProps = {

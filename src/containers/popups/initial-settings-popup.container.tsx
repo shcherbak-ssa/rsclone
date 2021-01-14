@@ -9,7 +9,7 @@ import { PopupNames } from '../../constants/ui.constants';
 import { Stores, UserDataLabels } from '../../constants';
 import { UpdatesControllerHookParameters, useUpdatesController } from '../../hooks/updates-controller.hook';
 import { SettingsAppContainer, SettingsAppContainerProps } from '../settings-app.container';
-import { authSettingsController } from '../../controllers/auth-settings.controller';
+import { authController } from '../../controllers/auth.controller';
 import { AuthEvents, UserInputsEvents } from '../../constants/events.constants';
 import { PopupService } from '../../services/popup.service';
 import { userInputsController } from '../../controllers/user-inputs.controller';
@@ -42,7 +42,7 @@ export function InitialSettingsPopupContainer() {
       icon: saveIcon,
       value: authLanguage.initialSettingsPopup.confirmButtonValue,
       clickHandler: () => {
-        authSettingsController.emit(AuthEvents.SAVE_SETTINGS, () => {
+        authController.emit(AuthEvents.SAVE_SETTINGS, () => {
           const popupService: PopupService = new PopupService();
           popupService.closePopup(PopupNames.INITIAL_SETTINGS);
         });
