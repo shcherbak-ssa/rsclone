@@ -1,12 +1,35 @@
-import { Request, Response, Router } from 'express';
-import { BaseRouter, BaseRouterWorker } from './base.router';
+import { Request, Router } from 'express';
 
-export class AuthRouter extends BaseRouterWorker implements BaseRouter {
-  initRouter(): Router {
-    return this.router
+import { RequestPathnames } from '../../common/constants';
+import { AuthController } from '../controllers/auth.controller';
+import { BaseRouter } from './base.router';
+
+export class AuthRouter implements BaseRouter {
+  private router: Router;
+  private authController: AuthController;
+
+  constructor() {
+    this.router = Router();
+    this.authController = new AuthController();
   }
 
-  private loginHandler(request: Request, response: Response) {}
+  initRouter(): Router {
+    return this.router
+      .post(
+        RequestPathnames.REGISTRATION,
+        this.registrationHandler.bind(this),
+      )
+      .post(
+        RequestPathnames.LOGIN,
+        this.loginHandler.bind(this),
+      );
+  }
 
-  private registrationHandler(request: Request, response: Response) {}
+  private async loginHandler(request: Request) {}
+
+  private async registrationHandler(request: Request) {
+    if (request.controllerData) {
+      await this.authController.createNewUser(request.controllerData);
+    }
+  }
 }

@@ -9,18 +9,17 @@ import {
 import { Parameters } from '../constants';
 import { ResponseSender } from '../types/services.types';
 import { validLanguageParts, validLanguages } from '../data/valid.data';
-import { ClientError } from '../data/errors.data';
+import { ClientError } from '../services/errors.service';
 import { BaseMiddleware } from './base.middleware';
 import { ResponseSenderService } from '../services/response-sender.service';
 import { LanguageResult, LanguageModel } from '../models/language.model';
-import { ResponseData } from '../data/response.data';
 
 export class LanguageMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.LANGUAGES;
   method: string = RequestMethods.GET;
 
-  private responseSender: ResponseSender = new ResponseSenderService();
-  private languageModel: LanguageModel = new LanguageModel();
+  responseSender: ResponseSender = new ResponseSenderService();
+  languageModel: LanguageModel = new LanguageModel();
 
   async handler(request: Request, response: Response): Promise<void> {
     this.responseSender.setResponseObject(response);
@@ -36,28 +35,27 @@ export class LanguageMiddleware implements BaseMiddleware {
         requestedLanguage, requestedLanguageParts
       );
 
-      const responseData: ResponseData = new ResponseData(StatusCodes.SUCCESS, resultObject);
-      this.responseSender.sendJsonResponse(responseData);;
+      this.responseSender.sendSuccessJsonResponse(resultObject);
     } catch (error) {
       this.responseSender.sendErrorResponse(error);
     }
   }
 
-  private getRequestedLanguageFromParameters(request: Request): string {
+  getRequestedLanguageFromParameters(request: Request): string {
     return request.params[Parameters.LANGUAGE];
   }
 
-  private validateRequestedLanguage(requestedLanguage: string, request: Request) {
+  validateRequestedLanguage(requestedLanguage: string, request: Request) {
     if (!validLanguages.includes(requestedLanguage)) {
       this.throwNotFindError(request);
     }
   }
 
-  private getRequestedLanguagePartsFromQuery(request: Request): LanguageParts[] {
+  getRequestedLanguagePartsFromQuery(request: Request): LanguageParts[] {
     return request.query.languageParts as LanguageParts[];
   }
 
-  private validateRequestedLanguageParts(requestedLanguageParts: LanguageParts[], request: Request) {
+  validateRequestedLanguageParts(requestedLanguageParts: LanguageParts[], request: Request) {
     requestedLanguageParts.forEach((langaugePart) => {
       if (!validLanguageParts.includes(langaugePart)) {
         this.throwNotFindError(request);
@@ -65,7 +63,7 @@ export class LanguageMiddleware implements BaseMiddleware {
     });
   }
 
-  private throwNotFindError(request: Request) {
+  throwNotFindError(request: Request) {
     throw new ClientError(
       `Resource on '${request.originalUrl}' not found`,
       StatusCodes.NOT_FOUND,

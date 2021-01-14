@@ -40,4 +40,8 @@ export class UsersCollectionDatabase implements GetUserDatabase, CreateUserDatab
   async isUsernameUnique(username: string): Promise<boolean> {
     return await this.databaseCollection.isUnique({username});
   }
+
+  async isEmailUnique(email: string): Promise<boolean> {
+    return await this.databaseCollection.isUnique({email});
+  }
 }

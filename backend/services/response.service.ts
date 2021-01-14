@@ -1,6 +1,6 @@
 import { StatusCodes } from '../../common/constants';
 
-export class ResponseData {
+export class ResponseService {
   private statusCode: StatusCodes;
   private body: any;
 

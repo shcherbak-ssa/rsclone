@@ -1,5 +1,5 @@
 import { StatusCodes, ErrorNames } from '../../common/constants';
-import { ResponseData } from './response.data';
+import { ResponseService } from './response.service';
 
 class CustomError implements Error {
   name: string = '';
@@ -15,8 +15,8 @@ class CustomError implements Error {
     this.addErrorMessageToBody();
   }
 
-  getResponseData(): ResponseData {
-    return new ResponseData(this.statusCode, this.body);
+  getResponse(): ResponseService {
+    return new ResponseService(this.statusCode, this.body);
   }
 
   private addErrorMessageToBody(): void {

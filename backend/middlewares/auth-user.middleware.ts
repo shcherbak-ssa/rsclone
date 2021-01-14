@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { StatusCodes, MiddlewarePathnames } from '../../common/constants';
 import { Parameters } from '../constants';
 import { ResponseSender } from '../types/services.types';
-import { ClientError } from '../data/errors.data';
+import { ClientError } from '../services/errors.service';
 import { AuthUserModel } from '../models/auth-user.model';
 import { BaseMiddleware } from "./base.middleware";
 import { AccessTokenService } from '../services/access-token.service';
@@ -15,9 +15,9 @@ export class AuthUserMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.AUTH_USER;
   method: null = null;
 
-  private authUserModel: AuthUserModel = new AuthUserModel();
-  private authAccessToken: AuthAccessToken = new AccessTokenService();
-  private responseSender: ResponseSender = new ResponseSenderService();
+  authUserModel: AuthUserModel = new AuthUserModel();
+  authAccessToken: AuthAccessToken = new AccessTokenService();
+  responseSender: ResponseSender = new ResponseSenderService();
 
   async handler(request: Request, response: Response, next: NextFunction) {
     this.responseSender.setResponseObject(response);
@@ -40,14 +40,14 @@ export class AuthUserMiddleware implements BaseMiddleware {
     }
   }
 
-  private async verifyToken(request: Request): Promise<VerifyUser> {
+  async verifyToken(request: Request): Promise<VerifyUser> {
     const token = await this.getToken(request);
     const {userID} = await this.authAccessToken.verifyToken(token);
     const username = this.getUsernameFromParameters(request);
     return {userID, username};
   }
 
-  private async getToken(request: Request): Promise<string> {
+  async getToken(request: Request): Promise<string> {
     const authHeader: string | undefined = this.getAuthorizationHeader(request);
     const token: string | null = this.authAccessToken.getTokenFromAuthHeader(authHeader);
 
@@ -61,15 +61,15 @@ export class AuthUserMiddleware implements BaseMiddleware {
     return token;
   }
 
-  private getAuthorizationHeader(request: Request): string | undefined {
+  getAuthorizationHeader(request: Request): string | undefined {
     return request.headers.authorization;
   }
 
-  private getUsernameFromParameters(request: Request): string {
+  getUsernameFromParameters(request: Request): string {
     return request.params[Parameters.USERNAME];
   }
 
-  private async verifyUser(verifyUser: VerifyUser): Promise<boolean> {
+  async verifyUser(verifyUser: VerifyUser): Promise<boolean> {
     return await this.authUserModel.isValidUser(verifyUser);
   }
 }

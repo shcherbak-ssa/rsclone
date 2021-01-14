@@ -1,8 +1,9 @@
 import { Response } from 'express';
 
 import { ResponseSender } from '../types/services.types'; 
-import { ResponseData } from '../data/response.data';
-import { ClientError, ServerError } from '../data/errors.data';
+import { ResponseService } from './response.service';
+import { ClientError, ServerError } from './errors.service';
+import { StatusCodes } from '../../common/constants';
 
 export class ResponseSenderService implements ResponseSender {
   private response: Response | null = null;
@@ -11,24 +12,29 @@ export class ResponseSenderService implements ResponseSender {
     this.response = response;
   }
 
-  async sendJsonResponse(responseData: ResponseData): Promise<void> {
-    if (this.response) {
-      this.response
-        .status(responseData.getStatusCode())
-        .json(responseData.getBody());
-    }
+  async sendSuccessJsonResponse(body: any): Promise<void> {
+    this.sendJsonResponse(StatusCodes.SUCCESS, body);
   }
 
-  async sendErrorResponse(error: Error | ClientError): Promise<void> {
+  async sendErrorResponse(error: Error): Promise<void> {
     console.log(`${error.name}: ${error.message}`);
 
     if (error instanceof ClientError) {
-      return this.sendJsonResponse(error.getResponseData());
+      const responseService: ResponseService = error.getResponse();
+      return this.sendJsonResponse(
+        responseService.getStatusCode(),
+        responseService.getBody(),
+      );
     }
 
     console.log(error); // @todo: add logger
     const serverError: ServerError = new ServerError(error.message, {});
-    this.sendJsonResponse(serverError.getResponseData());
+    const responseService: ResponseService = serverError.getResponse();
+
+    this.sendJsonResponse(
+      responseService.getStatusCode(),
+      responseService.getBody(),
+    );
   }
 
   async sendFile(statusCode: number, filePath: string): Promise<void> {
@@ -37,5 +43,9 @@ export class ResponseSenderService implements ResponseSender {
 
   async endRequest(statusCode: number, content: string): Promise<void> {
     this.response?.status(statusCode).end(content);
+  }
+
+  private async sendJsonResponse(statusCode: number, body: any): Promise<void> {
+    this.response?.status(statusCode).json(body);
   }
 }

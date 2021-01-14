@@ -5,6 +5,11 @@ export type VerifyUser = {
   userID: string;
 };
 
+export type CreatedUser = {
+  username: string,
+  token: string,
+};
+
 export type KeyboardShortcutType = {
   section: string,
   keys: string,

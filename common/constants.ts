@@ -6,6 +6,7 @@ export enum RequestPathnames {
 
 export enum MiddlewarePathnames {
   ENTRY = '*',
+  CONTROLLER = '*',
   AUTH_USER = `/@:username`,
   LANGUAGES = '/languages/:language',
 };

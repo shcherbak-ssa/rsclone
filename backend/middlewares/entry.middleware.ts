@@ -4,11 +4,11 @@ import { RequestMethods, RequestHeaders, StatusCodes } from '../../common/consta
 import { MiddlewarePathnames } from '../../common/constants';
 import { StaticEntry } from '../types/static.types';
 import { ResponseSender } from '../types/services.types';
-import { ServerError } from '../data/errors.data';
+import { ServerError } from '../services/errors.service';
 import { BaseMiddleware } from "./base.middleware";
 import { StaticService } from '../services/static.service';
 import { ResponseSenderService } from '../services/response-sender.service';
-import { ResponseData } from '../data/response.data';
+import { ResponseService } from '../services/response.service';
 
 export class EntryMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.ENTRY;
@@ -55,11 +55,11 @@ export class EntryMiddleware implements BaseMiddleware {
       console.log(error); // @TODO: add logger
 
       const serverError: ServerError = new ServerError(error.message, {});
-      const responseData: ResponseData = serverError.getResponseData();
+      const responseService: ResponseService = serverError.getResponse();
 
       this.responseSender.endRequest(
-        responseData.getStatusCode(),
-        responseData.getBody()
+        responseService.getStatusCode(),
+        responseService.getBody()
       );
     }
   }
