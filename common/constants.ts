@@ -53,3 +53,14 @@ export enum Themes {
   LIGHT = 'light-theme',
   DARK = 'dark-theme',
 };
+
+export enum ShortcurtsSections {
+  HOMEPAGE = 'homepage',
+  SPACE = 'space'
+};
+
+export enum ShortcutsLabels {
+  ADD_SPACE = 'add-space',
+  ADD_PAGE = 'add-page',
+  ADD_SECTION = 'add-section',
+};

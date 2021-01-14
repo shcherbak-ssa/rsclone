@@ -7,7 +7,7 @@ import {
   StatusCodes,
 } from '../../common/constants';
 import { Parameters } from '../constants';
-import { ResponseSender } from '../types/response-sender.types';
+import { ResponseSender } from '../types/services.types';
 import { validLanguageParts, validLanguages } from '../data/valid.data';
 import { ClientError } from '../data/errors.data';
 import { BaseMiddleware } from './base.middleware';

@@ -2,21 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 
 import { StatusCodes, MiddlewarePathnames } from '../../common/constants';
 import { Parameters } from '../constants';
-import { ResponseSender } from '../types/response-sender.types';
+import { ResponseSender } from '../types/services.types';
 import { ClientError } from '../data/errors.data';
-import { AuthUserModel, VerifyUserType } from '../models/auth-user.model';
+import { AuthUserModel } from '../models/auth-user.model';
 import { BaseMiddleware } from "./base.middleware";
 import { AccessTokenService } from '../services/access-token.service';
 import { ResponseSenderService } from '../services/response-sender.service';
-
-export type TokenPayloadType = {
-  userID: string;
-};
-
-export interface AuthAccessToken {
-  verifyToken(token: string): Promise<TokenPayloadType>;
-  getTokenFromAuthHeader(authHeader: string | undefined): string | null;
-};
+import { VerifyUser } from '../types/user.types';
+import { AuthAccessToken } from '../types/access-token.types';
 
 export class AuthUserMiddleware implements BaseMiddleware {
   pathname: string = MiddlewarePathnames.AUTH_USER;
@@ -30,7 +23,7 @@ export class AuthUserMiddleware implements BaseMiddleware {
     this.responseSender.setResponseObject(response);
 
     try {
-      const verifyUser: VerifyUserType = await this.verifyToken(request);
+      const verifyUser: VerifyUser = await this.verifyToken(request);
       const isValidUser: boolean = await this.verifyUser(verifyUser);
 
       if (isValidUser) {
@@ -47,7 +40,7 @@ export class AuthUserMiddleware implements BaseMiddleware {
     }
   }
 
-  private async verifyToken(request: Request): Promise<VerifyUserType> {
+  private async verifyToken(request: Request): Promise<VerifyUser> {
     const token = await this.getToken(request);
     const {userID} = await this.authAccessToken.verifyToken(token);
     const username = this.getUsernameFromParameters(request);
@@ -76,7 +69,7 @@ export class AuthUserMiddleware implements BaseMiddleware {
     return request.params[Parameters.USERNAME];
   }
 
-  private async verifyUser(verifyUser: VerifyUserType): Promise<boolean> {
+  private async verifyUser(verifyUser: VerifyUser): Promise<boolean> {
     return await this.authUserModel.isValidUser(verifyUser);
   }
 }

@@ -13,3 +13,14 @@ export enum Parameters {
   USERNAME = 'username',
   LANGUAGE = 'language',
 };
+
+export enum UserDataLabels {
+  AVATAR = 'avatar',
+  FULLNAME = 'fullname',
+  EMAIL = 'email',
+  PASSWORD = 'password',
+  USERNAME = 'username',
+  LANGUAGE = 'language',
+  THEME = 'theme',
+  SHORTCUTS = 'shortcuts',
+};

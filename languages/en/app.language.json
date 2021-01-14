@@ -1,0 +1,18 @@
+{
+  "settings": {
+    "shortcuts": {
+      "add-space": {
+        "title": "Add space",
+        "description": "Create your personal space"
+      },
+      "add-page": {
+        "title": "Add page",
+        "description": "Create a new page in open space"
+      },
+      "add-section": {
+        "title": "Add section",
+        "description": "Create a new section in open space"
+      }
+    }
+  }
+}

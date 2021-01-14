@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { ResponseSender } from '../types/response-sender.types'; 
+import { ResponseSender } from '../types/services.types'; 
 import { ResponseData } from '../data/response.data';
 import { ClientError, ServerError } from '../data/errors.data';
 

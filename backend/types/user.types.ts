@@ -1,5 +1,15 @@
 import { LanguageLabels, Themes } from '../../common/constants';
-import { KeyboardShortcutType } from './keyboard-shortcuts.types';
+
+export type VerifyUser = {
+  username: string;
+  userID: string;
+};
+
+export type KeyboardShortcutType = {
+  section: string,
+  keys: string,
+  label: string,
+};
 
 export type User = {
   fullname: string;
@@ -9,5 +19,9 @@ export type User = {
   avatar: boolean;
   language: LanguageLabels;
   theme: Themes;
-  shortcuts: Array<KeyboardShortcutType>;
+  shortcuts: KeyboardShortcutType[];
 };
+
+export interface GetUserDatabase {
+  getUsername(userID: string): Promise<string>;
+}

@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { RequestMethods, RequestHeaders, StatusCodes } from '../../common/constants';
 import { MiddlewarePathnames } from '../../common/constants';
 import { StaticEntry } from '../types/static.types';
-import { ResponseSender } from '../types/response-sender.types';
+import { ResponseSender } from '../types/services.types';
 import { ServerError } from '../data/errors.data';
 import { BaseMiddleware } from "./base.middleware";
 import { StaticService } from '../services/static.service';

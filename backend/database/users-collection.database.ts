@@ -1,13 +1,14 @@
 import { ObjectID } from 'mongodb';
 
-import { DatabaseNames, UsersDatabaseCollectionNames } from '../constants';
-import { UserData } from '../data/user.data';
+import { GetUserDatabase, User } from '../types/user.types';
+import { DatabaseNames, UserDataLabels, UsersDatabaseCollectionNames } from '../constants';
 import { DatabaseCollectionService } from '../services/database-collection.service';
 import { DatabaseDBService } from '../services/database-db.service';
+import { CreateUserDatabase } from '../models/registration.model';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
-export class UsersCollectionDatabase {
+export class UsersCollectionDatabase implements GetUserDatabase, CreateUserDatabase {
   private databaseCollection: DatabaseCollectionService;
   
   constructor(databaseCollection: DatabaseCollectionService) {
@@ -21,13 +22,22 @@ export class UsersCollectionDatabase {
     usersCollectionDatabase = new UsersCollectionDatabase(collectionDatabase);
   }
 
-  async getUser(userID: string) {
-    const getUserQuery = { _id: new ObjectID(userID) };
-    const foundUser = await this.databaseCollection.getDocument(getUserQuery);
+  async getUsername(userID: string): Promise<string> {
+    const getUsernameQuery = {
+      _id: new ObjectID(userID),
+    };
+    const getUsernameOptions = {
+      projection: { [UserDataLabels.USERNAME]: 1 },
+    };
 
-    if (foundUser) {
-      foundUser.userID = userID;
-      return UserData.create(foundUser);
-    }
+    return await this.databaseCollection.getDocument(getUsernameQuery, getUsernameOptions);
+  }
+
+  async createUser(newUser: User): Promise<string> {
+    return await this.databaseCollection.createDocument(newUser);
+  }
+
+  async isUsernameUnique(username: string): Promise<boolean> {
+    return await this.databaseCollection.isUnique({username});
   }
 }

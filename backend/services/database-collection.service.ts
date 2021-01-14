@@ -1,10 +1,11 @@
 import { Collection } from 'mongodb';
 
+const UNIQUE_COUNT: number = 0;
+const LIMIT_UNIQUE_COUNT: number = 1;
+
 export class DatabaseCollectionService {
   private collection: Collection;
-  private findOneOptions: any = {
-    projection: { _id: 0 },
-  };
+  private uniqueOptions: any = { limit: LIMIT_UNIQUE_COUNT };
 
   constructor(collection: Collection) {
     this.collection = collection;
@@ -14,19 +15,25 @@ export class DatabaseCollectionService {
     return new DatabaseCollectionService(collection);
   }
 
-  async getDocument(query: any, options: any = {}) {
-    const findOneOptions = {...options, ...this.findOneOptions};
-    return this.collection.findOne(query, findOneOptions) as any;
+  async getDocument(query: any, findOptions: any = {}): Promise<any> {
+    return this.collection.findOne(query, findOptions) as any;
   }
 
   async getDocuments() {}
 
-  async createDocument(document: any) {
+  async createDocument(document: any): Promise<string> {
     const insertDocumentResult = await this.collection.insertOne(document);
-    return insertDocumentResult.ops;
+    return insertDocumentResult.ops[0]._id;
   }
 
   async updateDocument() {}
 
   async deleteDocument() {}
+
+  async isUnique(query: any): Promise<boolean> {
+    const foundDocumentsCount: number
+      = await this.collection.countDocuments(query, this.uniqueOptions);
+
+    return foundDocumentsCount === UNIQUE_COUNT
+  }
 }
