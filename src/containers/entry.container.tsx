@@ -10,7 +10,7 @@ type EntryContainerProps = {
 
 export function EntryContainer({initialRoutePathname}: EntryContainerProps) {
   const history = useHistory();
-  const AuthContainer = lazy(() => import('./auth.container'));
+  const AuthContainer = lazy(() => import('./auth/auth.container'));
 
   useEffect(() => {
     history.push(initialRoutePathname);

@@ -2,13 +2,13 @@ import React, { lazy, Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 
-import { AppRoutePathnames, Stores } from '../constants';
-import { AuthComponent, AuthComponentProps } from "../components/auth.component";
-import { PopupNames } from '../constants/ui.constants';
-import { PopupService } from '../services/popup.service';
-import { InitialSettingsPopupContainer } from './popups/initial-settings-popup.container';
-import { DocumentBodyService } from '../services/document-body.service';
-import { storeSelectorsService } from '../services/store-selectors.service';
+import { AppRoutePathnames, Stores } from '../../constants';
+import { AuthComponent, AuthComponentProps } from "../../components/auth.component";
+import { PopupNames } from '../../constants/ui.constants';
+import { PopupService } from '../../services/popup.service';
+import { InitialSettingsPopupContainer } from '../popups/initial-settings-popup.container';
+import { DocumentBodyService } from '../../services/document-body.service';
+import { storeSelectorsService } from '../../services/store-selectors.service';
 
 export default function AuthContainer() {
   const LoginContainer = lazy(() => import('./login.container'));
