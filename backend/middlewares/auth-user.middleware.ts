@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { StatusCodes } from '../../common/constants';
-import { MiddlewarePathnames, Parameters } from '../constants';
+import { StatusCodes, MiddlewarePathnames } from '../../common/constants';
+import { Parameters } from '../constants';
 import { ResponseSender } from '../types/response-sender.types';
 import { ClientError } from '../data/errors.data';
 import { AuthUserModel, VerifyUserType } from '../models/auth-user.model';

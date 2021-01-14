@@ -33,9 +33,9 @@ export interface LocalStorage {
 }
 
 export interface RequestCreator {
-  appendUrlPathname(pathname: string): void;
-  setFullUrl(pathname: string): void;
-  appendUrlQuery(queryObject: any): void;
-  setBody(body: any): void;
+  appendUrlPathname(pathname: string): RequestCreator;
+  setFullUrl(pathname: string): RequestCreator;
+  appendUrlQuery(queryObject: any): RequestCreator;
+  setBody(body: any): RequestCreator;
   createRequest(): RequestModel;
 }

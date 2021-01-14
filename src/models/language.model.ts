@@ -8,6 +8,11 @@ import { LanguageStore, RequestedLanguage, LanguageStoreState } from "../types/l
 import { StoreManager } from "../types/store.types";
 import { StoreManagerService } from '../services/store-manager.service';
 import { LanguageLabels, LanguageParts } from "../../common/constants";
+import { UrlPathnameService } from "../services/url-pathname.service";
+
+export interface LanguageUrlPathname {
+  getLanguagePathname(language: LanguageLabels): string;
+}
 
 export class LanguageModel {
   private requestCreator: RequestCreator;
@@ -52,8 +57,12 @@ export class LanguageModel {
   }
 
   private createRequestLanguageParts({language, languageParts}: RequestedLanguage): RequestModel {
-    this.requestCreator.appendUrlPathname(`/languages/${language}`);
-    this.requestCreator.appendUrlQuery({languageParts});
-    return this.requestCreator.createRequest();
+    const urlPathnameService: LanguageUrlPathname = new UrlPathnameService();
+    const languagePathname: string = urlPathnameService.getLanguagePathname(language);
+
+    return this.requestCreator
+      .appendUrlPathname(languagePathname)
+      .appendUrlQuery({languageParts})
+      .createRequest();
   }
 }

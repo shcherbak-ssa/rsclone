@@ -20,31 +20,35 @@ export class RequestCreatorService implements RequestCreator {
     this.setNecessaryHeaders();
   }
 
-  appendUrlPathname(pathname: string): void {
+  appendUrlPathname(pathname: string): RequestCreatorService {
     this.url += pathname;
+    return this;
   }
 
-  setFullUrl(pathname: string): void {
+  setFullUrl(pathname: string): RequestCreatorService {
     this.addUsernameToUrlPathname();
     this.appendUrlPathname(pathname);
+
+    return this;
   }
 
-  appendUrlQuery(queryObject: any) {
+  appendUrlQuery(queryObject: any): RequestCreatorService {
     this.queryString = queryString.stringify(queryObject, {
       arrayFormat: 'bracket',
     });
+
+    return this;
   }
 
-  setBody(body: any) {
+  setBody(body: any): RequestCreatorService {
     if (body instanceof FormData) {
       this.body = body;
-      return;
-    }
-    
-    if (typeof body === 'object') {
+    } else if (typeof body === 'object') {
       this.body = JSON.stringify(body);
       this.headers[RequestHeaders.CONTENT_TYPE] = JSON_CONTENT_TYPE;
     }
+
+    return this;
   }
 
   createRequest(): RequestModel {

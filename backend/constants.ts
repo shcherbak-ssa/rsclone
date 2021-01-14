@@ -14,12 +14,6 @@ export enum Parameters {
   LANGUAGE = 'language',
 };
 
-export enum MiddlewarePathnames {
-  ENTRY = '*',
-  AUTH_USER = `/@:username`,
-  LANGUAGES = '/languages/:language',
-};
-
 export enum AuthRouterPathnames {
   REGISTRATION = 'auth/registration',
   LOGIN = 'auth/login',

@@ -4,6 +4,12 @@ export enum RequestPathnames {
   USERS = '/users',
 };
 
+export enum MiddlewarePathnames {
+  ENTRY = '*',
+  AUTH_USER = `/@:username`,
+  LANGUAGES = '/languages/:language',
+};
+
 export enum RequestMethods {
   GET = 'GET',
   POST = 'POST',
