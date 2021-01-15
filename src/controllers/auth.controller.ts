@@ -26,12 +26,16 @@ async function saveChangesHandler(callback: Function) {
   languageController.emit(LanguageEvents.CHANGE_LANGUAGE, changeLanguageEventPayload);
 }
 
-async function initRegistraionHandler() {
+async function initRegistraionHandler(callback: Function) {
   const registrationModel: RegistrationModel = new RegistrationModel();
   await registrationModel.createUser();
+
+  callback();
 }
 
-async function initLoginHanlder() {
+async function initLoginHanlder(callback: Function) {
   const loginModel: LoginModel = new LoginModel();
   await loginModel.loginUser();
+
+  callback();
 }

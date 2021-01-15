@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -21,6 +22,7 @@ export function useAuthFormProps({
   mode, nextRoutePathname
 }: AuthFormPropsParameters): AuthFormComponentProps {
   const history = useHistory();
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
   
   const authStoreSelectors = storeSelectorsService.get(Stores.AUTH_STORE);
@@ -38,12 +40,15 @@ export function useAuthFormProps({
       passwordInputProps,
     ],
     buttonProps: {
+      isLoading: isButtonLoading,
       value: authLanguage[mode].buttonValue,
       clickHandler: () => {
+        setIsButtonLoading(true);
+
         if (mode === AuthModes.REGISTRATION) {
-          authController.emit(AuthEvents.INIT_REGISTRATION);
+          authController.emit(AuthEvents.INIT_REGISTRATION, removeLoading);
         } else {
-          authController.emit(AuthEvents.INIT_LOGIN);
+          authController.emit(AuthEvents.INIT_LOGIN, removeLoading);
         }
       },
     },
@@ -61,6 +66,10 @@ export function useAuthFormProps({
       history.push(nextRoutePathname);
     },
   };
+
+  function removeLoading() {
+    setIsButtonLoading(false);
+  }
 
   return authFormProps;
 }
