@@ -23,4 +23,8 @@ export enum AuthEvents {
   SAVE_SETTINGS = 'auth-events/save-settings',
   INIT_REGISTRATION = 'auth-events/init-registraion',
   INIT_LOGIN = 'auth-events/init-login',
-}
+};
+
+export enum UserEvents {
+  UPDATE_STATES = 'user-events/update-states',
+};

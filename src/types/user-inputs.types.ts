@@ -1,4 +1,5 @@
 import { LanguageLabels, Themes } from "../../common/constants";
+import { KeyboardShortcut } from "../../common/entities";
 import { UserDataLabels } from "../constants";
 import { ToolsService } from "../services/tools.service";
 
@@ -12,6 +13,7 @@ export const initialState: UserInputsStoreState = {
   [UserDataLabels.USERNAME]: initialInputState,
   [UserDataLabels.THEME]: Themes.ORIGINAL,
   [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH,
+  [UserDataLabels.SHORTCUTS]: [],
 };
 
 export type UserInputsStoreState = {
@@ -23,16 +25,15 @@ export type InputState = {
   error: string;
 };
 
-export type UserInputState = string | boolean | InputState;
+export type UserInputState = string | boolean | InputState | KeyboardShortcut[];
 
 export type UpdatedInput = {
   [key: string]: UserInputState;
 };
 
 export interface UserInputsStore {
-  getInputStates(dataLabel: UserDataLabels): UserInputState;
-  getLanguage(): LanguageLabels;
-  getTheme(): Themes;
+  getInputState(dataLabel: UserDataLabels): UserInputState;
+  getInputValues(dataLabels: UserDataLabels[]): UserInputsStoreState;
   updateInputValue(updatedInput: UpdatedInput): void;
   setInputError(updatedInput: UpdatedInput): void;
   changeLanguage(nextLanguage: LanguageLabels): void;

@@ -7,6 +7,7 @@ import {
   UpdatedInput,
   UserInputsStoreState,
   initialState,
+  InputState,
 } from "../types/user-inputs.types";
 import { reduxStore } from "../services/store.service";
 import { StoreCreator } from "../services/store-manager.service";
@@ -70,6 +71,10 @@ type UserInputsStoreAction =
   | ResetStatesAction;
 
 /** constants */
+const isInput = (inputState: UserInputState): boolean => {
+  return typeof inputState === 'object' && !Array.isArray(inputState);
+};
+
 const userInputsStoreSelectors: StoreSelectors = {
   getState: (dataLabel: UserDataLabels) => {
     return (state: UserInputsStoreSelectorState) => {
@@ -81,7 +86,8 @@ const userInputsStoreSelectors: StoreSelectors = {
       const storeStates: UserInputsStoreState = state[Stores.USER_INPUTS_STORE];
       const requestedResult = requestedDataLabels.map((dataLabel) => {
         const currentState = storeStates[dataLabel];
-        const returnedValue = typeof currentState === 'object' ? currentState.value : currentState;
+        const returnedValue = isInput(currentState)
+          ? (currentState as InputState).value : currentState;
 
         return [dataLabel, returnedValue];
       });
@@ -92,16 +98,21 @@ const userInputsStoreSelectors: StoreSelectors = {
 };
 
 class UserInputsStoreImpl implements UserInputsStore {
-  getInputStates(dataLabel: UserDataLabels): UserInputState {
-    return this.getUserInputsStore()[dataLabel];
+  getInputState(dataLabel: UserDataLabels): UserInputState {
+    return this.getUserInputsStore(dataLabel);
   }
 
-  getLanguage(): LanguageLabels {
-    return this.getUserInputsStore()[UserDataLabels.LANGUAGE];
-  }
+  getInputValues(dataLabels: UserDataLabels[]): UserInputsStoreState {
+    const inputValues = {};
 
-  getTheme(): Themes {
-    return this.getUserInputsStore()[UserDataLabels.THEME];
+    dataLabels.forEach((dataLabel) => {
+      const inputState: UserInputState = this.getUserInputsStore(dataLabel);
+
+      inputValues[dataLabel] = isInput(inputState)
+        ? (inputState as InputState).value : inputState;
+    });
+
+    return inputValues;
   }
 
   updateInputValue(updatedInput: UpdatedInput): void {
@@ -134,8 +145,8 @@ class UserInputsStoreImpl implements UserInputsStore {
     );
   }
 
-  private getUserInputsStore() {
-    return reduxStore.getState()[Stores.USER_INPUTS_STORE];
+  private getUserInputsStore(dataLabel: UserDataLabels) {
+    return reduxStore.getState()[Stores.USER_INPUTS_STORE][dataLabel];
   }
 }
 

@@ -8,6 +8,7 @@ import { AppRoutes, Request, RequestCreator, RequestSender, Response } from '../
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
 import { UrlPathnameService } from '../services/url-pathname.service';
+import { UserModel } from './user.model';
 
 export class AppModel {
   async initApp(): Promise<string | null> {
@@ -17,8 +18,10 @@ export class AppModel {
       const response: Response = await requestSender.send(request).get();
 
       const user: GetUser = response.parseResponse();
-      console.log(user);
-      // @TODO: init user.store;
+      const userModel: UserModel = new UserModel();
+
+      await userModel.initUserData(user.user);
+      // @TODO: init user.spaces;
 
       return this.getAppInitialRoutePathname();
     } catch (error) {

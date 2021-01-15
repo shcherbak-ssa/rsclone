@@ -1,5 +1,5 @@
 import { LanguageLabels, Themes } from "../../../common/constants";
-import { Stores } from "../../constants";
+import { Stores, UserDataLabels } from "../../constants";
 import { StoreManagerService } from "../../services/store-manager.service";
 import { AuthStore } from "../../types/auth.types";
 import { StoreManager } from "../../types/store.types";
@@ -16,8 +16,10 @@ export class AuthSettingsModel {
   }
 
   saveSettings(): LanguageLabels {
-    const updatedLanguage: LanguageLabels = this.userInputsStore.getLanguage();
-    const updatedTheme: Themes = this.userInputsStore.getTheme();
+    const updatedLanguage: LanguageLabels
+      = this.userInputsStore.getInputState(UserDataLabels.LANGUAGE) as LanguageLabels;
+    const updatedTheme: Themes
+      = this.userInputsStore.getInputState(UserDataLabels.THEME) as Themes;
 
     this.authStore.updateLanguage(updatedLanguage);
     this.authStore.updateTheme(updatedTheme);

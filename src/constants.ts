@@ -26,6 +26,7 @@ export enum Stores {
   LANGUAGE_STORE = 'language-store',
   AUTH_STORE = 'auth-store',
   USER_INPUTS_STORE = 'user-inputs-store',
+  USER_STORE = 'user-store',
 };
 
 export enum AuthModes {
