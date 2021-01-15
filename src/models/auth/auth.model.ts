@@ -36,15 +36,20 @@ export class AuthModel {
     return inputValues;
   }
 
-  protected getAuthData(): AuthUserData {
-    const authStore = this.storeManager.getStore(Stores.AUTH_STORE) as AuthStore;
-    return authStore.getAuthUserData();
+  protected preparingUserData(inputValues: UserInputsStoreState) {
+    const authUserData: AuthUserData = this.getAuthData();
+    return {...inputValues, ...authUserData};
   }
 
-  protected async sendRequest(urlPathname: RequestPathnames, body: any): Promise<UserLocalStorageType> {
-    const request: Request = this.createRequest(urlPathname, body);
+  protected async sendRequest(urlPathname: RequestPathnames, user: any): Promise<UserLocalStorageType> {
+    const request: Request = this.createRequest(urlPathname, user);
     const response: Response = await this.requestSender.send(request).create();
     return response.parseResponse();
+  }
+
+  private getAuthData(): AuthUserData {
+    const authStore = this.storeManager.getStore(Stores.AUTH_STORE) as AuthStore;
+    return authStore.getAuthUserData();
   }
 
   protected parseError(error: Error): void {

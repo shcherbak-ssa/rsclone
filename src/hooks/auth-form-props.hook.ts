@@ -37,6 +37,8 @@ export function useAuthFormProps({
       clickHandler: () => {
         if (mode === AuthModes.REGISTRATION) {
           authController.emit(AuthEvents.INIT_REGISTRATION);
+        } else {
+          authController.emit(AuthEvents.INIT_LOGIN);
         }
       },
     },

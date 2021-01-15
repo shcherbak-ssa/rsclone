@@ -1,6 +1,5 @@
 import { RequestPathnames } from '../../../common/constants';
 import { registrationDataLabels } from '../../data/auth.data';
-import { AuthUserData } from '../../types/auth.types';
 import { UserInputsStoreState } from '../../types/user-inputs.types';
 import { UserLocalStorageType } from '../../types/user.types';
 import { AuthValidation } from '../../validation/auth.validation';
@@ -23,8 +22,7 @@ export class RegistrationModel extends AuthModel {
       let inputValues: UserInputsStoreState = this.getInputValues(registrationDataLabels);
       inputValues = await this.validation.validateRegistrationData(inputValues);
 
-      const authUserData: AuthUserData = this.getAuthData();
-      const registrationUser = {...inputValues, ...authUserData};
+      const registrationUser = this.preparingUserData(inputValues);
       const user: UserLocalStorageType
         = await this.sendRequest(RequestPathnames.REGISTRATION, registrationUser);
 

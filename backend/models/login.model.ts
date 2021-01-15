@@ -2,7 +2,7 @@ import { ClientError } from '../services/errors.service';
 import { ErrorLabels, StatusCodes, LanguageLabels, Themes } from '../../common/constants';
 import { LoginUser, AccessUser } from '../types/user.types';
 import { AuthUserModel } from './auth-user.model';
-import { usersCollectionDatabase } from 'database/users-collection.database';
+import { usersCollectionDatabase } from '../database/users-collection.database';
 
 export type FoundLoginUser = {
   _id: string,

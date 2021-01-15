@@ -3,7 +3,7 @@ import { ControllerData } from '../types/controller.types';
 import { RegistrationModel } from '../models/registration.model';
 import { AuthValidationImpl } from '../validation/auth.validation';
 import { StatusCodes } from '../../common/constants';
-import { LoginModel } from 'models/login.model';
+import { LoginModel } from '../models/login.model';
 
 export interface AuthValidation {
   validateRegistrationData(user: RegistrationUser): Promise<void>;

@@ -5,6 +5,7 @@ import { LanguageLabels } from '../../common/constants';
 import { ChangingLanguage, languageController } from './language.controller';
 import { AuthEvents, LanguageEvents } from '../constants/events.constants';
 import { RegistrationModel } from '../models/auth/registration.model';
+import { LoginModel } from '../models/auth/login.model';
 
 export const authController: Controller = new EventEmitter();
 
@@ -30,4 +31,7 @@ async function initRegistraionHandler() {
   await registrationModel.createUser();
 }
 
-async function initLoginHanlder() {}
+async function initLoginHanlder() {
+  const loginModel: LoginModel = new LoginModel();
+  await loginModel.loginUser();
+}
