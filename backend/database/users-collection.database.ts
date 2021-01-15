@@ -60,4 +60,10 @@ export class UsersCollectionDatabase
 
     return await this.databaseCollection.getDocument(getUsernameQuery, getUsernameOptions);
   }
+
+  async updateUser(username: string, updates: any): Promise<void> {
+    await this.databaseCollection.updateDocument({username}, {
+      $set: {...updates},
+    });
+  }
 }

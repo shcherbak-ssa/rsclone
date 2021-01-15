@@ -26,7 +26,9 @@ export class DatabaseCollectionService {
     return insertDocumentResult.ops[0]._id;
   }
 
-  async updateDocument() {}
+  async updateDocument(filter: any, updates: any, updateOptions: any = {}) {
+    this.collection.updateOne(filter, updates, updateOptions);
+  }
 
   async deleteDocument() {}
 
