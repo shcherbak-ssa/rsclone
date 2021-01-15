@@ -26,6 +26,8 @@ export enum RequestHeaders {
 
 export enum StatusCodes {
   SUCCESS = 200,
+  CREATED = 201,
+  BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   NOT_FOUND = 404,
@@ -70,5 +72,8 @@ export enum ShortcutsLabels {
 export enum ErrorLabels {
   EMPTY_VALUE = 'empty-value',
   INVALID_EMAIL = 'invalid-email',
+  EMAIL_EXIST = 'email-exist',
   PASSWORD_MIN = 'password-length',
+  ALPHANUM = 'alphanum',
+  FIELD_MAX = 'field-max',
 };

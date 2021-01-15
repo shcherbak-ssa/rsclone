@@ -3,6 +3,9 @@
   "errors": {
     "empty-value": "Field cannot be empty",
     "invalid-email": "Invalid e-mail",
-    "password-length": "Password must be over 8 characters"
+    "email-exist": "User with current e-mail address already exists",
+    "password-length": "Password must be over 8 characters",
+    "alphanum": "Fullname must only contain alpha-numeric characters",
+    "field-max": "Field cannot contain over 256 characters"
   }
 }

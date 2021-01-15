@@ -3,9 +3,7 @@ import { UserDataLabels } from '../src/constants';
 import { ErrorLabels, ErrorNames, LanguageLabels, Themes } from './constants';
 
 const MIN_PASSWORD_LENGTH: number = 8;
-const MAX_FULLNAME_LENGTH: number = 127;
-const MAX_PASSWORD_LENGTH: number = 256;
-const MAX_EMAIL_LENGTH: number = 256;
+const MAX_FIELD_LENGTH: number = 256;
 
 export type ValidationErrorPayload = {
   dataLabel: UserDataLabels,
@@ -26,20 +24,23 @@ export class ValidationError implements Error {
 export class Validation {
   fullname(): Joi.StringSchema {
     return Joi.string()
-      .alphanum()
-      .max(MAX_FULLNAME_LENGTH)
+      .trim()
+      .pattern(/\w+/)
+      .max(MAX_FIELD_LENGTH)
   }
 
   email(): Joi.StringSchema {
     return Joi.string()
+      .trim()
       .email({ tlds: { allow: false } })
-      .max(MAX_EMAIL_LENGTH)
+      .max(MAX_FIELD_LENGTH)
   }
 
   password(): Joi.StringSchema {
     return Joi.string()
+      .trim()
       .min(MIN_PASSWORD_LENGTH)
-      .max(MAX_PASSWORD_LENGTH)
+      .max(MAX_FIELD_LENGTH)
   }
 
   language(): Joi.StringSchema {
@@ -61,18 +62,21 @@ export class Validation {
   }
 }
 
-export function parseValidationError({details}) {
-  console.log(details[0]);
-  const {type, message, context: {key}} = details[0];
+export function parseValidationError(error: any) {
+  const {type, message, context: {key}} = error.details[0];
+  console.log(error.details);
 
   switch (type) {
     case 'string.empty':
       throwValidationError(message, key, ErrorLabels.EMPTY_VALUE);
-      break;
     case 'string.email':
       throwValidationError(message, key, ErrorLabels.INVALID_EMAIL);
     case 'string.min':
       throwValidationError(message, key, ErrorLabels.PASSWORD_MIN);
+    case 'string.pattern.base':
+      throwValidationError(message, key, ErrorLabels.ALPHANUM);
+    case 'string.max':
+      throwValidationError(message, key, ErrorLabels.FIELD_MAX);
   }
 }
 

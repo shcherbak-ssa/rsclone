@@ -27,6 +27,14 @@ export type User = {
   shortcuts: KeyboardShortcutType[];
 };
 
+export type RegistrationUser = {
+  fullname: string,
+  email: string,
+  password: string,
+  language: LanguageLabels,
+  theme: Themes
+};
+
 export interface GetUserDatabase {
   getUsername(userID: string): Promise<string>;
 }

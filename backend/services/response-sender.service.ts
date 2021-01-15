@@ -4,6 +4,7 @@ import { ResponseSender } from '../types/services.types';
 import { ResponseService } from './response.service';
 import { ClientError, ServerError } from './errors.service';
 import { StatusCodes } from '../../common/constants';
+import { ValidationError, ValidationErrorPayload } from '../../common/validation';
 
 export class ResponseSenderService implements ResponseSender {
   private response: Response | null = null;
@@ -12,8 +13,10 @@ export class ResponseSenderService implements ResponseSender {
     this.response = response;
   }
 
-  async sendSuccessJsonResponse(body: any): Promise<void> {
-    this.sendJsonResponse(StatusCodes.SUCCESS, body);
+  async sendSuccessJsonResponse(
+    body: any, statusCode: number = StatusCodes.SUCCESS
+  ): Promise<void> {
+    this.sendJsonResponse(statusCode, body);
   }
 
   async sendErrorResponse(error: Error): Promise<void> {
@@ -21,10 +24,16 @@ export class ResponseSenderService implements ResponseSender {
 
     if (error instanceof ClientError) {
       const responseService: ResponseService = error.getResponse();
+
       return this.sendJsonResponse(
         responseService.getStatusCode(),
         responseService.getBody(),
       );
+    }
+
+    if (error instanceof ValidationError) {
+      const payload: ValidationErrorPayload = error.payload;
+      return this.sendJsonResponse(StatusCodes.BAD_REQUEST, payload);
     }
 
     console.log(error); // @todo: add logger

@@ -12,7 +12,7 @@ export class AuthValidation implements RegistrationValidation {
     this.validation = new Validation();
   }
   
-  async validateRegistrationData(inputValues: UserInputsStoreState): Promise<void> {
+  async validateRegistrationData(inputValues: UserInputsStoreState): Promise<UserInputsStoreState> {
     try {
       const validationSchema: Joi.ObjectSchema = Joi.object({
         [UserDataLabels.FULLNAME]: this.validation.fullname().empty(),
@@ -20,7 +20,7 @@ export class AuthValidation implements RegistrationValidation {
         [UserDataLabels.PASSWORD]: this.validation.password().empty(),
       });
   
-      await validationSchema.validateAsync(inputValues);
+      return await validationSchema.validateAsync(inputValues);
     } catch (error) {
       parseValidationError(error);
     }

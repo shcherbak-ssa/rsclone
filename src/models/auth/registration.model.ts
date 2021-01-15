@@ -7,7 +7,7 @@ import { AuthValidation } from '../../validation/auth.validation';
 import { AuthModel } from './auth.model';
 
 export interface RegistrationValidation {
-  validateRegistrationData(inputValues: UserInputsStoreState): Promise<void>;
+  validateRegistrationData(inputValues: UserInputsStoreState): Promise<UserInputsStoreState>;
 }
 
 export class RegistrationModel extends AuthModel {
@@ -20,8 +20,8 @@ export class RegistrationModel extends AuthModel {
 
   async createUser() {
     try {
-      const inputValues: UserInputsStoreState = this.getInputValues(registrationDataLabels);
-      await this.validation.validateRegistrationData(inputValues);
+      let inputValues: UserInputsStoreState = this.getInputValues(registrationDataLabels);
+      inputValues = await this.validation.validateRegistrationData(inputValues);
 
       const authUserData: AuthUserData = this.getAuthData();
       const registrationUser = {...inputValues, ...authUserData};

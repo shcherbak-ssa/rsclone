@@ -1,8 +1,10 @@
-import { CreatedUser, User } from '../types/user.types';
-import { RegistrationUser } from '../../common/user';
+import { CreatedUser, User, RegistrationUser } from '../types/user.types';
 import { defaultKeyboardShortcuts } from '../data/keyboard-shortcut.data';
 import { usersCollectionDatabase } from '../database/users-collection.database';
 import { AuthUserModel } from './auth-user.model';
+import { ValidationError } from '../../common/validation';
+import { UserDataLabels } from '../constants';
+import { ErrorLabels } from '../../common/constants';
 
 export interface CreateUserDatabase {
   createUser(newUser: User): Promise<string>;
@@ -19,8 +21,18 @@ export class RegistrationModel {
     this.authUserModel = new AuthUserModel();
   }
 
-  async checkExitingUserWithCurrentEmail(email: string): Promise<boolean> {
-    return await this.database.isEmailUnique(email);
+  async checkExistingUserWithCurrentEmail(email: string): Promise<void> {
+    const isEmailUnique: boolean = await this.database.isEmailUnique(email);
+
+    if (!isEmailUnique) {
+      throw new ValidationError(
+        'User with current e-mail is alreayd exist',
+        {
+          dataLabel: UserDataLabels.EMAIL,
+          errorLabel: ErrorLabels.EMAIL_EXIST,
+        }
+      );
+    }
   }
 
   async createUser(registrationUser: RegistrationUser): Promise<CreatedUser> {

@@ -31,10 +31,9 @@ export class DatabaseCollectionService {
   async deleteDocument() {}
 
   async isUnique(query: any): Promise<boolean> {
-    return false;
-    // const foundDocumentsCount: number
-    //   = await this.collection.countDocuments(query, this.uniqueOptions);
+    const foundDocuments: any = await this.collection.find(query, this.uniqueOptions);
+    const documentsCount: number = await foundDocuments.count();
 
-    // return foundDocumentsCount === UNIQUE_COUNT
+    return documentsCount === UNIQUE_COUNT;
   }
 }

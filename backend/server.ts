@@ -23,28 +23,28 @@ declare global {
   }
 }
 
-const appOptions: AppOptions = {
-  port: serverConfig.app.port,
-  hostname: serverConfig.app.hostname,
-  routers: [
-    new AuthRouter(),
-  ],
-  middlewares: [
-    bodyParser.json(),
-  ],
-  appMiddlewares: [
-    new EntryMiddleware(),
-    new ControllerMiddleware(),
-    new AuthUserMiddleware(),
-    new LanguageMiddleware(),
-  ],
-};
-
 DatabaseConnectionService.init().connect()
   .then(() => {
     UsersCollectionDatabase.create();
   })
   .then(() => {
+    const appOptions: AppOptions = {
+      port: serverConfig.app.port,
+      hostname: serverConfig.app.hostname,
+      routers: [
+        new AuthRouter(),
+      ],
+      middlewares: [
+        bodyParser.json(),
+      ],
+      appMiddlewares: [
+        new EntryMiddleware(),
+        new ControllerMiddleware(),
+        new AuthUserMiddleware(),
+        new LanguageMiddleware(),
+      ],
+    };
+
     App.init(appOptions).listen();
   })
   .catch((error) => {
