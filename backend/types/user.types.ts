@@ -5,7 +5,7 @@ export type VerifyUser = {
   userID: string;
 };
 
-export type CreatedUser = {
+export type AccessUser = {
   username: string,
   token: string,
 };
@@ -29,6 +29,13 @@ export type User = {
 
 export type RegistrationUser = {
   fullname: string,
+  email: string,
+  password: string,
+  language: LanguageLabels,
+  theme: Themes
+};
+
+export type LoginUser = {
   email: string,
   password: string,
   language: LanguageLabels,

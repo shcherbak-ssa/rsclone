@@ -1,4 +1,4 @@
-import { CreatedUser, User, RegistrationUser } from '../types/user.types';
+import { AccessUser, User, RegistrationUser } from '../types/user.types';
 import { defaultKeyboardShortcuts } from '../data/keyboard-shortcut.data';
 import { usersCollectionDatabase } from '../database/users-collection.database';
 import { AuthUserModel } from './auth-user.model';
@@ -35,9 +35,9 @@ export class RegistrationModel {
     }
   }
 
-  async createUser(registrationUser: RegistrationUser): Promise<CreatedUser> {
+  async createUser(user: RegistrationUser): Promise<AccessUser> {
     try {
-      const newUser: User = await this.createNewUser(registrationUser);
+      const newUser: User = await this.createNewUser(user);
       const userID: string = await this.database.createUser(newUser);
       const token: string = await this.authUserModel.createAccessToken(userID);
       
@@ -51,11 +51,11 @@ export class RegistrationModel {
     }
   }
 
-  private async createNewUser(registrationUser: RegistrationUser): Promise<User> {
-    const username: string = await this.createUsername(registrationUser.email);
+  private async createNewUser(user: RegistrationUser): Promise<User> {
+    const username: string = await this.createUsername(user.email);
 
     return {
-      ...registrationUser,
+      ...user,
       username,
       avatar: false,
       shortcuts: defaultKeyboardShortcuts,

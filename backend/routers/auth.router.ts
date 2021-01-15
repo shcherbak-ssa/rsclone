@@ -25,11 +25,15 @@ export class AuthRouter implements BaseRouter {
       );
   }
 
-  private async loginHandler(request: Request) {}
+  private async loginHandler({controllerData}: Request) {
+    if (controllerData) {
+      await this.authController.loginUser(controllerData);
+    }
+  }
 
-  private async registrationHandler(request: Request) {
-    if (request.controllerData) {
-      await this.authController.createNewUser(request.controllerData);
+  private async registrationHandler({controllerData}: Request) {
+    if (controllerData) {
+      await this.authController.createNewUser(controllerData);
     }
   }
 }

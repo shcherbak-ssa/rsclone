@@ -5,10 +5,13 @@ import { DatabaseNames, UserDataLabels, UsersDatabaseCollectionNames } from '../
 import { DatabaseCollectionService } from '../services/database-collection.service';
 import { DatabaseDBService } from '../services/database-db.service';
 import { CreateUserDatabase } from '../models/registration.model';
+import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
-export class UsersCollectionDatabase implements GetUserDatabase, CreateUserDatabase {
+export class UsersCollectionDatabase
+  implements GetUserDatabase, CreateUserDatabase, LoginUserDatabase
+{
   private databaseCollection: DatabaseCollectionService;
   
   constructor(databaseCollection: DatabaseCollectionService) {
@@ -43,5 +46,18 @@ export class UsersCollectionDatabase implements GetUserDatabase, CreateUserDatab
 
   async isEmailUnique(email: string): Promise<boolean> {
     return await this.databaseCollection.isUnique({email});
+  }
+
+  async getUserForLogin(email: string): Promise<FoundLoginUser> {
+    const getUsernameQuery = { email };
+    const getUsernameOptions = {
+      projection: {
+        [UserDataLabels.FULLNAME]: 0,
+        [UserDataLabels.EMAIL]: 0,
+        [UserDataLabels.SHORTCUTS]: 0,
+      },
+    };
+
+    return await this.databaseCollection.getDocument(getUsernameQuery, getUsernameOptions);
   }
 }

@@ -38,7 +38,6 @@ export class Validation {
 
   password(): Joi.StringSchema {
     return Joi.string()
-      .trim()
       .min(MIN_PASSWORD_LENGTH)
       .max(MAX_FIELD_LENGTH)
   }

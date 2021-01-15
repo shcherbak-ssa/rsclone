@@ -1,11 +1,11 @@
 import Joi from 'joi';
 
-import { RegistrationUser } from '../types/user.types';
+import { LoginUser, RegistrationUser } from '../types/user.types';
 import { parseValidationError, Validation } from '../../common/validation';
 import { UserDataLabels } from '../constants';
-import { RegistrationValidation } from '../controllers/auth.controller';
+import { AuthValidation } from '../controllers/auth.controller';
 
-export class AuthValidation implements RegistrationValidation {
+export class AuthValidationImpl implements AuthValidation {
   validation: Validation;
 
   constructor() {
@@ -16,15 +16,33 @@ export class AuthValidation implements RegistrationValidation {
     try {
       const validationSchema: Joi.ObjectSchema = Joi.object({
         [UserDataLabels.FULLNAME]: this.validation.fullname().required().empty(),
-        [UserDataLabels.EMAIL]: this.validation.email().required().empty(),
-        [UserDataLabels.PASSWORD]: this.validation.password().required().empty(),
-        [UserDataLabels.LANGUAGE]: this.validation.language().required(),
-        [UserDataLabels.THEME]: this.validation.theme().required(),
+        ...this.getCommonValidationSchema(),
       });
   
       await validationSchema.validateAsync(user);
     } catch (error) {
       parseValidationError(error);
+    }
+  }
+
+  async validateLoginData(user: LoginUser): Promise<void> {
+    try {
+      const validationSchema: Joi.ObjectSchema = Joi.object({
+        ...this.getCommonValidationSchema(),
+      });
+  
+      await validationSchema.validateAsync(user);
+    } catch (error) {
+      parseValidationError(error);
+    }
+  }
+
+  private getCommonValidationSchema() {
+    return {
+      [UserDataLabels.EMAIL]: this.validation.email().required().empty(),
+      [UserDataLabels.PASSWORD]: this.validation.password().required().empty(),
+      [UserDataLabels.LANGUAGE]: this.validation.language().required(),
+      [UserDataLabels.THEME]: this.validation.theme().required(),
     }
   }
 }

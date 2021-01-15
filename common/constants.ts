@@ -76,4 +76,5 @@ export enum ErrorLabels {
   PASSWORD_MIN = 'password-length',
   ALPHANUM = 'alphanum',
   FIELD_MAX = 'field-max',
+  INVALID_USER = 'invalid-user',
 };
