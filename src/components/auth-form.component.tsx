@@ -6,12 +6,12 @@ import { Classnames } from '../constants/ui.constants';
 import { Base, BaseButtonProps, BaseInputProps } from './base';
 
 export type AuthFormComponentProps = {
-  title: string;
-  linkText: string;
-  authError: string;
+  title: string,
+  linkText: string,
+  authError: string,
   inputsProps: BaseInputProps[],
-  buttonProps: BaseButtonProps;
-  linkClickHanlder: (event: React.MouseEvent) => void;
+  buttonProps: BaseButtonProps,
+  linkClickHanlder: (event: React.MouseEvent) => void,
 };
 
 export function AuthFormComponent({

@@ -1,7 +1,8 @@
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { LanguageParts } from '../../common/constants';
-import { AuthModes, UserDataLabels, AppRoutePathnames } from '../constants';
+import { AuthModes, UserDataLabels, AppRoutePathnames, Stores } from '../constants';
 import { useLanguagePart } from './language-part.hook';
 import { useUserInputProps } from './user-input-props.hook';
 import { AuthFormComponentProps } from '../components/auth-form.component';
@@ -9,6 +10,7 @@ import { userInputsController } from '../controllers/user-inputs.controller';
 import { AuthEvents, UserInputsEvents } from '../constants/events.constants';
 import { BaseInputProps } from '../components/base';
 import { authController } from '../controllers/auth.controller';
+import { storeSelectorsService } from '../services/store-selectors.service';
 
 export type AuthFormPropsParameters = {
   mode: AuthModes;
@@ -20,6 +22,9 @@ export function useAuthFormProps({
 }: AuthFormPropsParameters): AuthFormComponentProps {
   const history = useHistory();
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
+  
+  const authStoreSelectors = storeSelectorsService.get(Stores.AUTH_STORE);
+  const authError = useSelector(authStoreSelectors.getAuthError());
 
   const emailInputProps: BaseInputProps = useUserInputProps(UserDataLabels.EMAIL);
   const passwordInputProps: BaseInputProps = useUserInputProps(UserDataLabels.PASSWORD);
@@ -27,7 +32,7 @@ export function useAuthFormProps({
   const authFormProps: AuthFormComponentProps = {
     title: authLanguage[mode].title,
     linkText: authLanguage[mode].linkText,
-    authError: '',
+    authError: authLanguage.errors[authError],
     inputsProps: [
       emailInputProps,
       passwordInputProps,

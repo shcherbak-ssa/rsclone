@@ -36,14 +36,19 @@ type AuthStoreAction = AnyAction | SetAuthErrorAction | UpdateThemeAction | Upda
 
 /** constants */
 const authStoreSelectors: StoreSelectors = {
+  getAuthError: () => {
+    return (state: AuthStoreSelectorState) => {
+      return state[Stores.AUTH_STORE].authError;
+    };
+  },
   getThemeState: () => {
     return (state: AuthStoreSelectorState) => {
-      return state[Stores.AUTH_STORE].theme as any;
+      return state[Stores.AUTH_STORE].theme;
     };
   },
   getLanguageState: () => {
     return (state: AuthStoreSelectorState) => {
-      return state[Stores.AUTH_STORE].language as any;
+      return state[Stores.AUTH_STORE].language;
     };
   },
 };

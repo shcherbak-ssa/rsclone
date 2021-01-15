@@ -4,7 +4,7 @@ $original-auth-background-color: #183055;
 $original-auth-form-container-background-color: #2F4566;
 $original-auth-form-link-color: #7badff;
 $original-auth-form-error-color: #FF4642;
-$original-auth-form-error-background-color: #596D8B;
+$original-auth-form-error-background-color: rgba(255, 255, 255, .1);
 
 $original-app-background-color: #183055;
 $original-sidebar-icon-color: #fff;
@@ -170,7 +170,7 @@ $dark-auth-background-color: #222;
 $dark-auth-form-container-background-color: #333;
 $dark-auth-form-link-color: #F1F1F1;
 $dark-auth-form-error-color: #DB524E;
-$dark-auth-form-error-background-color: rgba(#fff, .4);
+$dark-auth-form-error-background-color: rgba(#fff, .1);
 
 $dark-app-background-color: #222222;
 $dark-sidebar-icon-color: #fff;

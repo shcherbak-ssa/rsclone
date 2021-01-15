@@ -17,5 +17,8 @@
     "title": "Initial settings",
     "confirmButtonValue": "Save changes",
     "settingsGroupTitle": "Theme"
+  },
+  "errors": {
+    "invalid-user": "Invalid password or e-mail"
   }
 }

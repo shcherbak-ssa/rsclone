@@ -17,5 +17,8 @@
     "title": "Начальные настройки",
     "confirmButtonValue": "Сохранить",
     "settingsGroupTitle": "Тема"
+  },
+  "errors": {
+    "invalid-user": "Неверный пароль или адрес эл. почты"
   }
 }

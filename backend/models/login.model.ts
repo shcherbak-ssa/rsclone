@@ -34,6 +34,7 @@ export class LoginModel {
         'Invalid password or e-mail',
         StatusCodes.NOT_FOUND,
         {
+          isLoginError: true,
           error: ErrorLabels.INVALID_USER,
         },
       );

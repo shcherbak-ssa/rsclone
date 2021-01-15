@@ -14,15 +14,19 @@ import { ClientError } from '../../services/errors.service';
 
 export class AuthModel {
   private storeManager: StoreManager;
+  private authStore: AuthStore;
   private userInputsModel: UserInputsModel;
   private requestCreator: RequestCreator;
   private requestSender: RequestSender;
 
   constructor() {
     this.storeManager = new StoreManagerService();
+    this.authStore = this.storeManager.getStore(Stores.AUTH_STORE) as AuthStore;
     this.userInputsModel = new UserInputsModel();
     this.requestCreator = new RequestCreatorService();
     this.requestSender = new RequestSenderService();
+
+    this.authStore.setAuthError('');
   }
 
   protected getInputValues(dataLabels: UserDataLabels[]): UserInputsStoreState {
@@ -48,8 +52,7 @@ export class AuthModel {
   }
 
   private getAuthData(): AuthUserData {
-    const authStore = this.storeManager.getStore(Stores.AUTH_STORE) as AuthStore;
-    return authStore.getAuthUserData();
+    return this.authStore.getAuthUserData();
   }
 
   protected parseError(error: Error): void {
@@ -67,7 +70,11 @@ export class AuthModel {
         return;
     }
 
-    this.userInputsModel.setInputError(payload.errorLabel, payload.dataLabel);
+    if (payload.isLoginError) {
+      this.authStore.setAuthError(payload.error);
+    } else {
+      this.userInputsModel.setInputError(payload.errorLabel, payload.dataLabel);
+    }
   }
 
   private createRequest(urlPathname: RequestPathnames, body: any): Request {

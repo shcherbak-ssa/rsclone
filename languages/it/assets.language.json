@@ -6,7 +6,6 @@
     "email-exist": "Esiste già un utente con l'indirizzo email corrente",
     "password-length": "La password deve contenere più di 8 caratteri",
     "alphanum": "Il nome deve contenere solo caratteri alfanumerici",
-    "field-max": "Il valore non può contenere più di 256 caratteri",
-    "invalid-user": "Password o e-mail non valida"
+    "field-max": "Il valore non può contenere più di 256 caratteri"
   }
 }
