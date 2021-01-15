@@ -11,8 +11,6 @@ export class ControllerMiddleware implements BaseMiddleware {
   method: null = null;
 
   async handler(request: Request, response: Response, next: NextFunction): Promise<void> {
-    if (request.method === RequestMethods.GET) return next();
-
     const controllerData: ControllerData = this.createControllerData(request, response);
     request.controllerData = controllerData;
 
@@ -20,10 +18,15 @@ export class ControllerMiddleware implements BaseMiddleware {
   }
 
   createControllerData(request: Request, response: Response): ControllerData {
-    const body: any = this.getBody(request);
     const responseSender: ResponseSender = this.createResponseSender(response);
-    
-    return {body, responseSender};
+    const userID: string | undefined = request.userID;
+
+    if (request.method === RequestMethods.GET) {
+      return {userID, responseSender};
+    }
+
+    const body: any = this.getBody(request);
+    return {body, userID, responseSender};
   }
   
   createResponseSender(response: Response): ResponseSender {

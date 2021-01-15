@@ -1,16 +1,18 @@
 import { ObjectID } from 'mongodb';
 
-import { GetUserDatabase, User } from '../types/user.types';
+import { User } from '../types/user.types';
 import { DatabaseNames, UserDataLabels, UsersDatabaseCollectionNames } from '../constants';
 import { DatabaseCollectionService } from '../services/database-collection.service';
 import { DatabaseDBService } from '../services/database-db.service';
 import { CreateUserDatabase } from '../models/registration.model';
 import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
+import { GetUsernameDatabase } from '../models/auth-user.model';
+import { GetUserDatabase } from '../models/users/get-user.model';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
-export class UsersCollectionDatabase
-  implements GetUserDatabase, CreateUserDatabase, LoginUserDatabase
+export class UsersCollectionDatabase implements
+  GetUsernameDatabase, CreateUserDatabase, LoginUserDatabase, GetUserDatabase
 {
   private databaseCollection: DatabaseCollectionService;
   
@@ -25,7 +27,8 @@ export class UsersCollectionDatabase
     usersCollectionDatabase = new UsersCollectionDatabase(collectionDatabase);
   }
 
-  async getUsername(userID: string): Promise<string> {
+  // implements GetUsernameDatabase
+  async getUsername(userID: string): Promise<any> {
     const getUsernameQuery = {
       _id: new ObjectID(userID),
     };
@@ -36,6 +39,7 @@ export class UsersCollectionDatabase
     return await this.databaseCollection.getDocument(getUsernameQuery, getUsernameOptions);
   }
 
+  // implements CreateUserDatabase
   async createUser(newUser: User): Promise<string> {
     return await this.databaseCollection.createDocument(newUser);
   }
@@ -48,6 +52,7 @@ export class UsersCollectionDatabase
     return await this.databaseCollection.isUnique({email});
   }
 
+  // implements LoginUserDatabase
   async getUserForLogin(email: string): Promise<FoundLoginUser> {
     const getUsernameQuery = { email };
     const getUsernameOptions = {
@@ -62,8 +67,21 @@ export class UsersCollectionDatabase
   }
 
   async updateUser(username: string, updates: any): Promise<void> {
-    await this.databaseCollection.updateDocument({username}, {
+    const updateFilter = { username };
+    const updatesRules = {
       $set: {...updates},
-    });
+    };
+
+    await this.databaseCollection.updateDocument(updateFilter, updatesRules);
+  }
+
+  // implements GetUserDatabase
+  async getUser(userID: string): Promise<User> {
+    const getUserQuery = { _id: new ObjectID(userID) };
+    const getUserOptions = {
+      projection: { _id: 0 },
+    };
+
+    return await this.databaseCollection.getDocument(getUserQuery, getUserOptions);
   }
 }

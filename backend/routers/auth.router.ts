@@ -29,11 +29,15 @@ export class AuthRouter implements BaseRouter {
     if (controllerData) {
       await this.authController.loginUser(controllerData);
     }
+
+    // @TODO: add condition
   }
 
   private async registrationHandler({controllerData}: Request) {
     if (controllerData) {
       await this.authController.createNewUser(controllerData);
     }
+
+    // @TODO: add condition
   }
 }

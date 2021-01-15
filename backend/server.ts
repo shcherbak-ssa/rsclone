@@ -4,20 +4,18 @@ import serverConfig from '../config/server.config.json';
 import { DatabaseConnectionService } from './services/database-connection.service';
 import { UsersCollectionDatabase } from './database/users-collection.database';
 import { ControllerData } from './types/controller.types';
-import { App, AppOptions } from './app';
-import {
-  EntryMiddleware,
-  AuthUserMiddleware,
-  LanguageMiddleware,
-  ControllerMiddleware,
-} from './middlewares';
+import { EntryMiddleware } from './middlewares/entry.middleware';
+import { AuthUserMiddleware } from './middlewares/auth-user.middleware';
+import { LanguageMiddleware } from './middlewares/language.middleware';
+import { ControllerMiddleware } from './middlewares/controller.middleware';
 import { AuthRouter } from './routers/auth.router';
+import { App, AppOptions } from './app';
 
 
 declare global {
   namespace Express {
     interface Request {
-      username?: string;
+      userID?: string;
       controllerData?: ControllerData;
     }
   }

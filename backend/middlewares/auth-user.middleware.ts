@@ -27,7 +27,7 @@ export class AuthUserMiddleware implements BaseMiddleware {
       const isValidUser: boolean = await this.verifyUser(verifyUser);
 
       if (isValidUser) {
-        request.username = verifyUser.username;
+        request.userID = verifyUser.userID;
         return this.responseSender.sendSuccessJsonResponse({test: 'success'});
         // return next();
       }

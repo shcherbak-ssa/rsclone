@@ -36,19 +36,14 @@ export class RegistrationModel {
   }
 
   async createUser(user: RegistrationUser): Promise<AccessUser> {
-    try {
-      const newUser: User = await this.createNewUser(user);
-      const userID: string = await this.database.createUser(newUser);
-      const token: string = await this.authUserModel.createAccessToken(userID);
-      
-      return {
-        username: newUser.username,
-        token,
-      }
-    } catch (error) {
-      console.log(error);
-      throw new Error();
-    }
+    const newUser: User = await this.createNewUser(user);
+    const userID: string = await this.database.createUser(newUser);
+    const token: string = await this.authUserModel.createAccessToken(userID);
+    
+    return {
+      username: newUser.username,
+      token,
+    };
   }
 
   private async createNewUser(user: RegistrationUser): Promise<User> {

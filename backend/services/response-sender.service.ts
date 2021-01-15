@@ -22,7 +22,7 @@ export class ResponseSenderService implements ResponseSender {
   async sendErrorResponse(error: Error): Promise<void> {
     console.log(`${error.name}: ${error.message}`);
 
-    if (error instanceof ClientError) {
+    if (error instanceof ClientError || error instanceof ServerError) {
       const responseService: ResponseService = error.getResponse();
 
       return this.sendJsonResponse(

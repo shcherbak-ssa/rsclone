@@ -1,4 +1,5 @@
 import { LanguageLabels, Themes } from '../../common/constants';
+import { Space } from './spaces.types';
 
 export type VerifyUser = {
   username: string;
@@ -42,6 +43,8 @@ export type LoginUser = {
   theme: Themes
 };
 
-export interface GetUserDatabase {
-  getUsername(userID: string): Promise<string>;
-}
+
+export type GetUser = {
+  user: User,
+  spaces: Space[],
+};
