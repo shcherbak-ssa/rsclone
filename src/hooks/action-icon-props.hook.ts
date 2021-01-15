@@ -26,9 +26,7 @@ export function useActionIconProps(
 ): ActionIconComponentProps[] {
   const actionIconComponentsProps: ActionIconComponentProps[] = icons.map((iconLabel) => {
     const isIconInIconPayloads = iconLabel in iconPayloads;
-
     const description = isIconInIconPayloads ? iconPayloads[iconLabel].description : '';
-
     const clickHandler = isIconInIconPayloads && iconPayloads[iconLabel].clickHandler
       ? iconPayloads[iconLabel].clickHandler : actionIconClickHandlers[iconLabel];
     

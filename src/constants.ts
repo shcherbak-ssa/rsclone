@@ -33,3 +33,8 @@ export enum AuthModes {
   REGISTRATION = 'registration',
   LOGIN = 'login',
 };
+
+export enum HomepageSectionLabels {
+  SPACES = 'spaces',
+  SETTINGS = 'settings',
+};

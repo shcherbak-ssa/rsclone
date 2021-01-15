@@ -1,0 +1,61 @@
+@import '../../assets/styles/assets.scss';
+
+.homepage-section {
+  padding-top: 80px;
+  width: 100%;
+
+  @media screen and (max-width: 767px) {
+    padding-top: 16px;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 42px;
+
+    @media screen and (max-width: 767px) {
+      margin-bottom: 0;
+      width: calc(100% - 96px);
+      z-index: 5;
+      -x-position: fixed 14px x x 72px;
+    }
+
+    @media screen and (max-width: 489px) {
+      .button {
+        padding: 0 8px;
+      }
+      
+      .button-icon {
+        margin-right: 0;
+      }
+
+      .button-value {
+        display: none;
+      }
+    }
+    
+  }
+
+  &-title {
+    font-weight: 500;
+    -x-font-size: 36px/32px;
+
+    @media screen and (max-width: 767px) {
+      font-size: 28px;
+      line-height: normal;
+    }
+
+    .original-theme & {
+      color: $original-homepage-section-title-color;
+    }
+
+    .light-theme & {
+      color: $light-homepage-section-title-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-homepage-section-title-color;
+    }
+  }
+}

@@ -13,7 +13,7 @@ export type BaseButtonProps = {
   type?: ButtonTypes,
   icon?: object,
   value: string,
-  clickHandler: (e: React.MouseEvent) => void,
+  clickHandler: Function,
 };
 
 export function ButtonComponent({
@@ -24,8 +24,10 @@ export function ButtonComponent({
   });
 
   function handleClick(e: React.MouseEvent) {
+    e.stopPropagation();
+
     if (!isDisable || !isLoading) {
-      clickHandler(e);
+      clickHandler();
     }
   }
 

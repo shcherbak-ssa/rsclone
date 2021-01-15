@@ -24,10 +24,7 @@ export function PopupComponent({
   const cancelButtonProps: BaseButtonProps = {
     type: ButtonTypes.SECONDARY,
     value: assetsLanguage.popupCloseButtonValue,
-    clickHandler: (e: React.MouseEvent) => {
-      e.stopPropagation();
-      closePopup();
-    },
+    clickHandler: closePopup,
   };
 
   const popup = (

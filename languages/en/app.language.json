@@ -6,6 +6,15 @@
       "logout": "Log out"
     }
   },
+  "homepage": {
+    "spaces": {
+      "title": "Spaces",
+      "buttonValue": "Add space"
+    },
+    "settings": {
+      "title": "Settings"
+    }
+  },
   "settings": {
     "shortcuts": {
       "add-space": {
