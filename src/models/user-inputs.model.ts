@@ -19,8 +19,8 @@ export class UserInputsModel {
     this.userInputsStore = storeManager.getStore(Stores.USER_INPUTS_STORE) as UserInputsStore;
   }
 
-  getInputStates(dataLabel: UserDataLabels): UserInputState {
-    return this.userInputsStore.getInputStates(dataLabel);
+  getInputState(dataLabel: UserDataLabels): UserInputState {
+    return this.userInputsStore.getInputState(dataLabel);
   }
   
   updateInputValue(value: string, dataLabel: UserDataLabels): void {
@@ -32,7 +32,7 @@ export class UserInputsModel {
   }
 
   setInputError(error: string, dataLabel: UserDataLabels): void {
-    const currentInput: UserInputState = this.userInputsStore.getInputStates(dataLabel) as InputState;
+    const currentInput: UserInputState = this.userInputsStore.getInputState(dataLabel) as InputState;
     const updatedInput: UpdatedInput = {
       [dataLabel]: { value: currentInput.value, error },
     };

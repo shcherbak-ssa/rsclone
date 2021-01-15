@@ -57,7 +57,7 @@ export class AuthModel {
     const inputValues = {};
 
     dataLabels.forEach((dataLabel) => {
-      const input = this.userInputsModel.getInputStates(dataLabel) as InputState;
+      const input = this.userInputsModel.getInputState(dataLabel) as InputState;
       inputValues[dataLabel] = input.value;
     });
 
