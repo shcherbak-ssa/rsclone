@@ -1,21 +1,17 @@
 import { ClientError } from '../services/errors.service';
-import { ErrorLabels, StatusCodes, LanguageLabels, Themes } from '../../common/constants';
+import { ErrorLabels, StatusCodes } from '../../common/constants';
 import { LoginUser, AccessUser } from '../types/user.types';
 import { AuthUserModel } from './auth-user.model';
 import { usersCollectionDatabase } from '../database/users-collection.database';
-import { UserDataLabels } from '../constants';
 
 export type FoundLoginUser = {
   _id: string,
   username: string,
   password: string,
-  language: LanguageLabels,
-  theme: Themes,
 };
 
 export interface LoginUserDatabase {
   getUserForLogin(email: string): Promise<FoundLoginUser>;
-  updateUser(username: string, updates: any): Promise<void>;
 }
 
 export class LoginModel {
@@ -42,15 +38,6 @@ export class LoginModel {
       );
     }
 
-    const isNeedToUpdate: boolean = this.isNeedToUpdate(user, foundUser);
-
-    if (isNeedToUpdate) {
-      await this.database.updateUser(foundUser.username, {
-        [UserDataLabels.LANGUAGE]: user.language,
-        [UserDataLabels.THEME]: user.theme,
-      });
-    }
-
     const token: string = await this.authUserModel.createAccessToken(foundUser._id);
 
     return {
@@ -61,9 +48,5 @@ export class LoginModel {
 
   private isCorrectUser(currentUserPassword: string, foundUserPassword: string): boolean {
     return currentUserPassword === foundUserPassword;
-  }
-
-  private isNeedToUpdate(currentUser: LoginUser, foundUser: FoundLoginUser): boolean {
-    return currentUser.language !== foundUser.language || currentUser.theme !== foundUser.theme;
   }
 }

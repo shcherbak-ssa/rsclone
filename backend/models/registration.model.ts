@@ -1,10 +1,10 @@
 import { AccessUser, User, RegistrationUser } from '../types/user.types';
-import { defaultKeyboardShortcuts } from '../data/keyboard-shortcut.data';
 import { usersCollectionDatabase } from '../database/users-collection.database';
 import { AuthUserModel } from './auth-user.model';
 import { ValidationError } from '../../common/validation';
 import { UserDataLabels } from '../constants';
 import { ErrorLabels } from '../../common/constants';
+import { defaultUserData } from '../data/default.data';
 
 export interface CreateUserDatabase {
   createUser(newUser: User): Promise<string>;
@@ -50,10 +50,9 @@ export class RegistrationModel {
     const username: string = await this.createUsername(user.email);
 
     return {
-      ...user,
       username,
-      avatar: false,
-      shortcuts: defaultKeyboardShortcuts,
+      ...user,
+      ...defaultUserData
     };
   }
 

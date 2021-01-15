@@ -26,15 +26,11 @@ export type RegistrationUser = {
   fullname: string,
   email: string,
   password: string,
-  language: LanguageLabels,
-  theme: Themes
 };
 
 export type LoginUser = {
   email: string,
   password: string,
-  language: LanguageLabels,
-  theme: Themes
 };
 
 export type GetUser = {

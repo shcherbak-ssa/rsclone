@@ -11,6 +11,7 @@ type EntryContainerProps = {
 
 export function EntryContainer({initialRoutePathname}: EntryContainerProps) {
   const history = useHistory();
+
   const LoginContainer = lazy(() => import('./auth/login.container'));
   const RegistrationContainer = lazy(() => import('./auth/registration.container'));
   const AppContainer = lazy(() => import('./app.container'));

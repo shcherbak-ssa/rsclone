@@ -41,8 +41,6 @@ export class AuthValidationImpl implements AuthValidation {
     return {
       [UserDataLabels.EMAIL]: this.validation.email().required().empty(),
       [UserDataLabels.PASSWORD]: this.validation.password().required().empty(),
-      [UserDataLabels.LANGUAGE]: this.validation.language().required(),
-      [UserDataLabels.THEME]: this.validation.theme().required(),
     }
   }
 }

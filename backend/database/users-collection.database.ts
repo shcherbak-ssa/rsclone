@@ -57,22 +57,13 @@ export class UsersCollectionDatabase implements
     const getUsernameQuery = { email };
     const getUsernameOptions = {
       projection: {
-        [UserDataLabels.FULLNAME]: 0,
-        [UserDataLabels.EMAIL]: 0,
-        [UserDataLabels.SHORTCUTS]: 0,
+        _id: 1,
+        [UserDataLabels.USERNAME]: 1,
+        [UserDataLabels.PASSWORD]: 1,
       },
     };
 
     return await this.databaseCollection.getDocument(getUsernameQuery, getUsernameOptions);
-  }
-
-  async updateUser(username: string, updates: any): Promise<void> {
-    const updateFilter = { username };
-    const updatesRules = {
-      $set: {...updates},
-    };
-
-    await this.databaseCollection.updateDocument(updateFilter, updatesRules);
   }
 
   // implements GetUserDatabase

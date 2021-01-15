@@ -10,26 +10,19 @@ import { LanguageParts } from '../../common/constants';
 
 const LOGO_LOGIN_ICON: string = 'logo-login';
 
-export type AuthComponentProps = {
-  settingsActionIconClickHandler: () => void;
+type AuthComponentProps = {
   children?: React.ReactNode;
 };
 
-export function AuthComponent({
-  settingsActionIconClickHandler, children
-}: AuthComponentProps) {
+export function AuthComponent({children}: AuthComponentProps) {
   const assetsService: AssetsService = new AssetsService();
   const logoIcon: string = assetsService.getIconUrl(LOGO_LOGIN_ICON);
 
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
 
   const actionIconPropsParameters: ActionIconPropsParameters = {
-    icons: [ActionIconLabels.INFO, ActionIconLabels.SETTINGS],
+    icons: [ActionIconLabels.INFO],
     iconPayloads: {
-      [ActionIconLabels.SETTINGS]: {
-        description: authLanguage.actionIconDescription[ActionIconLabels.SETTINGS],
-        clickHandler: settingsActionIconClickHandler,
-      },
       [ActionIconLabels.INFO]: {
         description: authLanguage.actionIconDescription[ActionIconLabels.INFO],
       },

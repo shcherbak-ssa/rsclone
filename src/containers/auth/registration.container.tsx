@@ -14,8 +14,8 @@ export default function RegistrationContainer() {
   };
 
   const authFormComponentProps: AuthFormComponentProps = useAuthFormProps(authFormPropsParameters);
-  const fullnameInputProps: BaseInputProps = useUserInputProps(UserDataLabels.FULLNAME);
 
+  const fullnameInputProps: BaseInputProps = useUserInputProps(UserDataLabels.FULLNAME);
   authFormComponentProps.inputsProps.unshift(fullnameInputProps);
 
   return (

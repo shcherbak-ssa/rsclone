@@ -63,6 +63,7 @@ export function useAuthFormProps({
       }
 
       userInputsController.emit(UserInputsEvents.RESET_STATES, resetDataLabels);
+      authController.emit(AuthEvents.REMOVE_ERROR);
       history.push(nextRoutePathname);
     },
   };

@@ -3,7 +3,7 @@ import { StoreManager } from '../../types/store.types';
 import { UserLocalStorageType } from '../../types/user.types';
 import { StoreManagerService } from '../../services/store-manager.service';
 import { InputState, UserInputsStoreState } from '../../types/user-inputs.types';
-import { AuthStore, AuthUserData } from '../../types/auth.types';
+import { AuthStore } from '../../types/auth.types';
 import { UserInputsModel } from '../user-inputs.model';
 import { ErrorNames, RequestPathnames } from '../../../common/constants';
 import { ValidationError } from '../../../common/validation';
@@ -33,17 +33,15 @@ export class AuthModel {
     this.requestCreator = new RequestCreatorService();
     this.requestSender = new RequestSenderService();
 
-    this.authStore.setAuthError('');
+    this.removeError();
   }
 
   async runAuthMode({
     inputDataLabels, urlPathname, validateFunction
   }: AuthModeParameters) {
     try {
-      let inputValues: UserInputsStoreState = this.getInputValues(inputDataLabels);
-      inputValues = await validateFunction(inputValues);
-
-      const user: any = this.preparingUserData(inputValues);
+      const inputValues: UserInputsStoreState = this.getInputValues(inputDataLabels);
+      const user = await validateFunction(inputValues);
       const userStorage: UserLocalStorageType = await this.sendRequest(urlPathname, user);
 
       this.saveUserToLocalStorage(userStorage);
@@ -51,6 +49,10 @@ export class AuthModel {
     } catch (error) {
       this.parseError(error);
     }
+  }
+
+  removeError() {
+    this.authStore.setAuthError('');
   }
 
   private getInputValues(dataLabels: UserDataLabels[]): UserInputsStoreState {
@@ -62,11 +64,6 @@ export class AuthModel {
     });
 
     return inputValues;
-  }
-
-  private preparingUserData(inputValues: UserInputsStoreState): any {
-    const authUserData: AuthUserData = this.getAuthData();
-    return {...inputValues, ...authUserData};
   }
 
   private async sendRequest(urlPathname: RequestPathnames, user: any): Promise<UserLocalStorageType> {
@@ -82,10 +79,6 @@ export class AuthModel {
 
   private reloadApp() {
     location.replace(location.origin);
-  }
-
-  private getAuthData(): AuthUserData {
-    return this.authStore.getAuthUserData();
   }
 
   private parseError(error: Error): void {
