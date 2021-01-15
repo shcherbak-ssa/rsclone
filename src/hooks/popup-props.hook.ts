@@ -25,7 +25,7 @@ export function usePopupProps({
 
   useEffect(() => {
     const popupService: PopupService = new PopupService();
-    popupService.subscribePopup(popupName, openPopup, closePopup);
+    popupService.subscribePopup(popupName, openPopup, () => setIsPopupOpen(false));
 
     return () => {
       popupService.unsubscribePopup(popupName);

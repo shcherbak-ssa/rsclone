@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import saveIcon from '@iconify/icons-ic/baseline-save';
 
@@ -23,11 +23,6 @@ export function InitialSettingsPopupContainer() {
   const currentLanguageState = useSelector(authStoreSelectors.getLanguageState());
   const currentThemeState = useSelector(authStoreSelectors.getThemeState());
 
-  useEffect(() => {
-    userInputsController.emit(UserInputsEvents.CHANGE_LANGUAGE, currentLanguageState);
-    userInputsController.emit(UserInputsEvents.CHANGE_THEME, currentThemeState);
-  }, [currentLanguageState, currentThemeState]);
-
   const updatesControllerHookParameters: UpdatesControllerHookParameters = {
     initialStates: {
       [UserDataLabels.LANGUAGE]: currentLanguageState,
@@ -51,7 +46,10 @@ export function InitialSettingsPopupContainer() {
         });
       },
     },
-    popupCloseHanlder: () => {},
+    popupCloseHanlder: () => {
+      userInputsController.emit(UserInputsEvents.CHANGE_LANGUAGE, currentLanguageState);
+      userInputsController.emit(UserInputsEvents.CHANGE_THEME, currentThemeState);
+    },
   };
 
   const popupProps: PopupComponentProps | null = usePopupProps(popupPropsHookParameters);
