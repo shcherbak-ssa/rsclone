@@ -10,6 +10,7 @@ export enum Classnames {
   IS_OPEN = 'is-open',
   IS_DISABLE = 'is-disable',
   HAS_DESCRIPTION = 'has-description',
+  SHOW_SIDEBAR = 'show-sidebar',
 };
 
 export enum ButtonTypes {
@@ -24,4 +25,12 @@ export enum ActionIconLabels {
   SETTINGS = 'settings',
 };
 
-export enum PopupNames {};
+export enum PopupNames {
+  LOGOUT = 'logout-popup',
+};
+
+export enum MenuItemLabels {
+  SPACES = 'spaces',
+  SETTINGS = 'settings',
+  LOGOUT = 'logout',
+};

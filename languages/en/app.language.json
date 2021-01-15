@@ -1,4 +1,11 @@
 {
+  "menu": {
+    "items": {
+      "spaces": "Spaces",
+      "settings": "Settings",
+      "logout": "Log out"
+    }
+  },
   "settings": {
     "shortcuts": {
       "add-space": {
@@ -13,6 +20,13 @@
         "title": "Add section",
         "description": "Create a new section in open space"
       }
+    }
+  },
+  "popups": {
+    "logout-popup": {
+      "title": "Log out",
+      "confirmButtonValue": "Log out",
+      "content": "Are you sure you want to log out?"
     }
   }
 }

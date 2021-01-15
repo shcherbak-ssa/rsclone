@@ -8,19 +8,23 @@ export class DocumentBodyService {
     this.body = document.body;
   }
 
-  setOveflowHidden() {
+  setOveflowHidden(): DocumentBodyService {
     this.body.style.overflow = HIDDEN_OVERFLOW_STRING;
+    return this;
   }
 
-  removeOverflowHidden() {
+  removeOverflowHidden(): DocumentBodyService {
     this.body.style.overflow = EMPTY_OVERFLOW_STRING;
+    return this;
   }
 
-  addClass(classname: string) {
+  addClass(classname: string): DocumentBodyService {
     this.body.classList.add(classname);
+    return this;
   }
 
-  removeClass(classname: string) {
+  removeClass(classname: string): DocumentBodyService {
     this.body.classList.remove(classname);
+    return this;
   }
 };

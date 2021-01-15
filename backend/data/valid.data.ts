@@ -7,6 +7,7 @@ export const validLanguages: string[] = [
 ];
 
 export const validLanguageParts: string[] = [
+  LanguageParts.APP as string,
   LanguageParts.AUTH as string,
   LanguageParts.USER_INPUTS as string,
   LanguageParts.ASSETS as string,

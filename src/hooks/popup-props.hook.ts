@@ -1,25 +1,28 @@
 import { useEffect, useState } from 'react';
 
-import { BaseButtonProps } from '../components/base';
 import { PopupComponentProps } from '../components/popup.component';
 import { PopupNames } from '../constants/ui.constants';
 import { PopupService } from '../services/popup.service';
+import { usePopupLanguage } from './popup-language.hook';
 
 export type PopupPropsHookParameters = {
   popupName: PopupNames,
-  popupTitle: string,
-  popupConfirmButtonProps: BaseButtonProps,
-  popupCloseHanlder?: Function,
+  confirmButtonProps: any,
+  closeHanlder?: Function,
 };
 
 export function usePopupProps({
-  popupName, popupTitle, popupConfirmButtonProps, popupCloseHanlder
+  popupName, confirmButtonProps, closeHanlder
 }: PopupPropsHookParameters): PopupComponentProps | null {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const popupLanguage = usePopupLanguage(popupName);
 
   const popupProps: PopupComponentProps = {
-    title: popupTitle,
-    confirmButtonProps: popupConfirmButtonProps,
+    title: popupLanguage.title,
+    confirmButtonProps: {
+      value: popupLanguage.confirmButtonValue,
+      ...confirmButtonProps,
+    },
     closePopup,
   };
 
@@ -39,8 +42,8 @@ export function usePopupProps({
   function closePopup() {
     setIsPopupOpen(false);
 
-    if (popupCloseHanlder) {
-      popupCloseHanlder();
+    if (closeHanlder) {
+      closeHanlder();
     }
   }
 

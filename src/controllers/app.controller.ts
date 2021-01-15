@@ -23,7 +23,7 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
   } else {
     const requestedLanguage: RequestedLanguage = {
       language: LanguageLabels.ENGLISH,
-      languageParts: [...defaultLanguageParts],
+      languageParts: [LanguageParts.APP, ...defaultLanguageParts],
     };
 
     languageController.emit(

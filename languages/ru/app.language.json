@@ -1,4 +1,11 @@
 {
+  "menu": {
+    "items": {
+      "spaces": "Пространства",
+      "settings": "Настройки",
+      "logout": "Выйти"
+    }
+  },
   "settings": {
     "shortcuts": {
       "add-space": {
@@ -13,6 +20,13 @@
         "title": "Добавить раздел",
         "description": "Создать новый раздел в открытом пространстве"
       }
+    }
+  },
+  "popups": {
+    "logout-popup": {
+      "title": "Выйти",
+      "confirmButtonValue": "Выйти",
+      "content": "Вы уверены, что хотите выйти?"
     }
   }
 }

@@ -1,0 +1,63 @@
+@import '../../assets/styles/assets.scss';
+
+.menu-item {
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  transition: .2s;
+  padding: 0 8px;
+  -x-size: 100% 30px;
+
+  @media screen and (max-width: 1024px) {
+    height: 42px;
+  }
+
+  &-icon {
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  &-text {
+    font-weight: 500;
+    -x-font-size: 14px/32px;
+  }
+
+  .original-theme & {
+    color: $original-menu-item-color;
+
+    &:hover {
+      background: $original-menu-item-background-color-hover;
+      color: $original-menu-item-color-hover;
+    }
+
+    &.is-active {
+      color: $original-menu-item-color-active;
+    }
+  }
+
+  .light-theme & {
+    color: $light-menu-item-color;
+
+    &:hover {
+      background: $light-menu-item-background-color-hover;
+      color: $light-menu-item-color-hover;
+    }
+
+    &.is-active {
+      color: $light-menu-item-color-active;
+    }
+  }
+  
+  .dark-theme & {
+    color: $dark-menu-item-color;
+
+    &:hover {
+      background: $dark-menu-item-background-color-hover;
+      color: $dark-menu-item-color-hover;
+    }
+
+    &.is-active {
+      color: $dark-menu-item-color-active;
+    }
+  }
+}

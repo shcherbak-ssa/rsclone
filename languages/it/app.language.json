@@ -1,4 +1,11 @@
 {
+  "menu": {
+    "items": {
+      "spaces": "Spazi",
+      "settings": "Impostazioni",
+      "logout": "Disconnettersi"
+    }
+  },
   "settings": {
     "shortcuts": {
       "add-space": {
@@ -13,6 +20,13 @@
         "title": "Aggiungi sezione",
         "description": "Crea una nuova sezione nello spazio aperto"
       }
+    }
+  },
+  "popups": {
+    "logout-popup": {
+      "title": "Disconnettersi",
+      "confirmButtonValue": "Disconnettersi",
+      "content": "Sei sicuro di voler uscire?"
     }
   }
 }
