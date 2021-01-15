@@ -14,6 +14,7 @@ export function useUpdatesController({initialStates}: UpdatesControllerHookParam
   const userInpustStoreSelectors = storeSelectorsService.get(Stores.USER_INPUTS_STORE);
   const checkStatesLabels = Object.keys(initialStates) as UserDataLabels[];
   const checkStates = useSelector(userInpustStoreSelectors.getStoreStates(checkStatesLabels));
+  console.log('checkStates', checkStates);
 
   useEffect(() => {
     let updatesFound = false;
@@ -25,7 +26,7 @@ export function useUpdatesController({initialStates}: UpdatesControllerHookParam
     }
 
     setIsUpdatesExist(updatesFound);
-  }, [checkStates])
+  }, [checkStates]);
 
   return isUpdatesExist;
 }

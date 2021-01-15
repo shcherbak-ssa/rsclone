@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import saveIcon from '@iconify/icons-ic/baseline-save';
 
 import { PopupComponent, PopupComponentProps } from '../../components/popup.component';
@@ -13,17 +14,19 @@ import { authController } from '../../controllers/auth.controller';
 import { AuthEvents, UserInputsEvents } from '../../constants/events.constants';
 import { PopupService } from '../../services/popup.service';
 import { userInputsController } from '../../controllers/user-inputs.controller';
-import { StoreManager } from '../../types/store.types';
-import { AuthStore } from '../../types/auth.types';
-import { StoreManagerService } from '../../services/store-manager.service';
+import { storeSelectorsService } from '../../services/store-selectors.service';
 
 export function InitialSettingsPopupContainer() {
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
-  
-  const storeManager: StoreManager = new StoreManagerService();
-  const authStore: AuthStore = storeManager.getStore(Stores.AUTH_STORE) as AuthStore;
 
-  const {language: currentLanguageState, theme: currentThemeState} = authStore.getAuthUserData();
+  const authStoreSelectors = storeSelectorsService.get(Stores.AUTH_STORE);
+  const currentLanguageState = useSelector(authStoreSelectors.getLanguageState());
+  const currentThemeState = useSelector(authStoreSelectors.getThemeState());
+
+  useEffect(() => {
+    userInputsController.emit(UserInputsEvents.CHANGE_LANGUAGE, currentLanguageState);
+    userInputsController.emit(UserInputsEvents.CHANGE_THEME, currentThemeState);
+  }, [currentLanguageState, currentThemeState]);
 
   const updatesControllerHookParameters: UpdatesControllerHookParameters = {
     initialStates: {
@@ -48,14 +51,7 @@ export function InitialSettingsPopupContainer() {
         });
       },
     },
-    popupCloseHanlder: () => {
-      const resetDataLabels: UserDataLabels[] = [
-        UserDataLabels.LANGUAGE,
-        UserDataLabels.THEME,
-      ];
-  
-      userInputsController.emit(UserInputsEvents.RESET_STATES, resetDataLabels);
-    },
+    popupCloseHanlder: () => {},
   };
 
   const popupProps: PopupComponentProps | null = usePopupProps(popupPropsHookParameters);
