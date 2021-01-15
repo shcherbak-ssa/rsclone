@@ -10,13 +10,7 @@
     "linkText": "Already have an account?"
   },
   "actionIconDescription": {
-    "info": "Information",
-    "settings": "Settings"
-  },
-  "initialSettingsPopup": {
-    "title": "Initial settings",
-    "confirmButtonValue": "Save changes",
-    "settingsGroupTitle": "Theme"
+    "info": "Information"
   },
   "errors": {
     "invalid-user": "Invalid password or e-mail"

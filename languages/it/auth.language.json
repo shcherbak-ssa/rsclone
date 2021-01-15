@@ -10,13 +10,7 @@
     "linkText": "Hai già un account?"
   },
   "actionIconDescription": {
-    "info": "Informazione",
-    "settings": "Impostazioni"
-  },
-  "initialSettingsPopup": {
-    "title": "Impostazioni iniziali",
-    "confirmButtonValue": "Salvare le modifiche",
-    "settingsGroupTitle": "Тема"
+    "info": "Informazione"
   },
   "errors": {
     "invalid-user": "Password o e-mail non valida"

@@ -1,0 +1,18 @@
+{
+  "settings": {
+    "shortcuts": {
+      "add-space": {
+        "title": "Aggiungi spazio",
+        "description": "Crea il tuo spazio personale"
+      },
+      "add-page": {
+        "title": "Aggiungi pagina",
+        "description": "Crea una nuova pagina nello spazio aperto"
+      },
+      "add-section": {
+        "title": "Aggiungi sezione",
+        "description": "Crea una nuova sezione nello spazio aperto"
+      }
+    }
+  }
+}

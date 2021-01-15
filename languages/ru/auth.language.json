@@ -10,13 +10,7 @@
     "linkText": "Уже есть аккаунт?"
   },
   "actionIconDescription": {
-    "info": "Информация",
-    "settings": "Настройки"
-  },
-  "initialSettingsPopup": {
-    "title": "Начальные настройки",
-    "confirmButtonValue": "Сохранить",
-    "settingsGroupTitle": "Тема"
+    "info": "Информация"
   },
   "errors": {
     "invalid-user": "Неверный пароль или адрес эл. почты"
