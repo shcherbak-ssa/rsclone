@@ -24,7 +24,7 @@ export function ButtonComponent({
   });
 
   function handleClick(e: React.MouseEvent) {
-    if (!isDisable) {
+    if (!isDisable || !isLoading) {
       clickHandler(e);
     }
   }

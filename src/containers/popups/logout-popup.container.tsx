@@ -5,6 +5,7 @@ import { PopupPropsHookParameters, usePopupProps } from '../../hooks/popup-props
 import { PopupComponent, PopupComponentProps } from '../../components/popup.component';
 import { usePopupLanguage } from '../../hooks/popup-language.hook';
 import { PopupTextComponent } from '../../components/popup-text.component';
+import { LogoutService } from '../../services/logout.service';
 
 export function LogoutPopupContainer() {
   const popupLanguage = usePopupLanguage(PopupNames.LOGOUT);
@@ -13,7 +14,7 @@ export function LogoutPopupContainer() {
     popupName: PopupNames.LOGOUT,
     confirmButtonProps: {
       clickHandler: () => {
-        console.log('log out');
+        new LogoutService().logoutUser();
       },
     },
   };

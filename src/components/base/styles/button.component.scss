@@ -118,12 +118,11 @@
 }
 
 .lds-ellipsis div {
-  position: absolute;
-  top: 9px;
-  width: 12px;
-  height: 12px;
   border-radius: 50%;
+  position: absolute;
+  top: 10px;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  -x-size: 10px;
 
   .original-theme & {
     background: $original-button-primary-color;

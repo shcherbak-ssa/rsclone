@@ -25,18 +25,10 @@ export class LoginModel {
 
   async loginUser(user: LoginUser): Promise<AccessUser> {
     const foundUser: FoundLoginUser = await this.database.getUserForLogin(user.email);
-    const isCorrectUser: boolean = this.isCorrectUser(user.password, foundUser.password);
+    if (foundUser === null) this.throwInvalidUserError();
 
-    if (!isCorrectUser) {
-      throw new ClientError(
-        'Invalid password or e-mail',
-        StatusCodes.NOT_FOUND,
-        {
-          isLoginError: true,
-          error: ErrorLabels.INVALID_USER,
-        },
-      );
-    }
+    const isCorrectUser: boolean = this.isCorrectUser(user.password, foundUser.password);
+    if (!isCorrectUser) this.throwInvalidUserError();
 
     const token: string = await this.authUserModel.createAccessToken(foundUser._id);
 
@@ -44,6 +36,17 @@ export class LoginModel {
       username: foundUser.username,
       token,
     };
+  }
+
+  private throwInvalidUserError() {
+    throw new ClientError(
+      'Invalid password or e-mail',
+      StatusCodes.NOT_FOUND,
+      {
+        isLoginError: true,
+        error: ErrorLabels.INVALID_USER,
+      },
+    );
   }
 
   private isCorrectUser(currentUserPassword: string, foundUserPassword: string): boolean {
