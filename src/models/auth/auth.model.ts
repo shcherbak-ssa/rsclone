@@ -13,6 +13,12 @@ import { RequestSenderService } from '../../services/request-sender.service';
 import { ClientError } from '../../services/errors.service';
 import { UserLocalStorageService } from '../../services/user-local-storage.service';
 
+export type AuthModeParameters = {
+  inputDataLabels: UserDataLabels[],
+  urlPathname: RequestPathnames,
+  validateFunction: (inputValues: UserInputsStoreState) => Promise<UserInputsStoreState>,
+}
+
 export class AuthModel {
   private storeManager: StoreManager;
   private authStore: AuthStore;
@@ -30,7 +36,24 @@ export class AuthModel {
     this.authStore.setAuthError('');
   }
 
-  protected getInputValues(dataLabels: UserDataLabels[]): UserInputsStoreState {
+  async runAuthMode({
+    inputDataLabels, urlPathname, validateFunction
+  }: AuthModeParameters) {
+    try {
+      let inputValues: UserInputsStoreState = this.getInputValues(inputDataLabels);
+      inputValues = await validateFunction(inputValues);
+
+      const user: any = this.preparingUserData(inputValues);
+      const userStorage: UserLocalStorageType = await this.sendRequest(urlPathname, user);
+
+      this.saveUserToLocalStorage(userStorage);
+      this.reloadApp();
+    } catch (error) {
+      this.parseError(error);
+    }
+  }
+
+  private getInputValues(dataLabels: UserDataLabels[]): UserInputsStoreState {
     const inputValues = {};
 
     dataLabels.forEach((dataLabel) => {
@@ -41,27 +64,31 @@ export class AuthModel {
     return inputValues;
   }
 
-  protected preparingUserData(inputValues: UserInputsStoreState) {
+  private preparingUserData(inputValues: UserInputsStoreState): any {
     const authUserData: AuthUserData = this.getAuthData();
     return {...inputValues, ...authUserData};
   }
 
-  protected async sendRequest(urlPathname: RequestPathnames, user: any): Promise<UserLocalStorageType> {
+  private async sendRequest(urlPathname: RequestPathnames, user: any): Promise<UserLocalStorageType> {
     const request: Request = this.createRequest(urlPathname, user);
     const response: Response = await this.requestSender.send(request).create();
     return response.parseResponse();
   }
 
-  protected saveUserToLocalStorage(user: UserLocalStorageType) {
+  private saveUserToLocalStorage(user: UserLocalStorageType) {
     const userLocalStorage: UserLocalStorage = new UserLocalStorageService();
     userLocalStorage.saveUser(user);
+  }
+
+  private reloadApp() {
+    location.replace(location.origin);
   }
 
   private getAuthData(): AuthUserData {
     return this.authStore.getAuthUserData();
   }
 
-  protected parseError(error: Error): void {
+  private parseError(error: Error): void {
     let payload: any;
 
     switch (error.name) {

@@ -7,8 +7,8 @@ export class AuthUserModel {
   private database: GetUserDatabase = usersCollectionDatabase;
 
   async isValidUser({userID, username}: VerifyUser): Promise<boolean> {
-    const userUsername: string = await this.database.getUsername(userID);
-    return userUsername === username;
+    const foundUser: any = await this.database.getUsername(userID);
+    return foundUser.username === username;
   }
 
   async createAccessToken(userID: string): Promise<string> {

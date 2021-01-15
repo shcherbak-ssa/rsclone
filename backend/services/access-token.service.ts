@@ -19,6 +19,7 @@ export class AccessTokenService implements AuthAccessToken {
     try {
       return verify(token, this.jwt.secretKey, this.jwt.options as VerifyOptions) as TokenPayload;
     } catch (error) {
+      console.log(error);
       throw new ClientError('Did not find authorization token', StatusCodes.UNAUTHORIZED);
     }
   }

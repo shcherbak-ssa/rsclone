@@ -17,6 +17,7 @@ export class AppModel {
       const response: Response = await requestSender.send(request).get();
 
       const user: User = response.parseResponse();
+      console.log(user);
       // @TODO: init user.store;
 
       return this.getAppInitialRoutePathname();
