@@ -26,7 +26,7 @@ export class RegistrationModel extends AuthModel {
       const user: UserLocalStorageType
         = await this.sendRequest(RequestPathnames.REGISTRATION, registrationUser);
 
-      console.log(user);
+      this.saveUserToLocalStorage(user);
     } catch (error) {
       this.parseError(error);
     }

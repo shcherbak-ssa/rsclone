@@ -23,10 +23,9 @@ export class LoginModel extends AuthModel {
       inputValues = await this.validation.validateLoginData(inputValues);
 
       const loginUser = this.preparingUserData(inputValues);
-      const user: UserLocalStorageType
-        = await this.sendRequest(RequestPathnames.LOGIN, loginUser);
+      const user: UserLocalStorageType = await this.sendRequest(RequestPathnames.LOGIN, loginUser);
 
-      console.log(user);
+      this.saveUserToLocalStorage(user);
     } catch (error) {
       this.parseError(error);
     }

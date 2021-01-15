@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect } from 'react';
-import { Switch, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
+import { AppRoutePathnames } from '../constants';
 
 import { UserInputsEvents } from '../constants/events.constants';
 import { userInputsController } from '../controllers/user-inputs.controller';
@@ -10,7 +11,8 @@ type EntryContainerProps = {
 
 export function EntryContainer({initialRoutePathname}: EntryContainerProps) {
   const history = useHistory();
-  const AuthContainer = lazy(() => import('./auth/auth.container'));
+  const LoginContainer = lazy(() => import('./auth/login.container'));
+  const RegistrationContainer = lazy(() => import('./auth/registration.container'));
 
   useEffect(() => {
     history.push(initialRoutePathname);
@@ -18,9 +20,10 @@ export function EntryContainer({initialRoutePathname}: EntryContainerProps) {
   }, []);
 
   return (
-    <Suspense fallback={<div>...loading</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
       <Switch>
-        <AuthContainer />
+        <Route path={AppRoutePathnames.LOGIN} component={LoginContainer} />
+        <Route path={AppRoutePathnames.REGISTRATION} component={RegistrationContainer} />
       </Switch>
     </Suspense>
   );

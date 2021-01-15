@@ -5,6 +5,7 @@ import { AuthFormComponent, AuthFormComponentProps } from '../../components/auth
 import { AuthFormPropsParameters, useAuthFormProps } from '../../hooks/auth-form-props.hook';
 import { useUserInputProps } from '../../hooks/user-input-props.hook';
 import { BaseInputProps } from '../../components/base';
+import { AuthContainer } from './auth.container';
 
 export default function RegistrationContainer() {
   const authFormPropsParameters: AuthFormPropsParameters = {
@@ -17,5 +18,9 @@ export default function RegistrationContainer() {
 
   authFormComponentProps.inputsProps.unshift(fullnameInputProps);
 
-  return <AuthFormComponent {...authFormComponentProps} />;
+  return (
+    <AuthContainer>
+      <AuthFormComponent {...authFormComponentProps} />
+    </AuthContainer>
+  );
 }

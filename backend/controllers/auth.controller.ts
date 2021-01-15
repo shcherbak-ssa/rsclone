@@ -29,7 +29,6 @@ export class AuthController {
       const accessUser: AccessUser = await this.registrationModel.createUser(user);
       await responseSender.sendSuccessJsonResponse(accessUser, StatusCodes.CREATED);
     } catch (error) {
-      console.log('error', error);
       await responseSender.sendErrorResponse(error);
     }
   }
@@ -41,7 +40,6 @@ export class AuthController {
       const accessUser: AccessUser = await this.loginModel.loginUser(user);
       await responseSender.sendSuccessJsonResponse(accessUser);
     } catch (error) {
-      console.log('error', error);
       await responseSender.sendErrorResponse(error);
     }
   }

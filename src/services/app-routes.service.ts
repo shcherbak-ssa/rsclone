@@ -1,20 +1,13 @@
-import {
-  AppRoutePathnames,
-  USER_LOCALSTORAGE_KEY,
-  USERNAME_PATHNAME_INITIAL_STRING,
-} from '../constants';
-import { AppRoutes, LocalStorage } from '../types/services.types';
-import { UserLocalStorageType } from '../types/user.types';
-import { LocalStorageService } from './localstorage.service';
+import { AppRoutePathnames, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
+import { AppRoutes } from '../types/services.types';
+import { UserLocalStorageService } from './user-local-storage.service';
 
 export class AppRoutesService implements AppRoutes {
   private initialPath: string;
 
   constructor() {
-    const localStorageService: LocalStorage = new LocalStorageService();
-    const localStorageUser: UserLocalStorageType = localStorageService.get(USER_LOCALSTORAGE_KEY);
-
-    this.initialPath = USERNAME_PATHNAME_INITIAL_STRING + localStorageUser.username;
+    const userLocalStorage: UserLocalStorageService = new UserLocalStorageService();
+    this.initialPath = USERNAME_PATHNAME_INITIAL_STRING + userLocalStorage.getUsername();
   }
 
   getRootRoutePath(): string {

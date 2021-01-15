@@ -7,10 +7,11 @@ import { AuthStore, AuthUserData } from '../../types/auth.types';
 import { UserInputsModel } from '../user-inputs.model';
 import { ErrorNames, RequestPathnames } from '../../../common/constants';
 import { ValidationError } from '../../../common/validation';
-import { Request, RequestCreator, RequestSender, Response } from '../../types/services.types';
+import { Request, RequestCreator, RequestSender, Response, UserLocalStorage } from '../../types/services.types';
 import { RequestCreatorService } from '../../services/request-creator.service';
 import { RequestSenderService } from '../../services/request-sender.service';
 import { ClientError } from '../../services/errors.service';
+import { UserLocalStorageService } from '../../services/user-local-storage.service';
 
 export class AuthModel {
   private storeManager: StoreManager;
@@ -49,6 +50,11 @@ export class AuthModel {
     const request: Request = this.createRequest(urlPathname, user);
     const response: Response = await this.requestSender.send(request).create();
     return response.parseResponse();
+  }
+
+  protected saveUserToLocalStorage(user: UserLocalStorageType) {
+    const userLocalStorage: UserLocalStorage = new UserLocalStorageService();
+    userLocalStorage.saveUser(user);
   }
 
   private getAuthData(): AuthUserData {

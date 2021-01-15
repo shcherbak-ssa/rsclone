@@ -1,8 +1,7 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { Route } from 'react-router-dom';
 
-import { AppRoutePathnames, Stores } from '../../constants';
+import { Stores } from '../../constants';
 import { AuthComponent, AuthComponentProps } from "../../components/auth.component";
 import { PopupNames } from '../../constants/ui.constants';
 import { PopupService } from '../../services/popup.service';
@@ -10,10 +9,11 @@ import { InitialSettingsPopupContainer } from '../popups/initial-settings-popup.
 import { storeSelectorsService } from '../../services/store-selectors.service';
 import { useChangeTheme } from '../../hooks/change-theme.hook';
 
-export default function AuthContainer() {
-  const LoginContainer = lazy(() => import('./login.container'));
-  const RegistrationContainer = lazy(() => import('./registration.container'));
-  
+type AuthContainerProps = {
+  children?: React.ReactNode,
+};
+
+export function AuthContainer({children}: AuthContainerProps) {
   const authStoreSelectors = storeSelectorsService.get(Stores.AUTH_STORE);
   const currentTheme = useSelector(authStoreSelectors.getThemeState());
 
@@ -28,10 +28,7 @@ export default function AuthContainer() {
 
   return (
     <AuthComponent {...authComponentProps}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Route path={AppRoutePathnames.LOGIN} component={LoginContainer} />
-        <Route path={AppRoutePathnames.REGISTRATION} component={RegistrationContainer} />
-      </Suspense>
+      {children}
       <InitialSettingsPopupContainer />
     </AuthComponent>
   );
