@@ -35,6 +35,7 @@ export enum StatusCodes {
 export enum ErrorNames {
   CLIENT_ERROR = 'ClientError',
   SERVER_ERROR = 'ServerError',
+  VALIDATION_ERROR = 'ValidationError',
 };
 
 export enum LanguageLabels {
@@ -64,4 +65,10 @@ export enum ShortcutsLabels {
   ADD_SPACE = 'add-space',
   ADD_PAGE = 'add-page',
   ADD_SECTION = 'add-section',
+};
+
+export enum ErrorLabels {
+  EMPTY_VALUE = 'empty-value',
+  INVALID_EMAIL = 'invalid-email',
+  PASSWORD_MIN = 'password-length',
 };

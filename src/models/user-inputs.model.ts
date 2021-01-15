@@ -18,6 +18,10 @@ export class UserInputsModel {
     const storeManager: StoreManager = new StoreManagerService();
     this.userInputsStore = storeManager.getStore(Stores.USER_INPUTS_STORE) as UserInputsStore;
   }
+
+  getInputStates(dataLabel: UserDataLabels): UserInputState {
+    return this.userInputsStore.getInputStates(dataLabel);
+  }
   
   updateInputValue(value: string, dataLabel: UserDataLabels): void {
     const updatedInput: UpdatedInput = {

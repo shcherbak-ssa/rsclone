@@ -6,17 +6,18 @@ import { useLanguagePart } from './language-part.hook';
 import { useUserInputProps } from './user-input-props.hook';
 import { AuthFormComponentProps } from '../components/auth-form.component';
 import { userInputsController } from '../controllers/user-inputs.controller';
-import { UserInputsEvents } from '../constants/events.constants';
+import { AuthEvents, UserInputsEvents } from '../constants/events.constants';
 import { BaseInputProps } from '../components/base';
+import { authController } from '../controllers/auth.controller';
 
 export type AuthFormPropsParameters = {
   mode: AuthModes;
   nextRoutePathname: AppRoutePathnames;
 };
 
-export function useAuthFormProps(
-  {mode, nextRoutePathname}: AuthFormPropsParameters
-): AuthFormComponentProps {
+export function useAuthFormProps({
+  mode, nextRoutePathname
+}: AuthFormPropsParameters): AuthFormComponentProps {
   const history = useHistory();
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
 
@@ -33,7 +34,11 @@ export function useAuthFormProps(
     ],
     buttonProps: {
       value: authLanguage[mode].buttonValue,
-      clickHandler: () => {},
+      clickHandler: () => {
+        if (mode === AuthModes.REGISTRATION) {
+          authController.emit(AuthEvents.INIT_REGISTRATION);
+        }
+      },
     },
     linkClickHanlder: () => {
       const resetDataLabels: UserDataLabels[] = [

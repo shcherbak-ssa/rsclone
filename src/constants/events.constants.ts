@@ -21,4 +21,6 @@ export enum LanguageEvents {
 
 export enum AuthEvents {
   SAVE_SETTINGS = 'auth-events/save-settings',
+  INIT_REGISTRATION = 'auth-events/init-registraion',
+  INIT_LOGIN = 'auth-events/init-login',
 }

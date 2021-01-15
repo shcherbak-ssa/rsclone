@@ -11,6 +11,7 @@ import {
   LanguageMiddleware,
   ControllerMiddleware,
 } from './middlewares';
+import { AuthRouter } from './routers/auth.router';
 
 
 declare global {
@@ -25,7 +26,9 @@ declare global {
 const appOptions: AppOptions = {
   port: serverConfig.app.port,
   hostname: serverConfig.app.hostname,
-  routers: [],
+  routers: [
+    new AuthRouter(),
+  ],
   middlewares: [
     bodyParser.json(),
   ],
