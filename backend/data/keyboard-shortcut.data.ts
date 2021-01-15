@@ -1,7 +1,7 @@
 import { ShortcurtsSections, ShortcutsLabels } from '../../common/constants';
-import { KeyboardShortcutType } from '../types/user.types';
+import { KeyboardShortcut } from '../../common/entities';
 
-export const defaultKeyboardShortcuts: KeyboardShortcutType[] = [
+export const defaultKeyboardShortcuts: KeyboardShortcut[] = [
   {
     section: ShortcurtsSections.HOMEPAGE,
     keys: 'ctrl+alt+s',

@@ -1,5 +1,5 @@
 import { AppRoutePathnames, Stores, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
-import { User, UsersUrlPathname } from '../types/user.types';
+import { GetUser, UsersUrlPathname } from '../types/user.types';
 import { ClientError } from '../services/errors.service';
 import { AppRoutesService } from '../services/app-routes.service';
 import { RequestCreatorService } from '../services/request-creator.service';
@@ -16,7 +16,7 @@ export class AppModel {
       const request: Request = this.createUserRequest();
       const response: Response = await requestSender.send(request).get();
 
-      const user: User = response.parseResponse();
+      const user: GetUser = response.parseResponse();
       console.log(user);
       // @TODO: init user.store;
 

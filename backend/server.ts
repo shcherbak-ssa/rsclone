@@ -9,6 +9,7 @@ import { AuthUserMiddleware } from './middlewares/auth-user.middleware';
 import { LanguageMiddleware } from './middlewares/language.middleware';
 import { ControllerMiddleware } from './middlewares/controller.middleware';
 import { AuthRouter } from './routers/auth.router';
+import { UsersRouter } from './routers/users.router';
 import { App, AppOptions } from './app';
 
 
@@ -31,14 +32,15 @@ DatabaseConnectionService.init().connect()
       hostname: serverConfig.app.hostname,
       routers: [
         new AuthRouter(),
+        new UsersRouter(),
       ],
       middlewares: [
         bodyParser.json(),
       ],
       appMiddlewares: [
         new EntryMiddleware(),
-        new ControllerMiddleware(),
         new AuthUserMiddleware(),
+        new ControllerMiddleware(),
         new LanguageMiddleware(),
       ],
     };

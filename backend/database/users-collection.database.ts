@@ -79,7 +79,7 @@ export class UsersCollectionDatabase implements
   async getUser(userID: string): Promise<User> {
     const getUserQuery = { _id: new ObjectID(userID) };
     const getUserOptions = {
-      projection: { _id: 0 },
+      projection: { _id: 0, [UserDataLabels.PASSWORD]: 0 },
     };
 
     return await this.databaseCollection.getDocument(getUserQuery, getUserOptions);

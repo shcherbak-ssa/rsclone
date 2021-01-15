@@ -13,6 +13,7 @@ export class UsersController extends BaseController {
 
   async getUser({userID, responseSender}: ControllerData): Promise<void> {
     try {
+      // console.log(userID);
       if (!userID) throw this.unknowUserIDError();
 
       const user: GetUser = await this.getUserModel.getUser(userID);

@@ -28,8 +28,7 @@ export class AuthUserMiddleware implements BaseMiddleware {
 
       if (isValidUser) {
         request.userID = verifyUser.userID;
-        return this.responseSender.sendSuccessJsonResponse({test: 'success'});
-        // return next();
+        return next();
       }
 
       throw new ClientError(

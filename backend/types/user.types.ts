@@ -1,5 +1,5 @@
 import { LanguageLabels, Themes } from '../../common/constants';
-import { Space } from './spaces.types';
+import { KeyboardShortcut, Space } from '../../common/entities';
 
 export type VerifyUser = {
   username: string;
@@ -11,12 +11,6 @@ export type AccessUser = {
   token: string,
 };
 
-export type KeyboardShortcutType = {
-  section: string,
-  keys: string,
-  label: string,
-};
-
 export type User = {
   fullname: string;
   email: string;
@@ -25,7 +19,7 @@ export type User = {
   avatar: boolean;
   language: LanguageLabels;
   theme: Themes;
-  shortcuts: KeyboardShortcutType[];
+  shortcuts: KeyboardShortcut[];
 };
 
 export type RegistrationUser = {
@@ -42,7 +36,6 @@ export type LoginUser = {
   language: LanguageLabels,
   theme: Themes
 };
-
 
 export type GetUser = {
   user: User,
