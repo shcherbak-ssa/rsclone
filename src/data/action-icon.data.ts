@@ -20,3 +20,8 @@ export const actionIconData: {[key: string]: ActionIconProps} = {
     height: 18,
   },
 };
+
+export const actionSidebarIconLabels: ActionIconLabels[] = [
+  ActionIconLabels.INFO,
+  ActionIconLabels.LOGO,
+];

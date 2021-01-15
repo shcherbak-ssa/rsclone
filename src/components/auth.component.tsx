@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/auth.component.scss';
 
 import { AssetsService } from "../services/assets.service";
-import { ActionIconPropsParameters, useActionIconProps } from '../hooks/action-icon-props.hook';
+import { ActionIconPropsHookParameters, useActionIconProps } from '../hooks/action-icon-props.hook';
 import { ActionIconLabels } from '../constants/ui.constants';
 import { ActionIconComponent, ActionIconComponentProps } from './action-icon.component';
 import { useLanguagePart } from '../hooks/language-part.hook';
@@ -20,7 +20,7 @@ export function AuthComponent({children}: AuthComponentProps) {
 
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
 
-  const actionIconPropsParameters: ActionIconPropsParameters = {
+  const actionIconPropsParameters: ActionIconPropsHookParameters = {
     icons: [ActionIconLabels.INFO],
     iconPayloads: {
       [ActionIconLabels.INFO]: {

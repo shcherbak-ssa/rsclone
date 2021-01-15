@@ -22,11 +22,7 @@ export function ActionIconComponent({
   }
 
   return (
-    <div
-      className="action-icon"
-      data-class="click flex-center"
-      onClick={clickHandler}
-    >
+    <div className="action-icon" data-class="click flex-center" onClick={clickHandler}>
       <Icon {...iconProps} />
       {drawDescription()}
     </div>
