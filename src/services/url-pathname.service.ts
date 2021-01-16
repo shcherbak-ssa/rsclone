@@ -1,7 +1,7 @@
 import { LanguageLabels, MiddlewarePathnames, RequestPathnames } from '../../common/constants';
+import { UsersUrlPathname } from '../models/base.model';
 import { LanguageUrlPathname } from '../models/language.model';
 import { UserLocalStorage } from '../types/services.types';
-import { UsersUrlPathname } from '../types/user.types';
 import { UserLocalStorageService } from './user-local-storage.service';
 
 export class UrlPathnameService implements LanguageUrlPathname, UsersUrlPathname {

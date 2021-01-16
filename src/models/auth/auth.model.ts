@@ -7,11 +7,10 @@ import { AuthStore } from '../../types/auth.types';
 import { UserInputsModel } from '../user-inputs.model';
 import { ErrorNames, RequestPathnames } from '../../../common/constants';
 import { ValidationError } from '../../../common/validation';
-import { Request, RequestCreator, RequestSender, Response, UserLocalStorage } from '../../types/services.types';
-import { RequestCreatorService } from '../../services/request-creator.service';
-import { RequestSenderService } from '../../services/request-sender.service';
+import { Request, Response, UserLocalStorage } from '../../types/services.types';
 import { ClientError } from '../../services/errors.service';
 import { UserLocalStorageService } from '../../services/user-local-storage.service';
+import { BaseModel } from '../base.model';
 
 export type AuthModeParameters = {
   inputDataLabels: UserDataLabels[],
@@ -19,19 +18,17 @@ export type AuthModeParameters = {
   validateFunction: (inputValues: UserInputsStoreState) => Promise<UserInputsStoreState>,
 }
 
-export class AuthModel {
+export class AuthModel extends BaseModel {
   private storeManager: StoreManager;
   private authStore: AuthStore;
   private userInputsModel: UserInputsModel;
-  private requestCreator: RequestCreator;
-  private requestSender: RequestSender;
 
   constructor() {
+    super();
+
     this.storeManager = new StoreManagerService();
     this.authStore = this.storeManager.getStore(Stores.AUTH_STORE) as AuthStore;
     this.userInputsModel = new UserInputsModel();
-    this.requestCreator = new RequestCreatorService();
-    this.requestSender = new RequestSenderService();
 
     this.removeError();
   }
@@ -41,7 +38,7 @@ export class AuthModel {
   }: AuthModeParameters) {
     try {
       const inputValues: UserInputsStoreState = this.getInputValues(inputDataLabels);
-      const user = await validateFunction(inputValues);
+      const user: UserInputsStoreState = await validateFunction(inputValues);
       const userStorage: UserLocalStorageType = await this.sendRequest(urlPathname, user);
 
       this.saveUserToLocalStorage(userStorage);

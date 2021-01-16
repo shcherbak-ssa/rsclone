@@ -22,10 +22,6 @@ export type GetUser = {
   spaces: Space[],
 };
 
-export interface UsersUrlPathname {
-  getUsersPathname(): string;
-}
-
 export type UserDataValue = string | boolean | KeyboardShortcut[];
 
 export const initialState: User = {

@@ -1,21 +1,18 @@
 import { AppRoutePathnames, Stores, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
-import { GetUser, UsersUrlPathname } from '../types/user.types';
+import { GetUser } from '../types/user.types';
 import { ClientError } from '../services/errors.service';
 import { AppRoutesService } from '../services/app-routes.service';
-import { RequestCreatorService } from '../services/request-creator.service';
-import { RequestSenderService } from '../services/request-sender.service';
-import { AppRoutes, Request, RequestCreator, RequestSender, Response } from '../types/services.types';
+import { AppRoutes, Request, Response } from '../types/services.types';
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
-import { UrlPathnameService } from '../services/url-pathname.service';
 import { UserModel } from './user.model';
+import { BaseModel } from './base.model';
 
-export class AppModel {
+export class AppModel extends BaseModel {
   async initApp(): Promise<string | null> {
     try {
-      const requestSender: RequestSender = new RequestSenderService();
       const request: Request = this.createUserRequest();
-      const response: Response = await requestSender.send(request).get();
+      const response: Response = await this.requestSender.send(request).get();
 
       const user: GetUser = response.parseResponse();
       const userModel: UserModel = new UserModel();
@@ -43,12 +40,8 @@ export class AppModel {
   }
 
   private createUserRequest(): Request {
-    const usersUrlPathname: UsersUrlPathname = new UrlPathnameService();
-    const usersPathname: string = usersUrlPathname.getUsersPathname();
-    const requestCreator: RequestCreator = new RequestCreatorService();
-
-    return requestCreator
-      .appendUrlPathname(usersPathname)
+    return this.requestCreator
+      .appendUrlPathname(this.usersPathname)
       .createRequest();
   }
 
