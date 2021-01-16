@@ -12,7 +12,8 @@
       "buttonValue": "Add space"
     },
     "settings": {
-      "title": "Settings"
+      "title": "Settings",
+      "saveButtonValue": "Save changes"
     }
   },
   "settings": {

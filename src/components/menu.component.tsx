@@ -1,90 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 import './styles/menu.component.scss';
 
-import spacesIcon from '@iconify/icons-uil/apps';
-import settingsIcon from '@iconify/icons-clarity/settings-line';
-import logOutIcon from '@iconify/icons-feather/log-out';
-
-import { Stores, UserDataLabels } from '../constants';
-import { Classnames, MenuItemLabels } from '../constants/ui.constants';
-import { AppRoutesService } from '../services/app-routes.service';
+import { Classnames } from '../constants/ui.constants';
 import { DocumentBodyService } from '../services/document-body.service';
-import { storeSelectorsService } from '../services/store-selectors.service';
 import { MenuItemComponentProps, MenuItemComponent } from './menu-item.component';
-import { LanguageParts } from '../../common/constants';
-import { useLanguagePart } from '../hooks/language-part.hook';
 
 export type MenuComponentProps = {
-  logOutClickHanlder: Function,
+  menuItemsProps: {[key: string]: MenuItemComponentProps},
+  userFullname: string,
+  activeMenuItem: string,
 };
 
-export function MenuComponent({logOutClickHanlder}: MenuComponentProps) {
-  const history = useHistory();
-  const appLanguage = useLanguagePart(LanguageParts.APP);
-
-  const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
-  const fullname = useSelector(userStoreSelectors.getState(UserDataLabels.FULLNAME));
- 
-  const [activeMenuItem, setActiveMenuItem] = useState('');
+export function MenuComponent({menuItemsProps, userFullname, activeMenuItem}: MenuComponentProps) {
   const [isOpen, setIsOpen] = useState(false);
-
-  const appRoutesService: AppRoutesService = new AppRoutesService();
   const componentClassnames: string = classnames('menu', {
     [Classnames.IS_OPEN]: isOpen,
   });
 
-  const menuItemsProps: {[key: string]: MenuItemComponentProps} = {
-    spaces: {
-      icon: spacesIcon,
-      text: appLanguage.menu.items[MenuItemLabels.SPACES],
-      isActive: activeMenuItem === MenuItemLabels.SPACES,
-      clickHandler: () => {
-        changeMenuItem(
-          MenuItemLabels.SPACES,
-          appRoutesService.getSpacesRoutePath(),
-        );
-      },
-    },
-    settings: {
-      icon: settingsIcon,
-      text: appLanguage.menu.items[MenuItemLabels.SETTINGS],
-      isActive: activeMenuItem === MenuItemLabels.SETTINGS,
-      clickHandler: () => {
-        changeMenuItem(
-          MenuItemLabels.SETTINGS,
-          appRoutesService.getSettingsRoutePath(),
-        );
-      },
-    },
-    logout: {
-      icon: logOutIcon,
-      text: appLanguage.menu.items[MenuItemLabels.LOGOUT],
-      clickHandler: () => {
-        logOutClickHanlder();
-      },
-    },
-  };
-
   useEffect(() => {
-    if (location.pathname === appRoutesService.getSettingsRoutePath()) {
-      setActiveMenuItem(MenuItemLabels.SETTINGS);
-    } else {
-      setActiveMenuItem(MenuItemLabels.SPACES);
-    }
-  }, []);
-
-  function changeMenuItem(nextMenuItemLabel: MenuItemLabels, nextRoute: string) {
-    if (nextMenuItemLabel === activeMenuItem) return;
-
-    setActiveMenuItem(nextMenuItemLabel);
-    history.push(nextRoute);
-
     setIsOpen(false);
     cleanDocumentBody();
-  }
+  }, [activeMenuItem]);
 
   function menuButtonClickHandle(e: React.MouseEvent) {
     e.stopPropagation();
@@ -121,7 +58,7 @@ export function MenuComponent({logOutClickHanlder}: MenuComponentProps) {
       <div className="menu-container" data-class="flex-column">
         <div className="menu-user">
           {/* <Avatar /> */}
-          <div className="menu-username">{fullname}</div>
+          <div className="menu-username">{userFullname}</div>
         </div>
         <MenuItemComponent {...menuItemsProps.spaces}/>
         <MenuItemComponent {...menuItemsProps.settings}/>

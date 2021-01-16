@@ -2,13 +2,12 @@ import React from 'react';
 import plusIcon from '@iconify/icons-ant-design/plus-outlined';
 
 import { HomepageSectionLabels } from '../constants';
-import { useLanguagePart } from '../hooks/language-part.hook';
 import { BaseButtonProps } from '../components/base';
 import {
   HomepageSectionComponent,
   HomepageSectionComponentProps,
 } from '../components/homepage-section.component';
-import { LanguageParts } from '../../common/constants';
+import { useAppLanguage } from '../hooks/app-language.hook';
 
 export type HomepageContainerProps = {
   sectionLabel: HomepageSectionLabels,
@@ -16,7 +15,7 @@ export type HomepageContainerProps = {
 };
 
 export function HomepageContainer({sectionLabel, buttonClickHandler}: HomepageContainerProps) {
-  const appLanguage = useLanguagePart(LanguageParts.APP);
+  const appLanguage = useAppLanguage();
 
   const homepageSectionProps: HomepageSectionComponentProps = {
     title: appLanguage.homepage[sectionLabel].title,
