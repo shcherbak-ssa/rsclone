@@ -11,6 +11,7 @@ export enum Classnames {
   IS_DISABLE = 'is-disable',
   HAS_DESCRIPTION = 'has-description',
   SHOW_SIDEBAR = 'show-sidebar',
+  SELECT_TYPE = 'select-type',
 };
 
 export enum ButtonTypes {

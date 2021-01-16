@@ -28,7 +28,7 @@
     },
     "shortcuts": {
       "title": "Keyboard Shortcuts",
-      "items": {
+      "actions": {
         "add-space": {
           "title": "Add space",
           "description": "Create your personal space"
@@ -44,7 +44,14 @@
       }
     },
     "danger": {
-      "title": "Danger Zone"
+      "title": "Danger Zone",
+      "actions": {
+        "delete-account": {
+          "title": "Delete account",
+          "description": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back!",
+          "buttonValue": "Delete"
+        }
+      }
     }
   },
   "popups": {

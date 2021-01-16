@@ -8,3 +8,9 @@ export type SelectItemTheme = {
   image: string,
   description: string,
 };
+
+export type SelectAction = {
+  isSelectType: boolean,
+  isSelected: boolean,
+  toggleSelection: Function,
+};

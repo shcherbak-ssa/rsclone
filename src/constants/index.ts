@@ -46,3 +46,7 @@ export enum SettingsSectionLabels {
   SHORTCUTS = 'shortcuts',
   DANGER = 'danger',
 };
+
+export enum SettingsActionLabels {
+  DELETE_ACCOUNT = 'delete-account',
+};
