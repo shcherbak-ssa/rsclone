@@ -6,6 +6,10 @@ import { EventEmitter } from "../services/event-emitter.service";
 import { LanguageLabels, LanguageParts } from "../../common/constants";
 import { RequestedLanguage } from "../types/language.types";
 import { defaultLanguageParts } from "../data/languages.data";
+import { StoreManager } from "../types/store.types";
+import { StoreManagerService } from "../services/store-manager.service";
+import { UserStore } from "../types/user.types";
+import { Stores, UserDataLabels } from "../constants";
 
 export const appController: Controller = new EventEmitter();
 
@@ -21,8 +25,11 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
   if (initialRoutePathname === null) {
     appController.emit(AppEvents.INIT_AUTHORIZATION, renderAppCallback);
   } else {
+    const storeManager: StoreManager = new StoreManagerService();
+    const userStore = storeManager.getStore(Stores.USER_STORE) as UserStore;
+
     const requestedLanguage: RequestedLanguage = {
-      language: LanguageLabels.ENGLISH,
+      language: userStore.getStates()[UserDataLabels.LANGUAGE],
       languageParts: [LanguageParts.APP, ...defaultLanguageParts],
     };
 

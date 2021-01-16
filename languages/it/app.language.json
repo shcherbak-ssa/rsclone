@@ -6,27 +6,69 @@
       "logout": "Disconnettersi"
     }
   },
+  "homepage": {
+    "spaces": {
+      "title": "Spazi",
+      "buttonValue": "Aggiungi spazio"
+    },
+    "settings": {
+      "title": "Impostazioni",
+      "saveButtonValue": "Salvare"
+    }
+  },
   "settings": {
+    "user": {
+      "title": "Utente"
+    },
+    "login": {
+      "title": "Accesso"
+    },
+    "app": {
+      "title": "App",
+      "groups": {
+        "theme": {
+          "title": "Tema"
+        }
+      }
+    },
     "shortcuts": {
-      "add-space": {
-        "title": "Aggiungi spazio",
-        "description": "Crea il tuo spazio personale"
-      },
-      "add-page": {
-        "title": "Aggiungi pagina",
-        "description": "Crea una nuova pagina nello spazio aperto"
-      },
-      "add-section": {
-        "title": "Aggiungi sezione",
-        "description": "Crea una nuova sezione nello spazio aperto"
+      "title": "Keyboard Shortcuts",
+      "actions": {
+        "add-space": {
+          "title": "Aggiungi spazio",
+          "description": "Crea il tuo spazio personale"
+        },
+        "add-page": {
+          "title": "Aggiungi pagina",
+          "description": "Crea una nuova pagina nello spazio aperto"
+        },
+        "add-section": {
+          "title": "Aggiungi sezione",
+          "description": "Crea una nuova sezione nello spazio aperto"
+        }
+      }
+    },
+    "danger": {
+      "title": "Zona pericolosa",
+      "actions": {
+        "delete-account": {
+          "title": "Eliminare l'account",
+          "description": "Eliminando il tuo account personale, elimini tutti i dati associati. Pensa prima di agire, non si torna indietro!",
+          "buttonValue": "Elimina"
+        }
       }
     }
   },
   "popups": {
-    "logout-popup": {
+    "logout": {
       "title": "Disconnettersi",
       "confirmButtonValue": "Disconnettersi",
       "content": "Sei sicuro di voler uscire?"
+    },
+    "delete-account": {
+      "title": "Eliminare l'account",
+      "confirmButtonValue": "Elimina",
+      "content": "Eliminando il tuo account personale, elimini tutti i dati associati. Pensa prima di agire, non si torna indietro! Sei sicuro?"
     }
   }
 }
