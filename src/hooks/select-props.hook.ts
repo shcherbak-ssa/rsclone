@@ -4,8 +4,8 @@ import { LanguageParts } from '../../common/constants';
 import { BaseSelectProps } from '../components/base';
 import { SelectThemeComponentProps } from '../components/select-theme.component';
 import { UserDataLabels } from '../constants';
-import { UserInputsEvents } from '../constants/events.constants';
-import { userInputsController } from '../controllers/user-inputs.controller';
+import { UserDraftEvents } from '../constants/events.constants';
+import { UpdatedDraftValue, userDraftController } from '../controllers/user-draft.controller';
 import { ToolsService } from '../services/tools.service';
 import { SelectItemType, SelectItemTheme } from '../types/select-item.types';
 import { useLanguagePart } from './language-part.hook';
@@ -14,16 +14,15 @@ export type SelectPropsHookParameters = {
   initialItemLabel: string,
   dataLabel: UserDataLabels,
   items: SelectItemType[] | SelectItemTheme[],
-  userInputsEvent: UserInputsEvents,
 };
 
 export function useSelectProps({
-  initialItemLabel, dataLabel, items, userInputsEvent
+  initialItemLabel, dataLabel, items
 }: SelectPropsHookParameters): BaseSelectProps | SelectThemeComponentProps {
   const toolsService: ToolsService = new ToolsService();
 
   const [selectedItemLabel, setSelectedItemLabel] = useState(initialItemLabel);
-  const userInputsLanguage = useLanguagePart(LanguageParts.USER_INPUTS);
+  const userInputsLanguage = useLanguagePart(LanguageParts.USER_DRAFT);
 
   const selectProps: BaseSelectProps | SelectThemeComponentProps = {
     ...addingSimpleSelectProps(),
@@ -32,7 +31,12 @@ export function useSelectProps({
       if (label === selectedItemLabel) return;
       
       const nextSelectedItemLabel = toolsService.getSelectedItem(items, label).label;
-      userInputsController.emit(userInputsEvent, nextSelectedItemLabel);
+      const updatedDraftValue: UpdatedDraftValue = {
+        value: nextSelectedItemLabel,
+        dataLabel,
+      };
+
+      userDraftController.emit(UserDraftEvents.UPDATE_VALUE, updatedDraftValue);
       setSelectedItemLabel(nextSelectedItemLabel);
     },
   };
@@ -45,12 +49,13 @@ export function useSelectProps({
     }
 
     const updatedItemsValuesByLanguage: SelectItemType[] = addLanguageSelectItemValues();
+    const selectedItemValue = toolsService
+      .getSelectedItem(updatedItemsValuesByLanguage, selectedItemLabel);
 
     return {
       items: updatedItemsValuesByLanguage,
       placeholder: userInputsLanguage[dataLabel].placeholder,
-      selectedItemValue: toolsService
-        .getSelectedItem(updatedItemsValuesByLanguage, selectedItemLabel).value,
+      selectedItemValue: (selectedItemValue as SelectItemType).value,
     };
   }
 

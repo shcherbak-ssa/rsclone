@@ -4,7 +4,7 @@ import { parseValidationError, Validation } from '../../common/validation';
 import { UserDataLabels } from '../constants';
 import { LoginValidation } from '../models/auth/login.model';
 import { RegistrationValidation } from '../models/auth/registration.model';
-import { UserInputsStoreState } from '../types/user-inputs.types';
+import { UserDraftStoreState } from '../types/user-draft.types';
 
 export class AuthValidation implements RegistrationValidation, LoginValidation {
   validation: Validation;
@@ -13,7 +13,7 @@ export class AuthValidation implements RegistrationValidation, LoginValidation {
     this.validation = new Validation();
   }
   
-  async validateRegistrationData(inputValues: UserInputsStoreState): Promise<UserInputsStoreState> {
+  async validateRegistrationData(inputValues: UserDraftStoreState): Promise<UserDraftStoreState> {
     try {
       const validationSchema: Joi.ObjectSchema = Joi.object({
         [UserDataLabels.FULLNAME]: this.validation.fullname().empty(),
@@ -26,7 +26,7 @@ export class AuthValidation implements RegistrationValidation, LoginValidation {
     }
   }
 
-  async validateLoginData(inputValues: UserInputsStoreState): Promise<UserInputsStoreState> {
+  async validateLoginData(inputValues: UserDraftStoreState): Promise<UserDraftStoreState> {
     try {
       const validationSchema: Joi.ObjectSchema = Joi.object({
         ...this.getCommonValidationSchema(),

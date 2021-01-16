@@ -4,15 +4,15 @@ import { StoreManager } from '../types/store.types';
 import { User, UserStore } from '../types/user.types';
 import { UserDataLabels } from '../constants';
 import { UpdatedStates } from '../types/user.types';
-import { UserInputsStore } from '../types/user-inputs.types';
+import { UserDraftStore } from '../types/user-draft.types';
 
 export class UserModel {
   private storeManager: StoreManager;
-  private userInputsStore: UserInputsStore;
+  private userDraftStore: UserDraftStore;
 
   constructor() {
     this.storeManager = new StoreManagerService();
-    this.userInputsStore = this.storeManager.getStore(Stores.USER_INPUTS_STORE) as UserInputsStore;
+    this.userDraftStore = this.storeManager.getStore(Stores.USER_DRAFT_STORE) as UserDraftStore;
   }
   
   async initUserData(user: User): Promise<void> {
@@ -21,7 +21,7 @@ export class UserModel {
   }
 
   updateState(updatedStateLabels: UserDataLabels[]): void {
-    const updatedStates = this.userInputsStore.getInputValues(updatedStateLabels) as UpdatedStates;
+    const updatedStates = this.userDraftStore.getDraftValues(updatedStateLabels) as UpdatedStates;
     this.getUserStore().updateStates(updatedStates);
   }
 

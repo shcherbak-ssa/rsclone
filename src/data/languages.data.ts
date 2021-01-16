@@ -17,5 +17,5 @@ export const languagesData = [
 
 export const defaultLanguageParts: LanguageParts[] = [
   LanguageParts.ASSETS,
-  LanguageParts.USER_INPUTS,
+  LanguageParts.USER_DRAFT,
 ];

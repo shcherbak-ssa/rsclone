@@ -5,7 +5,7 @@ import { ToolsService } from "../services/tools.service";
 
 const initialInputState: InputState = new ToolsService().getInitialInputState();
 
-export const initialState: UserInputsStoreState = {
+export const initialState: UserDraftStoreState = {
   [UserDataLabels.AVATAR]: false,
   [UserDataLabels.FULLNAME]: initialInputState,
   [UserDataLabels.EMAIL]: initialInputState,
@@ -16,8 +16,8 @@ export const initialState: UserInputsStoreState = {
   [UserDataLabels.SHORTCUTS]: [],
 };
 
-export type UserInputsStoreState = {
-  [key: string]: UserInputState;
+export type UserDraftStoreState = {
+  [key: string]: UserDraftState;
 };
 
 export type InputState = {
@@ -25,18 +25,16 @@ export type InputState = {
   error: string;
 };
 
-export type UserInputState = string | boolean | InputState | KeyboardShortcut[];
+export type UserDraftState = string | boolean | InputState | KeyboardShortcut[];
 
-export type UpdatedInput = {
-  [key: string]: UserInputState;
+export type UpdatedDraft = {
+  [key: string]: UserDraftState;
 };
 
-export interface UserInputsStore {
-  getInputState(dataLabel: UserDataLabels): UserInputState;
-  getInputValues(dataLabels: UserDataLabels[]): UserInputsStoreState;
-  updateInputValue(updatedInput: UpdatedInput): void;
-  setInputError(updatedInput: UpdatedInput): void;
-  changeLanguage(nextLanguage: LanguageLabels): void;
-  changeTheme(nextTheme: Themes): void;
-  resetStates(resetedStates: UserInputsStoreState): void;
+export interface UserDraftStore {
+  getDraftState(dataLabel: UserDataLabels): UserDraftState;
+  getDraftValues(dataLabels: UserDataLabels[]): UserDraftStoreState;
+  updateValue(updatedDraft: UpdatedDraft): void;
+  setError(updatedDraft: UpdatedDraft): void;
+  resetStates(resetedStates: UserDraftStoreState): void;
 };

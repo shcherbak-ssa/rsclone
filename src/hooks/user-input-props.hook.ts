@@ -2,23 +2,31 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import eyeIcon from '@iconify/icons-ant-design/eye-outlined';
 
-import { UserInputsEvents } from '../constants/events.constants';
+import { UserDraftEvents } from '../constants/events.constants';
 import { Stores, UserDataLabels } from '../constants';
 import { BaseInputProps } from '../components/base';
-import { UpdatedInputValue, userInputsController } from '../controllers/user-inputs.controller';
+import { UpdatedDraftValue, userDraftController } from '../controllers/user-draft.controller';
 import { storeSelectorsService } from '../services/store-selectors.service';
-import { InputState } from '../types/user-inputs.types';
+import { InputState } from '../types/user-draft.types';
 import { useLanguagePart } from './language-part.hook';
 import { LanguageParts } from '../../common/constants';
 
 export function useUserInputProps(dataLabel: UserDataLabels): BaseInputProps {
   const [isPasswordInputIconActive, setPasswordInputIsIconActive] = useState(false);
 
-  const userInputsStoreSelectors = storeSelectorsService.get(Stores.USER_INPUTS_STORE);
-  const getInputStatesSelector = userInputsStoreSelectors.getState(dataLabel);
+  const userDraftStoreSelectors = storeSelectorsService.get(Stores.USER_DRAFT_STORE);
+  const getInputStatesSelector = userDraftStoreSelectors.getState(dataLabel);
   
   const {value, error} = useSelector(getInputStatesSelector) as InputState;
-  const userInputsLanguage = useLanguagePart(LanguageParts.USER_INPUTS);
+  const userInputsLanguage = useLanguagePart(LanguageParts.USER_DRAFT);
+
+  const inputProps: BaseInputProps = {
+    value,
+    error,
+    placeholder: userInputsLanguage[dataLabel].placeholder,
+    updateValue,
+    ...appendPasswordInputProps(),
+  };
 
   function appendPasswordInputProps() {
     if (dataLabel !== UserDataLabels.PASSWORD) return {};
@@ -49,19 +57,13 @@ export function useUserInputProps(dataLabel: UserDataLabels): BaseInputProps {
   }
 
   function updateValue(newValue: string) {
-    const updatedInputValue: UpdatedInputValue = {
+    const updatedDraftValue: UpdatedDraftValue = {
       value: newValue,
       dataLabel,
     };
 
-    userInputsController.emit(UserInputsEvents.UPDATE_INPUT_VALUE, updatedInputValue);
+    userDraftController.emit(UserDraftEvents.UPDATE_VALUE, updatedDraftValue);
   }
   
-  return {
-    value,
-    error,
-    placeholder: userInputsLanguage[dataLabel].placeholder,
-    updateValue,
-    ...appendPasswordInputProps(),
-  };
+  return inputProps;
 }

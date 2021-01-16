@@ -32,7 +32,7 @@ class AppIniter {
 
     const storeManager: StoreManager = new StoreManagerService();
     await storeManager.addStore(Stores.LANGUAGE_STORE);
-    await storeManager.addStore(Stores.USER_INPUTS_STORE);
+    await storeManager.addStore(Stores.USER_DRAFT_STORE);
   }
 
   initMode(): void {

@@ -4,14 +4,12 @@ export enum AppEvents {
   REMOVE_INIT_EVENTS = 'app-events/remove-init-events',
 };
 
-export enum UserInputsEvents {
-  INIT_EVENTS = 'user-inputs-events/init-events',
-  REMOVE_EVENTS = 'user-inputs-events/remove-events',
-  UPDATE_INPUT_VALUE = 'user-inputs-events/update-input-value',
-  SET_INPUT_ERROR = 'user-inputs-events/set-input-error',
-  CHANGE_LANGUAGE = 'user-inputs-events/change-language',
-  CHANGE_THEME = 'user-inputs-events/change-theme',
-  RESET_STATES = 'user-inputs-events/reset-states',
+export enum UserDraftEvents {
+  INIT_EVENTS = 'user-draft-events/init-events',
+  REMOVE_EVENTS = 'user-draft-events/remove-events',
+  UPDATE_VALUE = 'user-draft-events/update-value',
+  SET_ERROR = 'user-draft-events/set-error',
+  RESET_STATES = 'user-draft-events/reset-states',
 };
 
 export enum LanguageEvents {

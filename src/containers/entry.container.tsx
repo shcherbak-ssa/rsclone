@@ -2,8 +2,8 @@ import React, { lazy, Suspense, useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { AppRoutePathnames } from '../constants';
 
-import { UserInputsEvents } from '../constants/events.constants';
-import { userInputsController } from '../controllers/user-inputs.controller';
+import { UserDraftEvents } from '../constants/events.constants';
+import { userDraftController } from '../controllers/user-draft.controller';
 
 type EntryContainerProps = {
   initialRoutePathname: string;
@@ -18,7 +18,7 @@ export function EntryContainer({initialRoutePathname}: EntryContainerProps) {
 
   useEffect(() => {
     history.push(initialRoutePathname);
-    userInputsController.emit(UserInputsEvents.INIT_EVENTS);
+    userDraftController.emit(UserDraftEvents.INIT_EVENTS);
   }, []);
 
   return (

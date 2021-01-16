@@ -6,23 +6,23 @@ import { Request, Response } from '../types/services.types';
 import { UpdatedData } from '../types/user.types';
 import { UserValidation } from '../validation/user.validation';
 import { BaseModel } from './base.model';
-import { UserInputsModel } from './user-inputs.model';
+import { UserDraftModel } from './user-draft.model';
 import { UserModel } from './user.model';
 
-export interface UpdateUserValidation {
+export interface UserUpdateValidation {
   validate(updatedData: UpdatedData): Promise<UpdatedData>;
 }
 
-export class UpdateUserModel extends BaseModel {
-  private validation: UpdateUserValidation;
-  private userInputsModel: UserInputsModel;
+export class UserUpdateModel extends BaseModel {
+  private validation: UserUpdateValidation;
+  private userDraftModel: UserDraftModel;
   private userModel: UserModel;
 
   constructor() {
     super();
 
     this.validation = new UserValidation();
-    this.userInputsModel = new UserInputsModel();
+    this.userDraftModel = new UserDraftModel();
     this.userModel = new UserModel();
   }
 
@@ -64,6 +64,6 @@ export class UpdateUserModel extends BaseModel {
         return;
     }
 
-    this.userInputsModel.setInputError(payload.errorLabel, payload.dataLabel);
+    this.userDraftModel.setError(payload.errorLabel, payload.dataLabel);
   }
 }

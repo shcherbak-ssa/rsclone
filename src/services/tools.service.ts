@@ -1,6 +1,5 @@
-import { SelectItemType } from "../components/base/select-item.component";
-import { InitialInputState } from "../types/tools.types";
-import { InputState } from "../types/user-inputs.types";
+import { InitialInputState } from '../types/tools.types';
+import { InputState } from '../types/user-draft.types';
 
 export class ToolsService implements InitialInputState {
   getInitialInputState(): InputState {
@@ -10,7 +9,7 @@ export class ToolsService implements InitialInputState {
     };
   }
 
-  getSelectedItem(items: SelectItemType[], label: string): SelectItemType {
+  getSelectedItem(items: Array<{label: string}>, label: string): {label: string} {
     return items.find((item) => item.label === label);
   }
 }

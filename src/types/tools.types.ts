@@ -1,4 +1,4 @@
-import { InputState } from "./user-inputs.types";
+import { InputState } from "./user-draft.types";
 
 export interface InitialInputState {
   getInitialInputState(): InputState; 

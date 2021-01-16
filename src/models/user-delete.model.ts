@@ -2,7 +2,7 @@ import { LogoutService } from '../services/logout.service';
 import { Logout, Request, Response } from '../types/services.types';
 import { BaseModel } from './base.model';
 
-export class DeleteUserModel extends BaseModel {
+export class UserDeleteModel extends BaseModel {
   async deleteUser(): Promise<boolean> {
     try {
       const request: Request = this.createRequest();

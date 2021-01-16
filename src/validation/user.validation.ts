@@ -2,10 +2,10 @@ import Joi from 'joi';
 
 import { parseValidationError, Validation } from '../../common/validation';
 import { UserDataLabels } from '../constants';
-import { UpdateUserValidation } from '../models/update-user.model';
+import { UserUpdateValidation } from '../models/user-update.model';
 import { UpdatedData } from '../types/user.types';
 
-export class UserValidation implements UpdateUserValidation {
+export class UserValidation implements UserUpdateValidation {
   validation: Validation;
 
   constructor() {

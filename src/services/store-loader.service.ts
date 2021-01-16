@@ -6,8 +6,8 @@ export class StoreLoaderService {
     switch (storeName) {
       case Stores.LANGUAGE_STORE:
         return await this.loadLanguageStore();
-      case Stores.USER_INPUTS_STORE:
-        return await this.loadUserInputsStore();
+      case Stores.USER_DRAFT_STORE:
+        return await this.loadUserDraftStore();
       case Stores.AUTH_STORE:
         return await this.loadAuthStore();
       case Stores.USER_STORE:
@@ -20,9 +20,9 @@ export class StoreLoaderService {
     return languageStoreCreator;
   }
 
-  private async loadUserInputsStore(): Promise<StoreCreator> {
-    const {userInputsStoreCreator} = await import('../store/user-inputs.store');
-    return userInputsStoreCreator;
+  private async loadUserDraftStore(): Promise<StoreCreator> {
+    const {userDraftStoreCreator} = await import('../store/user-draft.store');
+    return userDraftStoreCreator;
   }
 
   private async loadAuthStore(): Promise<StoreCreator> {

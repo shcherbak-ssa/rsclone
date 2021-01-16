@@ -7,8 +7,8 @@ import { AuthModes, UserDataLabels, AppRoutePathnames, Stores } from '../constan
 import { useLanguagePart } from './language-part.hook';
 import { useUserInputProps } from './user-input-props.hook';
 import { AuthFormComponentProps } from '../components/auth-form.component';
-import { userInputsController } from '../controllers/user-inputs.controller';
-import { AuthEvents, UserInputsEvents } from '../constants/events.constants';
+import { userDraftController } from '../controllers/user-draft.controller';
+import { AuthEvents, UserDraftEvents } from '../constants/events.constants';
 import { BaseInputProps } from '../components/base';
 import { authController } from '../controllers/auth.controller';
 import { storeSelectorsService } from '../services/store-selectors.service';
@@ -62,7 +62,7 @@ export function useAuthFormProps({
         resetDataLabels.push(UserDataLabels.FULLNAME);
       }
 
-      userInputsController.emit(UserInputsEvents.RESET_STATES, resetDataLabels);
+      userDraftController.emit(UserDraftEvents.RESET_STATES, resetDataLabels);
       authController.emit(AuthEvents.REMOVE_ERROR);
       history.push(nextRoutePathname);
     },

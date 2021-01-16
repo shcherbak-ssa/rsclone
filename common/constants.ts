@@ -49,7 +49,7 @@ export enum LanguageLabels {
 export enum LanguageParts {
   APP = 'app',
   AUTH = 'auth',
-  USER_INPUTS = 'user-inputs',
+  USER_DRAFT = 'user-draft',
   ASSETS = 'assets',
 }
 

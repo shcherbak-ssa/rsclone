@@ -2,9 +2,9 @@ import { Stores, UserDataLabels } from '../../constants';
 import { StoreManager } from '../../types/store.types';
 import { UserLocalStorageType } from '../../types/user.types';
 import { StoreManagerService } from '../../services/store-manager.service';
-import { InputState, UserInputsStoreState } from '../../types/user-inputs.types';
+import { InputState, UserDraftStoreState } from '../../types/user-draft.types';
 import { AuthStore } from '../../types/auth.types';
-import { UserInputsModel } from '../user-inputs.model';
+import { UserDraftModel } from '../user-draft.model';
 import { ErrorNames, RequestPathnames } from '../../../common/constants';
 import { ValidationError } from '../../../common/validation';
 import { Request, Response, UserLocalStorage } from '../../types/services.types';
@@ -15,20 +15,20 @@ import { BaseModel } from '../base.model';
 export type AuthModeParameters = {
   inputDataLabels: UserDataLabels[],
   urlPathname: RequestPathnames,
-  validateFunction: (inputValues: UserInputsStoreState) => Promise<UserInputsStoreState>,
+  validateFunction: (inputValues: UserDraftStoreState) => Promise<UserDraftStoreState>,
 }
 
 export class AuthModel extends BaseModel {
   private storeManager: StoreManager;
   private authStore: AuthStore;
-  private userInputsModel: UserInputsModel;
+  private userDraftModel: UserDraftModel;
 
   constructor() {
     super();
 
     this.storeManager = new StoreManagerService();
     this.authStore = this.storeManager.getStore(Stores.AUTH_STORE) as AuthStore;
-    this.userInputsModel = new UserInputsModel();
+    this.userDraftModel = new UserDraftModel();
 
     this.removeError();
   }
@@ -37,8 +37,8 @@ export class AuthModel extends BaseModel {
     inputDataLabels, urlPathname, validateFunction
   }: AuthModeParameters) {
     try {
-      const inputValues: UserInputsStoreState = this.getInputValues(inputDataLabels);
-      const user: UserInputsStoreState = await validateFunction(inputValues);
+      const inputValues: UserDraftStoreState = this.getInputValues(inputDataLabels);
+      const user: UserDraftStoreState = await validateFunction(inputValues);
       const userStorage: UserLocalStorageType = await this.sendRequest(urlPathname, user);
 
       this.saveUserToLocalStorage(userStorage);
@@ -52,11 +52,11 @@ export class AuthModel extends BaseModel {
     this.authStore.setAuthError('');
   }
 
-  private getInputValues(dataLabels: UserDataLabels[]): UserInputsStoreState {
+  private getInputValues(dataLabels: UserDataLabels[]): UserDraftStoreState {
     const inputValues = {};
 
     dataLabels.forEach((dataLabel) => {
-      const input = this.userInputsModel.getInputState(dataLabel) as InputState;
+      const input = this.userDraftModel.getDraftState(dataLabel) as InputState;
       inputValues[dataLabel] = input.value;
     });
 
@@ -96,7 +96,7 @@ export class AuthModel extends BaseModel {
     if (payload.isLoginError) {
       this.authStore.setAuthError(payload.error);
     } else {
-      this.userInputsModel.setInputError(payload.errorLabel, payload.dataLabel);
+      this.userDraftModel.setError(payload.errorLabel, payload.dataLabel);
     }
   }
 

@@ -3,9 +3,9 @@ import { EventEmitter } from '../services/event-emitter.service';
 import { UserModel } from '../models/user.model';
 import { UserEvents } from '../constants/events.constants';
 import { UserDataLabels } from '../constants';
-import { DeleteUserModel } from '../models/delete-user.model';
+import { UserDeleteModel } from '../models/user-delete.model';
 import { UpdatedData } from '../types/user.types';
-import { UpdateUserModel } from '../models/update-user.model';
+import { UserUpdateModel } from '../models/user-update.model';
 
 export type UpdateUserData = {
   updatedData: UpdatedData,
@@ -25,15 +25,15 @@ function updatedStatesHandler(updatedStateLabels: UserDataLabels[]) {
 }
 
 async function updatedUserHandler({updatedData, callback}: UpdateUserData) {
-  const updateUserModel: UpdateUserModel = new UpdateUserModel();
-  await updateUserModel.updateUser(updatedData);
+  const userUpdateModel: UserUpdateModel = new UserUpdateModel();
+  await userUpdateModel.updateUser(updatedData);
 
   callback();
 }
 
 async function deleteUserHandler(callback: Function) {
-  const deleteUserModel: DeleteUserModel = new DeleteUserModel();
-  const deleted: boolean = await deleteUserModel.deleteUser();
+  const userDeleteModel: UserDeleteModel = new UserDeleteModel();
+  const deleted: boolean = await userDeleteModel.deleteUser();
 
   callback(deleted);
 }

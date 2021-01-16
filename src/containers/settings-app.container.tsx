@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { UserEvents, UserInputsEvents } from '../constants/events.constants';
+import { UserEvents } from '../constants/events.constants';
 import { SettingsGroupLabels, SettingsSectionLabels, Stores, UserDataLabels } from '../constants';
 import { Base, BaseSelectProps } from '../components/base';
 import { SelectPropsHookParameters, useSelectProps } from '../hooks/select-props.hook';
@@ -57,13 +57,11 @@ export function SettingsAppContainer() {
     initialItemLabel: currentLanguage,
     items: languagesData,
     dataLabel: UserDataLabels.LANGUAGE,
-    userInputsEvent: UserInputsEvents.CHANGE_LANGUAGE,
   };
   const selectPropsHookParametersForTheme: SelectPropsHookParameters = {
     initialItemLabel: currentTheme,
     items: themesData,
     dataLabel: UserDataLabels.THEME,
-    userInputsEvent: UserInputsEvents.CHANGE_THEME,
   };
 
   const settingsSectionComponentProps: SettingsSectionComponentProps
