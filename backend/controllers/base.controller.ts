@@ -1,7 +1,21 @@
+import { ControllerData } from '../types/controller.types';
 import { ServerError } from '../services/errors.service';
 
 export class BaseController {
-  protected unknowUserIDError() {
+  async runController(action: any, {userID, responseSender}: ControllerData): Promise<void> {
+    try {
+      if (!userID) throw this.unknowUserIDError();
+
+      const actionResult: any = await this.doAction(action, userID);
+      await responseSender.sendSuccessJsonResponse(actionResult);
+    } catch (error) {
+      await responseSender.sendErrorResponse(error);
+    }
+  }
+
+  protected async doAction(...params: any[]): Promise<any> {}
+
+  private unknowUserIDError() {
     return new ServerError(
       'Unknow user id',
       {

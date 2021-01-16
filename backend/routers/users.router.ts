@@ -1,29 +1,36 @@
 import { Request, Router } from 'express';
 
-import { UsersController } from '../controllers/users.controller';
-import { RequestPathnames } from '../../common/constants';
+import { UsersController, UsersControllerActions } from '../controllers/users.controller';
+import { RequestMethods, RequestPathnames } from '../../common/constants';
 import { BaseRouter } from './base.router';
+import { ControllerData } from '../types/controller.types';
 
 export class UsersRouter implements BaseRouter {
   private router: Router;
-  private usersController: UsersController;
+  private runUsersController: Function;
 
   constructor() {
     this.router = Router();
-    this.usersController = new UsersController();
+
+    const usersController: UsersController = new UsersController();
+    this.runUsersController = usersController.runController.bind(usersController);
   }
 
   initRouter(): Router {
     return this.router
-      .get(
-        RequestPathnames.USERS,
-        this.getUserHandler.bind(this),
-      )
+      .all(RequestPathnames.USERS, this.routerHanlder.bind(this));
   }
 
-  private async getUserHandler({controllerData}: Request): Promise<void> {
-    if (controllerData) {
-      await this.usersController.getUser(controllerData);
+  private async routerHanlder({method, controllerData}: Request) {
+    if (!controllerData) return;
+
+    switch (method) {
+      case RequestMethods.GET:
+        return await this.getUser(controllerData);
     }
+  }
+
+  private async getUser(controllerData: ControllerData): Promise<void> {
+    await this.runUsersController(UsersControllerActions.GET_USER, controllerData);
   }
 }
