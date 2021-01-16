@@ -24,7 +24,12 @@
       "title": "Login"
     },
     "app": {
-      "title": "App"
+      "title": "App",
+      "groups": {
+        "theme": {
+          "title": "Theme"
+        }
+      }
     },
     "shortcuts": {
       "title": "Keyboard Shortcuts",

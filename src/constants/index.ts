@@ -50,3 +50,7 @@ export enum SettingsSectionLabels {
 export enum SettingsActionLabels {
   DELETE_ACCOUNT = 'delete-account',
 };
+
+export enum SettingsGroupLabels {
+  THEME = 'theme',
+};
