@@ -1,10 +1,8 @@
 import { ControllerData } from '../types/controller.types';
-import { GetUserModel } from '../models/users/get-user.model';
 import { BaseController } from './base.controller';
-import { DeleteUserModel } from '../models/users/delete-user.model';
 import { UpdatedUserData } from '../types/user.types';
 import { UserValidationImpl } from '../validation/user.validation';
-import { UpdateUserModel } from '../models/users/update-user.model';
+import { UserModel } from '../models/user.model';
 
 export interface UserValidation {
   validate(updatedData: UpdatedUserData): Promise<UpdatedUserData>;
@@ -18,17 +16,13 @@ export enum UsersControllerActions {
 
 export class UsersController extends BaseController {
   private validation: UserValidation;
-  private getUserModel: GetUserModel;
-  private updateUserModel: UpdateUserModel;
-  private deleteUserModel: DeleteUserModel;
+  private userModel: UserModel;
 
   constructor() {
     super();
 
     this.validation = new UserValidationImpl();
-    this.getUserModel = new GetUserModel();
-    this.updateUserModel = new UpdateUserModel();
-    this.deleteUserModel = new DeleteUserModel();
+    this.userModel = new UserModel();
   }
 
   async runController(
@@ -42,16 +36,16 @@ export class UsersController extends BaseController {
   ): Promise<any> {
     switch (action) {
       case UsersControllerActions.GET_USER:
-        return await this.getUserModel.getUser(userID);
+        return await this.userModel.getUser(userID);
       case UsersControllerActions.UPDATE_USER:
         return await this.updateUser(userID, body);
       case UsersControllerActions.DELETE_USER:
-        return await this.deleteUserModel.deleteUser(userID);
+        return await this.userModel.deleteUser(userID);
     }
   }
 
   private async updateUser(userID: string, body: any): Promise<any> {
     const updatedData: UpdatedUserData = await this.validation.validate(body);
-    return await this.updateUserModel.updateUser(userID, updatedData);
+    return await this.userModel.updateUser(userID, updatedData);
   }
 }

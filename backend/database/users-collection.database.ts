@@ -7,9 +7,7 @@ import { DatabaseDBService } from '../services/database-db.service';
 import { CreateUserDatabase } from '../models/registration.model';
 import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
 import { GetUsernameDatabase } from '../models/auth-user.model';
-import { GetUserDatabase } from '../models/users/get-user.model';
-import { DeleteUserDatabase } from '../models/users/delete-user.model';
-import { UpdateUserDatabase } from '../models/users/update-user.model';
+import { UserDatabase } from '../models/user.model';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
@@ -17,9 +15,7 @@ export class UsersCollectionDatabase implements
   GetUsernameDatabase,
   CreateUserDatabase,
   LoginUserDatabase,
-  GetUserDatabase,
-  DeleteUserDatabase,
-  UpdateUserDatabase
+  UserDatabase
 {
   private databaseCollection: DatabaseCollectionService;
   
@@ -75,7 +71,7 @@ export class UsersCollectionDatabase implements
     return await this.databaseCollection.getDocument(getUsernameQuery, getUsernameOptions);
   }
 
-  // implements GetUserDatabase
+  // implements UserDatabase
   async getUser(userID: string): Promise<User> {
     const getUserQuery = this.getUserIDSearchObject(userID);
     const getUserOptions = {
@@ -85,13 +81,6 @@ export class UsersCollectionDatabase implements
     return await this.databaseCollection.getDocument(getUserQuery, getUserOptions);
   }
 
-  // implements DeleteUserDatabase
-  async deleteUser(userID: string): Promise<void> {
-    const deleteUserFilter = this.getUserIDSearchObject(userID);
-    await this.databaseCollection.deleteDocument(deleteUserFilter);
-  }
-
-  // implements UpdateUserDatabase
   async updateUser(userID: string, updatedData: UpdatedUserData): Promise<void> {
     const updateUserFilter = this.getUserIDSearchObject(userID);
     const updates = {
@@ -99,5 +88,10 @@ export class UsersCollectionDatabase implements
     };
 
     await this.databaseCollection.updateDocument(updateUserFilter, updates);
+  }
+
+  async deleteUser(userID: string): Promise<void> {
+    const deleteUserFilter = this.getUserIDSearchObject(userID);
+    await this.databaseCollection.deleteDocument(deleteUserFilter);
   }
 }
