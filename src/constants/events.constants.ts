@@ -28,4 +28,5 @@ export enum AuthEvents {
 export enum UserEvents {
   UPDATE_STATES = 'user-events/update-states',
   DELETE_USER = 'user-events/delete-user',
+  UPDATE_USER = 'user-events/update-user',
 };

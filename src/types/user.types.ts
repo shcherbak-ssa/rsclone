@@ -1,6 +1,5 @@
 import { LanguageLabels, Themes } from '../../common/constants';
 import { KeyboardShortcut, Space } from '../../common/entities';
-import { UserDataLabels } from '../constants';
 
 export type UserLocalStorageType = null | {
   token: string;
@@ -36,6 +35,10 @@ export const initialState: User = {
 
 export type UpdatedStates = {
   [key: string]: UserDataValue,
+};
+
+export type UpdatedData = {
+  [key: string]: string,
 };
 
 export interface UserStore {
