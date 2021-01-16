@@ -6,13 +6,12 @@ import { useAppLanguage } from './app-language.hook';
 export type SettingsActionPropsHookParams = {
   sectionLabel: SettingsSectionLabels,
   actionLabel: SettingsActionLabels,
-  buttonValue?: string,
-  buttonClickHandler: Function,
+  buttonProps: any,
   selectAction?: SelectAction,
 };
 
 export function useSettingsActionProps({
-  sectionLabel, actionLabel, buttonValue, buttonClickHandler, selectAction
+  sectionLabel, actionLabel, buttonProps, selectAction
 }: SettingsActionPropsHookParams): SettingsActionComponentProps {
   const appLanguage = useAppLanguage();
   const actionLanguage = appLanguage.settings[sectionLabel].actions[actionLabel];
@@ -21,8 +20,8 @@ export function useSettingsActionProps({
     title: actionLanguage.title,
     description: actionLanguage.description,
     buttonProps: {
-      value: buttonValue || actionLanguage.buttonValue,
-      clickHandler: buttonClickHandler,
+      value: actionLanguage.buttonValue,
+      ...buttonProps,
     },
     selectAction
   };

@@ -16,14 +16,13 @@ export function LogoutPopupContainer() {
     },
   };
 
-  const [popupProps, popupLanguage]: [PopupComponentProps, any] | null
-    = usePopupProps(popupPropsHookParams);
+  const popup: [PopupComponentProps, any] | null = usePopupProps(popupPropsHookParams);
 
-  if (popupProps === null) return <div></div>;
+  if (popup === null) return <div></div>;
 
   return (
-    <PopupComponent {...popupProps}>
-      <PopupTextComponent>{popupLanguage.content}</PopupTextComponent>
+    <PopupComponent {...popup[0]}>
+      <PopupTextComponent>{popup[1].content}</PopupTextComponent>
     </PopupComponent>
   );
 }

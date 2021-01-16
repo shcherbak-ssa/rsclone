@@ -12,9 +12,12 @@ import { useAppLanguage } from '../hooks/app-language.hook';
 export type HomepageContainerProps = {
   sectionLabel: HomepageSectionLabels,
   buttonClickHandler?: Function,
+  children?: React.ReactNode,
 };
 
-export function HomepageContainer({sectionLabel, buttonClickHandler}: HomepageContainerProps) {
+export function HomepageContainer({
+  sectionLabel, buttonClickHandler, children
+}: HomepageContainerProps) {
   const appLanguage = useAppLanguage();
 
   const homepageSectionProps: HomepageSectionComponentProps = {
@@ -36,7 +39,7 @@ export function HomepageContainer({sectionLabel, buttonClickHandler}: HomepageCo
 
   return (
     <HomepageSectionComponent {...homepageSectionProps}>
-      
+      {children}
     </HomepageSectionComponent>
   );
 }
