@@ -39,6 +39,16 @@ const userStoreSelectors: StoreSelectors = {
       return state[Stores.USER_STORE][dataLabel];
     };
   },
+  getStoreStates: (dataLabels: UserDataLabels[]) => {
+    return (state: UserStoreSelector) => {
+      const storeStates: User = state[Stores.USER_STORE];
+      const requestedResult = dataLabels.map((dataLabel) => {
+        return [dataLabel, storeStates[dataLabel]];
+      });
+
+      return new Map(requestedResult as Iterable<[string, string | boolean]>);
+    };
+  },
 };
 
 class UserStoreImpl implements UserStore {

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import saveIcon from '@iconify/icons-ic/baseline-save';
 
 import { BaseButtonProps } from '../components/base';
@@ -7,12 +8,16 @@ import { useAppLanguage } from './app-language.hook';
 
 export type SettingsSectionPropsHookParams = {
   sectionLabel: SettingsSectionLabels,
-  saveHandler?: Function,
+  saveButton?: {
+    saveHandler: Function,
+    isUpdatesExist: boolean,
+  },
 };
 
 export function useSettingsSectionProps({
-  sectionLabel, saveHandler,
+  sectionLabel, saveButton,
 }: SettingsSectionPropsHookParams): SettingsSectionComponentProps {
+  const [isSaveButtonLoading, setIsSaveButtonLoading] = useState(false);
   const appLanguage = useAppLanguage();
 
   const settingsSectionComponentProps: SettingsSectionComponentProps = {
@@ -21,12 +26,16 @@ export function useSettingsSectionProps({
   };
 
   function getSaveButtonProps() {
-    if (!saveHandler) return {};
+    if (!saveButton || !saveButton.isUpdatesExist) return {};
 
     const saveButtonProps: BaseButtonProps = {
+      isLoading: isSaveButtonLoading,
       icon: saveIcon,
       value: appLanguage.homepage.settings.saveButtonValue,
-      clickHandler: saveHandler,
+      clickHandler: () => {
+        setIsSaveButtonLoading(true);
+        saveButton.saveHandler();
+      },
     };
 
     return {saveButtonProps};

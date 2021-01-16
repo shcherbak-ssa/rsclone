@@ -13,14 +13,32 @@ import { SettingsSectionPropsHookParams, useSettingsSectionProps } from '../hook
 import { SettingsSectionComponent, SettingsSectionComponentProps } from '../components/settings-section.component';
 import { SettingsGroupPropsHookParams, useSettingsGroupProps } from '../hooks/settings-group-props.hook';
 import { storeSelectorsService } from '../services/store-selectors.service';
+import { UpdatesControllerHookParams, useUpdatesController } from '../hooks/updates-controller.hook';
+import { UpdatedDataService } from '../services/updated-data.service';
 
 export function SettingsAppContainer() {
   const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
   const currentLanguage = useSelector(userStoreSelectors.getState(UserDataLabels.LANGUAGE));
   const currentTheme = useSelector(userStoreSelectors.getState(UserDataLabels.THEME));
 
+  const controlDataLabels: UserDataLabels[] = [UserDataLabels.LANGUAGE, UserDataLabels.THEME];
+  const updatedData: UpdatedDataService = new UpdatedDataService(controlDataLabels);
+
+  const updatesControllerHookParams: UpdatesControllerHookParams = {
+    controlDataLabels,
+    updatedData,
+  };
+
+  const isUpdatesExist: boolean = useUpdatesController(updatesControllerHookParams);
+
   const settingsSectionPropsHookParams: SettingsSectionPropsHookParams = {
-    sectionLabel: SettingsSectionLabels.APP
+    sectionLabel: SettingsSectionLabels.APP,
+    saveButton: {
+      isUpdatesExist,
+      saveHandler: () => {
+        console.log(updatedData.getUpdated());
+      },
+    },
   };
   const settingsGroupPropsHookParams: SettingsGroupPropsHookParams = {
     sectionLabel: SettingsSectionLabels.APP,
