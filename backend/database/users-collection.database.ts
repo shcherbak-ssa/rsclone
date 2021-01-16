@@ -8,11 +8,16 @@ import { CreateUserDatabase } from '../models/registration.model';
 import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
 import { GetUsernameDatabase } from '../models/auth-user.model';
 import { GetUserDatabase } from '../models/users/get-user.model';
+import { DeleteUserDatabase } from '../models/users/delete-user.model';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
 export class UsersCollectionDatabase implements
-  GetUsernameDatabase, CreateUserDatabase, LoginUserDatabase, GetUserDatabase
+  GetUsernameDatabase,
+  CreateUserDatabase,
+  LoginUserDatabase,
+  GetUserDatabase,
+  DeleteUserDatabase
 {
   private databaseCollection: DatabaseCollectionService;
   
@@ -29,9 +34,7 @@ export class UsersCollectionDatabase implements
 
   // implements GetUsernameDatabase
   async getUsername(userID: string): Promise<any> {
-    const getUsernameQuery = {
-      _id: new ObjectID(userID),
-    };
+    const getUsernameQuery = this.getUserIDSearchObject(userID);
     const getUsernameOptions = {
       projection: { [UserDataLabels.USERNAME]: 1 },
     };
@@ -68,11 +71,22 @@ export class UsersCollectionDatabase implements
 
   // implements GetUserDatabase
   async getUser(userID: string): Promise<User> {
-    const getUserQuery = { _id: new ObjectID(userID) };
+    const getUserQuery = this.getUserIDSearchObject(userID);
     const getUserOptions = {
       projection: { _id: 0, [UserDataLabels.PASSWORD]: 0 },
     };
 
     return await this.databaseCollection.getDocument(getUserQuery, getUserOptions);
+  }
+
+  // implements DeleteUserDatabase
+  async deleteUser(userID: string): Promise<void> {
+    const deleteUserFilter = this.getUserIDSearchObject(userID);
+    await this.databaseCollection.deleteDocument(deleteUserFilter);
+  }
+
+  // private
+  private getUserIDSearchObject(userID: string): {_id: ObjectID} {
+    return { _id: new ObjectID(userID) };
   }
 }

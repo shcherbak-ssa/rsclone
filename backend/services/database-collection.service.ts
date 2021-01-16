@@ -27,10 +27,12 @@ export class DatabaseCollectionService {
   }
 
   async updateDocument(filter: any, updatesRules: any, updateOptions: any = {}) {
-    this.collection.updateOne(filter, updatesRules, updateOptions);
+    await this.collection.updateOne(filter, updatesRules, updateOptions);
   }
 
-  async deleteDocument() {}
+  async deleteDocument(filter: any) {
+    await this.collection.deleteOne(filter);
+  }
 
   async isUnique(query: any): Promise<boolean> {
     const foundDocuments: any = await this.collection.find(query, this.uniqueOptions);
