@@ -6,3 +6,5 @@ import './images/dark-theme.png';
 
 import './styles/main.scss';
 import './favicon.ico';
+
+import './index.html';

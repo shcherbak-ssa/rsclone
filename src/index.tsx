@@ -1,6 +1,5 @@
 import '@babel/polyfill';
 import './assets';
-import './index.html';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
