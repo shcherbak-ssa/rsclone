@@ -1,35 +1,32 @@
 import { EMPTY_VALUE_LENGTH, UserDataLabels } from '../constants';
+import { UpdatedData } from '../types/user.types';
 
 export class UpdatedDataService {
-  private updatedData: Map<string, boolean>;
+  private updatedData: Map<string, any>;
 
-  constructor(controlDataLabels: UserDataLabels[]) {
+  constructor() {
     this.updatedData = new Map();
-
-    for (const dataLabel of controlDataLabels) {
-      this.remove(dataLabel);
-    }
   }
 
   isUpdatesExist() {
-    return this.getUpdated().length !== EMPTY_VALUE_LENGTH;
+    return this.updatedData.size !== EMPTY_VALUE_LENGTH;
   }
 
-  add(dataLabel: UserDataLabels): void {
-    this.updatedData.set(dataLabel, true);
+  add(dataLabel: UserDataLabels, value: any): void {
+    this.updatedData.set(dataLabel, value);
   }
 
   remove(dataLabel: UserDataLabels): void {
-    this.updatedData.set(dataLabel, false);
+    this.updatedData.delete(dataLabel);
   }
 
-  getUpdated() {
-    const updated = [];
+  get(): UpdatedData {
+    const updatedData: UpdatedData = {};
 
-    for (const [dataLabel, isUpdated] of this.updatedData.entries()) {
-      if (isUpdated) updated.push(dataLabel);
+    for (const [dataLabel, value] of this.updatedData.entries()) {
+      updatedData[dataLabel] = value;
     }
 
-    return updated;
+    return updatedData;
   }
 }

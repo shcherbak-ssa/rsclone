@@ -24,9 +24,17 @@ export function useUpdatesController({
   const updatedStates = useSelector(userInpustStoreSelectors.getStoreStates(controlDataLabels));
 
   useEffect(() => {
+    return () => {
+      userInputsController.emit(UserInputsEvents.RESET_STATES, controlDataLabels);
+    };
+  }, []);
+
+  useEffect(() => {
     for (const [dataLabel, initialState] of currentStates.entries()) {
+      const updatedValue = updatedStates.get(dataLabel);
+
       if (initialState !== updatedStates.get(dataLabel)) {
-        updatedData.add(dataLabel);
+        updatedData.add(dataLabel, updatedValue);
       } else {
         updatedData.remove(dataLabel);
       }
@@ -34,12 +42,6 @@ export function useUpdatesController({
 
     setIsUpdatesExist(updatedData.isUpdatesExist());
   });
-
-  useEffect(() => {
-    return () => {
-      userInputsController.emit(UserInputsEvents.RESET_STATES, controlDataLabels);
-    };
-  }, []);
 
   return isUpdatesExist;
 }

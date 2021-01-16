@@ -21,6 +21,7 @@ export function ButtonComponent({
 }: BaseButtonProps) {
   const componentClassnames = classnames('button', type, {
     [Classnames.IS_DISABLE]: isDisable,
+    [Classnames.IS_LOADING]: isLoading,
   });
 
   function handleClick(e: React.MouseEvent) {

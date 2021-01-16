@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { UserInputsEvents } from '../constants/events.constants';
+import { UserEvents, UserInputsEvents } from '../constants/events.constants';
 import { SettingsGroupLabels, SettingsSectionLabels, Stores, UserDataLabels } from '../constants';
 import { Base, BaseSelectProps } from '../components/base';
 import { SelectPropsHookParameters, useSelectProps } from '../hooks/select-props.hook';
@@ -15,6 +15,7 @@ import { SettingsGroupPropsHookParams, useSettingsGroupProps } from '../hooks/se
 import { storeSelectorsService } from '../services/store-selectors.service';
 import { UpdatesControllerHookParams, useUpdatesController } from '../hooks/updates-controller.hook';
 import { UpdatedDataService } from '../services/updated-data.service';
+import { UpdateUserData, userController } from '../controllers/user.controller';
 
 export function SettingsAppContainer() {
   const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
@@ -22,7 +23,7 @@ export function SettingsAppContainer() {
   const currentTheme = useSelector(userStoreSelectors.getState(UserDataLabels.THEME));
 
   const controlDataLabels: UserDataLabels[] = [UserDataLabels.LANGUAGE, UserDataLabels.THEME];
-  const updatedData: UpdatedDataService = new UpdatedDataService(controlDataLabels);
+  const updatedData: UpdatedDataService = new UpdatedDataService();
 
   const updatesControllerHookParams: UpdatesControllerHookParams = {
     controlDataLabels,
@@ -35,8 +36,16 @@ export function SettingsAppContainer() {
     sectionLabel: SettingsSectionLabels.APP,
     saveButton: {
       isUpdatesExist,
-      saveHandler: () => {
-        console.log(updatedData.getUpdated());
+      saveHandler: (sectionCallback: Function) => {
+        const updatedUserData: UpdateUserData = {
+          updatedData: updatedData.get(),
+          callback: () => {
+            console.log('updated')
+            sectionCallback();
+          },
+        };
+
+        userController.emit(UserEvents.UPDATE_USER, updatedUserData);
       },
     },
   };

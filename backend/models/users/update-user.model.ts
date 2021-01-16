@@ -12,7 +12,8 @@ export class UpdateUserModel {
     this.database = usersCollectionDatabase;
   }
 
-  async updateUser(userID: string, updatedData: UpdatedUserData): Promise<void> {
+  async updateUser(userID: string, updatedData: UpdatedUserData): Promise<any> {
     await this.database.updateUser(userID, updatedData);
+    return {};
   }
 }

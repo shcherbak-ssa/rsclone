@@ -109,6 +109,10 @@
     opacity: .4;
     cursor: not-allowed;
   }
+
+  &.is-loading {
+    cursor: not-allowed;
+  }
 }
 
 .lds-ellipsis {
@@ -124,16 +128,28 @@
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
   -x-size: 10px;
 
-  .original-theme & {
+  .original-theme .primary & {
     background: $original-button-primary-color;
   }
 
-  .light-theme & {
+  .original-theme .danger & {
+    background: $original-button-danger-color;
+  }
+
+  .light-theme .primary & {
     background: $light-button-primary-color;
   }
 
-  .dark-theme & {
-    background: #fff;
+  .light-theme .danger & {
+    background: $light-button-danger-color;
+  }
+  
+  .dark-theme .primary & {
+    background: $dark-button-primary-color;
+  }
+
+  .dark-theme .danger & {
+    background: $dark-button-danger-color;
   }
 }
 

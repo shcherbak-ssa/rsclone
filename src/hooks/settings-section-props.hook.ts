@@ -34,7 +34,7 @@ export function useSettingsSectionProps({
       value: appLanguage.homepage.settings.saveButtonValue,
       clickHandler: () => {
         setIsSaveButtonLoading(true);
-        saveButton.saveHandler();
+        saveButton.saveHandler(() => setIsSaveButtonLoading(false));
       },
     };
 

@@ -9,6 +9,7 @@ export enum Classnames {
   IS_ACTIVE = 'is-active',
   IS_OPEN = 'is-open',
   IS_DISABLE = 'is-disable',
+  IS_LOADING = 'is-loading',
   HAS_DESCRIPTION = 'has-description',
   SHOW_SIDEBAR = 'show-sidebar',
   SELECT_TYPE = 'select-type',

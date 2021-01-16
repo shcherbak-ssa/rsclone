@@ -4,7 +4,7 @@ import { BaseController } from './base.controller';
 import { DeleteUserModel } from '../models/users/delete-user.model';
 import { UpdatedUserData } from '../types/user.types';
 import { UserValidationImpl } from '../validation/user.validation';
-import { UpdateUserModel } from 'models/users/update-user.model';
+import { UpdateUserModel } from '../models/users/update-user.model';
 
 export interface UserValidation {
   validate(updatedData: UpdatedUserData): Promise<UpdatedUserData>;
@@ -50,8 +50,8 @@ export class UsersController extends BaseController {
     }
   }
 
-  private async updateUser(userID: string, body: any): Promise<void> {
+  private async updateUser(userID: string, body: any): Promise<any> {
     const updatedData: UpdatedUserData = await this.validation.validate(body);
-    await this.updateUserModel.updateUser(userID, updatedData);
+    return await this.updateUserModel.updateUser(userID, updatedData);
   }
 }
