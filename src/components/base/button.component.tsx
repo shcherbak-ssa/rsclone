@@ -26,7 +26,7 @@ export function ButtonComponent({
   function handleClick(e: React.MouseEvent) {
     e.stopPropagation();
 
-    if (!isDisable || !isLoading) {
+    if (!isDisable && !isLoading) {
       clickHandler();
     }
   }

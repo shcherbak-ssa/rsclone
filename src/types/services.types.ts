@@ -45,3 +45,7 @@ export interface UserLocalStorage {
   saveUser(user: UserLocalStorageType): void;
   removeUser(): void;
 }
+
+export interface Logout {
+  logoutUser(): void;
+}

@@ -1,24 +1,30 @@
-import { Request, Response } from '../types/services.types';
+import { LogoutService } from '../services/logout.service';
+import { Logout, Request, Response } from '../types/services.types';
 import { BaseModel } from './base.model';
 
 export class DeleteUserModel extends BaseModel {
-  async deleteUser(): Promise<any> {
+  async deleteUser(): Promise<boolean> {
     try {
       const request: Request = this.createRequest();
       const response: Response = await this.requestSender.send(request).delete();
-      
       const deletionResult: any = response.parseResponse();
-      console.log(deletionResult);
-      return false;
+      
+      if (deletionResult.deleted) {
+        const logout: Logout = new LogoutService();
+        logout.logoutUser();
+      }
     } catch (error) {
       console.log(error);
+    } finally {
       return false;
     }
   }
 
   private createRequest(): Request {
+    const usersPathname: string = this.getUsersPathname();
+
     return this.requestCreator
-      .appendUrlPathname(this.usersPathname)
+      .appendUrlPathname(usersPathname)
       .createRequest();
   }
 }

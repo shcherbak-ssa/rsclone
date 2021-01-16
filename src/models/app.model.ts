@@ -40,8 +40,10 @@ export class AppModel extends BaseModel {
   }
 
   private createUserRequest(): Request {
+    const usersPathname: string = this.getUsersPathname();
+
     return this.requestCreator
-      .appendUrlPathname(this.usersPathname)
+      .appendUrlPathname(usersPathname)
       .createRequest();
   }
 

@@ -10,13 +10,15 @@ export interface UsersUrlPathname {
 export class BaseModel {
   protected requestCreator: RequestCreator;
   protected requestSender: RequestSender;
-  protected usersPathname: string
+  private urlPathname: UsersUrlPathname;
 
   constructor() {
     this.requestCreator = new RequestCreatorService();
     this.requestSender = new RequestSenderService();
-    
-    const urlPathname: UsersUrlPathname = new UrlPathnameService();
-    this.usersPathname = urlPathname.getUsersPathname();
+    this.urlPathname = new UrlPathnameService();
+  }
+
+  protected getUsersPathname(): string {
+    return this.urlPathname.getUsersPathname();
   }
 }
