@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Stores, UserDataLabels } from '../constants';
-import { UserDraftEvents } from '../constants/events.constants';
-import { userDraftController } from '../controllers/user-draft.controller';
+import { UserEvents } from '../constants/events.constants';
+import { userController } from '../controllers/user.controller';
 import { storeSelectorsService } from '../services/store-selectors.service';
 import { UpdatedDataService } from '../services/updated-data.service';
 
@@ -25,7 +25,7 @@ export function useUpdatesController({
 
   useEffect(() => {
     return () => {
-      userDraftController.emit(UserDraftEvents.RESET_STATES, controlDataLabels);
+      userController.emit(UserEvents.SYNC_DRAFT);
     };
   }, []);
 

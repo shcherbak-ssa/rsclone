@@ -16,12 +16,18 @@ export const userController: Controller = new EventEmitter();
 
 userController
   .on(UserEvents.UPDATE_STATES, updatedStatesHandler)
+  .on(UserEvents.SYNC_DRAFT, syncDraftHandler)
   .on(UserEvents.UPDATE_USER, updatedUserHandler)
   .on(UserEvents.DELETE_USER, deleteUserHandler);
 
 function updatedStatesHandler(updatedStateLabels: UserDataLabels[]) {
   const userModel: UserModel = new UserModel();
   userModel.updateState(updatedStateLabels);
+}
+
+function syncDraftHandler() {
+  const userModel: UserModel = new UserModel();
+  userModel.syncDraft();
 }
 
 async function updatedUserHandler({updatedData, callback}: UpdateUserData) {

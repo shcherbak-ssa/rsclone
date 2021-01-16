@@ -5,6 +5,7 @@ import { User, UserStore } from '../types/user.types';
 import { UserDataLabels } from '../constants';
 import { UpdatedStates } from '../types/user.types';
 import { UserDraftStore } from '../types/user-draft.types';
+import { UserDraftModel } from './user-draft.model';
 
 export class UserModel {
   private storeManager: StoreManager;
@@ -17,12 +18,23 @@ export class UserModel {
   
   async initUserData(user: User): Promise<void> {
     await this.storeManager.addStore(Stores.USER_STORE);
+
     this.getUserStore().setStates(user);
+    this.syncDraft();
   }
 
   updateState(updatedStateLabels: UserDataLabels[]): void {
     const updatedStates = this.userDraftStore.getDraftValues(updatedStateLabels) as UpdatedStates;
     this.getUserStore().updateStates(updatedStates);
+  }
+
+  syncDraft() {
+    const userStoreStates: User = this.getUserStore().getStates();
+    const userDraftModel: UserDraftModel = new UserDraftModel();
+    
+    for (const [dataLabel, value] of Object.entries(userStoreStates)) {
+      userDraftModel.updateValue(value, dataLabel as UserDataLabels);
+    }
   }
 
   private getUserStore(): UserStore {

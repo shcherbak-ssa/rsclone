@@ -9,6 +9,7 @@ import {
 import { Stores, UserDataLabels } from '../constants';
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
+import { userInputLabels } from '../data/user.data';
 
 export class UserDraftModel {
   private userDraftStore: UserDraftStore;
@@ -22,9 +23,9 @@ export class UserDraftModel {
     return this.userDraftStore.getDraftState(dataLabel);
   }
   
-  updateValue(value: string, dataLabel: UserDataLabels): void {
+  updateValue(value: any, dataLabel: UserDataLabels): void {
     const updatedDraft: UpdatedDraft = {
-      [dataLabel]: (typeof initialState[dataLabel] === 'object') ? {value, error: ''} : value,
+      [dataLabel]: userInputLabels.includes(dataLabel) ? {value, error: ''} : value,
     };
 
     this.userDraftStore.updateValue(updatedDraft);

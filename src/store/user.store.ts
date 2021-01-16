@@ -52,6 +52,10 @@ const userStoreSelectors: StoreSelectors = {
 };
 
 class UserStoreImpl implements UserStore {
+  getStates(): User {
+    return reduxStore.getState()[Stores.USER_STORE];
+  }
+
   updateStates(updatedStates: UpdatedStates): void {
     reduxStore.dispatch(
       updateStateAction(updatedStates)

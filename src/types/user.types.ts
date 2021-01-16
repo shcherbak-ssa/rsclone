@@ -42,6 +42,7 @@ export type UpdatedData = {
 };
 
 export interface UserStore {
+  getStates(): User;
   updateStates(updatedStates: UpdatedStates): void;
   setStates(user: User): void;
 }

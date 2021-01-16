@@ -25,6 +25,7 @@ export enum AuthEvents {
 
 export enum UserEvents {
   UPDATE_STATES = 'user-events/update-states',
+  SYNC_DRAFT = 'user-events/sync-draft',
   DELETE_USER = 'user-events/delete-user',
   UPDATE_USER = 'user-events/update-user',
 };
