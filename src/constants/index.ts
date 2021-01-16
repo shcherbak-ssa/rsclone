@@ -38,3 +38,11 @@ export enum HomepageSectionLabels {
   SPACES = 'spaces',
   SETTINGS = 'settings',
 };
+
+export enum SettingsSectionLabels {
+  USER = 'user',
+  LOGIN = 'login',
+  APP = 'app',
+  SHORTCUTS = 'shortcuts',
+  DANGER = 'danger',
+};
