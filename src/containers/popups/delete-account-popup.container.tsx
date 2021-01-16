@@ -4,15 +4,12 @@ import { PopupNames } from '../../constants/ui.constants';
 import { PopupPropsHookParams, usePopupProps } from '../../hooks/popup-props.hook';
 import { PopupComponent, PopupComponentProps } from '../../components/popup.component';
 import { PopupTextComponent } from '../../components/popup-text.component';
-import { LogoutService } from '../../services/logout.service';
 
-export function LogoutPopupContainer() {
+export function DeleteAccountPopupContainer() {
   const popupPropsHookParams: PopupPropsHookParams = {
-    popupName: PopupNames.LOGOUT,
+    popupName: PopupNames.DELETE_ACCOUNT,
     confirmButtonProps: {
-      clickHandler: () => {
-        new LogoutService().logoutUser();
-      },
+      clickHandler: () => {},
     },
   };
 

@@ -27,7 +27,8 @@ export enum ActionIconLabels {
 };
 
 export enum PopupNames {
-  LOGOUT = 'logout-popup',
+  LOGOUT = 'logout',
+  DELETE_ACCOUNT = 'delete-account',
 };
 
 export enum MenuItemLabels {

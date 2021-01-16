@@ -5,7 +5,7 @@ import { PopupNames } from '../constants/ui.constants';
 import { PopupService } from '../services/popup.service';
 import { usePopupLanguage } from './popup-language.hook';
 
-export type PopupPropsHookParameters = {
+export type PopupPropsHookParams = {
   popupName: PopupNames,
   confirmButtonProps: any,
   closeHanlder?: Function,
@@ -13,7 +13,7 @@ export type PopupPropsHookParameters = {
 
 export function usePopupProps({
   popupName, confirmButtonProps, closeHanlder
-}: PopupPropsHookParameters): PopupComponentProps | null {
+}: PopupPropsHookParams): [PopupComponentProps, any] | null {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const popupLanguage = usePopupLanguage(popupName);
 
@@ -47,5 +47,5 @@ export function usePopupProps({
     }
   }
 
-  return isPopupOpen ? popupProps : null;
+  return isPopupOpen ? [popupProps, popupLanguage] : null;
 }
