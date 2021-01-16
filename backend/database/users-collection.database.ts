@@ -1,6 +1,6 @@
 import { ObjectID } from 'mongodb';
 
-import { User } from '../types/user.types';
+import { UpdatedUserData, User } from '../types/user.types';
 import { DatabaseNames, UserDataLabels, UsersDatabaseCollectionNames } from '../constants';
 import { DatabaseCollectionService } from '../services/database-collection.service';
 import { DatabaseDBService } from '../services/database-db.service';
@@ -9,6 +9,7 @@ import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
 import { GetUsernameDatabase } from '../models/auth-user.model';
 import { GetUserDatabase } from '../models/users/get-user.model';
 import { DeleteUserDatabase } from '../models/users/delete-user.model';
+import { UpdateUserDatabase } from '../models/users/update-user.model';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
@@ -17,7 +18,8 @@ export class UsersCollectionDatabase implements
   CreateUserDatabase,
   LoginUserDatabase,
   GetUserDatabase,
-  DeleteUserDatabase
+  DeleteUserDatabase,
+  UpdateUserDatabase
 {
   private databaseCollection: DatabaseCollectionService;
   
@@ -30,6 +32,10 @@ export class UsersCollectionDatabase implements
     const collectionDatabase = usersDatabase.createCollection(UsersDatabaseCollectionNames.USERS);
     
     usersCollectionDatabase = new UsersCollectionDatabase(collectionDatabase);
+  }
+
+  private getUserIDSearchObject(userID: string): {_id: ObjectID} {
+    return { _id: new ObjectID(userID) };
   }
 
   // implements GetUsernameDatabase
@@ -85,8 +91,13 @@ export class UsersCollectionDatabase implements
     await this.databaseCollection.deleteDocument(deleteUserFilter);
   }
 
-  // private
-  private getUserIDSearchObject(userID: string): {_id: ObjectID} {
-    return { _id: new ObjectID(userID) };
+  // implements UpdateUserDatabase
+  async updateUser(userID: string, updatedData: UpdatedUserData): Promise<void> {
+    const updateUserFilter = this.getUserIDSearchObject(userID);
+    const updates = {
+      $set: { ...updatedData },
+    };
+
+    await this.databaseCollection.updateDocument(updateUserFilter, updates);
   }
 }

@@ -2,11 +2,11 @@ import { ControllerData } from '../types/controller.types';
 import { ServerError } from '../services/errors.service';
 
 export class BaseController {
-  async runController(action: any, {userID, responseSender}: ControllerData): Promise<void> {
+  async runController(action: any, {userID, body, responseSender}: ControllerData): Promise<void> {
     try {
       if (!userID) throw this.unknowUserIDError();
 
-      const actionResult: any = await this.doAction(action, userID);
+      const actionResult: any = await this.doAction(action, userID, body);
       await responseSender.sendSuccessJsonResponse(actionResult);
     } catch (error) {
       await responseSender.sendErrorResponse(error);

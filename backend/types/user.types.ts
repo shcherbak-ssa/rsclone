@@ -37,3 +37,7 @@ export type GetUser = {
   user: User,
   spaces: Space[],
 };
+
+export type UpdatedUserData = {
+  [key: string]: string,
+};

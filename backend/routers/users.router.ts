@@ -27,6 +27,8 @@ export class UsersRouter implements BaseRouter {
     switch (method) {
       case RequestMethods.GET:
         return await this.getUser(controllerData);
+      case RequestMethods.PUT:
+        return await this.updateUser(controllerData);
       case RequestMethods.DELETE:
         return await this.deleteUser(controllerData);
     }
@@ -34,6 +36,10 @@ export class UsersRouter implements BaseRouter {
 
   private async getUser(controllerData: ControllerData): Promise<void> {
     await this.runUsersController(UsersControllerActions.GET_USER, controllerData);
+  }
+
+  private async updateUser(controllerData: ControllerData): Promise<void> {
+    await this.runUsersController(UsersControllerActions.UPDATE_USER, controllerData);
   }
 
   private async deleteUser(controllerData: ControllerData): Promise<void> {
