@@ -1,6 +1,7 @@
 export const USER_LOCALSTORAGE_KEY: string = 'user';
 export const USERNAME_PATHNAME_INITIAL_STRING: string = '/@';
 export const EMPTY_VALUE_LENGTH: number = 0;
+export const PLUS_STRING: string = '+';
 
 export enum AppRoutePathnames {
   ROOT = '/',
@@ -54,4 +55,6 @@ export enum SettingsActionLabels {
 export enum SettingsGroupLabels {
   THEME = 'theme',
   USER_DATA = 'user-data',
+  HOMEPAGE = 'homepage',
+  SPACE = 'space',
 };

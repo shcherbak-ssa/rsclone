@@ -59,6 +59,14 @@
           "title": "Aggiungi sezione",
           "description": "Crea una nuova sezione nello spazio aperto"
         }
+      },
+      "groups": {
+        "homepage": {
+          "title": "Homepage"
+        },
+        "space": {
+          "title": "Spazio"
+        }
       }
     },
     "danger": {

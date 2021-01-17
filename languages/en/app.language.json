@@ -59,6 +59,14 @@
           "title": "Add section",
           "description": "Create a new section in open space"
         }
+      },
+      "groups": {
+        "homepage": {
+          "title": "Homepage"
+        },
+        "space": {
+          "title": "Space"
+        }
       }
     },
     "danger": {

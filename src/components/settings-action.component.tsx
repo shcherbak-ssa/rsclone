@@ -27,9 +27,9 @@ export function SettingsActionComponent({
   );
 
   if (selectAction) {
-    const {isSelectType, isSelected, toggleSelection} = selectAction;
+    const {isSelected, toggleSelection} = selectAction;
     const componentCLassnames = classnames('settings-action', {
-      [Classnames.SELECT_TYPE]: isSelectType,
+      [Classnames.SELECT_TYPE]: true,
       [Classnames.IS_SELECTED]: isSelected,
     });
 

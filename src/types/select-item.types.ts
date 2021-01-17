@@ -10,7 +10,6 @@ export type SelectItemTheme = {
 };
 
 export type SelectAction = {
-  isSelectType: boolean,
   isSelected: boolean,
   toggleSelection: Function,
 };
