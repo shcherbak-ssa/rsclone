@@ -20,6 +20,9 @@
     "user": {
       "title": "User",
       "groups": {
+        "avatar": {
+          "title": "Avatar"
+        },
         "user-data": {
           "title": "User data"
         }

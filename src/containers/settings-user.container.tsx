@@ -16,19 +16,27 @@ export function SettingsUserContainer() {
     sectionLabel: SettingsSectionLabels.USER,
     controlDataLabels: [UserDataLabels.FULLNAME, UserDataLabels.USERNAME],
   };
-  const settingsGroupPropsHookParams: SettingsGroupPropsHookParams = {
+  const avatarGroupPropsHookParams: SettingsGroupPropsHookParams = {
+    sectionLabel: SettingsSectionLabels.USER,
+    groupLabel: SettingsGroupLabels.AVATAR,
+  };
+  const userDataGroupPropsHookParams: SettingsGroupPropsHookParams = {
     sectionLabel: SettingsSectionLabels.USER,
     groupLabel: SettingsGroupLabels.USER_DATA,
   };
 
   const settingsSectionComponentProps: SettingsSectionComponentProps
     = useSettingsSectionProps(settingsSectionPropsHookParams);
-  const settingsGroupComponentProps: SettingsGroupComponentProps
-    = useSettingsGroupProps(settingsGroupPropsHookParams);
+  const avatarGroupComponentProps: SettingsGroupComponentProps
+    = useSettingsGroupProps(avatarGroupPropsHookParams);
+  const userDataGroupComponentProps: SettingsGroupComponentProps
+    = useSettingsGroupProps(userDataGroupPropsHookParams);
 
   return (
     <SettingsSectionComponent {...settingsSectionComponentProps}>
-      <SettingsGroupComponent {...settingsGroupComponentProps}>
+      <SettingsGroupComponent {...avatarGroupComponentProps}>
+      </SettingsGroupComponent>
+      <SettingsGroupComponent {...userDataGroupComponentProps}>
         <Base.Input {...fullnameInputProps}/>
         <Base.Input {...usermameInputProps}/>
       </SettingsGroupComponent>

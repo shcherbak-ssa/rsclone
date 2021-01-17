@@ -57,6 +57,7 @@ export enum SettingsActionLabels {
 };
 
 export enum SettingsGroupLabels {
+  AVATAR = 'avatar',
   THEME = 'theme',
   USER_DATA = 'user-data',
   HOMEPAGE = 'homepage',
