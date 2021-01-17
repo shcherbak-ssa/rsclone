@@ -4,11 +4,10 @@ import { LanguageParts } from '../../common/constants';
 import { BaseSelectProps } from '../components/base';
 import { SelectThemeComponentProps } from '../components/select-theme.component';
 import { UserDataLabels } from '../constants';
-import { UserDraftEvents } from '../constants/events.constants';
-import { UpdatedDraftValue, userDraftController } from '../controllers/user-draft.controller';
 import { ToolsService } from '../services/tools.service';
 import { SelectItemType, SelectItemTheme } from '../types/select-item.types';
 import { useLanguagePart } from './language-part.hook';
+import { useUserInputUpdate } from './user-input-update.hook';
 
 export type SelectPropsHookParameters = {
   initialItemLabel: string,
@@ -23,6 +22,7 @@ export function useSelectProps({
 
   const [selectedItemLabel, setSelectedItemLabel] = useState(initialItemLabel);
   const userInputsLanguage = useLanguagePart(LanguageParts.USER_DRAFT);
+  const updateValue = useUserInputUpdate(dataLabel);
 
   const selectProps: BaseSelectProps | SelectThemeComponentProps = {
     ...addingSimpleSelectProps(),
@@ -31,12 +31,7 @@ export function useSelectProps({
       if (label === selectedItemLabel) return;
       
       const nextSelectedItemLabel = toolsService.getSelectedItem(items, label).label;
-      const updatedDraftValue: UpdatedDraftValue = {
-        value: nextSelectedItemLabel,
-        dataLabel,
-      };
-
-      userDraftController.emit(UserDraftEvents.UPDATE_VALUE, updatedDraftValue);
+      updateValue(nextSelectedItemLabel);
       setSelectedItemLabel(nextSelectedItemLabel);
     },
   };

@@ -6,7 +6,16 @@
     "placeholder": "Эл. почта"
   },
   "password": {
-    "placeholder": "Пароль"
+    "placeholder": "Пароль",
+    "description": {
+      "current-password": "Введи свой текущий пароль"
+    }
+  },
+  "new-password": {
+    "placeholder": "Новый пароль",
+    "description": {
+      "new-password": "Введите новый пароль"
+    }
   },
   "username": {
     "placeholder": "Username",

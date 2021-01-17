@@ -6,7 +6,16 @@
     "placeholder": "E-mail"
   },
   "password": {
-    "placeholder": "Password"
+    "placeholder": "Password",
+    "description": {
+      "current-password": "Enter your current password"
+    }
+  },
+  "new-password": {
+    "placeholder": "New password",
+    "description": {
+      "new-password": "Enter new password"
+    }
   },
   "username": {
     "placeholder": "Username",

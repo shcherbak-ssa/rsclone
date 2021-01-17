@@ -3,29 +3,33 @@ import eyeIcon from '@iconify/icons-ant-design/eye-outlined';
 
 import { BaseInputProps } from '../components/base';
 import { UserDataLabels } from '../constants';
-import { useUserInputLanguage } from './user-input-language.hook';
-import { useUserDraftState } from './user-draft-state.hook';
-import { useUserInputUpdate } from './user-input-update.hook';
+import { InputDraftDescriptionLabels } from '../constants/ui.constants';
+import { UserInputPropsHookParams, useUserInputProps } from './user-input-props.hook';
 
-export function usePasswordInputProps(
-  dataLabel: UserDataLabels = UserDataLabels.PASSWORD
-): BaseInputProps {
+export type PasswordInputPropsHookParams = {
+  dataLabel?: UserDataLabels,
+  descriptionLabel?: InputDraftDescriptionLabels,
+};
+
+export function usePasswordInputProps({
+  dataLabel = UserDataLabels.PASSWORD, descriptionLabel
+}: PasswordInputPropsHookParams): BaseInputProps {
   const [isPasswordInputIconActive, setPasswordInputIsIconActive] = useState(false);
 
-  const {value, error} = useUserDraftState(dataLabel);
-  const inputLanguage = useUserInputLanguage(dataLabel);
-  const updateValue = useUserInputUpdate(dataLabel);
+  const passwordInputPropsHookParams: UserInputPropsHookParams = {
+    dataLabel,
+    descriptionLabel,
+  };
 
-  const inputProps: BaseInputProps = {
-    value,
-    error,
-    placeholder: inputLanguage.placeholder,
+  const inputProps: BaseInputProps = useUserInputProps(passwordInputPropsHookParams);
+  const passwordInputProps: BaseInputProps = {
+    ...inputProps,
     updateValue: (newValue: string) => {
       if (!isPasswordInputIconActive) {
-        newValue = removeDots(value, newValue);
+        newValue = removeDots(inputProps.value, newValue);
       }
 
-      updateValue(newValue);
+      inputProps.updateValue(newValue);
     },
     inputIconProps: {
       icon: eyeIcon,
@@ -35,7 +39,7 @@ export function usePasswordInputProps(
     },
     transformValue: (value: string) => {
       return isPasswordInputIconActive ? value : value.replace(/[^\n]/ig, '●');
-    }
+    },
   };
 
   function removeDots(oldValue: string, newValue: string) {
@@ -43,5 +47,5 @@ export function usePasswordInputProps(
     return newValue.replace(/●/g, () => splitedValue.pop() || '');
   }
 
-  return inputProps;
+  return passwordInputProps;
 }

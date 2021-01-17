@@ -44,6 +44,11 @@
           "description": "Secure your GitBook Clone account with a strong and unique password",
           "buttonValue": "Change password"
         }
+      },
+      "groups": {
+        "password": {
+          "title": "Password"
+        }
       }
     },
     "app": {

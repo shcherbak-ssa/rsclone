@@ -40,4 +40,6 @@ export enum MenuItemLabels {
 
 export enum InputDraftDescriptionLabels {
   PREFIX = 'prefix',
+  CURRENT_PASSWORD = 'current-password',
+  NEW_PASSWORD = 'new-password',
 };

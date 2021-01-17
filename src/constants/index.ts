@@ -22,6 +22,7 @@ export enum UserDataLabels {
   FULLNAME = 'fullname',
   EMAIL = 'email',
   PASSWORD = 'password',
+  NEW_PASSWORD = 'new-password',
   USERNAME = 'username',
   LANGUAGE = 'language',
   THEME = 'theme',
@@ -60,6 +61,7 @@ export enum SettingsActionLabels {
 
 export enum SettingsGroupLabels {
   AVATAR = 'avatar',
+  PASSWORD = 'password',
   THEME = 'theme',
   USER_DATA = 'user-data',
   HOMEPAGE = 'homepage',

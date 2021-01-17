@@ -44,6 +44,11 @@
           "description": "Proteggi il tuo account GitBook Clone con una password complessa e univoca",
           "buttonValue": "Cambia la password"
         }
+      },
+      "groups": {
+        "password": {
+          "title": "Password"
+        }
       }
     },
     "app": {

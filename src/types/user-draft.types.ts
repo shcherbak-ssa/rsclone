@@ -10,6 +10,7 @@ export const initialState: UserDraftStoreState = {
   [UserDataLabels.FULLNAME]: initialInputState,
   [UserDataLabels.EMAIL]: initialInputState,
   [UserDataLabels.PASSWORD]: initialInputState,
+  [UserDataLabels.NEW_PASSWORD]: initialInputState,
   [UserDataLabels.USERNAME]: initialInputState,
   [UserDataLabels.THEME]: Themes.ORIGINAL,
   [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH,

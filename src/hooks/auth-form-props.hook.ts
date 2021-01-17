@@ -34,7 +34,7 @@ export function useAuthFormProps({
   };
 
   const emailInputProps: BaseInputProps = useUserInputProps(emailInputPropsHookParams);
-  const passwordInputProps: BaseInputProps = usePasswordInputProps();
+  const passwordInputProps: BaseInputProps = usePasswordInputProps({});
 
   const authFormProps: AuthFormComponentProps = {
     title: authLanguage[mode].title,

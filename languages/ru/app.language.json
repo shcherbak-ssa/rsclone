@@ -44,6 +44,11 @@
           "description": "Защитите свою учетную запись GitBook Clone надежным и уникальным паролем",
           "buttonValue": "Изменить пароль"
         }
+      },
+      "groups": {
+        "password": {
+          "title": "Пароль"
+        }
       }
     },
     "app": {
