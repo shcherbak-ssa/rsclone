@@ -37,3 +37,7 @@ export enum MenuItemLabels {
   SETTINGS = 'settings',
   LOGOUT = 'logout',
 };
+
+export enum InputDraftDescriptionLabels {
+  PREFIX = 'prefix',
+};

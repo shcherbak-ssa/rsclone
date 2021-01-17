@@ -9,7 +9,10 @@
     "placeholder": "Password"
   },
   "username": {
-    "placeholder": "Username"
+    "placeholder": "Username",
+    "description": {
+      "prefix": "Your username is used as prefix for your personal spaces"
+    }
   },
   "theme": {
     "original-theme": "Original",

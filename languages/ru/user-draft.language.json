@@ -9,7 +9,10 @@
     "placeholder": "Пароль"
   },
   "username": {
-    "placeholder": "Username"
+    "placeholder": "Username",
+    "description": {
+      "prefix": "Ваше имя пользователя используется как префикс для ваших личных пространств"
+    }
   },
   "theme": {
     "original-theme": "Оригинал",

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { LanguageParts } from '../../common/constants';
 import { AuthModes, UserDataLabels, AppRoutePathnames, Stores } from '../constants';
 import { useLanguagePart } from './language-part.hook';
-import { useUserInputProps } from './user-input-props.hook';
+import { UserInputPropsHookParams, useUserInputProps } from './user-input-props.hook';
 import { AuthFormComponentProps } from '../components/auth-form.component';
 import { userDraftController } from '../controllers/user-draft.controller';
 import { AuthEvents, UserDraftEvents } from '../constants/events.constants';
@@ -29,7 +29,11 @@ export function useAuthFormProps({
   const authStoreSelectors = storeSelectorsService.get(Stores.AUTH_STORE);
   const authError = useSelector(authStoreSelectors.getAuthError());
 
-  const emailInputProps: BaseInputProps = useUserInputProps(UserDataLabels.EMAIL);
+  const emailInputPropsHookParams: UserInputPropsHookParams = {
+    dataLabel: UserDataLabels.EMAIL,
+  };
+
+  const emailInputProps: BaseInputProps = useUserInputProps(emailInputPropsHookParams);
   const passwordInputProps: BaseInputProps = usePasswordInputProps();
 
   const authFormProps: AuthFormComponentProps = {

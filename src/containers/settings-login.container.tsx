@@ -6,10 +6,12 @@ import { SettingsSectionComponent, SettingsSectionComponentProps } from '../comp
 import { SettingsActionLabels, SettingsSectionLabels, UserDataLabels } from '../constants';
 import { SettingsActionPropsHookParams, useSettingsActionProps } from '../hooks/settings-action-props.hook';
 import { SettingsSectionPropsHookParams, useSettingsSectionProps } from '../hooks/settings-section-props.hook';
-import { useUserInputProps } from '../hooks/user-input-props.hook';
+import { UserInputPropsHookParams, useUserInputProps } from '../hooks/user-input-props.hook';
 
 export function SettingsLoginContainer() {
-  const emailInputProps: BaseInputProps = useUserInputProps(UserDataLabels.EMAIL);
+  const emailInputPropsHookParams: UserInputPropsHookParams = {
+    dataLabel: UserDataLabels.EMAIL,
+  };
   const settingsSectionPropsHookParams: SettingsSectionPropsHookParams = {
     sectionLabel: SettingsSectionLabels.LOGIN,
     controlDataLabels: [UserDataLabels.EMAIL],
@@ -24,6 +26,7 @@ export function SettingsLoginContainer() {
     },
   };
 
+  const emailInputProps: BaseInputProps = useUserInputProps(emailInputPropsHookParams);
   const settingsSectionComponentProps: SettingsSectionComponentProps
     = useSettingsSectionProps(settingsSectionPropsHookParams);
   const settingsActionComponentProps: SettingsActionComponentProps
