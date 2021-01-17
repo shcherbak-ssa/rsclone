@@ -1,5 +1,6 @@
 export const INDEX_FILENAME: string = 'index.html';
 export const ASSETS_EXTNAME_REGEXP: RegExp = /^\.(js|css|png|svg|ico)$/;
+export const EMPTY_VALUE_LENGTH: number = 0;
 
 export enum DatabaseNames {
   USERS = 'users',

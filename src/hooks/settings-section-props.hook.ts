@@ -3,22 +3,31 @@ import saveIcon from '@iconify/icons-ic/baseline-save';
 
 import { BaseButtonProps } from '../components/base';
 import { SettingsSectionComponentProps } from "../components/settings-section.component";
-import { SettingsSectionLabels } from '../constants';
+import { SettingsSectionLabels, UserDataLabels } from '../constants';
 import { useAppLanguage } from './app-language.hook';
+import { UpdatedDataService } from '../services/updated-data.service';
+import { UpdatesControllerHookParams, useUpdatesController } from './updates-controller.hook';
+import { UpdateUserData, userController } from '../controllers/user.controller';
+import { UserEvents } from '../constants/events.constants';
 
 export type SettingsSectionPropsHookParams = {
   sectionLabel: SettingsSectionLabels,
-  saveButton?: {
-    saveHandler: Function,
-    isUpdatesExist: boolean,
-  },
+  controlDataLabels: UserDataLabels[],
 };
 
 export function useSettingsSectionProps({
-  sectionLabel, saveButton,
+  sectionLabel, controlDataLabels,
 }: SettingsSectionPropsHookParams): SettingsSectionComponentProps {
   const [isSaveButtonLoading, setIsSaveButtonLoading] = useState(false);
   const appLanguage = useAppLanguage();
+
+  const updatedData: UpdatedDataService = new UpdatedDataService();
+  const updatesControllerHookParams: UpdatesControllerHookParams = {
+    controlDataLabels,
+    updatedData,
+  };
+
+  const isUpdatesExist: boolean = useUpdatesController(updatesControllerHookParams);
 
   const settingsSectionComponentProps: SettingsSectionComponentProps = {
     title: appLanguage.settings[sectionLabel].title,
@@ -26,7 +35,7 @@ export function useSettingsSectionProps({
   };
 
   function getSaveButtonProps() {
-    if (!saveButton || !saveButton.isUpdatesExist) return {};
+    if (!isUpdatesExist) return {};
 
     const saveButtonProps: BaseButtonProps = {
       isLoading: isSaveButtonLoading,
@@ -34,7 +43,14 @@ export function useSettingsSectionProps({
       value: appLanguage.homepage.settings.saveButtonValue,
       clickHandler: () => {
         setIsSaveButtonLoading(true);
-        saveButton.saveHandler(() => setIsSaveButtonLoading(false));
+        const updatedUserData: UpdateUserData = {
+          updatedData: updatedData.get(),
+          callback: () => {
+            setIsSaveButtonLoading(false)
+          },
+        };
+
+        userController.emit(UserEvents.UPDATE_USER, updatedUserData);
       },
     };
 

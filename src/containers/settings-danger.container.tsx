@@ -5,14 +5,17 @@ import { SettingsActionComponent, SettingsActionComponentProps } from '../compon
 import { SettingsSectionComponent, SettingsSectionComponentProps } from '../components/settings-section.component';
 import { SettingsActionLabels, SettingsSectionLabels } from '../constants';
 import { SettingsActionPropsHookParams, useSettingsActionProps } from '../hooks/settings-action-props.hook';
-import { SettingsSectionPropsHookParams, useSettingsSectionProps } from '../hooks/settings-section-props.hook';
 import { ButtonTypes, PopupNames } from '../constants/ui.constants';
 import { PopupService } from '../services/popup.service';
+import { useAppLanguage } from '../hooks/app-language.hook';
 
 export function SettingsDangerContainer() {
-  const settingsSectionPropsHookParams: SettingsSectionPropsHookParams = {
-    sectionLabel: SettingsSectionLabels.DANGER
+  const appLanguage = useAppLanguage();
+
+  const settingsSectionComponentProps: SettingsSectionComponentProps = {
+    title: appLanguage.settings[SettingsSectionLabels.DANGER].title
   };
+
   const settingsActionPropsHookParams: SettingsActionPropsHookParams = {
     sectionLabel: SettingsSectionLabels.DANGER,
     actionLabel: SettingsActionLabels.DELETE_ACCOUNT,
@@ -25,8 +28,6 @@ export function SettingsDangerContainer() {
     },
   };
 
-  const settingsSectionComponentProps: SettingsSectionComponentProps
-    = useSettingsSectionProps(settingsSectionPropsHookParams);
   const settingsActionComponentProps: SettingsActionComponentProps
     = useSettingsActionProps(settingsActionPropsHookParams);
 
