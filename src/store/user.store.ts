@@ -84,7 +84,7 @@ function userStoreReducer(
     case Constants.UPDATE_STATE:
       return {...state, ...payload.updatedStates};
     case Constants.SET_STATES:
-      return {...payload.user};
+      return {...initialState, ...payload.user};
     default:
       return state;
   }

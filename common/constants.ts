@@ -81,4 +81,7 @@ export enum ErrorLabels {
   FIELD_MAX = 'field-max',
   INVALID_USER = 'invalid-user',
   INVALID_FILE_TYPE = 'invalid-file-type',
+  NEW_PASSWORD_REQUIRED = 'new-password-required',
+  PASSWORD_REQUIRED = 'password-required',
+  INVALID_PASSWORD = 'invalid-password',
 };

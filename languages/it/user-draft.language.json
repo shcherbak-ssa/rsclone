@@ -11,7 +11,7 @@
       "current-password": "Inserisci la tua password attuale"
     }
   },
-  "new-password": {
+  "newPassword": {
     "placeholder": "Nuova password",
     "description": {
       "new-password": "Inserire una nuova password"

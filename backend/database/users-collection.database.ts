@@ -101,6 +101,22 @@ export class UsersCollectionDatabase implements
     return result[UserDataLabels.SHORTCUTS];
   }
 
+  async isCorrectPassword(userID: string, password: string): Promise<boolean> {
+    const getPasswordQuery = this.getUserIDSearchObject(userID);
+    const getPasswordOptions = {
+      projection: {
+        [UserDataLabels.PASSWORD]: 1,
+      },
+    };
+
+    const result: any = await this.databaseCollection.getDocument(
+      getPasswordQuery,
+      getPasswordOptions,
+    );
+
+    return password === result.password;
+  }
+
   async updateUser(userID: string, updatedData: UpdatedUserData): Promise<void> {
     const updateUserFilter = this.getUserIDSearchObject(userID);
     const updates = {

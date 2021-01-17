@@ -27,7 +27,7 @@ export class UserUpdateModel extends BaseModel {
     this.userModel = new UserModel();
   }
 
-  async updateUser(updatedData: UpdatedData): Promise<void> {
+  async updateUser(updatedData: UpdatedData): Promise<boolean> {
     try {
       updatedData = await this.validation.validate(updatedData);
 
@@ -37,11 +37,13 @@ export class UserUpdateModel extends BaseModel {
       const serverUpdatedData: UpdatedData = response.parseResponse();
       this.userModel.updateState(serverUpdatedData);
 
-      if (UserDataLabels.USERNAME in updatedData) {
-        this.updateUsername(updatedData[UserDataLabels.USERNAME]);
-      }
+      this.resetPasswords(updatedData);
+      this.updateUsername(updatedData);
+      
+      return true;
     } catch (error) {
       this.parseError(error);
+      return false;
     }
   }
 
@@ -54,10 +56,25 @@ export class UserUpdateModel extends BaseModel {
       .createRequest();
   }
 
-  private updateUsername(username: string) {
-    const userLocalStorage: UserLocalStorage = new UserLocalStorageService();
-    const token: string = userLocalStorage.getToken();
-    userLocalStorage.saveUser({token, username});
+  private resetPasswords(updatedData: UpdatedData) {
+    if (UserDataLabels.PASSWORD in updatedData) {
+      const resetedPasswords: UpdatedData = {
+        [UserDataLabels.PASSWORD]: '',
+        [UserDataLabels.NEW_PASSWORD]: '',
+      };
+
+      this.userModel.updateState(resetedPasswords);
+      this.userModel.syncDraft();
+    }
+  }
+
+  private updateUsername(updatedData: UpdatedData) {
+    if (UserDataLabels.USERNAME in updatedData) {      
+      const userLocalStorage: UserLocalStorage = new UserLocalStorageService();
+      const token: string = userLocalStorage.getToken();
+      const username = updatedData[UserDataLabels.USERNAME] as string;
+      userLocalStorage.saveUser({token, username});
+    }
   }
 
   private parseError(error: Error) {

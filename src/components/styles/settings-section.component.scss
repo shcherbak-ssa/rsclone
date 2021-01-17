@@ -6,6 +6,7 @@
   padding: 18px 24px 24px;
   transition: .4s;
   width: 100%;
+  position: relative;
 
   @media screen and (max-width: 489px) {
     padding: 18px;
@@ -79,6 +80,17 @@
     
     .dark-theme & {
       color: $dark-settings-section-message-color;
+    }
+  }
+
+  &.is-disable {
+    &::after {
+      background: rgba($color: #fff, $alpha: .1);
+      border-radius: 4px;
+      content: '';
+      display: block;
+      z-index: 1;
+      -x-position: absolute 0 0 0 0;
     }
   }
 }

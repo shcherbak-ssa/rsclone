@@ -33,18 +33,20 @@ function syncDraftHandler() {
 
 async function updateUserHandler({updatedData, callback}: UpdateUserData) {
   const userUpdateModel: UserUpdateModel = new UserUpdateModel();
-  await userUpdateModel.updateUser(updatedData);
+  const result: boolean = await userUpdateModel.updateUser(updatedData);
 
   if (UserDataLabels.LANGUAGE in updatedData) {
     languageController.emit(
       LanguageEvents.CHANGE_LANGUAGE,
       {
         nextLanguage: updatedData[UserDataLabels.LANGUAGE],
-        callback,
+        callback: () => {
+          callback(result);
+        },
       }
     );
   } else {
-    callback();
+    callback(result);
   }
 }
 

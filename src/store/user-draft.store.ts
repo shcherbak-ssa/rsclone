@@ -89,9 +89,7 @@ class UserDraftStoreImpl implements UserDraftStore {
 
     dataLabels.forEach((dataLabel) => {
       const inputState: UserDraftState = this.getUserInputsStore(dataLabel);
-
-      inputValues[dataLabel] = isInput(inputState)
-        ? (inputState as InputState).value : inputState;
+      inputValues[dataLabel] = isInput(inputState) ? (inputState as InputState).value : inputState;
     });
 
     return inputValues;

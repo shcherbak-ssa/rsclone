@@ -8,6 +8,9 @@
     "password-length": "Password must be over 8 characters",
     "fullname": "Fullname must only contain alpha-numeric characters",
     "username": "Username must only contain alpha-numeric characters",
-    "field-max": "Field cannot contain over 256 characters"
+    "field-max": "Field cannot contain over 256 characters",
+    "new-password-required": "Current password must be entered with new password",
+    "password-required": "New password must be entered with current password",
+    "invalid-password": "Invalid password"
   }
 }

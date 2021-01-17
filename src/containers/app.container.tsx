@@ -8,15 +8,16 @@ import { SpacesContainer } from './spaces.container';
 import { SettingsContainer } from './settings.container';
 
 export default function AppContainer() {
-  const appRoutesService: AppRoutesService = new AppRoutesService();
+  // @TODO: fix change route after username updating
+  const appRoutes: AppRoutesService = new AppRoutesService()
   useChangeTheme();
 
   return (
     <AppComponent>
       <Switch>
-        <Route path={appRoutesService.getRootRoutePath()} exact component={SpacesContainer}/>
-        <Route path={appRoutesService.getSpacesRoutePath()} component={SpacesContainer}/>
-        <Route path={appRoutesService.getSettingsRoutePath()} component={SettingsContainer}/>
+        <Route path={appRoutes.getRootRoutePath()} exact component={SpacesContainer}/>
+        <Route path={appRoutes.getSpacesRoutePath()} component={SpacesContainer}/>
+        <Route path={appRoutes.getSettingsRoutePath()} component={SettingsContainer}/>
       </Switch>
     </AppComponent>
   );

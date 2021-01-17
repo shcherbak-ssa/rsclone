@@ -101,8 +101,8 @@ export class Validation {
 }
 
 export function parseValidationError(error: any) {
-  const {type, message, context: {key}} = error.details[0];
-  console.log(error.details); // @TODO: remove
+  const {type, message, context} = error.details[0];
+  const {key} = context;
 
   switch (type) {
     case 'string.empty':
@@ -119,6 +119,15 @@ export function parseValidationError(error: any) {
       }
     case 'string.max':
       throwValidationError(message, key, ErrorLabels.FIELD_MAX);
+    case 'object.with':
+      if (context.main === UserDataLabels.PASSWORD) {
+        throwValidationError(message, context.peer, ErrorLabels.PASSWORD_REQUIRED);
+      } else {
+        throwValidationError(message, context.peer, ErrorLabels.NEW_PASSWORD_REQUIRED);
+      }
+    default:
+      console.dir(error);
+      throw error;
   }
 }
 

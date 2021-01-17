@@ -18,11 +18,15 @@ export class UserValidation implements UserUpdateValidation {
         [UserDataLabels.AVATAR]: this.validation.avatar(),
         [UserDataLabels.FULLNAME]: this.validation.fullname().empty(),
         [UserDataLabels.EMAIL]: this.validation.email().empty(),
+        [UserDataLabels.PASSWORD]: this.validation.password().empty(),
+        [UserDataLabels.NEW_PASSWORD]: this.validation.password().empty(),
         [UserDataLabels.USERNAME]: this.validation.username().empty(),
         [UserDataLabels.LANGUAGE]: this.validation.language(),
         [UserDataLabels.THEME]: this.validation.theme(),
         [UserDataLabels.SHORTCUTS]: this.validation.shortcuts(),
-      });
+      })
+      .with(UserDataLabels.PASSWORD, UserDataLabels.NEW_PASSWORD)
+      .with(UserDataLabels.NEW_PASSWORD, UserDataLabels.PASSWORD);
 
       return await validationSchema.validateAsync(updatedData);
     } catch (error) {

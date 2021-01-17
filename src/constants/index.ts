@@ -22,7 +22,7 @@ export enum UserDataLabels {
   FULLNAME = 'fullname',
   EMAIL = 'email',
   PASSWORD = 'password',
-  NEW_PASSWORD = 'new-password',
+  NEW_PASSWORD = 'newPassword',
   USERNAME = 'username',
   LANGUAGE = 'language',
   THEME = 'theme',

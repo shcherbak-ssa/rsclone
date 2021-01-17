@@ -11,7 +11,7 @@
       "current-password": "Введи свой текущий пароль"
     }
   },
-  "new-password": {
+  "newPassword": {
     "placeholder": "Новый пароль",
     "description": {
       "new-password": "Введите новый пароль"

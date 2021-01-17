@@ -13,12 +13,13 @@ import { UserEvents } from '../constants/events.constants';
 export type SettingsSectionPropsHookParams = {
   sectionLabel: SettingsSectionLabels,
   controlDataLabels: UserDataLabels[],
+  savingFinishHandler?: Function,
 };
 
 export function useSettingsSectionProps({
-  sectionLabel, controlDataLabels,
+  sectionLabel, controlDataLabels, savingFinishHandler,
 }: SettingsSectionPropsHookParams): SettingsSectionComponentProps {
-  const [isSaveButtonLoading, setIsSaveButtonLoading] = useState(false);
+  const [isSavingActive, setIsSavingActive] = useState(false);
   const appLanguage = useAppLanguage();
 
   const updatedData: UpdatedDataService = new UpdatedDataService();
@@ -31,6 +32,7 @@ export function useSettingsSectionProps({
 
   const settingsSectionComponentProps: SettingsSectionComponentProps = {
     title: appLanguage.settings[sectionLabel].title,
+    isSavingActive,
     ...getSaveButtonProps()
   };
 
@@ -38,15 +40,20 @@ export function useSettingsSectionProps({
     if (!isUpdatesExist) return {};
 
     const saveButtonProps: BaseButtonProps = {
-      isLoading: isSaveButtonLoading,
+      isLoading: isSavingActive,
       icon: saveIcon,
       value: appLanguage.homepage.settings.saveButtonValue,
       clickHandler: () => {
-        setIsSaveButtonLoading(true);
+        setIsSavingActive(true);
+
         const updatedUserData: UpdateUserData = {
           updatedData: updatedData.get(),
-          callback: () => {
-            setIsSaveButtonLoading(false)
+          callback: (isSuccess: boolean) => {
+            setIsSavingActive(false)
+            
+            if (savingFinishHandler) {
+              savingFinishHandler(isSuccess);
+            }
           },
         };
 
