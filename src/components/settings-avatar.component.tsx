@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
+import { useDropzone } from 'react-dropzone';
+import classnames from 'classnames';
 import './styles/settings-avatar.component.scss';
 
 import { AvatarComponent, AvatarComponentProps } from './avatar.component';
@@ -6,6 +8,7 @@ import { Base, BaseButtonProps } from './base';
 import { SettingsSectionLabels, SETTINGS_AVATAR_SIZE } from '../constants';
 import { InputState } from '../types/user-draft.types';
 import { useAppLanguage } from '../hooks/app-language.hook';
+import { Classnames } from '../constants/ui.constants';
 
 export type SettingsAvatarComponentProps = {
   avatar: InputState,
@@ -20,6 +23,15 @@ export function SettingsAvatarComponent({
 }: SettingsAvatarComponentProps) {
   const fileInput = useRef(null);
   const settingsAvatarLanguage = useAppLanguage().settings[SettingsSectionLabels.USER].avatar;
+
+  const onDrop = useCallback((files) => {
+    loadFile(files[0], () => {});
+  }, []);
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+
+  const componentClassnames = classnames('settings-avatar', {
+    [Classnames.IS_DROP_ACTIVE]: isDragActive,
+  });
 
   const avatarComponentProps: AvatarComponentProps = {
     size: SETTINGS_AVATAR_SIZE,
@@ -52,9 +64,9 @@ export function SettingsAvatarComponent({
       return (
         <>
           {settingsAvatarLanguage.dropText}
-          <label htmlFor="user-avatar" className="settings-avatar-link">
+          <span className="settings-avatar-link">
             {settingsAvatarLanguage.dropLink}
-          </label>
+          </span>
           {avatar.value ? <Base.Button {...deleteImageButtonProps}/> : ''}
         </>
       );
@@ -73,7 +85,7 @@ export function SettingsAvatarComponent({
 
   return (
     <>
-      <div className="settings-avatar">
+      <div className={componentClassnames} {...getRootProps()}>
         <label
           htmlFor="user-avatar"
           className="settings-avatar-container"
@@ -89,6 +101,7 @@ export function SettingsAvatarComponent({
           id="user-avatar"
           ref={fileInput}
           onChange={handleFileInputChange}
+          {...getInputProps()}
         />
       </div>
       {drawAvatarError()}

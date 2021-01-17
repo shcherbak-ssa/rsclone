@@ -10,10 +10,12 @@
   &-container {
     margin-right: 16px;
     display: flex;
+    transition: .2s;
     -x-size: 126px;
 
     @media screen and (max-width: 767px) {
       margin: 0 0 16px 0;
+      width: 100%;
     }
 
     .original-theme & {
@@ -38,6 +40,7 @@
     text-align: center;
     flex-grow: 1;
     height: 126px;
+    transition: .2s;
     -x-font-size: 13px/17px;
 
     @media screen and (max-width: 767px) {
@@ -125,5 +128,21 @@
 
   input {
     display: none;
+  }
+
+  &.is-drop-active {
+    .settings-avatar-drop {
+      .original-theme & {
+        background: $original-settings-avatar-drop-active-backgroun-color;
+      }
+  
+      .light-theme & {
+        background: $light-settings-avatar-drop-active-backgroun-color;
+      }
+      
+      .dark-theme & {
+        background: $dark-settings-avatar-drop-active-backgroun-color;
+      }
+    }
   }
 }

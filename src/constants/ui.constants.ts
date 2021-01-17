@@ -13,6 +13,7 @@ export enum Classnames {
   HAS_DESCRIPTION = 'has-description',
   SHOW_SIDEBAR = 'show-sidebar',
   SELECT_TYPE = 'select-type',
+  IS_DROP_ACTIVE = 'is-drop-active',
 };
 
 export enum ButtonTypes {
