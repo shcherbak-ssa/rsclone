@@ -65,13 +65,14 @@ const userDraftStoreSelectors: StoreSelectors = {
   getStoreStates: (requestedDataLabels: UserDataLabels[]) => {
     return (state: UserDraftStoreSelector) => {
       const storeStates: UserDraftStoreState = state[Stores.USER_DRAFT_STORE];
-      const requestedResult = requestedDataLabels.map((dataLabel) => {
-        const currentState = storeStates[dataLabel];
-        const returnedValue = isInput(currentState)
-          ? (currentState as InputState).value : currentState;
+      const requestedResult = requestedDataLabels
+        .map((dataLabel) => {
+          const currentState = storeStates[dataLabel];
+          const returnedValue = isInput(currentState)
+            ? (currentState as InputState).value : currentState;
 
-        return [dataLabel, returnedValue];
-      });
+          return [dataLabel, returnedValue];
+        });
 
       return new Map(requestedResult as Iterable<[string, string | boolean]>);
     };
