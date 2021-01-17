@@ -31,16 +31,36 @@ export class UserModel {
   async updateUser(userID: string, updatedData: UpdatedUserData): Promise<any> {
     if (Object.keys(updatedData).length === EMPTY_VALUE_LENGTH) return {};
 
+    await this.checkExistingUserWithCurrentEmail(updatedData);
+    await this.checkExistingUserWithCurrentUsername(updatedData);
+    await this.preparingKeyboardShorcutsForUpdating(userID, updatedData);
+
+    await this.database.updateUser(userID, updatedData);
+    return {...updatedData};
+  }
+
+  async deleteUser(userID: string): Promise<any> {
+    await this.database.deleteUser(userID);
+    return { deleted: true };
+  }
+
+  private async checkExistingUserWithCurrentEmail(updatedData: UpdatedUserData): Promise<void> {
     if (UserDataLabels.EMAIL in updatedData) {
       const email = updatedData[UserDataLabels.EMAIL] as string;
       await this.uniqueControllerModel.checkExistingUserWithCurrentEmail(email);
     }
+  }
 
+  private async checkExistingUserWithCurrentUsername(updatedData: UpdatedUserData): Promise<void> {
     if (UserDataLabels.USERNAME in updatedData) {
       const username = updatedData[UserDataLabels.USERNAME] as string;
       await this.uniqueControllerModel.checkExistingUserWithCurrentUsername(username);
     }
+  }
 
+  private async preparingKeyboardShorcutsForUpdating(
+    userID: string, updatedData: UpdatedUserData
+  ): Promise<void> {
     if (UserDataLabels.SHORTCUTS in updatedData) {
       const updatedKeyboardShortcuts
         = updatedData[UserDataLabels.SHORTCUTS] as KeyboardShortcut[];
@@ -57,13 +77,5 @@ export class UserModel {
           return updatedKeyboardShortcut || keyboardShortcut;
         });
     }
-
-    await this.database.updateUser(userID, updatedData);
-    return {...updatedData};
-  }
-
-  async deleteUser(userID: string): Promise<any> {
-    await this.database.deleteUser(userID);
-    return { deleted: true };
   }
 }
