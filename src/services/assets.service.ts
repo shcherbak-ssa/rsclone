@@ -9,10 +9,6 @@ export class AssetsService {
     return `/assets/${image}.png`;
   }
 
-  getAvatarImageUrl(image: string) {
-    return `/avatars/${image}`;
-  }
-
   isValidUserAvatarFileType(filename: string) {
     const fileType = this.getFileType(filename);
     return correctUserAvatarFileTypes.includes(fileType);

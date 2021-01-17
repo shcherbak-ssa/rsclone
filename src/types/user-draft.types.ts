@@ -6,7 +6,7 @@ import { ToolsService } from "../services/tools.service";
 const initialInputState: InputState = new ToolsService().getInitialInputState();
 
 export const initialState: UserDraftStoreState = {
-  [UserDataLabels.AVATAR]: false,
+  [UserDataLabels.AVATAR]: '',
   [UserDataLabels.FULLNAME]: initialInputState,
   [UserDataLabels.EMAIL]: initialInputState,
   [UserDataLabels.PASSWORD]: initialInputState,
@@ -25,7 +25,7 @@ export type InputState = {
   error: string;
 };
 
-export type UserDraftState = string | boolean | InputState | KeyboardShortcut[];
+export type UserDraftState = string | InputState | KeyboardShortcut[];
 
 export type UpdatedDraft = {
   [key: string]: UserDraftState;

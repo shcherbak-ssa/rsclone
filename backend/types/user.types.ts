@@ -16,7 +16,7 @@ export type User = {
   email: string;
   password: string;
   username: string;
-  avatar: boolean;
+  avatar: string;
   language: LanguageLabels;
   theme: Themes;
   shortcuts: KeyboardShortcut[];

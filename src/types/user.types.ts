@@ -7,7 +7,7 @@ export type UserLocalStorageType = null | {
 };
 
 export type User = {
-  avatar: boolean,
+  avatar: string,
   fullname: string,
   username: string,
   email: string,
@@ -21,10 +21,10 @@ export type GetUser = {
   spaces: Space[],
 };
 
-export type UserDataValue = string | boolean | KeyboardShortcut[];
+export type UserDataValue = string | KeyboardShortcut[];
 
 export const initialState: User = {
-  avatar: false,
+  avatar: '',
   fullname: '',
   username: '',
   email: '',

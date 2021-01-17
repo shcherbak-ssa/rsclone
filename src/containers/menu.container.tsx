@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import spacesIcon from '@iconify/icons-uil/apps';
 import settingsIcon from '@iconify/icons-clarity/settings-line';
@@ -13,8 +12,8 @@ import { LogoutPopupContainer } from './popups/logout-popup.container';
 import { MenuItemComponentProps } from '../components/menu-item.component';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { AppRoutesService } from '../services/app-routes.service';
-import { storeSelectorsService } from '../services/store-selectors.service';
-import { Stores, UserDataLabels } from '../constants';
+import { UserDataLabels } from '../constants';
+import { useUserState } from '../hooks/user-state.hook';
 
 export function MenuContainer() {
   const history = useHistory();
@@ -22,8 +21,8 @@ export function MenuContainer() {
   const [activeMenuItem, setActiveMenuItem] = useState('');
 
   const appRoutesService: AppRoutesService = new AppRoutesService();
-  const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
-  const userFullname = useSelector(userStoreSelectors.getState(UserDataLabels.FULLNAME));
+  const userAvatar = useUserState(UserDataLabels.AVATAR);
+  const userFullname = useUserState(UserDataLabels.FULLNAME);
 
   const menuItemsProps: {[key: string]: MenuItemComponentProps} = {
     spaces: {
@@ -60,6 +59,7 @@ export function MenuContainer() {
 
   const menuComponentProps: MenuComponentProps = {
     menuItemsProps,
+    avatar: userAvatar,
     activeMenuItem,
     userFullname,
   };

@@ -5,18 +5,27 @@ import './styles/menu.component.scss';
 import { Classnames } from '../constants/ui.constants';
 import { DocumentBodyService } from '../services/document-body.service';
 import { MenuItemComponentProps, MenuItemComponent } from './menu-item.component';
+import { AvatarComponent, AvatarComponentProps } from './avatar.component';
 
 export type MenuComponentProps = {
   menuItemsProps: {[key: string]: MenuItemComponentProps},
+  avatar: string,
   userFullname: string,
   activeMenuItem: string,
 };
 
-export function MenuComponent({menuItemsProps, userFullname, activeMenuItem}: MenuComponentProps) {
+export function MenuComponent({
+  menuItemsProps, avatar, userFullname, activeMenuItem
+}: MenuComponentProps) {
   const [isOpen, setIsOpen] = useState(false);
   const componentClassnames: string = classnames('menu', {
     [Classnames.IS_OPEN]: isOpen,
   });
+
+  const avatarComponentProps: AvatarComponentProps = {
+    avatarLink: avatar,
+    userFullname,
+  };
 
   useEffect(() => {
     setIsOpen(false);
@@ -57,7 +66,7 @@ export function MenuComponent({menuItemsProps, userFullname, activeMenuItem}: Me
     <div className={componentClassnames} onClick={closeMenuClickHandle}>
       <div className="menu-container" data-class="flex-column">
         <div className="menu-user">
-          {/* <Avatar /> */}
+          <AvatarComponent {...avatarComponentProps}/>
           <div className="menu-username">{userFullname}</div>
         </div>
         <MenuItemComponent {...menuItemsProps.spaces}/>
