@@ -19,6 +19,20 @@ export class UniqueControllerModel {
     return await this.database.isUsernameUnique(username);
   }
 
+  async checkExistingUserWithCurrentUsername(username: string): Promise<void> {
+    const isUsernameUnique: boolean = await this.database.isUsernameUnique(username);
+
+    if (!isUsernameUnique) {
+      throw new ValidationError(
+        'User with current username is already exist',
+        {
+          dataLabel: UserDataLabels.USERNAME,
+          errorLabel: ErrorLabels.USERNAME_EXIST,
+        }
+      );
+    }
+  }
+
   async checkExistingUserWithCurrentEmail(email: string): Promise<void> {
     const isEmailUnique: boolean = await this.database.isEmailUnique(email);
 

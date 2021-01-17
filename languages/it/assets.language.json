@@ -4,6 +4,7 @@
     "empty-value": "Il valore non può essere vuoto",
     "invalid-email": "E-mail non valido",
     "email-exist": "Esiste già un utente con l'indirizzo email corrente",
+    "username-exist": "Esiste già un utente con username corrente",
     "password-length": "La password deve contenere più di 8 caratteri",
     "fullname": "Il nome deve contenere solo caratteri alfanumerici",
     "username": "Il username deve contenere solo caratteri alfanumerici",

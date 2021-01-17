@@ -2,7 +2,8 @@ import { ErrorNames } from '../../common/constants';
 import { ValidationError } from '../../common/validation';
 import { UserDataLabels } from '../constants';
 import { ClientError } from '../services/errors.service';
-import { Request, Response } from '../types/services.types';
+import { UserLocalStorageService } from '../services/user-local-storage.service';
+import { Request, Response, UserLocalStorage } from '../types/services.types';
 import { UpdatedData } from '../types/user.types';
 import { UserValidation } from '../validation/user.validation';
 import { BaseModel } from './base.model';
@@ -35,6 +36,10 @@ export class UserUpdateModel extends BaseModel {
       
       response.parseResponse();
       this.userModel.updateState(Object.keys(updatedData) as UserDataLabels[]);
+
+      if (UserDataLabels.USERNAME in updatedData) {
+        this.updateUsername(updatedData[UserDataLabels.USERNAME]);
+      }
     } catch (error) {
       this.parseError(error);
     }
@@ -47,6 +52,12 @@ export class UserUpdateModel extends BaseModel {
       .appendUrlPathname(usersPathname)
       .setBody(body)
       .createRequest();
+  }
+
+  private updateUsername(username: string) {
+    const userLocalStorage: UserLocalStorage = new UserLocalStorageService();
+    const token: string = userLocalStorage.getToken();
+    userLocalStorage.saveUser({token, username});
   }
 
   private parseError(error: Error) {

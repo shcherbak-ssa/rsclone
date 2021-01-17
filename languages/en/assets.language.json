@@ -4,6 +4,7 @@
     "empty-value": "Field cannot be empty",
     "invalid-email": "Invalid e-mail",
     "email-exist": "User with current e-mail address already exists",
+    "username-exist": "User with current username already exists",
     "password-length": "Password must be over 8 characters",
     "fullname": "Fullname must only contain alpha-numeric characters",
     "username": "Username must only contain alpha-numeric characters",

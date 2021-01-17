@@ -30,8 +30,13 @@ export class UserModel {
     if (Object.keys(updatedData).length === EMPTY_VALUE_LENGTH) return {};
 
     if (UserDataLabels.EMAIL in updatedData) {
-      const email = updatedData[UserDataLabels.EMAIL];
+      const email: string = updatedData[UserDataLabels.EMAIL];
       await this.uniqueControllerModel.checkExistingUserWithCurrentEmail(email);
+    }
+
+    if (UserDataLabels.USERNAME in updatedData) {
+      const username: string = updatedData[UserDataLabels.USERNAME];
+      await this.uniqueControllerModel.checkExistingUserWithCurrentUsername(username);
     }
 
     await this.database.updateUser(userID, updatedData);
