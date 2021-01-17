@@ -7,3 +7,7 @@ export interface ResponseSender {
   sendFile(statusCode: number, filePath: string): Promise<void>;
   endRequest(statusCode: number, content: string): Promise<void>;
 }
+
+export interface Username {
+  createUsername(email: string): Promise<string>;
+}

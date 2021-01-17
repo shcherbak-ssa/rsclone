@@ -25,7 +25,7 @@ export class Validation {
   fullname(): Joi.StringSchema {
     return Joi.string()
       .trim()
-      .pattern(/\w+/)
+      .pattern(/^\w+$/)
       .max(MAX_FIELD_LENGTH)
   }
 
@@ -63,7 +63,7 @@ export class Validation {
 
 export function parseValidationError(error: any) {
   const {type, message, context: {key}} = error.details[0];
-  console.log(error.details);
+  console.log(error.details); // @TODO: remove
 
   switch (type) {
     case 'string.empty':

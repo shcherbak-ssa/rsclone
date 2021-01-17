@@ -15,6 +15,7 @@ export class UserValidation implements UserUpdateValidation {
   async validate(updatedData: UpdatedData): Promise<UpdatedData> {
     try {
       const validationSchema: Joi.ObjectSchema = Joi.object({
+        [UserDataLabels.EMAIL]: this.validation.email().empty(),
         [UserDataLabels.LANGUAGE]: this.validation.language(),
         [UserDataLabels.THEME]: this.validation.theme(),
       });

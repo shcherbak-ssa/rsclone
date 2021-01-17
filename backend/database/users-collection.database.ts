@@ -8,12 +8,14 @@ import { CreateUserDatabase } from '../models/registration.model';
 import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
 import { GetUsernameDatabase } from '../models/auth-user.model';
 import { UserDatabase } from '../models/user.model';
+import { UniqueControllerDatabase } from '../models/unique-controller.model';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
 export class UsersCollectionDatabase implements
   GetUsernameDatabase,
   CreateUserDatabase,
+  UniqueControllerDatabase,
   LoginUserDatabase,
   UserDatabase
 {
@@ -49,6 +51,7 @@ export class UsersCollectionDatabase implements
     return await this.databaseCollection.createDocument(newUser);
   }
 
+  // implements UniqueControllerDatabase
   async isUsernameUnique(username: string): Promise<boolean> {
     return await this.databaseCollection.isUnique({username});
   }

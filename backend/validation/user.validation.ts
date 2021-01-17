@@ -16,6 +16,7 @@ export class UserValidationImpl implements UserValidation {
     try {
       const validationSchema: Joi.ObjectSchema = Joi.object({
         [UserDataLabels.FULLNAME]: this.validation.fullname().empty(),
+        [UserDataLabels.EMAIL]: this.validation.email().empty(),
         [UserDataLabels.LANGUAGE]: this.validation.language(),
         [UserDataLabels.THEME]: this.validation.theme(),
       });
