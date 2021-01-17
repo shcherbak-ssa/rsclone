@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ShortcurtsSections } from '../../common/constants';
 import { KeyboardShortcut } from '../../common/entities';
 import { SettingsGroupComponent, SettingsGroupComponentProps } from '../components/settings-group.component';
 import { SettingsGroupLabels, SettingsSectionLabels } from '../constants';
@@ -7,16 +8,16 @@ import { SettingsGroupPropsHookParams, useSettingsGroupProps } from '../hooks/se
 import { ShortcutsService } from '../services/shortcuts.service';
 import { ShortcutContainer, ShortcutContainerProps } from './shortcut.container';
 
-export type ShortcutGroupProps = {
+export type ShortcutGroupContainerProps = {
   groupLabel: SettingsGroupLabels,
   keyboardShortcuts: KeyboardShortcut[],
   selectedShortcutLabel: string | null,
   updateSelectedShortcut: Function,
 };
 
-export function ShortcutGroup({
+export function ShortcutGroupContainer({
   groupLabel, keyboardShortcuts, selectedShortcutLabel, updateSelectedShortcut,
-}: ShortcutGroupProps) {
+}: ShortcutGroupContainerProps) {
   const settingsGroupPropsHookParams: SettingsGroupPropsHookParams = {
     sectionLabel: SettingsSectionLabels.SHORTCUTS,
     groupLabel,
