@@ -7,6 +7,7 @@ import { useAppLanguage } from '../hooks/app-language.hook';
 import { SettingsSectionPropsHookParams, useSettingsSectionProps } from '../hooks/settings-section-props.hook';
 
 export function SettingsShortcutsContainer() {
+  const keyboardShortcuts = '';
   const appLanguage = useAppLanguage();
 
   const settingsSectionPropsHookParams: SettingsSectionPropsHookParams = {

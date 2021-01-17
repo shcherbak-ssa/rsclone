@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
-import { Stores, UserDataLabels } from '../constants';
-import { storeSelectorsService } from '../services/store-selectors.service';
+import { UserDataLabels } from '../constants';
 import { DocumentBodyService } from '../services/document-body.service';
+import { useUserState } from './user-state.hook';
 
 export function useChangeTheme() {
-  const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
-  const currentTheme = useSelector(userStoreSelectors.getState(UserDataLabels.THEME));
+  const currentTheme = useUserState(UserDataLabels.THEME);
 
   useEffect(() => {
     const documentBodyService = new DocumentBodyService();
