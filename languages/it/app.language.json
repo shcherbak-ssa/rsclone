@@ -44,7 +44,8 @@
       }
     },
     "shortcuts": {
-      "title": "Keyboard Shortcuts",
+      "title": "Tasti rapidi",
+      "message": "Seleziona una scorciatoia da tastiera e premi la tua combinazione",
       "actions": {
         "add-space": {
           "title": "Aggiungi spazio",

@@ -45,6 +45,7 @@
     },
     "shortcuts": {
       "title": "Keyboard Shortcuts",
+      "message": "Select any keyboard shortcut and press your combination",
       "actions": {
         "add-space": {
           "title": "Add space",

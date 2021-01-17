@@ -64,4 +64,21 @@
       border-top: 1px solid $dark-settings-section-line-color;
     }
   }
+
+  &-message {
+    margin-bottom: 24px;
+    -x-font-size: 14px/20px;
+
+    .original-theme & {
+      color: $original-settings-section-message-color;
+    }
+
+    .light-theme & {
+      color: $light-settings-section-message-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-settings-section-message-color;
+    }
+  }
 }

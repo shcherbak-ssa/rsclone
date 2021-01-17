@@ -44,7 +44,8 @@
       }
     },
     "shortcuts": {
-      "title": "Keyboard Shortcuts",
+      "title": "Горячие клавиши",
+      "message": "Выберите любую горячую клавишу и нажмите свою комбинацию",
       "actions": {
         "add-space": {
           "title": "Добавить пространство",
