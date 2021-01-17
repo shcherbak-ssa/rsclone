@@ -8,6 +8,9 @@
   "password": {
     "placeholder": "Пароль"
   },
+  "username": {
+    "placeholder": "Username"
+  },
   "theme": {
     "original-theme": "Оригинал",
     "light-theme": "Светлая",

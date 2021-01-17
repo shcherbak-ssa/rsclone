@@ -18,7 +18,12 @@
   },
   "settings": {
     "user": {
-      "title": "User"
+      "title": "User",
+      "groups": {
+        "user-data": {
+          "title": "User data"
+        }
+      }
     },
     "login": {
       "title": "Login",

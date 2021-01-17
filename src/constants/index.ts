@@ -53,4 +53,5 @@ export enum SettingsActionLabels {
 
 export enum SettingsGroupLabels {
   THEME = 'theme',
+  USER_DATA = 'user-data',
 };

@@ -25,7 +25,7 @@ export class Validation {
   fullname(): Joi.StringSchema {
     return Joi.string()
       .trim()
-      .pattern(/^\w+$/)
+      .pattern(/^[\w\s]+$/)
       .max(MAX_FIELD_LENGTH)
   }
 
@@ -39,6 +39,13 @@ export class Validation {
   password(): Joi.StringSchema {
     return Joi.string()
       .min(MIN_PASSWORD_LENGTH)
+      .max(MAX_FIELD_LENGTH)
+  }
+
+  username(): Joi.StringSchema {
+    return Joi.string()
+      .trim()
+      .pattern(/^[-a-zA-Z0-9]+$/)
       .max(MAX_FIELD_LENGTH)
   }
 
@@ -73,7 +80,11 @@ export function parseValidationError(error: any) {
     case 'string.min':
       throwValidationError(message, key, ErrorLabels.PASSWORD_MIN);
     case 'string.pattern.base':
-      throwValidationError(message, key, ErrorLabels.ALPHANUM);
+      if (key === UserDataLabels.FULLNAME) {
+        throwValidationError(message, key, ErrorLabels.FULLNAME);
+      } else {
+        throwValidationError(message, key, ErrorLabels.USERNAME);
+      }
     case 'string.max':
       throwValidationError(message, key, ErrorLabels.FIELD_MAX);
   }

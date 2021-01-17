@@ -18,7 +18,12 @@
   },
   "settings": {
     "user": {
-      "title": "Utente"
+      "title": "Utente",
+      "groups": {
+        "user-data": {
+          "title": "Dati utente"
+        }
+      }
     },
     "login": {
       "title": "Accesso",

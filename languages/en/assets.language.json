@@ -5,7 +5,8 @@
     "invalid-email": "Invalid e-mail",
     "email-exist": "User with current e-mail address already exists",
     "password-length": "Password must be over 8 characters",
-    "alphanum": "Fullname must only contain alpha-numeric characters",
+    "fullname": "Fullname must only contain alpha-numeric characters",
+    "username": "Username must only contain alpha-numeric characters",
     "field-max": "Field cannot contain over 256 characters"
   }
 }

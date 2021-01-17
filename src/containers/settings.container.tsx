@@ -5,6 +5,7 @@ import { HomepageContainer, HomepageContainerProps } from './homepage.container'
 import { SettingsAppContainer } from './settings-app.container';
 import { SettingsDangerContainer } from './settings-danger.container';
 import { SettingsLoginContainer } from './settings-login.container';
+import { SettingsUserContainer } from './settings-user.container';
 
 export function SettingsContainer() {
   const homepageContainerProps: HomepageContainerProps = {
@@ -13,6 +14,7 @@ export function SettingsContainer() {
 
   return (
     <HomepageContainer {...homepageContainerProps}>
+      <SettingsUserContainer />
       <SettingsLoginContainer />
       <SettingsAppContainer />
       <SettingsDangerContainer />

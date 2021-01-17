@@ -18,7 +18,12 @@
   },
   "settings": {
     "user": {
-      "title": "Пользователь"
+      "title": "Пользователь",
+      "groups": {
+        "user-data": {
+          "title": "Данные пользователя"
+        }
+      }
     },
     "login": {
       "title": "Авторизация",
@@ -26,7 +31,7 @@
         "change-password": {
           "title": "Пароль",
           "description": "Защитите свою учетную запись GitBook Clone надежным и уникальным паролем",
-          "buttonValue": "Измени пароль"
+          "buttonValue": "Изменить пароль"
         }
       }
     },

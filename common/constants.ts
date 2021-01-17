@@ -75,7 +75,8 @@ export enum ErrorLabels {
   INVALID_EMAIL = 'invalid-email',
   EMAIL_EXIST = 'email-exist',
   PASSWORD_MIN = 'password-length',
-  ALPHANUM = 'alphanum',
+  FULLNAME = 'fullname',
+  USERNAME = 'username',
   FIELD_MAX = 'field-max',
   INVALID_USER = 'invalid-user',
 };
