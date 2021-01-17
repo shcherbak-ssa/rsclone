@@ -7,7 +7,7 @@ import { DatabaseDBService } from '../services/database-db.service';
 import { CreateUserDatabase } from '../models/registration.model';
 import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
 import { GetUsernameDatabase } from '../models/auth-user.model';
-import { UserDatabase } from '../models/user.model';
+import { UsersDatabase } from '../models/users.model';
 import { UniqueControllerDatabase } from '../models/unique-controller.model';
 import { KeyboardShortcut } from '../../common/entities';
 
@@ -18,7 +18,7 @@ export class UsersCollectionDatabase implements
   CreateUserDatabase,
   UniqueControllerDatabase,
   LoginUserDatabase,
-  UserDatabase
+  UsersDatabase
 {
   private databaseCollection: DatabaseCollectionService;
   

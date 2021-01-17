@@ -8,7 +8,7 @@ import { KeyboardShortcut } from '../../common/entities';
 import { ClientError } from '../services/errors.service';
 import { ErrorLabels, StatusCodes } from '../../common/constants';
 
-export interface UserDatabase {
+export interface UsersDatabase {
   getUser(userID: string): Promise<User>;
   getKeyboardShortcuts(userID: string): Promise<KeyboardShortcut[]>;
   isCorrectPassword(userID: string, password: string): Promise<boolean>;
@@ -16,8 +16,8 @@ export interface UserDatabase {
   deleteUser(userID: string): Promise<void>;
 }
 
-export class UserModel {
-  private database: UserDatabase;
+export class UsersModel {
+  private database: UsersDatabase;
   private uniqueControllerModel: UniqueControllerModel;
   
   constructor() {
