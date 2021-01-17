@@ -21,7 +21,14 @@
       "title": "Пользователь"
     },
     "login": {
-      "title": "Авторизация"
+      "title": "Авторизация",
+      "actions": {
+        "change-password": {
+          "title": "Пароль",
+          "description": "Защитите свою учетную запись GitBook Clone надежным и уникальным паролем",
+          "buttonValue": "Измени пароль"
+        }
+      }
     },
     "app": {
       "title": "Приложение",

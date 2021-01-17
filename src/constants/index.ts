@@ -1,6 +1,5 @@
 export const USER_LOCALSTORAGE_KEY: string = 'user';
 export const USERNAME_PATHNAME_INITIAL_STRING: string = '/@';
-
 export const EMPTY_VALUE_LENGTH: number = 0;
 
 export enum AppRoutePathnames {
@@ -49,6 +48,7 @@ export enum SettingsSectionLabels {
 
 export enum SettingsActionLabels {
   DELETE_ACCOUNT = 'delete-account',
+  CHANGE_PASSWORD = 'change-password',
 };
 
 export enum SettingsGroupLabels {

@@ -21,7 +21,14 @@
       "title": "User"
     },
     "login": {
-      "title": "Login"
+      "title": "Login",
+      "actions": {
+        "change-password": {
+          "title": "Password",
+          "description": "Secure your GitBook Clone account with a strong and unique password",
+          "buttonValue": "Change password"
+        }
+      }
     },
     "app": {
       "title": "App",
