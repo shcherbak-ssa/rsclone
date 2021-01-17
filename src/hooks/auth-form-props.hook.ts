@@ -12,6 +12,7 @@ import { AuthEvents, UserDraftEvents } from '../constants/events.constants';
 import { BaseInputProps } from '../components/base';
 import { authController } from '../controllers/auth.controller';
 import { storeSelectorsService } from '../services/store-selectors.service';
+import { usePasswordInputProps } from './password-input-props.hook';
 
 export type AuthFormPropsParameters = {
   mode: AuthModes;
@@ -29,7 +30,7 @@ export function useAuthFormProps({
   const authError = useSelector(authStoreSelectors.getAuthError());
 
   const emailInputProps: BaseInputProps = useUserInputProps(UserDataLabels.EMAIL);
-  const passwordInputProps: BaseInputProps = useUserInputProps(UserDataLabels.PASSWORD);
+  const passwordInputProps: BaseInputProps = usePasswordInputProps();
 
   const authFormProps: AuthFormComponentProps = {
     title: authLanguage[mode].title,
