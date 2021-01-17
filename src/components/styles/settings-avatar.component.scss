@@ -1,0 +1,129 @@
+@import '../../assets/styles/assets.scss';
+
+.settings-avatar {
+  display: flex;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  &-container {
+    margin-right: 16px;
+    display: flex;
+    -x-size: 126px;
+
+    @media screen and (max-width: 767px) {
+      margin: 0 0 16px 0;
+    }
+
+    .original-theme & {
+      background: $original-settings-avatar-container-background-color;
+    }
+
+    .light-theme & {
+      background: $light-settings-avatar-container-background-color;
+    }
+    
+    .dark-theme & {
+      background: $dark-settings-avatar-container-background-color;
+    }
+
+    .avatar {
+      font-size: 24px;
+    }
+  }
+
+  &-drop {
+    border: 1px solid;
+    text-align: center;
+    flex-grow: 1;
+    height: 126px;
+    -x-font-size: 13px/17px;
+
+    @media screen and (max-width: 767px) {
+      
+    }
+
+    .original-theme & {
+      border-color: $original-settings-avatar-drop-border-color;
+      color: $original-settings-avatar-drop-color;
+    }
+
+    .light-theme & {
+      border-color: $light-settings-avatar-drop-border-color;
+      color: $light-settings-avatar-drop-color;
+    }
+    
+    .dark-theme & {
+      border-color: $dark-settings-avatar-drop-border-color;
+      color: $dark-settings-avatar-drop-color;
+    }
+  }
+
+  &-loaded-file {
+    flex-direction: column;
+  }
+
+  &-filename {
+    font-weight: 500;
+    margin-bottom: 12px;
+    -x-font-size: 16px/24px;
+
+    .original-theme & {
+      color: $original-settings-avatar-filename-color;
+    }
+
+    .light-theme & {
+      color: $light-settings-avatar-filename-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-settings-avatar-filename-color;
+    }
+  }
+
+  &-link {
+    cursor: pointer;
+    margin-left: 3px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    .original-theme & {
+      color: $original-settings-avatar-link-color;
+    }
+
+    .light-theme & {
+      color: $light-settings-avatar-link-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-settings-avatar-link-color;
+    }
+  }
+
+  &-error {
+    margin-top: 12px;
+
+    .original-theme & {
+      color: $original-input-error-color;
+    }
+
+    .light-theme & {
+      color: $light-input-error-color;
+    }
+    
+    .dark-theme & {
+      color: $dark-input-error-color;
+    }
+  }
+
+  &-container, &-drop {
+    border-radius: 3px;
+  }
+
+  input {
+    display: none;
+  }
+}

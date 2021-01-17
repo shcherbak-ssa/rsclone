@@ -59,7 +59,7 @@ export function MenuContainer() {
 
   const menuComponentProps: MenuComponentProps = {
     menuItemsProps,
-    avatar: userAvatar,
+    avatar: userAvatar.value,
     activeMenuItem,
     userFullname,
   };

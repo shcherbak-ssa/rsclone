@@ -6,6 +6,8 @@ export const SPACE_STRING: string = ' ';
 export const EMPTY_SHORTCUT_STRING: string = '???';
 export const JOIN_SHORTCUT_KEYS_STRING: string = ' + ';
 export const DEFAULT_AVATAR_SIZE: number = 46;
+export const SETTINGS_AVATAR_SIZE: number = 98;
+export const DOT_SPLIT_STRING: string = '.';
 
 export enum AppRoutePathnames {
   ROOT = '/',

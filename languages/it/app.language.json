@@ -26,6 +26,14 @@
         "user-data": {
           "title": "Dati utente"
         }
+      },
+      "avatar": {
+        "deleteImageButtonValue": "Elimina immagine",
+        "dropText": "Trascina il tuo file qui",
+        "dropLink": "o sfoglia",
+        "errors": {
+          "invalid-file-type": "Tipo di file non valido. I tipi corretti sono '.png', '.jpg'"
+        }
       }
     },
     "login": {

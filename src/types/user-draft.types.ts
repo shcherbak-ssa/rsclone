@@ -6,7 +6,7 @@ import { ToolsService } from "../services/tools.service";
 const initialInputState: InputState = new ToolsService().getInitialInputState();
 
 export const initialState: UserDraftStoreState = {
-  [UserDataLabels.AVATAR]: '',
+  [UserDataLabels.AVATAR]: initialInputState,
   [UserDataLabels.FULLNAME]: initialInputState,
   [UserDataLabels.EMAIL]: initialInputState,
   [UserDataLabels.PASSWORD]: initialInputState,

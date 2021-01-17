@@ -26,6 +26,14 @@
         "user-data": {
           "title": "Данные пользователя"
         }
+      },
+      "avatar": {
+        "deleteImageButtonValue": "Удалить изображение",
+        "dropText": "Перетащите свой файл сюда",
+        "dropLink": "или просмотрите",
+        "errors": {
+          "invalid-file-type": "Неверный тип файла. Правильные типы: '.png', '.jpg'"
+        }
       }
     },
     "login": {

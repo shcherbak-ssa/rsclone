@@ -26,6 +26,14 @@
         "user-data": {
           "title": "User data"
         }
+      },
+      "avatar": {
+        "deleteImageButtonValue": "Delete image",
+        "dropText": "Drop your file here",
+        "dropLink": "or browse",
+        "errors": {
+          "invalid-file-type": "Invalid file type. Correct types are '.png', '.jpg'"
+        }
       }
     },
     "login": {

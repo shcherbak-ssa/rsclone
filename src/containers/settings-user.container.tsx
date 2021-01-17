@@ -7,6 +7,7 @@ import { SettingsGroupLabels, SettingsSectionLabels, UserDataLabels } from '../c
 import { SettingsGroupPropsHookParams, useSettingsGroupProps } from '../hooks/settings-group-props.hook';
 import { SettingsSectionPropsHookParams, useSettingsSectionProps } from '../hooks/settings-section-props.hook';
 import { useUserInputProps } from '../hooks/user-input-props.hook';
+import { SettingsAvatarContainer } from './settings-avatar.container';
 
 export function SettingsUserContainer() {
   const fullnameInputProps: BaseInputProps = useUserInputProps(UserDataLabels.FULLNAME);
@@ -14,7 +15,11 @@ export function SettingsUserContainer() {
 
   const settingsSectionPropsHookParams: SettingsSectionPropsHookParams = {
     sectionLabel: SettingsSectionLabels.USER,
-    controlDataLabels: [UserDataLabels.FULLNAME, UserDataLabels.USERNAME],
+    controlDataLabels: [
+      UserDataLabels.FULLNAME,
+      UserDataLabels.USERNAME,
+      UserDataLabels.AVATAR,
+    ],
   };
   const avatarGroupPropsHookParams: SettingsGroupPropsHookParams = {
     sectionLabel: SettingsSectionLabels.USER,
@@ -35,6 +40,7 @@ export function SettingsUserContainer() {
   return (
     <SettingsSectionComponent {...settingsSectionComponentProps}>
       <SettingsGroupComponent {...avatarGroupComponentProps}>
+        <SettingsAvatarContainer />
       </SettingsGroupComponent>
       <SettingsGroupComponent {...userDataGroupComponentProps}>
         <Base.Input {...fullnameInputProps}/>

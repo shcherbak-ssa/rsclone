@@ -80,4 +80,5 @@ export enum ErrorLabels {
   USERNAME = 'username',
   FIELD_MAX = 'field-max',
   INVALID_USER = 'invalid-user',
+  INVALID_FILE_TYPE = 'invalid-file-type',
 };

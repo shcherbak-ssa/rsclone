@@ -30,6 +30,10 @@ export class ValidationError implements Error {
 }
 
 export class Validation {
+  avatar(): Joi.StringSchema {
+    return Joi.string()
+  }
+
   fullname(): Joi.StringSchema {
     return Joi.string()
       .trim()

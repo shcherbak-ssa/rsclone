@@ -1,4 +1,5 @@
-const correctUserAvatarFileTypes = ['png', 'jpg'];
+import { correctUserAvatarFileTypes } from '../../common/data';
+import { DOT_SPLIT_STRING } from '../constants';
 
 export class AssetsService {
   getIconUrl(icon: string) {
@@ -15,6 +16,6 @@ export class AssetsService {
   }
 
   private getFileType(filename: string) {
-    return filename.split('.').reverse()[0];
+    return filename.split(DOT_SPLIT_STRING).reverse()[0];
   }
 }
