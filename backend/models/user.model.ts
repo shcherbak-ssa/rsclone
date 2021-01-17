@@ -4,9 +4,11 @@ import { UpdatedUserData } from '../types/user.types';
 import { EMPTY_VALUE_LENGTH } from '../../src/constants';
 import { UniqueControllerModel } from './unique-controller.model';
 import { UserDataLabels } from '../constants';
+import { KeyboardShortcut } from '../../common/entities';
 
 export interface UserDatabase {
   getUser(userID: string): Promise<User>;
+  getKeyboardShortcuts(userID: string): Promise<KeyboardShortcut[]>;
   updateUser(userID: string, updatedData: UpdatedUserData): Promise<void>;
   deleteUser(userID: string): Promise<void>;
 }
@@ -30,13 +32,30 @@ export class UserModel {
     if (Object.keys(updatedData).length === EMPTY_VALUE_LENGTH) return {};
 
     if (UserDataLabels.EMAIL in updatedData) {
-      const email: string = updatedData[UserDataLabels.EMAIL];
+      const email = updatedData[UserDataLabels.EMAIL] as string;
       await this.uniqueControllerModel.checkExistingUserWithCurrentEmail(email);
     }
 
     if (UserDataLabels.USERNAME in updatedData) {
-      const username: string = updatedData[UserDataLabels.USERNAME];
+      const username = updatedData[UserDataLabels.USERNAME] as string;
       await this.uniqueControllerModel.checkExistingUserWithCurrentUsername(username);
+    }
+
+    if (UserDataLabels.SHORTCUTS in updatedData) {
+      const updatedKeyboardShortcuts
+        = updatedData[UserDataLabels.SHORTCUTS] as KeyboardShortcut[];
+      const currentKeyboardShortcuts: KeyboardShortcut[]
+        = await this.database.getKeyboardShortcuts(userID);
+
+      updatedData[UserDataLabels.SHORTCUTS] = currentKeyboardShortcuts
+        .map((keyboardShortcut) => {
+          const updatedKeyboardShortcut = updatedKeyboardShortcuts
+            .find((updatedKeyboardShortcut) => {
+              return (updatedKeyboardShortcut.label === keyboardShortcut.label) || null;
+            });
+
+          return updatedKeyboardShortcut || keyboardShortcut;
+        });
     }
 
     await this.database.updateUser(userID, updatedData);

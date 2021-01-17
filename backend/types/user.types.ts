@@ -39,5 +39,5 @@ export type GetUser = {
 };
 
 export type UpdatedUserData = {
-  [key: string]: string,
+  [key: string]: string | KeyboardShortcut[],
 };

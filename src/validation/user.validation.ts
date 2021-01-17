@@ -20,6 +20,7 @@ export class UserValidation implements UserUpdateValidation {
         [UserDataLabels.USERNAME]: this.validation.username().empty(),
         [UserDataLabels.LANGUAGE]: this.validation.language(),
         [UserDataLabels.THEME]: this.validation.theme(),
+        [UserDataLabels.SHORTCUTS]: this.validation.shortcuts(),
       });
 
       return await validationSchema.validateAsync(updatedData);

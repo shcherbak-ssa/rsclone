@@ -1,6 +1,14 @@
 import Joi from 'joi';
+
 import { UserDataLabels } from '../src/constants';
-import { ErrorLabels, ErrorNames, LanguageLabels, Themes } from './constants';
+import {
+  ErrorLabels,
+  ErrorNames,
+  LanguageLabels,
+  Themes,
+  ShortcurtsSections,
+  ShortcutsLabels,
+} from './constants';
 
 const MIN_PASSWORD_LENGTH: number = 8;
 const MAX_FIELD_LENGTH: number = 256;
@@ -65,6 +73,26 @@ export class Validation {
         Themes.LIGHT,
         Themes.DARK,
       );
+  }
+
+  shortcuts(): Joi.ArraySchema {
+    return Joi.array()
+      .items(
+        Joi.object({
+          section: Joi.string()
+            .valid(
+              ShortcurtsSections.HOMEPAGE,
+              ShortcurtsSections.SPACE,
+            ),
+          keys: Joi.string(),
+          label: Joi.string()
+            .valid(
+              ShortcutsLabels.ADD_PAGE,
+              ShortcutsLabels.ADD_SECTION,
+              ShortcutsLabels.ADD_SPACE
+            ),
+        })
+      )
   }
 }
 

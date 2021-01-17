@@ -9,6 +9,7 @@ import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
 import { GetUsernameDatabase } from '../models/auth-user.model';
 import { UserDatabase } from '../models/user.model';
 import { UniqueControllerDatabase } from '../models/unique-controller.model';
+import { KeyboardShortcut } from '../../common/entities';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
@@ -82,6 +83,22 @@ export class UsersCollectionDatabase implements
     };
 
     return await this.databaseCollection.getDocument(getUserQuery, getUserOptions);
+  }
+
+  async getKeyboardShortcuts(userID: string): Promise<KeyboardShortcut[]> {
+    const getKeyboardShortcutsQuery = this.getUserIDSearchObject(userID);
+    const getKeyboardShortcutsOptions = {
+      projection: {
+        [UserDataLabels.SHORTCUTS]: 1,
+      },
+    };
+
+    const result: any = await this.databaseCollection.getDocument(
+      getKeyboardShortcutsQuery,
+      getKeyboardShortcutsOptions
+    );
+
+    return result[UserDataLabels.SHORTCUTS];
   }
 
   async updateUser(userID: string, updatedData: UpdatedUserData): Promise<void> {

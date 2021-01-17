@@ -2,7 +2,7 @@ import getKeycode from 'keycode';
 import { upperCaseFirst } from 'upper-case-first';
 
 import { KeyboardShortcut } from '../../common/entities';
-import { PLUS_STRING } from '../constants';
+import { JOIN_SHORTCUT_KEYS_STRING, PLUS_STRING } from '../constants';
 
 export class ShortcutsService {
   private pressedKeyboardKeys: Array<string> = [];
@@ -15,7 +15,7 @@ export class ShortcutsService {
   }
 
   static transformShortcutKeys(keys: string) {
-    return keys.split(PLUS_STRING).map(upperCaseFirst).join(' + ');
+    return keys.split(PLUS_STRING).map(upperCaseFirst).join(JOIN_SHORTCUT_KEYS_STRING);
   }
 
   static getSectionShortcuts(
@@ -23,6 +23,14 @@ export class ShortcutsService {
   ) {
     return keyboardShortcuts.filter((keyboardShortcut) => {
       return keyboardShortcut.section === sectionLabel;
+    });
+  }
+
+  static filterUpdated(
+    draftShortcuts: KeyboardShortcut[], currentShortcuts: KeyboardShortcut[]
+  ): KeyboardShortcut[] {
+    return draftShortcuts.filter((draftShortcut, index) => {
+      return draftShortcut.keys !== currentShortcuts[index].keys;
     });
   }
 

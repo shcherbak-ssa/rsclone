@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { KeyboardShortcut } from '../../common/entities';
 
-import { Stores, UserDataLabels } from '../constants';
+import { EMPTY_VALUE_LENGTH, Stores, UserDataLabels } from '../constants';
 import { UserEvents } from '../constants/events.constants';
 import { userController } from '../controllers/user.controller';
+import { ShortcutsService } from '../services/shortcuts.service';
 import { storeSelectorsService } from '../services/store-selectors.service';
 import { UpdatedDataService } from '../services/updated-data.service';
+import { UserDataValue } from '../types/user.types';
 
 export type UpdatesControllerHookParams = {
   controlDataLabels: UserDataLabels[],
@@ -30,18 +33,39 @@ export function useUpdatesController({
   }, []);
 
   useEffect(() => {
-    for (const [dataLabel, initialState] of currentStates.entries()) {
-      const updatedValue = draftStates.get(dataLabel);
+    for (const [dataLabel, currentState] of currentStates.entries()) {
+      const updatedValue: UserDataValue = draftStates.get(dataLabel);
 
-      if (initialState !== draftStates.get(dataLabel)) {
-        updatedData.add(dataLabel, updatedValue);
+      if (dataLabel === UserDataLabels.SHORTCUTS) {
+        const updatedShortcuts: KeyboardShortcut[] = ShortcutsService.filterUpdated(
+          updatedValue as KeyboardShortcut[],
+          currentState,
+        );
+
+        changeUpdatedData(
+          updatedShortcuts.length !== EMPTY_VALUE_LENGTH,
+          dataLabel,
+          updatedShortcuts
+        );
       } else {
-        updatedData.remove(dataLabel);
+        changeUpdatedData(
+          currentState !== updatedValue,
+          dataLabel,
+          updatedValue,
+        );
       }
     }
 
     setIsUpdatesExist(updatedData.isUpdatesExist());
   });
+
+  function changeUpdatedData(isUpdated: boolean, dataLabel: UserDataLabels, value: any) {
+    if (isUpdated) {
+      updatedData.add(dataLabel, value);
+    } else {
+      updatedData.remove(dataLabel);
+    }
+  }
 
   return isUpdatesExist;
 }

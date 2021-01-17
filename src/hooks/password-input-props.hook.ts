@@ -4,7 +4,7 @@ import eyeIcon from '@iconify/icons-ant-design/eye-outlined';
 import { BaseInputProps } from '../components/base';
 import { UserDataLabels } from '../constants';
 import { useUserInputLanguage } from './user-input-language.hook';
-import { useUserInputStates } from './user-input-states.hook';
+import { useUserDraftState } from './user-draft-state.hook';
 import { useUserInputUpdate } from './user-input-update.hook';
 
 export function usePasswordInputProps(
@@ -12,7 +12,7 @@ export function usePasswordInputProps(
 ): BaseInputProps {
   const [isPasswordInputIconActive, setPasswordInputIsIconActive] = useState(false);
 
-  const {value, error} = useUserInputStates(dataLabel);
+  const {value, error} = useUserDraftState(dataLabel);
   const inputLanguage = useUserInputLanguage(dataLabel);
   const updateValue = useUserInputUpdate(dataLabel);
 
