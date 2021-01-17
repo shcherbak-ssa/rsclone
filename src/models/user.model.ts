@@ -1,7 +1,7 @@
 import { Stores } from '../constants';
 import { StoreManagerService } from '../services/store-manager.service';
 import { StoreManager } from '../types/store.types';
-import { User, UserStore } from '../types/user.types';
+import { UpdatedData, User, UserStore } from '../types/user.types';
 import { UserDataLabels } from '../constants';
 import { UpdatedStates } from '../types/user.types';
 import { UserDraftStore } from '../types/user-draft.types';
@@ -23,8 +23,7 @@ export class UserModel {
     this.syncDraft();
   }
 
-  updateState(updatedStateLabels: UserDataLabels[]): void {
-    const updatedStates = this.userDraftStore.getDraftValues(updatedStateLabels) as UpdatedStates;
+  updateState(updatedStates: UpdatedData): void {
     this.getUserStore().updateStates(updatedStates);
   }
 

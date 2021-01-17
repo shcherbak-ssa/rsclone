@@ -40,7 +40,7 @@ export class UserModel {
     }
 
     await this.database.updateUser(userID, updatedData);
-    return {};
+    return {...updatedData};
   }
 
   async deleteUser(userID: string): Promise<any> {

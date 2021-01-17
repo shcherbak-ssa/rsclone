@@ -34,8 +34,8 @@ export class UserUpdateModel extends BaseModel {
       const request: Request = this.createRequest(updatedData);
       const response: Response = await this.requestSender.send(request).update();
       
-      response.parseResponse();
-      this.userModel.updateState(Object.keys(updatedData) as UserDataLabels[]);
+      const serverUpdatedData: UpdatedData = response.parseResponse();
+      this.userModel.updateState(serverUpdatedData);
 
       if (UserDataLabels.USERNAME in updatedData) {
         this.updateUsername(updatedData[UserDataLabels.USERNAME]);
