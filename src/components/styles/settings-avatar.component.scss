@@ -10,13 +10,19 @@
   &-container {
     margin-right: 16px;
     display: flex;
+    flex-direction: column;
     transition: .2s;
-    -x-size: 126px;
+    width: 126px;
 
     @media screen and (max-width: 767px) {
       margin: 0 0 16px 0;
       width: 100%;
     }
+  }
+
+  &-image {
+    margin-bottom: 6px;
+    -x-size: 100% 126px;
 
     .original-theme & {
       background: $original-settings-avatar-container-background-color;
@@ -125,7 +131,7 @@
     }
   }
 
-  &-container, &-drop {
+  &-image, &-drop {
     border-radius: 3px;
   }
 

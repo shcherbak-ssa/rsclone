@@ -15,6 +15,7 @@ export interface Avatars {
   get(userID: string, fileType: string): Promise<string | null>;
   create(userID: string, avatarFile: AvatarFile): Promise<void>;
   update(userID: string, currentFileType: string, avatarFile: AvatarFile): Promise<void>;
+  delete(userID: string, fileType: string): Promise<void>;
 }
 
 export interface AvatarsDatabase {
@@ -58,6 +59,15 @@ export class AvatarsModel {
 
     await this.avatars.update(userID, currentFileType, avatarFile);
     await this.updateUserOnDatabase(userID, avatarFile.type);
+
+    return {};
+  }
+
+  async deleteAvatar(userID: string): Promise<any> {
+    const currentFileType: string = await this.database.getAvatarFileType(userID);
+
+    await this.avatars.delete(userID, currentFileType);
+    await this.updateUserOnDatabase(userID, '');
 
     return {};
   }

@@ -25,8 +25,10 @@ export function SettingsAvatarContainer() {
     loadedFilename,
     settingsAvatarLanguage,
     loadFile,
-    removeImageButtonClickHanlder: () => {
-      updateAvatar(userAvatar);
+    removeImageButtonClickHandler: (deleteUserAvatar: boolean) => {
+      const nextAvatar = deleteUserAvatar ? '' : userAvatar;
+
+      updateAvatar(nextAvatar);
       setLoadedFilename('');
     },
   };

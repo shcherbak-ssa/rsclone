@@ -8,6 +8,7 @@ export class BaseController {
       return await this.doAction(action, userID, body);
     } catch (error) {
       await responseSender.sendErrorResponse(error);
+      return null;
     }
   }
 

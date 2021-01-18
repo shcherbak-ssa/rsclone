@@ -23,6 +23,8 @@ export class AvatarsController extends BaseController {
   ): Promise<void> {
     const {responseSender} = controllerData;
     const actionResult: any = await super.runController(action, controllerData);
+
+    if (actionResult === null) return;
     
     switch (action) {
       case AvatarsControllerActions.GET_AVATAR:
@@ -46,6 +48,8 @@ export class AvatarsController extends BaseController {
         return await this.avatarsModel.createAvatar(userID, avatarFile);
       case AvatarsControllerActions.UPDATE_AVATAR:
         return await this.avatarsModel.updatedAvatar(userID, avatarFile);
+      case AvatarsControllerActions.DELETE_AVATAR:
+        return await this.avatarsModel.deleteAvatar(userID);
     }
   }
 }

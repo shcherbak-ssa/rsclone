@@ -29,7 +29,10 @@ export class UsersController extends BaseController {
     action: UsersControllerActions, controllerData: ControllerData
   ): Promise<void> {
     const actionResult: any = await super.runController(action, controllerData);
-    controllerData.responseSender.sendSuccessJsonResponse(actionResult);
+
+    if (actionResult !== null) {
+      controllerData.responseSender.sendSuccessJsonResponse(actionResult);
+    }
   }
 
   protected async doAction(

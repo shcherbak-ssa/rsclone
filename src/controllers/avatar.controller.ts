@@ -28,7 +28,12 @@ async function changeAvatarHandler({avatarFile, callback}: Avatar): Promise<void
   if (avatarState === EMPTY_STRING) {
     await avatarModel.createAvatar(avatarFile);
   } else {
-    await avatarModel.updateAvatar(avatarFile);
+    if (avatarFile === EMPTY_STRING) {
+      await avatarModel.deleteAvatar();
+    } else {
+      await avatarModel.updateAvatar(avatarFile);
+    }
+
     URL.revokeObjectURL(avatarState);
   }
 

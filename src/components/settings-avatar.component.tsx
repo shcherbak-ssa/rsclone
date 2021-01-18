@@ -15,12 +15,12 @@ export type SettingsAvatarComponentProps = {
   loadedFilename: string,
   settingsAvatarLanguage: any,
   loadFile: Function,
-  removeImageButtonClickHanlder: Function,
+  removeImageButtonClickHandler: Function,
 };
 
 export function SettingsAvatarComponent({
   avatar, loadedFilename, userFullname,
-  settingsAvatarLanguage, loadFile, removeImageButtonClickHanlder,
+  settingsAvatarLanguage, loadFile, removeImageButtonClickHandler,
 }: SettingsAvatarComponentProps) {
   const fileInput = useRef(null);
   const onDrop = useCallback((files) => {
@@ -38,10 +38,17 @@ export function SettingsAvatarComponent({
     avatarUrl: avatar.value,
     userFullname,
   };
-
   const deleteImageButtonProps: BaseButtonProps = {
     value: settingsAvatarLanguage.deleteImageButtonValue,
-    clickHandler: removeImageButtonClickHanlder,
+    clickHandler: () => {
+      removeImageButtonClickHandler(false);
+    },
+  };
+  const deleteAvatarButtonProps: BaseButtonProps = {
+    value: settingsAvatarLanguage.deleteImageButtonValue,
+    clickHandler: () => {
+      removeImageButtonClickHandler(true);
+    },
   };
 
   function handleFileInputChange() {
@@ -69,7 +76,6 @@ export function SettingsAvatarComponent({
               {settingsAvatarLanguage.dropLink}
             </span>
           </div>
-          {/* {avatar.value ? <Base.Button {...deleteImageButtonProps}/> : ''} */}
         </>
       );
     }
@@ -87,17 +93,19 @@ export function SettingsAvatarComponent({
 
   return (
     <>
-      <div className={componentClassnames} {...getRootProps()}>
-        <div className="settings-avatar-container" data-class="flex-center click">
-          <AvatarComponent {...avatarComponentProps}/>
+      <div className={componentClassnames}>
+        <div className="settings-avatar-container">
+          <div className="settings-avatar-image" data-class="flex-center click">
+            <AvatarComponent {...avatarComponentProps}/>
+          </div>
+          {avatar.value ? <Base.Button {...deleteAvatarButtonProps}/> : ''}
         </div>
-        <div className="settings-avatar-drop" data-class="flex-center">
+        <div className="settings-avatar-drop" data-class="flex-center" {...getRootProps()}>
           {drawSettingsAvatarDropContent()}
           {drawAvatarError()}
         </div>
         <input
           type="file"
-          id="user-avatar"
           ref={fileInput}
           onChange={handleFileInputChange}
           {...getInputProps()}

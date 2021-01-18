@@ -42,6 +42,12 @@ export class AvatarsRouter implements BaseRouter {
           controllerData,
         );
         break;
+      case RequestMethods.DELETE:
+        await this.runAvatarsController(
+          AvatarsControllerActions.DELETE_AVATAR,
+          controllerData,
+        );
+        break;
     }
   }
 }
