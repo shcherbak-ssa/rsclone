@@ -13,9 +13,9 @@ export function AppComponent({children}: AppComponentProps) {
     <div className="app">
       <div className="app-header"></div>
       <SidebarComponent />
-      <MenuContainer />
       <div className="app-homepage">
         <div className="app-menu"></div>
+        <MenuContainer />
         {children}
       </div>
     </div>

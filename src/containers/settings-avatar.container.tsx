@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { AssetsService } from '../services/assets.service';
 import { SettingsAvatarComponent, SettingsAvatarComponentProps } from '../components/settings-avatar.component';
@@ -11,7 +11,8 @@ import { useAppLanguage } from '../hooks/app-language.hook';
 import { ErrorLabels } from '../../common/constants';
 
 export function SettingsAvatarContainer() {
-  const avatar = useUserDraftState(UserDataLabels.AVATAR);
+  const userAvatar = useUserState(UserDataLabels.AVATAR);
+  const userDraftAvatar = useUserDraftState(UserDataLabels.AVATAR);
   const userFullname = useUserState(UserDataLabels.FULLNAME);
   const settingsAvatarLanguage = useAppLanguage().settings[SettingsSectionLabels.USER].avatar;
 
@@ -19,16 +20,20 @@ export function SettingsAvatarContainer() {
   const assetsService: AssetsService = new AssetsService();
 
   const settingsAvatarComponentProps: SettingsAvatarComponentProps = {
-    avatar,
+    avatar: userDraftAvatar,
     userFullname,
     loadedFilename,
     settingsAvatarLanguage,
     loadFile,
     removeImageButtonClickHanlder: () => {
-      updateAvatar('');
+      updateAvatar(userAvatar);
       setLoadedFilename('');
     },
   };
+
+  useEffect(() => {
+    setLoadedFilename('');
+  }, [userAvatar]);
 
   function isValidateFileType(userFile: any) {
     return assetsService.isValidUserAvatarFileType(userFile.name);

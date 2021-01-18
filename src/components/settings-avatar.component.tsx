@@ -69,7 +69,7 @@ export function SettingsAvatarComponent({
               {settingsAvatarLanguage.dropLink}
             </span>
           </div>
-          {avatar.value ? <Base.Button {...deleteImageButtonProps}/> : ''}
+          {/* {avatar.value ? <Base.Button {...deleteImageButtonProps}/> : ''} */}
         </>
       );
     }
@@ -93,6 +93,7 @@ export function SettingsAvatarComponent({
         </div>
         <div className="settings-avatar-drop" data-class="flex-center">
           {drawSettingsAvatarDropContent()}
+          {drawAvatarError()}
         </div>
         <input
           type="file"
@@ -102,7 +103,6 @@ export function SettingsAvatarComponent({
           {...getInputProps()}
         />
       </div>
-      {drawAvatarError()}
     </>
   );
 }

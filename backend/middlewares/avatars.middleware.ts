@@ -30,7 +30,6 @@ export class AvatarsMiddleware implements BaseMiddleware {
   
         const {file} = request;
         const fileType: string = UserFilesService.getFileType(file.mimetype);
-
         this.checkAvatarFileType(fileType);
 
         request.avatarFile = {
@@ -38,7 +37,6 @@ export class AvatarsMiddleware implements BaseMiddleware {
           buffer: file.buffer,
         };
 
-        console.log(request.avatarFile);
         next();
       } catch (error) {
         this.responseSender.setResponseObject(response);

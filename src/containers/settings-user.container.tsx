@@ -37,6 +37,7 @@ export function SettingsUserContainer() {
 
   const fullnameInputProps: BaseInputProps = useUserInputProps(fullnameInputPropsHookParams);
   const usermameInputProps: BaseInputProps = useUserInputProps(usernameInputPropsHookParams);
+
   const settingsSectionComponentProps: SettingsSectionComponentProps
     = useSettingsSectionProps(settingsSectionPropsHookParams);
   const avatarGroupComponentProps: SettingsGroupComponentProps
