@@ -1,14 +1,19 @@
+export const AVATAR_LABEL: string = 'avatar';
+export const AVATAR_EXIST_LABEL: string = '$';
+
 export enum RequestPathnames {
   LOGIN = '/login',
   REGISTRATION = '/registration',
   USERS = '/@:username/users',
+  AVATARS = '/@:username/avatars',
 };
 
 export enum MiddlewarePathnames {
   ENTRY = '*',
   CONTROLLER = '*',
-  AUTH_USER = `/@:username`,
+  AUTH_USER = '/@:username',
   LANGUAGES = '/languages/:language',
+  AVATARS = '/@:username/avatars',
 };
 
 export enum RequestMethods {

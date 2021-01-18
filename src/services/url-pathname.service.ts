@@ -10,10 +10,21 @@ export class UrlPathnameService implements LanguageUrlPathname, UsersUrlPathname
   }
 
   getUsersPathname(): string {
+    return this.getPathname(RequestPathnames.USERS);
+  }
+
+  getAvatarsPathname(): string {
+    return this.getPathname(RequestPathnames.AVATARS);
+  }
+
+  private getPathname(templatePathname: RequestPathnames): string {
+    const username: string = this.getUsername();
+    return this.replacePatameter(templatePathname, username);
+  }
+
+  private getUsername(): string {
     const userLocalStorage: UserLocalStorage = new UserLocalStorageService();
-    const username: string = userLocalStorage.getUsername();
-    
-    return this.replacePatameter(RequestPathnames.USERS, username);
+    return userLocalStorage.getUsername();
   }
 
   private replacePatameter(pathname: string, replaceString: string) {

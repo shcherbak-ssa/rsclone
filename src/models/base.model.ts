@@ -5,6 +5,7 @@ import { RequestCreator, RequestSender } from '../types/services.types';
 
 export interface UsersUrlPathname {
   getUsersPathname(): string;
+  getAvatarsPathname(): string;
 }
 
 export class BaseModel {
@@ -20,5 +21,9 @@ export class BaseModel {
 
   protected getUsersPathname(): string {
     return this.urlPathname.getUsersPathname();
+  }
+
+  protected getAvatarsPathname(): string {
+    return this.urlPathname.getAvatarsPathname();
   }
 }

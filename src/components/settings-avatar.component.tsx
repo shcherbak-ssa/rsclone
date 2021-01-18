@@ -86,13 +86,9 @@ export function SettingsAvatarComponent({
   return (
     <>
       <div className={componentClassnames} {...getRootProps()}>
-        <label
-          htmlFor="user-avatar"
-          className="settings-avatar-container"
-          data-class="flex-center click"
-        >
+        <div className="settings-avatar-container" data-class="flex-center click">
           <AvatarComponent {...avatarComponentProps}/>
-        </label>
+        </div>
         <div className="settings-avatar-drop" data-class="flex-center">
           {drawSettingsAvatarDropContent()}
         </div>

@@ -4,8 +4,7 @@ import { RequestHeaders } from '../../common/constants';
 import { RequestService, RequestOptions } from './request.service';
 import { RequestCreator, UserLocalStorage } from '../types/services.types';
 import { UserLocalStorageService } from './user-local-storage.service';
-
-const JSON_CONTENT_TYPE: string = 'application/json';
+import { JSON_CONTENT_TYPE } from '../constants';
 
 export class RequestCreatorService implements RequestCreator {
   private url: string = location.origin;

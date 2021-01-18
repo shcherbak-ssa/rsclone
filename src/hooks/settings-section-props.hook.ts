@@ -8,7 +8,8 @@ import { useAppLanguage } from './app-language.hook';
 import { UpdatedDataService } from '../services/updated-data.service';
 import { UpdatesControllerHookParams, useUpdatesController } from './updates-controller.hook';
 import { UpdateUserData, userController } from '../controllers/user.controller';
-import { UserEvents } from '../constants/events.constants';
+import { AvatarEvents, UserEvents } from '../constants/events.constants';
+import { avatarController, CreateAvatar } from '../controllers/avatar.controller';
 
 export type SettingsSectionPropsHookParams = {
   sectionLabel: SettingsSectionLabels,
@@ -46,22 +47,42 @@ export function useSettingsSectionProps({
       clickHandler: () => {
         setIsSavingActive(true);
 
-        const updatedUserData: UpdateUserData = {
-          updatedData: updatedData.get(),
-          callback: (isSuccess: boolean) => {
-            setIsSavingActive(false)
-            
-            if (savingFinishHandler) {
-              savingFinishHandler(isSuccess);
-            }
-          },
-        };
+        if (updatedData.has(UserDataLabels.AVATAR)) {
+          const avatarFile: string = updatedData.get(UserDataLabels.AVATAR);
+          updatedData.delete(UserDataLabels.AVATAR);
 
-        userController.emit(UserEvents.UPDATE_USER, updatedUserData);
+          const createAvatarData: CreateAvatar = {
+            avatarFile,
+            callback: updateData,
+          };
+
+          avatarController.emit(AvatarEvents.CREATE_AVATAR, createAvatarData);
+        } else {
+          updateData();
+        }
       },
     };
 
     return {saveButtonProps};
+  }
+
+  function updateData() {
+    if (!updatedData.isUpdatesExist()) return finishSaving(true);
+
+    const updatedUserData: UpdateUserData = {
+      updatedData: updatedData.get(),
+      callback: finishSaving,
+    };
+
+    userController.emit(UserEvents.UPDATE_USER, updatedUserData);
+  }
+
+  function finishSaving(isSuccess: boolean) {
+    setIsSavingActive(false)
+   
+    if (savingFinishHandler) {
+      savingFinishHandler(isSuccess);
+    }
   }
 
   return settingsSectionComponentProps;

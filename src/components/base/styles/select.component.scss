@@ -108,6 +108,10 @@
     transition: .2s;
     -x-size: 100% 0;
 
+    @media screen and (max-width: 489px) {
+      -x-font-size: 14px/18px;
+    }
+
     .original-theme & {
       color: $original-select-color;
 

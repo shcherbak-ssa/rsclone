@@ -37,6 +37,6 @@ export class ControllerMiddleware implements BaseMiddleware {
   }
 
   getBody(request: Request): any {
-    return request.body;
+    return request.avatarFile ? request.avatarFile : request.body;
   }
 }

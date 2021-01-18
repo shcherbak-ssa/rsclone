@@ -1,3 +1,4 @@
+import { CONTENT_TYPE_HEADER, JSON_CONTENT_TYPE } from '../constants';
 import { RequestMethods } from '../../common/constants';
 import { Request, RequestSender, Response } from '../types/services.types';
 import { ResponseService } from './response.service';
@@ -44,8 +45,17 @@ export class RequestSenderService implements RequestSender {
   }
 
   private async parseResponse(response: any) {
+    let payload: any = {};
+
+    switch (response.headers.get(CONTENT_TYPE_HEADER)) {
+      case JSON_CONTENT_TYPE:
+        payload = await response.json();
+        break;
+      default:
+        console.log(response);
+    }
+
     const statusCode = response.status;
-    const payload: any = await response.json();
     return ResponseService.create(statusCode, payload);
   }
 }

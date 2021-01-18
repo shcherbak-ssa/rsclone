@@ -29,3 +29,7 @@ export enum UserEvents {
   DELETE_USER = 'user-events/delete-user',
   UPDATE_USER = 'user-events/update-user',
 };
+
+export enum AvatarEvents {
+  CREATE_AVATAR = 'avatar-events/create-avatar',
+};

@@ -20,7 +20,9 @@ export class UpdatedDataService {
     this.updatedData.delete(dataLabel);
   }
 
-  get(): UpdatedData {
+  get(key?: string): UpdatedData | any {
+    if (key) return this.updatedData.get(key) as any;
+
     const updatedData: UpdatedData = {};
 
     for (const [dataLabel, value] of this.updatedData.entries()) {
@@ -28,5 +30,13 @@ export class UpdatedDataService {
     }
 
     return updatedData;
+  }
+
+  has(key: string): boolean {
+    return this.updatedData.has(key);
+  }
+
+  delete(key: string) {
+    this.updatedData.delete(key);
   }
 }
