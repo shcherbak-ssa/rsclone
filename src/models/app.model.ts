@@ -1,4 +1,4 @@
-import { AppRoutePathnames, Stores, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
+import { AppRoutePathnames, Stores } from '../constants';
 import { GetUser } from '../types/user.types';
 import { ClientError } from '../services/errors.service';
 import { AppRoutesService } from '../services/app-routes.service';
@@ -7,16 +7,22 @@ import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
 import { UserModel } from './user.model';
 import { BaseModel } from './base.model';
+import { EMPTY_STRING, USERNAME_PATHNAME_INITIAL_STRING } from '../constants/strings.constants';
+import { AvatarModel } from './avatar.model';
 
 export class AppModel extends BaseModel {
   async initApp(): Promise<string | null> {
     try {
       const request: Request = this.createUserRequest();
       const response: Response = await this.requestSender.send(request).get();
-
       const user: GetUser = response.parseResponse();
-      const userModel: UserModel = new UserModel();
 
+      if (user.user.avatar !== EMPTY_STRING) {
+        const avatarModel: AvatarModel = new AvatarModel();
+        user.user.avatar = await avatarModel.getAvatar();
+      }
+
+      const userModel: UserModel = new UserModel();
       await userModel.initUserData(user.user);
       // @TODO: init user.spaces;
 

@@ -1,5 +1,5 @@
 import { correctUserAvatarFileTypes } from '../../common/data';
-import { DOT_SPLIT_STRING } from '../constants';
+import { DOT_SPLIT_STRING } from '../constants/strings.constants';
 
 export class AssetsService {
   getIconUrl(icon: string) {

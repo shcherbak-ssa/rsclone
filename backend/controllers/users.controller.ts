@@ -28,7 +28,8 @@ export class UsersController extends BaseController {
   async runController(
     action: UsersControllerActions, controllerData: ControllerData
   ): Promise<void> {
-    super.runController(action, controllerData);
+    const actionResult: any = await super.runController(action, controllerData);
+    controllerData.responseSender.sendSuccessJsonResponse(actionResult);
   }
 
   protected async doAction(

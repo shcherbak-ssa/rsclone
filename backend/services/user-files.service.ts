@@ -16,6 +16,10 @@ export class UserFilesService {
     return mimetype.split('/')[1];
   }
 
+  fileIsExist(filename: string): boolean {
+    return existsSync(filename);
+  }
+
   async createUserFilesDirname(userID: string): Promise<string> {
     const userFilesDirname: string = join(UserFilesService.usersFilesDBDirname, userID);
     await this.createUserFilesFolderIfDoesNotExist(userFilesDirname);

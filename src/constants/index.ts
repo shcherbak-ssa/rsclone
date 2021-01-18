@@ -1,13 +1,7 @@
 export const USER_LOCALSTORAGE_KEY: string = 'user';
-export const USERNAME_PATHNAME_INITIAL_STRING: string = '/@';
 export const EMPTY_VALUE_LENGTH: number = 0;
-export const PLUS_STRING: string = '+';
-export const SPACE_STRING: string = ' ';
-export const EMPTY_SHORTCUT_STRING: string = '???';
-export const JOIN_SHORTCUT_KEYS_STRING: string = ' + ';
 export const DEFAULT_AVATAR_SIZE: number = 46;
 export const SETTINGS_AVATAR_SIZE: number = 98;
-export const DOT_SPLIT_STRING: string = '.';
 export const JSON_CONTENT_TYPE: string = 'application/json; charset=utf-8';
 export const CONTENT_TYPE_HEADER: string = 'Content-Type';
 

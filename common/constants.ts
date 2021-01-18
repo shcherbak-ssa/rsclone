@@ -1,5 +1,4 @@
 export const AVATAR_LABEL: string = 'avatar';
-export const AVATAR_EXIST_LABEL: string = '$';
 
 export enum RequestPathnames {
   LOGIN = '/login',

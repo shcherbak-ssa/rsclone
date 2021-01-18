@@ -11,13 +11,18 @@ export class AvatarsService implements Avatars {
     this.usersFiles = new UserFilesService();
   }
 
+  async get(userID: string, fileType: string): Promise<string | null> {
+    const userAvatarFilename: string = await this.createUserAvatarFilename(userID, fileType);
+    return this.usersFiles.fileIsExist(userAvatarFilename) ? userAvatarFilename : null;
+  }
+
   async create(userID: string, {type, buffer}: AvatarFile): Promise<void> {
-    const userFilesDirname: string = await this.usersFiles.createUserFilesDirname(userID);
-    const userAvatarFilename: string = this.createUserAvatarFilename(userFilesDirname, type);
+    const userAvatarFilename: string = await this.createUserAvatarFilename(userID, type);
     await this.usersFiles.writeUserFile(userAvatarFilename, buffer);
   }
 
-  private createUserAvatarFilename(userFilesDirname: string, fileType: string): string {
+  private async createUserAvatarFilename(userID: string, fileType: string): Promise<string> {
+    const userFilesDirname: string = await this.usersFiles.createUserFilesDirname(userID);
     return join(userFilesDirname, `${AVATAR_LABEL}.${fileType}`);
   }
 }

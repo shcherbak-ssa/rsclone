@@ -24,8 +24,6 @@ export class AvatarsMiddleware implements BaseMiddleware {
   responseSender: ResponseSender = new ResponseSenderService();
 
   async handler(request: Request, response: Response, next: NextFunction): Promise<void> {
-    this.responseSender.setResponseObject(response);
-
     try {
       if (this.thisRequestMethodWithoutFile(request)) return next();
 
@@ -44,6 +42,7 @@ export class AvatarsMiddleware implements BaseMiddleware {
         next();
       });
     } catch (error) {
+      this.responseSender.setResponseObject(response);
       this.responseSender.sendErrorResponse(error);
     }
   }

@@ -10,6 +10,7 @@ import { GetUsernameDatabase } from '../models/auth-user.model';
 import { UsersDatabase } from '../models/users.model';
 import { UniqueControllerDatabase } from '../models/unique-controller.model';
 import { KeyboardShortcut } from '../../common/entities';
+import { AvatarsDatabase } from '../models/avatars.model';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
@@ -18,7 +19,8 @@ export class UsersCollectionDatabase implements
   CreateUserDatabase,
   UniqueControllerDatabase,
   LoginUserDatabase,
-  UsersDatabase
+  UsersDatabase,
+  AvatarsDatabase
 {
   private databaseCollection: DatabaseCollectionService;
   
@@ -129,5 +131,22 @@ export class UsersCollectionDatabase implements
   async deleteUser(userID: string): Promise<void> {
     const deleteUserFilter = this.getUserIDSearchObject(userID);
     await this.databaseCollection.deleteDocument(deleteUserFilter);
+  }
+
+  // implements AvatarsDatabase
+  async getAvatarFileType(userID: string): Promise<string> {
+    const getAvatarQuery = this.getUserIDSearchObject(userID);
+    const getAvatarOptions = {
+      projection: {
+        [UserDataLabels.AVATAR]: 1,
+      },
+    };
+
+    const result: any = await this.databaseCollection.getDocument(
+      getAvatarQuery,
+      getAvatarOptions,
+    );
+
+    return result.avatar;
   }
 }

@@ -2,7 +2,7 @@ import getKeycode from 'keycode';
 import { upperCaseFirst } from 'upper-case-first';
 
 import { KeyboardShortcut } from '../../common/entities';
-import { JOIN_SHORTCUT_KEYS_STRING, PLUS_STRING } from '../constants';
+import { JOIN_SHORTCUT_KEYS_STRING, PLUS_STRING } from '../constants/strings.constants';
 
 export class ShortcutsService {
   private pressedKeyboardKeys: Array<string> = [];

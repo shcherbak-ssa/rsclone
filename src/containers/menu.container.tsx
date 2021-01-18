@@ -21,7 +21,7 @@ export function MenuContainer() {
   const [activeMenuItem, setActiveMenuItem] = useState('');
 
   const appRoutesService: AppRoutesService = new AppRoutesService();
-  const userAvatar = useUserState(UserDataLabels.AVATAR);
+  const userAvatarUrl = useUserState(UserDataLabels.AVATAR);
   const userFullname = useUserState(UserDataLabels.FULLNAME);
 
   const menuItemsProps: {[key: string]: MenuItemComponentProps} = {
@@ -59,7 +59,7 @@ export function MenuContainer() {
 
   const menuComponentProps: MenuComponentProps = {
     menuItemsProps,
-    avatar: userAvatar.value,
+    avatarUrl: userAvatarUrl,
     activeMenuItem,
     userFullname,
   };

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 import { SettingsSectionMessageComponent, SettingsSectionMessageComponentProps } from '../components/settings-section-message.component';
 import { SettingsSectionComponent, SettingsSectionComponentProps } from '../components/settings-section.component';
-import { EMPTY_SHORTCUT_STRING, SettingsSectionLabels, UserDataLabels } from '../constants';
+import { SettingsSectionLabels, UserDataLabels } from '../constants';
 import { SettingsSectionPropsHookParams, useSettingsSectionProps } from '../hooks/settings-section-props.hook';
 import { useAppLanguage } from '../hooks/app-language.hook';
-import { useUserState } from '../hooks/user-state.hook';
 import { shortcutsGroups } from '../data/shortcuts.data';
 import { ShortcutGroupContainer, ShortcutGroupContainerProps } from './shortcut-group.container';
 import { ShortcutsService } from '../services/shortcuts.service';
 import { useUserDraftState } from '../hooks/user-draft-state.hook';
+import { EMPTY_SHORTCUT_STRING } from '../constants/strings.constants';
 
 export function SettingsShortcutsContainer() {
   const appLanguage = useAppLanguage();

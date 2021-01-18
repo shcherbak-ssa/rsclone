@@ -9,13 +9,13 @@ import { AvatarComponent, AvatarComponentProps } from './avatar.component';
 
 export type MenuComponentProps = {
   menuItemsProps: {[key: string]: MenuItemComponentProps},
-  avatar: string,
+  avatarUrl: string,
   userFullname: string,
   activeMenuItem: string,
 };
 
 export function MenuComponent({
-  menuItemsProps, avatar, userFullname, activeMenuItem
+  menuItemsProps, avatarUrl, userFullname, activeMenuItem
 }: MenuComponentProps) {
   const [isOpen, setIsOpen] = useState(false);
   const componentClassnames: string = classnames('menu', {
@@ -23,7 +23,7 @@ export function MenuComponent({
   });
 
   const avatarComponentProps: AvatarComponentProps = {
-    avatarLink: avatar,
+    avatarUrl,
     userFullname,
   };
 

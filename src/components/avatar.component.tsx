@@ -1,16 +1,17 @@
 import React from 'react';
 import './styles/avatar.component.scss';
 
-import { DEFAULT_AVATAR_SIZE, SPACE_STRING } from '../constants';
+import { DEFAULT_AVATAR_SIZE } from '../constants';
+import { SPACE_STRING } from '../constants/strings.constants';
 
 export type AvatarComponentProps = {
   size?: number,
-  avatarLink: string,
+  avatarUrl: string,
   userFullname: string,
 };
 
 export function AvatarComponent({
-  size = DEFAULT_AVATAR_SIZE, avatarLink, userFullname,
+  size = DEFAULT_AVATAR_SIZE, avatarUrl, userFullname,
 }: AvatarComponentProps) {
   function setSizeStyles() {
     const sizeStyles = {
@@ -18,9 +19,9 @@ export function AvatarComponent({
       height: size,
     };
 
-    if (!!avatarLink) {
+    if (!!avatarUrl) {
       return {
-        backgroundImage: `url(${avatarLink})`,
+        backgroundImage: `url(${avatarUrl})`,
         ...sizeStyles
       };
     }
@@ -35,7 +36,7 @@ export function AvatarComponent({
     return `${firstLetterOfFirstName}${firstLetterOfLastName}`.toUpperCase();
   }
 
-  if (avatarLink) {
+  if (avatarUrl) {
     return <div className="avatar" style={setSizeStyles()}></div>;
   } else {
     return (

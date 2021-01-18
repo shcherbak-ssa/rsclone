@@ -3,7 +3,6 @@ import { Request, Router } from 'express';
 import { AvatarsController, AvatarsControllerActions } from '../controllers/avatars.controller';
 import { RequestMethods, RequestPathnames } from '../../common/constants';
 import { BaseRouter } from './base.router';
-import { ControllerData } from '../types/controller.types';
 
 export class AvatarsRouter implements BaseRouter {
   private router: Router;
@@ -25,12 +24,18 @@ export class AvatarsRouter implements BaseRouter {
     if (!controllerData) return;
 
     switch (method) {
+      case RequestMethods.GET:
+        await this.runAvatarsController(
+          AvatarsControllerActions.GET_AVATAR,
+          controllerData,
+        );
+        break;
       case RequestMethods.POST:
-        return this.createAvatar(controllerData);
+        await this.runAvatarsController(
+          AvatarsControllerActions.CREATE_AVATAR,
+          controllerData,
+        );
+        break;
     }
-  }
-
-  private async createAvatar(controllerData: ControllerData): Promise<void> {
-    await this.runAvatarsController(AvatarsControllerActions.CREATE_AVATAR, controllerData);
   }
 }

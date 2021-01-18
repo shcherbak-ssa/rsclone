@@ -35,7 +35,7 @@ export function SettingsAvatarComponent({
 
   const avatarComponentProps: AvatarComponentProps = {
     size: SETTINGS_AVATAR_SIZE,
-    avatarLink: avatar.value,
+    avatarUrl: avatar.value,
     userFullname,
   };
 
@@ -63,10 +63,12 @@ export function SettingsAvatarComponent({
     } else {
       return (
         <>
-          {settingsAvatarLanguage.dropText}
-          <span className="settings-avatar-link">
-            {settingsAvatarLanguage.dropLink}
-          </span>
+          <div className="settings-avatar-drop-message">
+            {settingsAvatarLanguage.dropText}
+            <span className="settings-avatar-link">
+              {settingsAvatarLanguage.dropLink}
+            </span>
+          </div>
           {avatar.value ? <Base.Button {...deleteImageButtonProps}/> : ''}
         </>
       );

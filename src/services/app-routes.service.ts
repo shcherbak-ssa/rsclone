@@ -1,4 +1,5 @@
-import { AppRoutePathnames, USERNAME_PATHNAME_INITIAL_STRING } from '../constants';
+import { AppRoutePathnames } from '../constants';
+import { USERNAME_PATHNAME_INITIAL_STRING } from '../constants/strings.constants';
 import { AppRoutes } from '../types/services.types';
 import { UserLocalStorageService } from './user-local-storage.service';
 

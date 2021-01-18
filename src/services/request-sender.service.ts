@@ -47,12 +47,10 @@ export class RequestSenderService implements RequestSender {
   private async parseResponse(response: any) {
     let payload: any = {};
 
-    switch (response.headers.get(CONTENT_TYPE_HEADER)) {
-      case JSON_CONTENT_TYPE:
-        payload = await response.json();
-        break;
-      default:
-        console.log(response);
+    if (response.headers.get(CONTENT_TYPE_HEADER) === JSON_CONTENT_TYPE) {
+      payload = await response.json();
+    } else {
+      payload = await response.blob();
     }
 
     const statusCode = response.status;

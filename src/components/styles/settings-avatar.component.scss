@@ -63,13 +63,16 @@
     }
   }
 
-  &-loaded-file {
+  &-loaded-file, &-drop {
     flex-direction: column;
+  }
+
+  &-drop-message, &-filename {
+    margin-bottom: 12px;
   }
 
   &-filename {
     font-weight: 500;
-    margin-bottom: 12px;
     -x-font-size: 16px/24px;
 
     .original-theme & {
