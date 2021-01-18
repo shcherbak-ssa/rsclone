@@ -59,6 +59,10 @@ export function SettingsAvatarComponent({
     }
   }
 
+  function drawDeleteAvatarButton() {
+    return avatar.value && !loadedFilename ? <Base.Button {...deleteAvatarButtonProps}/> : '';
+  }
+
   function drawSettingsAvatarDropContent() {
     if (loadedFilename) {
       return (
@@ -95,10 +99,10 @@ export function SettingsAvatarComponent({
     <>
       <div className={componentClassnames}>
         <div className="settings-avatar-container">
-          <div className="settings-avatar-image" data-class="flex-center click">
+          <div className="settings-avatar-image" data-class="flex-center">
             <AvatarComponent {...avatarComponentProps}/>
           </div>
-          {avatar.value ? <Base.Button {...deleteAvatarButtonProps}/> : ''}
+          {drawDeleteAvatarButton()}
         </div>
         <div className="settings-avatar-drop" data-class="flex-center" {...getRootProps()}>
           {drawSettingsAvatarDropContent()}
