@@ -1,1 +1,1 @@
-export const correctUserAvatarFileTypes = ['png', 'jpg'];
+export const correctUserAvatarFileTypes = ['png', 'jpg', 'jpeg'];

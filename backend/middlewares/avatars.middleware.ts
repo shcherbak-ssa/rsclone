@@ -24,13 +24,13 @@ export class AvatarsMiddleware implements BaseMiddleware {
   responseSender: ResponseSender = new ResponseSenderService();
 
   async handler(request: Request, response: Response, next: NextFunction): Promise<void> {
-    try {
-      if (this.thisRequestMethodWithoutFile(request)) return next();
-
-      this.upload(request, response, () => {
+    this.upload(request, response, () => {
+      try {
+        if (this.thisRequestMethodWithoutFile(request)) return next();
+  
         const {file} = request;
         const fileType: string = UserFilesService.getFileType(file.mimetype);
-  
+
         this.checkAvatarFileType(fileType);
 
         request.avatarFile = {
@@ -40,11 +40,11 @@ export class AvatarsMiddleware implements BaseMiddleware {
 
         console.log(request.avatarFile);
         next();
-      });
-    } catch (error) {
-      this.responseSender.setResponseObject(response);
-      this.responseSender.sendErrorResponse(error);
-    }
+      } catch (error) {
+        this.responseSender.setResponseObject(response);
+        this.responseSender.sendErrorResponse(error);
+      }
+    });
   }
 
   thisRequestMethodWithoutFile({method}: Request): boolean {
@@ -58,7 +58,8 @@ export class AvatarsMiddleware implements BaseMiddleware {
         StatusCodes.BAD_REQUEST,
         {
           errorLabel: ErrorLabels.INVALID_FILE_TYPE,
-          dataLabel: UserDataLabels.AVATAR
+          dataLabel: UserDataLabels.AVATAR,
+          fileType,
         },
       );
     }

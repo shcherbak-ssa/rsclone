@@ -9,7 +9,7 @@ import { UpdatedDataService } from '../services/updated-data.service';
 import { UpdatesControllerHookParams, useUpdatesController } from './updates-controller.hook';
 import { UpdateUserData, userController } from '../controllers/user.controller';
 import { AvatarEvents, UserEvents } from '../constants/events.constants';
-import { avatarController, CreateAvatar } from '../controllers/avatar.controller';
+import { avatarController, Avatar } from '../controllers/avatar.controller';
 
 export type SettingsSectionPropsHookParams = {
   sectionLabel: SettingsSectionLabels,
@@ -51,12 +51,12 @@ export function useSettingsSectionProps({
           const avatarFile: string = updatedData.get(UserDataLabels.AVATAR);
           updatedData.delete(UserDataLabels.AVATAR);
 
-          const createAvatarData: CreateAvatar = {
+          const avatar: Avatar = {
             avatarFile,
             callback: updateData,
           };
 
-          avatarController.emit(AvatarEvents.CREATE_AVATAR, createAvatarData);
+          avatarController.emit(AvatarEvents.CHANGE_AVATAR, avatar);
         } else {
           updateData();
         }

@@ -44,6 +44,8 @@ export class AvatarsController extends BaseController {
         return await this.avatarsModel.getAvatar(userID);
       case AvatarsControllerActions.CREATE_AVATAR:
         return await this.avatarsModel.createAvatar(userID, avatarFile);
+      case AvatarsControllerActions.UPDATE_AVATAR:
+        return await this.avatarsModel.updatedAvatar(userID, avatarFile);
     }
   }
 }

@@ -36,6 +36,12 @@ export class AvatarsRouter implements BaseRouter {
           controllerData,
         );
         break;
+      case RequestMethods.PUT:
+        await this.runAvatarsController(
+          AvatarsControllerActions.UPDATE_AVATAR,
+          controllerData,
+        );
+        break;
     }
   }
 }

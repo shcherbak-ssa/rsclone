@@ -35,7 +35,7 @@ export class UserUpdateModel extends BaseModel {
       const response: Response = await this.requestSender.send(request).update();
       
       const serverUpdatedData: UpdatedData = response.parseResponse();
-      this.userModel.updateState(serverUpdatedData);
+      this.userModel.updateStates(serverUpdatedData);
 
       this.resetPasswords(updatedData);
       this.updateUsername(updatedData);
@@ -63,7 +63,7 @@ export class UserUpdateModel extends BaseModel {
         [UserDataLabels.NEW_PASSWORD]: '',
       };
 
-      this.userModel.updateState(resetedPasswords);
+      this.userModel.updateStates(resetedPasswords);
       this.userModel.syncDraft();
     }
   }

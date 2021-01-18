@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 
 import { AssetsService } from '../services/assets.service';
 import { SettingsAvatarComponent, SettingsAvatarComponentProps } from '../components/settings-avatar.component';
-import { UserDataLabels } from '../constants';
+import { UserDataLabels, SettingsSectionLabels } from '../constants';
 import { useUserDraftState } from '../hooks/user-draft-state.hook';
 import { useUserState } from '../hooks/user-state.hook';
 import { userDraftController } from '../controllers/user-draft.controller';
 import { UserDraftEvents } from '../constants/events.constants';
+import { useAppLanguage } from '../hooks/app-language.hook';
 import { ErrorLabels } from '../../common/constants';
 
 export function SettingsAvatarContainer() {
   const avatar = useUserDraftState(UserDataLabels.AVATAR);
   const userFullname = useUserState(UserDataLabels.FULLNAME);
+  const settingsAvatarLanguage = useAppLanguage().settings[SettingsSectionLabels.USER].avatar;
 
   const [loadedFilename, setLoadedFilename] = useState('');
   const assetsService: AssetsService = new AssetsService();
@@ -20,6 +22,7 @@ export function SettingsAvatarContainer() {
     avatar,
     userFullname,
     loadedFilename,
+    settingsAvatarLanguage,
     loadFile,
     removeImageButtonClickHanlder: () => {
       updateAvatar('');

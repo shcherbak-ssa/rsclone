@@ -5,28 +5,28 @@ import './styles/settings-avatar.component.scss';
 
 import { AvatarComponent, AvatarComponentProps } from './avatar.component';
 import { Base, BaseButtonProps } from './base';
-import { SettingsSectionLabels, SETTINGS_AVATAR_SIZE } from '../constants';
+import { SETTINGS_AVATAR_SIZE } from '../constants';
 import { InputState } from '../types/user-draft.types';
-import { useAppLanguage } from '../hooks/app-language.hook';
 import { Classnames } from '../constants/ui.constants';
 
 export type SettingsAvatarComponentProps = {
   avatar: InputState,
   userFullname: string,
   loadedFilename: string,
+  settingsAvatarLanguage: any,
   loadFile: Function,
   removeImageButtonClickHanlder: Function,
 };
 
 export function SettingsAvatarComponent({
-  avatar, loadedFilename, userFullname, loadFile, removeImageButtonClickHanlder,
+  avatar, loadedFilename, userFullname,
+  settingsAvatarLanguage, loadFile, removeImageButtonClickHanlder,
 }: SettingsAvatarComponentProps) {
   const fileInput = useRef(null);
-  const settingsAvatarLanguage = useAppLanguage().settings[SettingsSectionLabels.USER].avatar;
-
   const onDrop = useCallback((files) => {
     loadFile(files[0], () => {});
   }, []);
+
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
   const componentClassnames = classnames('settings-avatar', {

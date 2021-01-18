@@ -31,6 +31,10 @@ export class UserFilesService {
     await fsPromises.writeFile(userFileFilename, fileBuffer);
   }
 
+  async removeUserFile(userFileFilename: string): Promise<void> {
+    await fsPromises.unlink(userFileFilename);
+  }
+
   private async createUserFilesFolderIfDoesNotExist(userFilesDirname: string): Promise<void> {
     if (!existsSync(userFilesDirname)) {
       await fsPromises.mkdir(userFilesDirname);

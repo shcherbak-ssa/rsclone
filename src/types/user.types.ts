@@ -1,5 +1,6 @@
 import { LanguageLabels, Themes } from '../../common/constants';
 import { KeyboardShortcut, Space } from '../../common/entities';
+import { UserDataLabels } from '../constants';
 
 export type UserLocalStorageType = null | {
   token: string;
@@ -46,6 +47,7 @@ export type UpdatedData = {
 };
 
 export interface UserStore {
+  getState(dataLabel: UserDataLabels): UserDataValue;
   getStates(): User;
   updateStates(updatedStates: UpdatedStates): void;
   setStates(user: User): void;

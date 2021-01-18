@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 
 import { Stores, UserDataLabels } from '../constants';
-import { initialState, UpdatedStates, User, UserStore } from '../types/user.types';
+import { initialState, UpdatedStates, User, UserDataValue, UserStore } from '../types/user.types';
 import { StoreSelectors } from "../services/store-selectors.service";
 import { reduxStore } from '../services/store.service';
 import { StoreCreator } from '../services/store-manager.service';
@@ -52,6 +52,10 @@ const userStoreSelectors: StoreSelectors = {
 };
 
 class UserStoreImpl implements UserStore {
+  getState(dataLabel: UserDataLabels): UserDataValue {
+    return this.getStates()[dataLabel];
+  }
+
   getStates(): User {
     return reduxStore.getState()[Stores.USER_STORE];
   }

@@ -1,11 +1,16 @@
-import { AVATAR_LABEL } from '../../common/constants';
+import { AVATAR_LABEL, ErrorNames } from '../../common/constants';
+import { UserDataLabels } from '../constants';
+import { ClientError } from '../services/errors.service';
 import { Request, Response } from '../types/services.types';
+import { UpdatedData } from '../types/user.types';
 import { BaseModel } from './base.model';
+import { UserDraftModel } from './user-draft.model';
+import { UserModel } from './user.model';
 
 export class AvatarModel extends BaseModel {
   async getAvatar(): Promise<string> {
     try {
-      const request: Request = this.getGetRequest();
+      const request: Request = this.createGetRequest();
       const response: Response = await this.requestSender.send(request).get();
       const avatarBlob: Blob = response.parseResponse();
 
@@ -17,35 +22,71 @@ export class AvatarModel extends BaseModel {
 
   async createAvatar(avatarFile: string): Promise<void> {
     try {
-      const avatarBlobFile: Blob = await this.createBlobFromAvatarFile(avatarFile);
-      const request: Request = this.getCreateRequest(avatarBlobFile);
+      const request: Request = await this.createUpdateRequest(avatarFile);
       const response: Response = await this.requestSender.send(request).create();
       response.parseResponse();
+
+      this.updateUserAvatarState(avatarFile);
     } catch (error) {
-      console.log(error);
+      this.parseError(error);
     }
+  }
+
+  async updateAvatar(avatarFile: string): Promise<void> {
+    try {
+      const request: Request = await this.createUpdateRequest(avatarFile);
+      const response: Response = await this.requestSender.send(request).update();
+      response.parseResponse();
+      
+      this.updateUserAvatarState(avatarFile);
+    } catch (error) {
+      this.parseError(error);
+    }
+  }
+
+  private createGetRequest(): Request {
+    const pathname: string = this.getAvatarsPathname();
+
+    return this.requestCreator
+      .appendUrlPathname(pathname)
+      .createRequest();
+  }
+
+  private async createUpdateRequest(avatarFile: string): Promise<Request> {
+    const pathname: string = this.getAvatarsPathname();
+
+    const avatarBlobFile: Blob = await this.createBlobFromAvatarFile(avatarFile);
+    const formData: FormData = new FormData();
+    formData.append(AVATAR_LABEL, avatarBlobFile);
+
+
+    return this.requestCreator
+      .appendUrlPathname(pathname)
+      .setBody(formData)
+      .createRequest();
   }
 
   private async createBlobFromAvatarFile(avatarFile: string): Promise<Blob> {
     return await fetch(avatarFile).then((result) => result.blob());
   }
 
-  private getGetRequest(): Request {
-    const pathname: string = this.getAvatarsPathname();
+  private updateUserAvatarState(avatarFile: string): void {
+    const userModel: UserModel = new UserModel();
+    const updatedAvatarState: UpdatedData = {
+      [UserDataLabels.AVATAR]: avatarFile,
+    };
 
-    return this.requestCreator
-      .appendUrlPathname(pathname)
-      .createRequest();
+    userModel.updateStates(updatedAvatarState);
   }
 
-  private getCreateRequest(avatarBlobFile: Blob): Request {
-    const pathname: string = this.getAvatarsPathname();
-    const formData: FormData = new FormData();
-    formData.append(AVATAR_LABEL, avatarBlobFile);
+  private parseError(error: Error) {
+    if (error.name === ErrorNames.CLIENT_ERROR) {
+      const userDraftModel: UserDraftModel = new UserDraftModel();
+      const payload = (error as ClientError).getPayload();
 
-    return this.requestCreator
-      .appendUrlPathname(pathname)
-      .setBody(formData)
-      .createRequest();
+      userDraftModel.setError(payload.errorLabel, payload.dataLabel);
+    } else {
+      console.log(error);
+    }
   }
 }

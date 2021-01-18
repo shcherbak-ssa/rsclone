@@ -21,6 +21,14 @@ export class AvatarsService implements Avatars {
     await this.usersFiles.writeUserFile(userAvatarFilename, buffer);
   }
 
+  async update(userID: string, currentFileType: string, {type, buffer}: AvatarFile): Promise<void> {
+    const userCurrentAvatarFilename: string = await this.createUserAvatarFilename(userID, currentFileType);
+    await this.usersFiles.removeUserFile(userCurrentAvatarFilename);
+
+    const userNewAvatarFilename: string = await this.createUserAvatarFilename(userID, type);
+    await this.usersFiles.writeUserFile(userNewAvatarFilename, buffer);
+  }
+
   private async createUserAvatarFilename(userID: string, fileType: string): Promise<string> {
     const userFilesDirname: string = await this.usersFiles.createUserFilesDirname(userID);
     return join(userFilesDirname, `${AVATAR_LABEL}.${fileType}`);

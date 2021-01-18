@@ -20,7 +20,7 @@ export class UserModel {
     this.syncDraft();
   }
 
-  updateState(updatedStates: UpdatedData): void {
+  updateStates(updatedStates: UpdatedData): void {
     this.getUserStore().updateStates(updatedStates);
   }
 

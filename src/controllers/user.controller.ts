@@ -23,7 +23,7 @@ userController
 
 function updatedStatesHandler(updatedStates: UpdatedData) {
   const userModel: UserModel = new UserModel();
-  userModel.updateState(updatedStates);
+  userModel.updateStates(updatedStates);
 }
 
 function syncDraftHandler() {

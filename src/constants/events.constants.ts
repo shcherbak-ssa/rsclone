@@ -31,5 +31,5 @@ export enum UserEvents {
 };
 
 export enum AvatarEvents {
-  CREATE_AVATAR = 'avatar-events/create-avatar',
+  CHANGE_AVATAR = 'avatar-events/change-avatar',
 };
