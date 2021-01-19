@@ -89,3 +89,13 @@ export enum ErrorLabels {
   PASSWORD_REQUIRED = 'password-required',
   INVALID_PASSWORD = 'invalid-password',
 };
+
+export enum SpaceColors {
+  GREEN = '26CB7C',
+  BLUE = '03D1EB',
+  DARK_BLUE = '3884FF',
+  PURPLE = 'A44EED',
+  RED = 'FF4642',
+  ORANGE = 'F77D05',
+  YELLOW = 'FFD139',
+};

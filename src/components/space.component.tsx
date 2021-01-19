@@ -4,24 +4,34 @@ import './styles/space.component.scss';
 import { Icon } from '@iconify/react';
 import threeDots from '@iconify/icons-bi/three-dots';
 
-import { SpaceLogoComponent } from './space-logo.component';
+import { SpaceLogoComponent, SpaceLogoComponentProps } from './space-logo.component';
+import { ICON_18_HEIGHT } from '../constants/ui.constants';
+import { SpaceColors } from '../../common/constants';
 
-const ICON_HEIGHT: number = 18;
+export type SpaceComponentProps = {
+  id: string,
+  name: string,
+  color: SpaceColors,
+};
 
-export type SpaceComponentProps = {};
+export function SpaceComponent({
+  id, name, color,
+}: SpaceComponentProps) {
+  const spaceLogoProps: SpaceLogoComponentProps = {
+    color,
+  };
 
-export function SpaceComponent({}: SpaceComponentProps) {
   return (
     <div className="space" data-class="click shadow">
       <div className="space-header">
-        <SpaceLogoComponent />
-        <div className="space-title">RS Clone</div>
+        <SpaceLogoComponent {...spaceLogoProps}/>
+        <div className="space-title">{name}</div>
       </div>
       <div className="space-line"></div>
       <div className="space-footer">
         <div className="space-date"></div>
         <div className="space-icon" data-class="click flex-center">
-          <Icon icon={threeDots} height={ICON_HEIGHT}/>
+          <Icon icon={threeDots} height={ICON_18_HEIGHT}/>
         </div>
       </div>
     </div>

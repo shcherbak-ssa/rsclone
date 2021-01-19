@@ -24,6 +24,7 @@ export enum UserDataLabels {
   THEME = 'theme',
   SHORTCUTS = 'shortcuts',
   SPACE_NAME = 'space-name',
+  SPACE_COLOR = 'space-color',
 };
 
 export enum Stores {

@@ -1,4 +1,5 @@
-import { LanguageLabels, Themes } from "../../common/constants";
+import { string } from "joi";
+import { LanguageLabels, SpaceColors, Themes } from "../../common/constants";
 import { KeyboardShortcut } from "../../common/entities";
 import { UserDataLabels } from "../constants";
 import { ToolsService } from "../services/tools.service";
@@ -16,6 +17,7 @@ export const initialState: UserDraftStoreState = {
   [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH,
   [UserDataLabels.SHORTCUTS]: [],
   [UserDataLabels.SPACE_NAME]: initialInputState,
+  [UserDataLabels.SPACE_COLOR]: SpaceColors.GREEN,
 };
 
 export type UserDraftStoreState = {

@@ -45,7 +45,7 @@ export function SpacesContainer() {
 
     return (
       <SpacesComponent>
-        <SpaceComponent />
+        {/* <SpaceComponent /> */}
       </SpacesComponent>
     );
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/space-settings-data.component.scss';
 
 type SpaceSettingsDataComponentProps = {
   children?: React.ReactNode,

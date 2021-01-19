@@ -1,6 +1,5 @@
 import Joi from 'joi';
 
-import { UserDataLabels } from '../src/constants';
 import {
   ErrorLabels,
   ErrorNames,
@@ -9,6 +8,8 @@ import {
   ShortcurtsSections,
   ShortcutsLabels,
 } from './constants';
+import { UserDataLabels } from '../src/constants';
+import { spaceColors } from './data';
 
 const MIN_PASSWORD_LENGTH: number = 8;
 const MAX_FIELD_LENGTH: number = 256;
@@ -98,6 +99,11 @@ export class Validation {
 
   spaceName(): Joi.StringSchema {
     return this.defaultStringPattern();
+  }
+  
+  spaceColor(): Joi.StringSchema {
+    return Joi.string()
+      .valid(...spaceColors);
   }
 
   private defaultStringPattern(): Joi.StringSchema {
