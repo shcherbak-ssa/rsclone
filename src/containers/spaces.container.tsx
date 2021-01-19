@@ -9,6 +9,7 @@ import { SpacesComponent } from '../components/spaces.component';
 import { SpacesMessageComponent, SpacesMessageComponentProps } from '../components/spaces-message.component';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { ShortcutsLabels } from '../../common/constants';
+import { SpaceComponent } from '../components/space.component';
 
 export function SpacesContainer() {
   const spacesLanguage = useAppLanguage().homepage.spaces;

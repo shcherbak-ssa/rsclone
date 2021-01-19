@@ -8,21 +8,21 @@ export type Space = {
   id: string,
   title: string,
   color: string,
-  icon: string,
+  logo: string,
   theme: string,
 };
 
 export type NewSpace = {
   title: string,
   color: string,
-  icon: string,
+  logo: string,
   theme: string,
 };
 
 export type CreateSpace = {
   title: string,
   color: string,
-  icon: string,
+  logo: string,
 };
 
 export type UpdatedSpace = {

@@ -1,6 +1,31 @@
 @import '../../assets/styles/assets.scss';
 
 .spaces {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media screen and (max-width: 1270px) and (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);    
+  }
+
+  @media screen and (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);    
+  }
+
+  @media screen and (max-width: 599px) {
+    grid-template-columns: 1fr;
+    padding: 0 20%;
+  }
+
+  @media screen and (max-width: 489px) {
+    padding: 0 10%;
+  }
+
+  @media screen and (max-width: 389px) {
+    padding: 0;
+  }
+
   &-message {
     text-align: center;
     -x-font-size: 14px/28px;
