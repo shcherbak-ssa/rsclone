@@ -93,4 +93,18 @@
       -x-position: absolute 0 0 0 0;
     }
   }
+
+  &.settings-section-close {
+    padding: 24px;
+
+    &:hover {
+      .original-theme & {
+        background: $original-settings-section-close-hover-background-color;
+      }
+
+      .dark-theme & {
+        background: $dark-settings-section-close-hover-background-color;
+      }
+    }
+  }
 }

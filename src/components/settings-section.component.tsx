@@ -4,6 +4,7 @@ import './styles/settings-section.component.scss';
 
 import { Base, BaseButtonProps } from './base';
 import { Classnames } from '../constants/ui.constants';
+import { SettingsSectionTitleComponent } from './settings-section-title.component';
 
 export type SettingsSectionComponentProps = {
   title: string,
@@ -22,7 +23,7 @@ export function SettingsSectionComponent({
   return (
     <div className={componentClassnames}>
       <div className="settings-section-header">
-        <div className="settings-section-title">{title}</div>
+        <SettingsSectionTitleComponent title={title} />
         {saveButtonProps ? <Base.Button {...saveButtonProps} /> : ''}
       </div>
       <div className="settings-section-content">{children}</div>
