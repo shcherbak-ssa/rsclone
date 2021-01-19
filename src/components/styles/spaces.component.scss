@@ -9,6 +9,14 @@
       color: $original-spaces-message-color;
     }
 
+    .light-theme & {
+      color: $light-spaces-message-color;
+    }
+
+    .dark-theme & {
+      color: $dark-spaces-message-color;
+    }
+
     &-label {
       border-radius: 3px;
       margin: 0 4px;
@@ -17,6 +25,14 @@
 
       .original-theme & {
         background: $original-spaces-message-label-background-color;
+      }
+
+      .light-theme & {
+        background: $light-spaces-message-label-background-color;
+      }
+
+      .dark-theme & {
+        background: $dark-spaces-message-label-background-color;
       }
     }
   }

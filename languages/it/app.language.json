@@ -33,7 +33,7 @@
         }
       },
       "avatar": {
-        "deleteImageButtonValue": "Elimina immagine",
+        "deleteImageButtonValue": "Elimina",
         "dropText": "Trascina il tuo file qui",
         "dropLink": "o sfoglia",
         "errors": {

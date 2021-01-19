@@ -168,6 +168,9 @@ $light-popup-header-border-color: #E6ECF1;
 $light-popup-title-color: #393E46;
 $light-popup-body-text-color: #111111;
 
+$light-spaces-message-color: rgba(#393E46, .8);
+$light-spaces-message-label-background-color: rgba(#393E46, .1);
+
 /** dark theme */
 $dark-auth-color: #fff;
 $dark-auth-background-color: #222;
@@ -250,3 +253,6 @@ $dark-popup-background-color: #393E46;
 $dark-popup-header-border-color: rgba(#F1F1F1, .6);
 $dark-popup-title-color: #fff;
 $dark-popup-body-text-color: #fff;
+
+$dark-spaces-message-color: rgba(#fff, .5);
+$dark-spaces-message-label-background-color: rgba(#fff, .2);
