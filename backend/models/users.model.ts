@@ -2,7 +2,7 @@ import { GetUser, User } from '../types/user.types';
 import { usersCollectionDatabase } from '../database/users-collection.database';
 import { UpdatedUserData } from '../types/user.types';
 import { EMPTY_VALUE_LENGTH } from '../../src/constants';
-import { UniqueControllerModel } from './unique-controller.model';
+import { UniqueModel } from './unique.model';
 import { UserDataLabels } from '../constants';
 import { KeyboardShortcut, Space } from '../../common/entities';
 import { ClientError } from '../services/errors.service';
@@ -22,13 +22,13 @@ export interface UsersDatabase {
 export class UsersModel {
   private database: UsersDatabase;
   private userFiles: UserFiles;
-  private uniqueControllerModel: UniqueControllerModel;
+  private uniqueModel: UniqueModel;
   private spacesModel: SpacesModel;
   
   constructor() {
     this.database = usersCollectionDatabase;
     this.userFiles = new UserFilesService();
-    this.uniqueControllerModel = new UniqueControllerModel();
+    this.uniqueModel = new UniqueModel();
     this.spacesModel = new SpacesModel();
   }
 
@@ -63,14 +63,14 @@ export class UsersModel {
   private async checkExistingUserWithCurrentUsername(updatedData: UpdatedUserData): Promise<void> {
     if (UserDataLabels.USERNAME in updatedData) {
       const username = updatedData[UserDataLabels.USERNAME] as string;
-      await this.uniqueControllerModel.checkExistingUserWithCurrentUsername(username);
+      await this.uniqueModel.checkExistingUserWithCurrentUsername(username);
     }
   }
 
   private async checkExistingUserWithCurrentEmail(updatedData: UpdatedUserData): Promise<void> {
     if (UserDataLabels.EMAIL in updatedData) {
       const email = updatedData[UserDataLabels.EMAIL] as string;
-      await this.uniqueControllerModel.checkExistingUserWithCurrentEmail(email);
+      await this.uniqueModel.checkExistingUserWithCurrentEmail(email);
     }
   }
 

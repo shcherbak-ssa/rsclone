@@ -3,13 +3,13 @@ import { ErrorLabels } from '../../common/constants';
 import { ValidationError } from '../../common/validation';
 import { usersCollectionDatabase } from '../database/users-collection.database';
 
-export interface UniqueControllerDatabase {
+export interface UniqueDatabase {
   isUsernameUnique(username: string): Promise<boolean>;
   isEmailUnique(email: string): Promise<boolean>;
 }
 
-export class UniqueControllerModel {
-  private database: UniqueControllerDatabase;
+export class UniqueModel {
+  private database: UniqueDatabase;
 
   constructor() {
     this.database = usersCollectionDatabase;
