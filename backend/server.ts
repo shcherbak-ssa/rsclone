@@ -12,6 +12,7 @@ import { AvatarsMiddleware } from './middlewares/avatars.middleware';
 import { AuthRouter } from './routers/auth.router';
 import { UsersRouter } from './routers/users.router';
 import { AvatarsRouter } from './routers/avatars.router';
+import { SpacesRouter } from './routers/spaces.router';
 import { App, AppOptions } from './app';
 import { UserFilesService } from './services/user-files.service';
 import { AvatarFile } from './models/avatars.model';
@@ -42,6 +43,7 @@ DatabaseConnectionService.init().connect()
         new AuthRouter(),
         new UsersRouter(),
         new AvatarsRouter(),
+        new SpacesRouter(),
       ],
       middlewares: [
         bodyParser.json(),

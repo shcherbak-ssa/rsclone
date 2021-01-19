@@ -1,25 +1,16 @@
-import { Request, RequestCreator, RequestSender, Response } from "../types/services.types";
-import { RequestCreatorService } from "../services/request-creator.service";
-import { RequestSenderService } from "../services/request-sender.service";
+import { Request, Response } from "../types/services.types";
 import { Stores } from "../constants";
 import { LanguageStore, RequestedLanguage, LanguageStoreState } from "../types/language.types";
 import { StoreManager } from "../types/store.types";
 import { StoreManagerService } from '../services/store-manager.service';
 import { LanguageLabels, LanguageParts } from "../../common/constants";
-import { UrlPathnameService } from "../services/url-pathname.service";
+import { BaseModel } from "./base.model";
 
-export interface LanguageUrlPathname {
-  getLanguagePathname(language: LanguageLabels): string;
-}
-
-export class LanguageModel {
-  private requestCreator: RequestCreator;
-  private requestSender: RequestSender;
+export class LanguageModel extends BaseModel {
   private languageStore: LanguageStore;
 
   constructor() {
-    this.requestCreator = new RequestCreatorService();
-    this.requestSender = new RequestSenderService();
+    super();
 
     const storeManager: StoreManager = new StoreManagerService();
     this.languageStore = storeManager.getStore(Stores.LANGUAGE_STORE) as LanguageStore;
@@ -55,8 +46,7 @@ export class LanguageModel {
   }
 
   private createRequestLanguageParts({language, languageParts}: RequestedLanguage): Request {
-    const urlPathnameService: LanguageUrlPathname = new UrlPathnameService();
-    const languagePathname: string = urlPathnameService.getLanguagePathname(language);
+    const languagePathname: string = this.urlPathname.getLanguagePathname(language);
 
     return this.requestCreator
       .appendUrlPathname(languagePathname)

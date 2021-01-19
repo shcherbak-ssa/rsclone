@@ -2,7 +2,7 @@ import { AVATAR_LABEL, ErrorNames } from '../../common/constants';
 import { UserDataLabels } from '../constants';
 import { EMPTY_STRING } from '../constants/strings.constants';
 import { ClientError } from '../services/errors.service';
-import { Request, Response } from '../types/services.types';
+import { Request, RequestCreator, Response } from '../types/services.types';
 import { UpdatedData } from '../types/user.types';
 import { BaseModel } from './base.model';
 import { UserDraftModel } from './user-draft.model';
@@ -58,25 +58,22 @@ export class AvatarModel extends BaseModel {
   }
 
   private createRequestWithoutFile(): Request {
-    const pathname: string = this.getAvatarsPathname();
-
-    return this.requestCreator
-      .appendUrlPathname(pathname)
-      .createRequest();
+    return this.addAvatarsPathnameToRequest().createRequest();
   }
 
   private async createRequestWithFile(avatarFile: string): Promise<Request> {
-    const pathname: string = this.getAvatarsPathname();
-
     const avatarBlobFile: Blob = await this.createBlobFromAvatarFile(avatarFile);
     const formData: FormData = new FormData();
     formData.append(AVATAR_LABEL, avatarBlobFile);
 
-
-    return this.requestCreator
-      .appendUrlPathname(pathname)
+    return this.addAvatarsPathnameToRequest()
       .setBody(formData)
       .createRequest();
+  }
+
+  private addAvatarsPathnameToRequest(): RequestCreator {
+    const avatarsPathname: string = this.urlPathname.getAvatarsPathname();
+    return this.requestCreator.appendUrlPathname(avatarsPathname);
   }
 
   private async createBlobFromAvatarFile(avatarFile: string): Promise<Blob> {

@@ -33,3 +33,7 @@ export enum UserEvents {
 export enum AvatarEvents {
   CHANGE_AVATAR = 'avatar-events/change-avatar',
 };
+
+export enum SpacesEvents {
+  CREATE_SPACE = 'spaces-events/create-space',
+};

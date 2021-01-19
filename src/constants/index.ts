@@ -23,8 +23,10 @@ export enum UserDataLabels {
   LANGUAGE = 'language',
   THEME = 'theme',
   SHORTCUTS = 'shortcuts',
-  SPACE_NAME = 'space-name',
-  SPACE_COLOR = 'space-color',
+  SPACE_ID = 'id',
+  SPACE_NAME = 'name',
+  SPACE_COLOR = 'color',
+  SPACE_LOGO = 'logo',
 };
 
 export enum Stores {

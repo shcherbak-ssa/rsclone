@@ -11,14 +11,15 @@ import { SpaceColors } from '../../common/constants';
 export type SpaceComponentProps = {
   id: string,
   name: string,
-  color: SpaceColors,
+  color: string,
+  logo: string,
 };
 
 export function SpaceComponent({
-  id, name, color,
+  id, name, color, logo,
 }: SpaceComponentProps) {
   const spaceLogoProps: SpaceLogoComponentProps = {
-    color,
+    color: color as SpaceColors,
   };
 
   return (

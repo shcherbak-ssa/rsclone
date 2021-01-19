@@ -1,10 +1,8 @@
 import { LanguageLabels, MiddlewarePathnames, RequestPathnames } from '../../common/constants';
-import { UsersUrlPathname } from '../models/base.model';
-import { LanguageUrlPathname } from '../models/language.model';
-import { UserLocalStorage } from '../types/services.types';
+import { UserLocalStorage, UsersUrlPathname } from '../types/services.types';
 import { UserLocalStorageService } from './user-local-storage.service';
 
-export class UrlPathnameService implements LanguageUrlPathname, UsersUrlPathname {
+export class UrlPathnameService implements UsersUrlPathname {
   getLanguagePathname(language: LanguageLabels): string {
     return this.replacePatameter(MiddlewarePathnames.LANGUAGES, language);
   }
@@ -15,6 +13,10 @@ export class UrlPathnameService implements LanguageUrlPathname, UsersUrlPathname
 
   getAvatarsPathname(): string {
     return this.getPathname(RequestPathnames.AVATARS);
+  }
+
+  getSpacesPathname(): string {
+    return this.getPathname(RequestPathnames.SPACES);
   }
 
   private getPathname(templatePathname: RequestPathnames): string {

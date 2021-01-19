@@ -9,17 +9,15 @@ export type Space = {
   name: string,
   color: string,
   logo: string,
-  theme: string,
 };
 
 export type NewSpace = {
   name: string,
   color: string,
   logo: string,
-  theme: string,
 };
 
-export type CreateSpace = {
+export type CreatedSpace = {
   name: string,
   color: string,
   logo: string,

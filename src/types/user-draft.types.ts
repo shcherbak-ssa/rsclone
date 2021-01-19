@@ -18,6 +18,7 @@ export const initialState: UserDraftStoreState = {
   [UserDataLabels.SHORTCUTS]: [],
   [UserDataLabels.SPACE_NAME]: initialInputState,
   [UserDataLabels.SPACE_COLOR]: SpaceColors.GREEN,
+  [UserDataLabels.SPACE_LOGO]: 'space-logo',
 };
 
 export type UserDraftStoreState = {

@@ -106,6 +106,10 @@ export class Validation {
       .valid(...spaceColors);
   }
 
+  spaceLogo(): Joi.StringSchema {
+    return Joi.string();
+  }
+
   private defaultStringPattern(): Joi.StringSchema {
     return Joi.string()
       .trim()

@@ -1,3 +1,4 @@
+import { LanguageLabels } from "../../common/constants";
 import { UserLocalStorageType } from "./user.types";
 
 export interface Response {
@@ -48,4 +49,11 @@ export interface UserLocalStorage {
 
 export interface Logout {
   logoutUser(): void;
+}
+
+export interface UsersUrlPathname {
+  getUsersPathname(): string;
+  getAvatarsPathname(): string;
+  getSpacesPathname(): string;
+  getLanguagePathname(language: LanguageLabels): string;
 }

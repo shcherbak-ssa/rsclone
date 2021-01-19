@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import { Space } from '../../common/entities';
 import { EMPTY_VALUE_LENGTH, HomepageSectionLabels, Stores } from '../constants';
@@ -9,11 +10,10 @@ import { SpacesComponent } from '../components/spaces.component';
 import { SpacesMessageComponent, SpacesMessageComponentProps } from '../components/spaces-message.component';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { ShortcutsLabels } from '../../common/constants';
-import { SpaceComponent } from '../components/space.component';
+import { SpaceComponent, SpaceComponentProps } from '../components/space.component';
 import { CreateSpacePopupContainer } from './popups/create-space-popup.container';
 import { PopupService } from '../services/popup.service';
 import { PopupNames } from '../constants/ui.constants';
-import { useHotkeys } from 'react-hotkeys-hook';
 
 export function SpacesContainer() {
   const spacesLanguage = useAppLanguage().homepage.spaces;
@@ -34,20 +34,21 @@ export function SpacesContainer() {
   };
 
   function drawSpaces() {
-    // if (spaces.length === EMPTY_VALUE_LENGTH) {
-    //   const spacesMessageProps: SpacesMessageComponentProps = {
-    //     spacesLanguage,
-    //     addSpaceShortcutKeys,
-    //   };
+    if (spaces.length === EMPTY_VALUE_LENGTH) {
+      const spacesMessageProps: SpacesMessageComponentProps = {
+        spacesLanguage,
+        addSpaceShortcutKeys,
+      };
 
-    //   return <SpacesMessageComponent {...spacesMessageProps}/>
-    // }
+      return <SpacesMessageComponent {...spacesMessageProps}/>
+    }
 
-    return (
-      <SpacesComponent>
-        {/* <SpaceComponent /> */}
-      </SpacesComponent>
-    );
+    const spaceComponents = spaces.map((space) => {
+      const spaceComponentProps: SpaceComponentProps = {...space};
+      return <SpaceComponent key={space.id} {...spaceComponentProps}/>;
+    });
+
+    return <SpacesComponent>{spaceComponents}</SpacesComponent>;
   }
 
   function openCreateSpacePopup() {

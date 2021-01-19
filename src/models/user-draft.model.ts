@@ -22,6 +22,10 @@ export class UserDraftModel {
   getDraftState(dataLabel: UserDataLabels): UserDraftState {
     return this.userDraftStore.getDraftState(dataLabel);
   }
+
+  getDraftValues(dataLabels: UserDataLabels[]): UserDraftStoreState {
+    return this.userDraftStore.getDraftValues(dataLabels);
+  }
   
   updateValue(value: any, dataLabel: UserDataLabels): void {
     const updatedDraft: UpdatedDraft = {

@@ -21,7 +21,7 @@ export class UserDeleteModel extends BaseModel {
   }
 
   private createRequest(): Request {
-    const usersPathname: string = this.getUsersPathname();
+    const usersPathname: string = this.urlPathname.getUsersPathname();
 
     return this.requestCreator
       .appendUrlPathname(usersPathname)
