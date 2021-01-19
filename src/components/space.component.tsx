@@ -1,7 +1,10 @@
 import React from 'react';
-import threeDots from '@iconify/icons-bi/three-dots';
-import { Icon } from '@iconify/react';
 import './styles/space.component.scss';
+
+import { Icon } from '@iconify/react';
+import threeDots from '@iconify/icons-bi/three-dots';
+
+import { SpaceLogoComponent } from './space-logo.component';
 
 const ICON_HEIGHT: number = 18;
 
@@ -11,7 +14,7 @@ export function SpaceComponent({}: SpaceComponentProps) {
   return (
     <div className="space" data-class="click shadow">
       <div className="space-header">
-        <div className="space-logo" data-class="flex-center"></div>
+        <SpaceLogoComponent />
         <div className="space-title">RS Clone</div>
       </div>
       <div className="space-line"></div>

@@ -7,4 +7,5 @@ export const userInputLabels: UserDataLabels[] = [
   UserDataLabels.PASSWORD,
   UserDataLabels.NEW_PASSWORD,
   UserDataLabels.USERNAME,
+  UserDataLabels.SPACE_NAME,
 ];

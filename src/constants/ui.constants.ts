@@ -31,6 +31,7 @@ export enum ActionIconLabels {
 export enum PopupNames {
   LOGOUT = 'logout',
   DELETE_ACCOUNT = 'delete-account',
+  CREATE_SPACE = 'create-space',
 };
 
 export enum MenuItemLabels {
@@ -44,3 +45,8 @@ export enum InputDraftDescriptionLabels {
   CURRENT_PASSWORD = 'current-password',
   NEW_PASSWORD = 'new-password',
 };
+
+export enum SpaceLogoTypes {
+  SPACE = 'space',
+  SETTINGS = 'settings',
+}

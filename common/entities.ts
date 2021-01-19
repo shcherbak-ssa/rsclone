@@ -6,21 +6,21 @@ export type KeyboardShortcut = {
 
 export type Space = {
   id: string,
-  title: string,
+  name: string,
   color: string,
   logo: string,
   theme: string,
 };
 
 export type NewSpace = {
-  title: string,
+  name: string,
   color: string,
   logo: string,
   theme: string,
 };
 
 export type CreateSpace = {
-  title: string,
+  name: string,
   color: string,
   logo: string,
 };

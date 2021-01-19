@@ -23,6 +23,7 @@ export enum UserDataLabels {
   LANGUAGE = 'language',
   THEME = 'theme',
   SHORTCUTS = 'shortcuts',
+  SPACE_NAME = 'space-name',
 };
 
 export enum Stores {
@@ -49,6 +50,7 @@ export enum SettingsSectionLabels {
   APP = 'app',
   SHORTCUTS = 'shortcuts',
   DANGER = 'danger',
+  SPACE = 'space',
 };
 
 export enum SettingsActionLabels {
@@ -63,4 +65,5 @@ export enum SettingsGroupLabels {
   USER_DATA = 'user-data',
   HOMEPAGE = 'homepage',
   SPACE = 'space',
+  SPACE_COLOR = 'color',
 };

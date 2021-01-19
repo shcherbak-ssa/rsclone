@@ -99,6 +99,13 @@
           "buttonValue": "Delete"
         }
       }
+    },
+    "space": {
+      "groups": {
+        "color": {
+          "title": "Color"
+        }
+      }
     }
   },
   "popups": {
@@ -111,6 +118,10 @@
       "title": "Delete account",
       "confirmButtonValue": "Delete",
       "content": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back! Are you sure?"
+    },
+    "create-space": {
+      "title": "Create a space",
+      "confirmButtonValue": "Create"
     }
   }
 }

@@ -10,6 +10,10 @@ import { SpacesMessageComponent, SpacesMessageComponentProps } from '../componen
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { ShortcutsLabels } from '../../common/constants';
 import { SpaceComponent } from '../components/space.component';
+import { CreateSpacePopupContainer } from './popups/create-space-popup.container';
+import { PopupService } from '../services/popup.service';
+import { PopupNames } from '../constants/ui.constants';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 export function SpacesContainer() {
   const spacesLanguage = useAppLanguage().homepage.spaces;
@@ -20,29 +24,41 @@ export function SpacesContainer() {
   const userSelectors = storeSelectorsService.get(Stores.USER_STORE);
   const addSpaceShortcutKeys = useSelector(userSelectors.getShortcutKeys(ShortcutsLabels.ADD_SPACE));
 
+  useHotkeys(addSpaceShortcutKeys, openCreateSpacePopup);
+
   const homepageContainerProps: HomepageContainerProps = {
     sectionLabel: HomepageSectionLabels.SPACES,
     buttonClickHandler: () => {
-      console.log('Add space');
+      openCreateSpacePopup();
     },
   };
 
   function drawSpaces() {
-    if (spaces.length === EMPTY_VALUE_LENGTH) {
-      const spacesMessageProps: SpacesMessageComponentProps = {
-        spacesLanguage,
-        addSpaceShortcutKeys,
-      };
+    // if (spaces.length === EMPTY_VALUE_LENGTH) {
+    //   const spacesMessageProps: SpacesMessageComponentProps = {
+    //     spacesLanguage,
+    //     addSpaceShortcutKeys,
+    //   };
 
-      return <SpacesMessageComponent {...spacesMessageProps}/>
-    }
+    //   return <SpacesMessageComponent {...spacesMessageProps}/>
+    // }
 
-    return <SpacesComponent />
+    return (
+      <SpacesComponent>
+        <SpaceComponent />
+      </SpacesComponent>
+    );
+  }
+
+  function openCreateSpacePopup() {
+    const popupService: PopupService = new PopupService();
+    popupService.openPopup(PopupNames.CREATE_SPACE);
   }
 
   return (
     <HomepageContainer {...homepageContainerProps}>
       {drawSpaces()}
+      <CreateSpacePopupContainer />
     </HomepageContainer>
   );
 }

@@ -16,7 +16,7 @@ export class UsernameService implements Username {
   }
 
   private createUsernameFromEmail(email: string): string {
-    return email.split('@')[0].replace('.', '-');
+    return email.split('@')[0].replace(/\./g, '-');
   }
 
   private async generateUsername(letter: string): Promise<string> {

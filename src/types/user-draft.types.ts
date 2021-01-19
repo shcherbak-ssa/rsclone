@@ -15,6 +15,7 @@ export const initialState: UserDraftStoreState = {
   [UserDataLabels.THEME]: Themes.ORIGINAL,
   [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH,
   [UserDataLabels.SHORTCUTS]: [],
+  [UserDataLabels.SPACE_NAME]: initialInputState,
 };
 
 export type UserDraftStoreState = {

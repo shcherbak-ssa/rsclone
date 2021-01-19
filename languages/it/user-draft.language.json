@@ -35,5 +35,8 @@
       "ru": "Russo",
       "it": "Italiano"
     }
+  },
+  "space-name": {
+    "placeholder": "Nome dello spazio"
   }
 }

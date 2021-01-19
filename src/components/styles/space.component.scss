@@ -35,13 +35,6 @@
     align-items: center;
   }
 
-  &-logo {
-    background: #26CB7C;
-    border-radius: 3px;
-    margin-right: 8px;
-    -x-size: 30px;
-  }
-
   &-title {
     font-weight: 500;
     -x-font-size: 16px/32px;
@@ -106,6 +99,16 @@
 
     &:hover, &.is-active {
       opacity: 1 !important;
+    }
+  }
+
+  &-settings-data {
+    display: flex;
+    margin-bottom: 24px;
+
+    .space-logo {
+      flex-shrink: 0;
+      margin-right: 12px;
     }
   }
 }

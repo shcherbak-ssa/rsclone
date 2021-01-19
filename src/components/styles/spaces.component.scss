@@ -27,18 +27,24 @@
   }
 
   &-message {
+    border: 1px solid;
+    border-radius: 3px;
     text-align: center;
+    padding: 24px;
     -x-font-size: 14px/28px;
 
     .original-theme & {
+      border-color: $original-spaces-message-color;
       color: $original-spaces-message-color;
     }
 
     .light-theme & {
+      border-color: $light-spaces-message-color;
       color: $light-spaces-message-color;
     }
 
     .dark-theme & {
+      border-color: $dark-spaces-message-color;
       color: $dark-spaces-message-color;
     }
 

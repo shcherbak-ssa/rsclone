@@ -1,0 +1,26 @@
+@import '../../assets/styles/assets.scss';
+
+.space-logo {
+  border-radius: 3px;
+  margin-right: 8px;
+
+  .original-theme & {
+    background: $original-space-logo-default-background-color;
+  }
+
+  .light-theme & {
+    background: $light-space-logo-default-background-color;
+  }
+
+  .dark-theme & {
+    background: $dark-space-logo-default-background-color;
+  }
+
+  &.space {
+    -x-size: 30px;
+  }
+
+  &.settings {
+    -x-size: 56px;
+  }
+}
