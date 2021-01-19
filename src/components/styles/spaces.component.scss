@@ -1,0 +1,23 @@
+@import '../../assets/styles/assets.scss';
+
+.spaces {
+  &-message {
+    text-align: center;
+    -x-font-size: 14px/28px;
+
+    .original-theme & {
+      color: $original-spaces-message-color;
+    }
+
+    &-label {
+      border-radius: 3px;
+      margin: 0 4px;
+      padding: 3px 5px;
+      white-space: nowrap;
+
+      .original-theme & {
+        background: $original-spaces-message-label-background-color;
+      }
+    }
+  }
+}

@@ -9,7 +9,12 @@
   "homepage": {
     "spaces": {
       "title": "Spaces",
-      "buttonValue": "Add space"
+      "buttonValue": "Add space",
+      "message": [
+        "There are no spaces here yet. Click the",
+        "button or press the",
+        "keys to add a space"
+      ]
     },
     "settings": {
       "title": "Settings",

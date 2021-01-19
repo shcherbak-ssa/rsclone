@@ -5,6 +5,7 @@ import { initialState, UpdatedStates, User, UserDataValue, UserStore } from '../
 import { StoreSelectors } from "../services/store-selectors.service";
 import { reduxStore } from '../services/store.service';
 import { StoreCreator } from '../services/store-manager.service';
+import { ShortcutsLabels } from '../../common/constants';
 
 enum Constants {
   UPDATE_STATE = 'user-store/update-state',
@@ -39,6 +40,7 @@ const userStoreSelectors: StoreSelectors = {
       return state[Stores.USER_STORE][dataLabel];
     };
   },
+
   getStoreStates: (dataLabels: UserDataLabels[]) => {
     return (state: UserStoreSelector) => {
       const storeStates: User = state[Stores.USER_STORE];
@@ -47,6 +49,13 @@ const userStoreSelectors: StoreSelectors = {
       });
 
       return new Map(requestedResult as Iterable<[string, string | boolean]>);
+    };
+  },
+
+  getShortcutKeys: (label: ShortcutsLabels) => {
+    return (state: UserStoreSelector) => {
+      return state[Stores.USER_STORE][UserDataLabels.SHORTCUTS]
+        .find((item) => item.label === label).keys;
     };
   },
 };

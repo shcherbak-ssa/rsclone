@@ -9,7 +9,12 @@
   "homepage": {
     "spaces": {
       "title": "Пространства",
-      "buttonValue": "Создать пространство"
+      "buttonValue": "Создать",
+      "message": [
+        "Здесь пока нет пространств. Нажмите кнопку",
+        "или зажмите клавиши",
+        "чтобы добавить пространство"
+      ]
     },
     "settings": {
       "title": "Настройки",
@@ -28,7 +33,7 @@
         }
       },
       "avatar": {
-        "deleteImageButtonValue": "Удалить изображение",
+        "deleteImageButtonValue": "Удалить",
         "dropText": "Перетащите свой файл сюда",
         "dropLink": "или просмотрите",
         "errors": {
