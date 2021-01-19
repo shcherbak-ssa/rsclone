@@ -2,14 +2,15 @@ import {join} from 'path';
 import { existsSync, promises as fsPromises } from 'fs';
 
 import { USERS_FILES_DB_DIRNAME } from '../constants';
+import { UserFiles } from '../types/services.types';
 
-export class UserFilesService {
+export class UserFilesService implements UserFiles {
   static usersFilesDBDirname: string = join(process.cwd(), USERS_FILES_DB_DIRNAME);
   
   static async init(): Promise<void> {
     if (!existsSync(UserFilesService.usersFilesDBDirname)) {
       await fsPromises.mkdir(UserFilesService.usersFilesDBDirname);
-    }UserFilesService
+    }
   }
 
   static getFileType(mimetype: string) {
@@ -39,5 +40,11 @@ export class UserFilesService {
     if (!existsSync(userFilesDirname)) {
       await fsPromises.mkdir(userFilesDirname);
     }
+  }
+
+  // implements UserFiles
+  async deleteUserFilesFolder(userID: string): Promise<void> {
+    const userFilesDirname: string = await this.createUserFilesDirname(userID);
+    await fsPromises.rmdir(userFilesDirname, {recursive: true});
   }
 }

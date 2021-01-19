@@ -7,6 +7,8 @@ import { UserDataLabels } from '../constants';
 import { KeyboardShortcut } from '../../common/entities';
 import { ClientError } from '../services/errors.service';
 import { ErrorLabels, StatusCodes } from '../../common/constants';
+import { UserFiles } from '../types/services.types';
+import { UserFilesService } from '../services/user-files.service';
 
 export interface UsersDatabase {
   getUser(userID: string): Promise<User>;
@@ -18,10 +20,12 @@ export interface UsersDatabase {
 
 export class UsersModel {
   private database: UsersDatabase;
+  private userFiles: UserFiles;
   private uniqueControllerModel: UniqueControllerModel;
   
   constructor() {
     this.database = usersCollectionDatabase;
+    this.userFiles = new UserFilesService();
     this.uniqueControllerModel = new UniqueControllerModel();
   }
 
@@ -47,6 +51,8 @@ export class UsersModel {
 
   async deleteUser(userID: string): Promise<any> {
     await this.database.deleteUser(userID);
+    await this.userFiles.deleteUserFilesFolder(userID);
+
     return { deleted: true };
   }
 

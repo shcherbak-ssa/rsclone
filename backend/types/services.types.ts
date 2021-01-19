@@ -11,3 +11,7 @@ export interface ResponseSender {
 export interface Username {
   createUsername(email: string): Promise<string>;
 }
+
+export interface UserFiles {
+  deleteUserFilesFolder(userID: string): Promise<void>;
+}
