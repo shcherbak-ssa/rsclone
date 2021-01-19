@@ -4,11 +4,12 @@ import { UpdatedUserData } from '../types/user.types';
 import { EMPTY_VALUE_LENGTH } from '../../src/constants';
 import { UniqueControllerModel } from './unique-controller.model';
 import { UserDataLabels } from '../constants';
-import { KeyboardShortcut } from '../../common/entities';
+import { KeyboardShortcut, Space } from '../../common/entities';
 import { ClientError } from '../services/errors.service';
 import { ErrorLabels, StatusCodes } from '../../common/constants';
 import { UserFiles } from '../types/services.types';
 import { UserFilesService } from '../services/user-files.service';
+import { SpacesModel } from './spaces.model';
 
 export interface UsersDatabase {
   getUser(userID: string): Promise<User>;
@@ -22,17 +23,20 @@ export class UsersModel {
   private database: UsersDatabase;
   private userFiles: UserFiles;
   private uniqueControllerModel: UniqueControllerModel;
+  private spacesModel: SpacesModel;
   
   constructor() {
     this.database = usersCollectionDatabase;
     this.userFiles = new UserFilesService();
     this.uniqueControllerModel = new UniqueControllerModel();
+    this.spacesModel = new SpacesModel();
   }
 
   async getUser(userID: string): Promise<GetUser> {
     const user: User = await this.database.getUser(userID);
-    // @TODO: add request spaces
-    return {user, spaces: []};
+    const spaces: Space[] = await this.spacesModel.getSpaces(userID);
+
+    return {user, spaces};
   }
 
   async updateUser(userID: string, updatedData: UpdatedUserData): Promise<any> {

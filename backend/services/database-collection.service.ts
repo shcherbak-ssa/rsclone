@@ -19,7 +19,9 @@ export class DatabaseCollectionService {
     return this.collection.findOne(query, findOptions) as any;
   }
 
-  async getDocuments() {}
+  async getDocuments(query: any = {}, options: any = {}) {
+    return this.collection.find(query, options);
+  }
 
   async createDocument(document: any): Promise<string> {
     const insertDocumentResult = await this.collection.insertOne(document);

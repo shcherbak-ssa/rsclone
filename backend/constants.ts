@@ -8,8 +8,9 @@ export enum DatabaseNames {
   USERS = 'users',
 };
 
-export enum UsersDatabaseCollectionNames {
+export enum CollectionNames {
   USERS = 'users',
+  SPACES = 'spaces',
 };
 
 export enum Parameters {

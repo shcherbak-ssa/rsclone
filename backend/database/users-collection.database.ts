@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb';
 
 import { UpdatedUserData, User } from '../types/user.types';
-import { DatabaseNames, UserDataLabels, UsersDatabaseCollectionNames } from '../constants';
+import { DatabaseNames, UserDataLabels, CollectionNames } from '../constants';
 import { DatabaseCollectionService } from '../services/database-collection.service';
 import { DatabaseDBService } from '../services/database-db.service';
 import { CreateUserDatabase } from '../models/registration.model';
@@ -30,7 +30,7 @@ export class UsersCollectionDatabase implements
 
   static create() {
     const usersDatabase = DatabaseDBService.createDatabase(DatabaseNames.USERS);
-    const collectionDatabase = usersDatabase.createCollection(UsersDatabaseCollectionNames.USERS);
+    const collectionDatabase = usersDatabase.createCollection(CollectionNames.USERS);
     
     usersCollectionDatabase = new UsersCollectionDatabase(collectionDatabase);
   }
