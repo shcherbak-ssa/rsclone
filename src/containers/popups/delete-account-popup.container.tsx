@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ButtonTypes, PopupNames } from '../../constants/ui.constants';
 import { PopupPropsHookParams, usePopupProps } from '../../hooks/popup-props.hook';
 import { PopupComponent, PopupComponentProps } from '../../components/popup.component';
-import { PopupTextComponent } from '../../components/popup-text.component';
+import { PopupMessageComponent } from '../../components/popup-message.component';
 import { userController } from '../../controllers/user.controller';
 import { UserEvents } from '../../constants/events.constants';
 
@@ -31,9 +31,12 @@ export function DeleteAccountPopupContainer() {
 
   if (popup === null) return <div></div>;
 
+  const deleteAccountPopupProps: PopupComponentProps = popup[0];
+  const deleteAccountPopupContent: any = popup[1].content;
+
   return (
-    <PopupComponent {...popup[0]}>
-      <PopupTextComponent>{popup[1].content}</PopupTextComponent>
+    <PopupComponent {...deleteAccountPopupProps}>
+      <PopupMessageComponent>{deleteAccountPopupContent}</PopupMessageComponent>
     </PopupComponent>
   );
 }

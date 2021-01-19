@@ -3,7 +3,7 @@ import React from 'react';
 import { PopupNames } from '../../constants/ui.constants';
 import { PopupPropsHookParams, usePopupProps } from '../../hooks/popup-props.hook';
 import { PopupComponent, PopupComponentProps } from '../../components/popup.component';
-import { PopupTextComponent } from '../../components/popup-text.component';
+import { PopupMessageComponent } from '../../components/popup-message.component';
 import { LogoutService } from '../../services/logout.service';
 
 export function LogoutPopupContainer() {
@@ -20,9 +20,12 @@ export function LogoutPopupContainer() {
 
   if (popup === null) return <div></div>;
 
+  const logoutPopupProps: PopupComponentProps = popup[0];
+  const logoutPopupContent: any = popup[1].content;
+
   return (
-    <PopupComponent {...popup[0]}>
-      <PopupTextComponent>{popup[1].content}</PopupTextComponent>
+    <PopupComponent {...logoutPopupProps}>
+      <PopupMessageComponent>{logoutPopupContent}</PopupMessageComponent>
     </PopupComponent>
   );
 }
