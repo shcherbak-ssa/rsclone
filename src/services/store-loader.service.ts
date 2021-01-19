@@ -12,6 +12,8 @@ export class StoreLoaderService {
         return await this.loadAuthStore();
       case Stores.USER_STORE:
         return await this.loadUserStore();
+      case Stores.SPACES_STORE:
+        return await this.loadSpacesStore();
     }
   }
 
@@ -33,5 +35,10 @@ export class StoreLoaderService {
   private async loadUserStore(): Promise<StoreCreator> {
     const {userStoreCreator} = await import('../store/user.store');
     return userStoreCreator;
+  }
+
+  private async loadSpacesStore(): Promise<StoreCreator> {
+    const {spacesStoreCreator} = await import('../store/spaces.store');
+    return spacesStoreCreator;
   }
 }

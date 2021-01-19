@@ -9,6 +9,7 @@ import { UserModel } from './user.model';
 import { BaseModel } from './base.model';
 import { EMPTY_STRING, USERNAME_PATHNAME_INITIAL_STRING } from '../constants/strings.constants';
 import { AvatarModel } from './avatar.model';
+import { SpacesModel } from './spaces.model';
 
 export class AppModel extends BaseModel {
   async initApp(): Promise<string | null> {
@@ -23,8 +24,10 @@ export class AppModel extends BaseModel {
       }
 
       const userModel: UserModel = new UserModel();
-      await userModel.initUserData(user.user);
-      // @TODO: init user.spaces;
+      const spacesModel: SpacesModel = new SpacesModel();
+
+      await userModel.setUser(user.user);
+      await spacesModel.setSpaces(user.spaces);
 
       return this.getAppInitialRoutePathname();
     } catch (error) {

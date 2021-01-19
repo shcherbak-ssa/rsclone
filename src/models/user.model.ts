@@ -13,7 +13,7 @@ export class UserModel {
     this.storeManager = new StoreManagerService();
   }
   
-  async initUserData(user: User): Promise<void> {
+  async setUser(user: User): Promise<void> {
     await this.storeManager.addStore(Stores.USER_STORE);
 
     this.getUserStore().setStates(user);

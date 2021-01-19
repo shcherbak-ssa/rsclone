@@ -30,6 +30,7 @@ export enum Stores {
   AUTH_STORE = 'auth-store',
   USER_DRAFT_STORE = 'user-draft-store',
   USER_STORE = 'user-store',
+  SPACES_STORE = 'spaces-store',
 };
 
 export enum AuthModes {
