@@ -4,17 +4,27 @@
   border-radius: 4px;
   padding: 8px 0;
   position: absolute;
+  transition: .2s;
   width: 180px;
 
-  .original-theme & {
-    background: $original-dropdown-background-color;
+  &-arrow {
+    position: absolute;
+    transform: rotate(45deg);
+    z-index: -1;
+    -x-size: 12px;
   }
 
-  .light-theme & {
-    background: $light-dropdown-background-color;
-  }
-
-  .dark-theme & {
-    background: $dark-dropdown-background-color;
+  &, &-arrow {
+    .original-theme & {
+      background: $original-dropdown-background-color;
+    }
+  
+    .light-theme & {
+      background: $light-dropdown-background-color;
+    }
+  
+    .dark-theme & {
+      background: $dark-dropdown-background-color;
+    }
   }
 }

@@ -10,10 +10,10 @@ import { SpacesComponent } from '../components/spaces.component';
 import { SpacesMessageComponent, SpacesMessageComponentProps } from '../components/spaces-message.component';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { ShortcutsLabels } from '../../common/constants';
-import { SpaceComponent, SpaceComponentProps } from '../components/space.component';
 import { CreateSpacePopupContainer } from './popups/create-space-popup.container';
 import { PopupService } from '../services/popup.service';
 import { PopupNames } from '../constants/ui.constants';
+import { SpaceContainerProps, SpaceContainer } from './space.container';
 
 export function SpacesContainer() {
   const spacesLanguage = useAppLanguage().homepage.spaces;
@@ -43,12 +43,12 @@ export function SpacesContainer() {
       return <SpacesMessageComponent {...spacesMessageProps}/>
     }
 
-    const spaceComponents = spaces.map((space) => {
-      const spaceComponentProps: SpaceComponentProps = {space};
-      return <SpaceComponent key={space.id} {...spaceComponentProps}/>;
+    const spaceContainers = spaces.map((space) => {
+      const spaceContainerProps: SpaceContainerProps = {space};
+      return <SpaceContainer key={space.id} {...spaceContainerProps}/>;
     });
 
-    return <SpacesComponent>{spaceComponents}</SpacesComponent>;
+    return <SpacesComponent>{spaceContainers}</SpacesComponent>;
   }
 
   function openCreateSpacePopup() {

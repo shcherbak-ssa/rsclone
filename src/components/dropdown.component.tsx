@@ -21,5 +21,10 @@ export function DropdownComponent({items, itemClickHandler}: DropdownComponentPr
     });
   }
   
-  return <div className="dropdown" data-class="shadow">{drawItems()}</div>;
+  return (
+    <div className="dropdown" data-class="shadow">
+      {drawItems()}
+      <div className="dropdown-arrow"></div>
+    </div>
+  );
 }

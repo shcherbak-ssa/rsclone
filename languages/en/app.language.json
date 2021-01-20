@@ -123,5 +123,9 @@
       "title": "Create a space",
       "confirmButtonValue": "Create"
     }
+  },
+  "dropdowns": {
+    "settings-space": "Settings",
+    "delete-space": "Delete"
   }
 }

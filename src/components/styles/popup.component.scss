@@ -9,6 +9,7 @@
   -x-position: fixed 0 x x 0;
   
   &-container {
+    animation: show-popup .2s;
     border-radius: 4px;
     min-width: 480px;
     transform: translateX(-50%);
@@ -107,5 +108,12 @@
         margin-right: 24px;
       }
     }
+  }
+}
+
+@keyframes show-popup {
+  from {
+    opacity: 0;
+    top: 40px;
   }
 }
