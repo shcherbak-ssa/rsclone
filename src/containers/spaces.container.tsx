@@ -44,7 +44,7 @@ export function SpacesContainer() {
     }
 
     const spaceComponents = spaces.map((space) => {
-      const spaceComponentProps: SpaceComponentProps = {...space};
+      const spaceComponentProps: SpaceComponentProps = {space};
       return <SpaceComponent key={space.id} {...spaceComponentProps}/>;
     });
 

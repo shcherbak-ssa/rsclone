@@ -1,0 +1,20 @@
+@import '../../assets/styles/assets.scss';
+
+.dropdown {
+  border-radius: 4px;
+  padding: 8px 0;
+  position: absolute;
+  width: 180px;
+
+  .original-theme & {
+    background: $original-dropdown-background-color;
+  }
+
+  .light-theme & {
+    background: $light-dropdown-background-color;
+  }
+
+  .dark-theme & {
+    background: $dark-dropdown-background-color;
+  }
+}

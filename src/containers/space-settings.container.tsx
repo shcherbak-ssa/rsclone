@@ -23,6 +23,7 @@ export function SpaceSettingsContainer() {
     sectionLabel: SettingsSectionLabels.SPACE,
     groupLabel: SettingsGroupLabels.SPACE_COLOR,
   };
+
   const spaceNameInputPropsHookParams: UserInputPropsHookParams = {
     dataLabel: UserDataLabels.SPACE_NAME,
   };

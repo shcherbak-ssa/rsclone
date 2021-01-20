@@ -7,26 +7,22 @@ import threeDots from '@iconify/icons-bi/three-dots';
 import { SpaceLogoComponent, SpaceLogoComponentProps } from './space-logo.component';
 import { ICON_18_HEIGHT } from '../constants/ui.constants';
 import { SpaceColors } from '../../common/constants';
+import { Space } from '../../common/entities';
 
 export type SpaceComponentProps = {
-  id: string,
-  name: string,
-  color: string,
-  logo: string,
+  space: Space,
 };
 
-export function SpaceComponent({
-  id, name, color, logo,
-}: SpaceComponentProps) {
+export function SpaceComponent({space}: SpaceComponentProps) {
   const spaceLogoProps: SpaceLogoComponentProps = {
-    color: color as SpaceColors,
+    color: space.color as SpaceColors,
   };
 
   return (
     <div className="space" data-class="click shadow">
       <div className="space-header">
         <SpaceLogoComponent {...spaceLogoProps}/>
-        <div className="space-title">{name}</div>
+        <div className="space-title">{space.name}</div>
       </div>
       <div className="space-line"></div>
       <div className="space-footer">

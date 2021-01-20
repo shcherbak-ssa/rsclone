@@ -23,7 +23,6 @@ export enum UserDataLabels {
   LANGUAGE = 'language',
   THEME = 'theme',
   SHORTCUTS = 'shortcuts',
-  SPACE_ID = 'id',
   SPACE_NAME = 'name',
   SPACE_COLOR = 'color',
   SPACE_LOGO = 'logo',
@@ -69,4 +68,9 @@ export enum SettingsGroupLabels {
   HOMEPAGE = 'homepage',
   SPACE = 'space',
   SPACE_COLOR = 'color',
+};
+
+export enum DropdownItemLabels {
+  DELETE_SPACE = 'delete-space',
+  SETTINGS_SPACE = 'settings-space',
 };

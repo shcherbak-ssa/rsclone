@@ -12,27 +12,25 @@ export class RequestSenderService implements RequestSender {
   }
 
   async get(): Promise<Response> {
-    this.request.setMethod(RequestMethods.GET);
-    return this.sendRequest();
+    return this.sendRequest(RequestMethods.GET);
   }
 
   async create(): Promise<Response> {
-    this.request.setMethod(RequestMethods.POST);
-    return this.sendRequest();
+    return this.sendRequest(RequestMethods.POST);
   }
 
   async update(): Promise<Response> {
-    this.request.setMethod(RequestMethods.PUT);
-    return this.sendRequest();
+    return this.sendRequest(RequestMethods.PUT);
   }
 
   async delete(): Promise<Response> {
-    this.request.setMethod(RequestMethods.DELETE);
-    return this.sendRequest();
+    return this.sendRequest(RequestMethods.DELETE);
   }
   
-  private async sendRequest() {
+  private async sendRequest(method: RequestMethods) {
     try {
+      this.request.setMethod(method);
+
       const response = await this.sendFetchRequest();
       return await this.parseResponse(response);
     } catch (error) {

@@ -1,0 +1,44 @@
+@import '../../assets/styles/assets.scss';
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  transition: .2s;
+  -x-size: 100% 40px;
+
+  .original-theme & {
+    color: $original-dropdown-item-color;
+
+    &:hover {
+      background: $original-dropdown-item-hover-background-color;
+      color: $original-dropdown-item-hover-color;
+    }
+  }
+
+  .light-theme & {
+    color: $light-dropdown-item-color;
+
+    &:hover {
+      background: $light-dropdown-item-hover-background-color;
+      color: $light-dropdown-item-hover-color;
+    }
+  }
+
+  .dark-theme & {
+    color: $dark-dropdown-item-color;
+
+    &:hover {
+      background: $dark-dropdown-item-hover-background-color;
+      color: $dark-dropdown-item-hover-color;
+    }
+  }
+
+  &-icon {
+    margin-right: 4px;
+  }
+
+  &-text {
+    -x-font-size: 14px/24px;
+  }
+}

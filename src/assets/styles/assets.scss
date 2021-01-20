@@ -90,6 +90,11 @@ $original-space-icon-color: #fff;
 
 $original-space-logo-default-background-color: #183055;
 
+$original-dropdown-background-color: #fff;
+$original-dropdown-item-color: #242A31;
+$original-dropdown-item-hover-color: #3884FF;
+$original-dropdown-item-hover-background-color: #F5F7F9;
+
 /** light theme */
 $light-auth-color: #393E46;
 $light-auth-background-color: #F1F1F1;
@@ -186,6 +191,11 @@ $light-space-icon-color: #111111;
 
 $light-space-logo-default-background-color: #F1F1F1;
 
+$light-dropdown-background-color: #FAFAFA;
+$light-dropdown-item-color: #111111;
+$light-dropdown-item-hover-color: #6E41E2;
+$light-dropdown-item-hover-background-color: #F1F1F1;
+
 /** dark theme */
 $dark-auth-color: #fff;
 $dark-auth-background-color: #222;
@@ -279,3 +289,8 @@ $dark-space-title-color: #fff;
 $dark-space-icon-color: #fff;
 
 $dark-space-logo-default-background-color: #222222;
+
+$dark-dropdown-background-color: #393E46;
+$dark-dropdown-item-color: #fff;
+$dark-dropdown-item-hover-color: #F1F1F1;
+$dark-dropdown-item-hover-background-color: rgba(255, 255, 255, 0.2);
