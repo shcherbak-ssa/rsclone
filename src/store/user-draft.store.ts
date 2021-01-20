@@ -8,15 +8,18 @@ import {
   UserDraftStoreState,
   initialState,
   InputState,
+  SetSpace,
 } from "../types/user-draft.types";
 import { reduxStore } from "../services/store.service";
 import { StoreCreator } from "../services/store-manager.service";
 import { StoreSelectors } from "../services/store-selectors.service";
+import { Space } from "../../common/entities";
 
 enum Constants {
   UPDATE_VALUE = 'user-draft-store/update-value',
   SET_ERROR = 'user-draft-store/set-error',
   RESET_STATES = 'user-draft-store/reset-states',
+  SET_SPACE = 'user-draft-store/set-space',
 };
 
 /** types */
@@ -45,11 +48,19 @@ type ResetStatesAction = {
   },
 };
 
+type SetSpaceAction = {
+  type: Constants.SET_SPACE,
+  payload: {
+    setSpace: SetSpace,
+  },
+};
+
 type UserDraftStoreAction =
   | AnyAction
   | UpdateValueAction
   | SetErrorAction
-  | ResetStatesAction;
+  | ResetStatesAction
+  | SetSpaceAction;
 
 /** constants */
 const isInput = (inputState: UserDraftState): boolean => {
@@ -113,6 +124,12 @@ class UserDraftStoreImpl implements UserDraftStore {
     );
   }
 
+  setSpace(setSpace: SetSpace): void {
+    reduxStore.dispatch(
+      setSpaceAction(setSpace)
+    );
+  }
+
   private getUserInputsStore(dataLabel: UserDataLabels) {
     return reduxStore.getState()[Stores.USER_DRAFT_STORE][dataLabel];
   }
@@ -136,6 +153,8 @@ function userInputsStoreReducer(
       return {...state, ...payload.updatedDraft};
     case Constants.RESET_STATES:
       return {...state, ...payload.resetedStates};
+    case Constants.SET_SPACE:
+      return {...state, ...payload.setSpace};
     default:
       return state;
   }
@@ -160,5 +179,12 @@ function resetStatesAction(resetedStates: UserDraftStoreState): ResetStatesActio
   return {
     type: Constants.RESET_STATES,
     payload: { resetedStates },
+  };
+}
+
+function setSpaceAction(setSpace: SetSpace): SetSpaceAction {
+  return {
+    type: Constants.SET_SPACE,
+    payload: { setSpace },
   };
 }

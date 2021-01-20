@@ -1,4 +1,4 @@
-import { LanguageLabels, Themes } from '../../common/constants';
+import { LanguageLabels, SpaceColors, Themes } from '../../common/constants';
 import { KeyboardShortcut, Space } from '../../common/entities';
 import { UserDataLabels } from '../constants';
 
@@ -27,15 +27,15 @@ export type GetUser = {
 export type UserDataValue = string | KeyboardShortcut[];
 
 export const initialState: User = {
-  avatar: '',
-  fullname: '',
-  username: '',
-  email: '',
-  password: '',
-  newPassword: '',
-  language: LanguageLabels.ENGLISH,
-  theme: Themes.ORIGINAL,
-  shortcuts: [],
+  [UserDataLabels.AVATAR]: '',
+  [UserDataLabels.FULLNAME]: '',
+  [UserDataLabels.EMAIL]: '',
+  [UserDataLabels.PASSWORD]: '',
+  [UserDataLabels.NEW_PASSWORD]: '',
+  [UserDataLabels.USERNAME]: '',
+  [UserDataLabels.THEME]: Themes.ORIGINAL,
+  [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH,
+  [UserDataLabels.SHORTCUTS]: [],
 };
 
 export type UpdatedStates = {

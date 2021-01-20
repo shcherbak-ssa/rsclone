@@ -34,6 +34,7 @@ export enum PopupNames {
   LOGOUT = 'logout',
   DELETE_ACCOUNT = 'delete-account',
   CREATE_SPACE = 'create-space',
+  UPDATE_SPACE = 'update-space',
 };
 
 export enum MenuItemLabels {

@@ -5,11 +5,14 @@ import {
   UserDraftStore,
   UserDraftStoreState,
   UserDraftState,
+  SetSpace,
 } from '../types/user-draft.types';
 import { Stores, UserDataLabels } from '../constants';
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
 import { userInputLabels } from '../data/user.data';
+import { Space } from '../../common/entities';
+import { EMPTY_STRING } from '../constants/strings.constants';
 
 export class UserDraftModel {
   private userDraftStore: UserDraftStore;
@@ -29,7 +32,7 @@ export class UserDraftModel {
   
   updateValue(value: any, dataLabel: UserDataLabels): void {
     const updatedDraft: UpdatedDraft = {
-      [dataLabel]: userInputLabels.includes(dataLabel) ? {value, error: ''} : value,
+      [dataLabel]: userInputLabels.includes(dataLabel) ? {value, error: EMPTY_STRING} : value,
     };
 
     this.userDraftStore.updateValue(updatedDraft);
@@ -52,5 +55,14 @@ export class UserDraftModel {
     });
 
     this.userDraftStore.resetStates(resetedStates);
+  }
+
+  setSpace(space: Space): void {
+    const setSpace: SetSpace = {
+      ...space,
+      name: { value: space.name, error: EMPTY_STRING },
+    };
+
+    this.userDraftStore.setSpace(setSpace);
   }
 }

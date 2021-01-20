@@ -10,22 +10,27 @@ import { PopupPropsHookParams, usePopupProps } from '../../hooks/popup-props.hoo
 import { PopupService } from '../../services/popup.service';
 import { SpaceSettingsContainer } from '../space-settings.container';
 
-export function CreateSpacePopupContainer() {
-  const [isCreatingInProgress, setIsCreatingInProgress] = useState(false);
+export type SpacePopupContainerProps = {
+  popupName: PopupNames,
+  spaceEvent: SpacesEvents,
+};
+
+export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainerProps) {
+  const [isInProgress, setIsInProgress] = useState(false);
 
   const popupPropsHookParams: PopupPropsHookParams = {
-    popupName: PopupNames.CREATE_SPACE,
+    popupName,
     confirmButtonProps: {
-      isLoading: isCreatingInProgress,
+      isLoading: isInProgress,
       clickHandler: () => {
-        setIsCreatingInProgress(true);
+        setIsInProgress(true);
 
-        spacesController.emit(SpacesEvents.CREATE_SPACE, (isCreatedSuccess: boolean) => {
-          setIsCreatingInProgress(false);
+        spacesController.emit(spaceEvent, (isSuccess: boolean) => {
+          setIsInProgress(false);
 
-          if (isCreatedSuccess) {
+          if (isSuccess) {
             const popupService: PopupService = new PopupService();
-            popupService.closePopup(PopupNames.CREATE_SPACE);
+            popupService.closePopup(popupName);
           }
         });
       },
@@ -44,10 +49,10 @@ export function CreateSpacePopupContainer() {
 
   if (popup === null) return <div></div>;
 
-  const createSpacePopupProps: PopupComponentProps = popup[0];
+  const spacePopupProps: PopupComponentProps = popup[0];
 
   return (
-    <PopupComponent {...createSpacePopupProps}>
+    <PopupComponent {...spacePopupProps}>
       <SpaceSettingsContainer />
     </PopupComponent>
   );

@@ -122,6 +122,10 @@
     "create-space": {
       "title": "Crea uno spazio",
       "confirmButtonValue": "Creare"
+    },
+    "update-space": {
+      "title": "Impostazioni dello spazio",
+      "confirmButtonValue": "Salvare"
     }
   },
   "dropdowns": {

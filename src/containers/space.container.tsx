@@ -8,6 +8,10 @@ import { DropdownComponentProps } from '../components/dropdown.component';
 import { SpaceComponent, SpaceComponentProps } from '../components/space.component';
 import { DropdownItemLabels } from '../constants';
 import { useAppLanguage } from '../hooks/app-language.hook';
+import { SetSpace, userDraftController } from '../controllers/user-draft.controller';
+import { PopupService } from '../services/popup.service';
+import { PopupNames } from '../constants/ui.constants';
+import { UserDraftEvents } from '../constants/events.constants';
 
 export type SpaceContainerProps = {
   space: Space
@@ -31,7 +35,13 @@ export function SpaceContainer({space}: SpaceContainerProps) {
       },
     ],
     itemClickHandler: (label?: DropdownItemLabels) => {
-      console.log(label);
+      switch (label) {
+        case DropdownItemLabels.SETTINGS_SPACE:
+          openUpdateSpacePopup();
+          break;
+        case DropdownItemLabels.DELETE_SPACE:
+          break;
+      }
     },
   };
 
@@ -42,6 +52,18 @@ export function SpaceContainer({space}: SpaceContainerProps) {
       setIsDropdownOpen(!isDropdownOpen);
     },
   };
+
+  function openUpdateSpacePopup() {
+    const setSpace: SetSpace = {
+      space,
+      callback: () => {
+        const popupService: PopupService = new PopupService();
+        popupService.openPopup(PopupNames.UPDATE_SPACE);
+      },
+    };
+
+    userDraftController.emit(UserDraftEvents.SET_SPACE, setSpace);
+  }
   
   return <SpaceComponent {...spaceProps}/>;
 }

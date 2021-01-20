@@ -10,10 +10,11 @@ import { SpacesComponent } from '../components/spaces.component';
 import { SpacesMessageComponent, SpacesMessageComponentProps } from '../components/spaces-message.component';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { ShortcutsLabels } from '../../common/constants';
-import { CreateSpacePopupContainer } from './popups/create-space-popup.container';
+import { SpacePopupContainer, SpacePopupContainerProps } from './popups/space-popup.container';
 import { PopupService } from '../services/popup.service';
 import { PopupNames } from '../constants/ui.constants';
 import { SpaceContainerProps, SpaceContainer } from './space.container';
+import { SpacesEvents } from '../constants/events.constants';
 
 export function SpacesContainer() {
   const spacesLanguage = useAppLanguage().homepage.spaces;
@@ -31,6 +32,16 @@ export function SpacesContainer() {
     buttonClickHandler: () => {
       openCreateSpacePopup();
     },
+  };
+
+  const createSpacePopupProps: SpacePopupContainerProps = {
+    popupName: PopupNames.CREATE_SPACE,
+    spaceEvent: SpacesEvents.CREATE_SPACE,
+  };
+
+  const updateSpacePopupProps: SpacePopupContainerProps = {
+    popupName: PopupNames.UPDATE_SPACE,
+    spaceEvent: SpacesEvents.UPDATE_SPACE,
   };
 
   function drawSpaces() {
@@ -59,7 +70,8 @@ export function SpacesContainer() {
   return (
     <HomepageContainer {...homepageContainerProps}>
       {drawSpaces()}
-      <CreateSpacePopupContainer />
+      <SpacePopupContainer {...createSpacePopupProps}/>
+      <SpacePopupContainer {...updateSpacePopupProps}/>
     </HomepageContainer>
   );
 }

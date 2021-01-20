@@ -3,6 +3,7 @@ import { UserDataLabels } from '../constants';
 import { Controller } from '../types/services.types';
 import { UserDraftModel } from '../models/user-draft.model';
 import { EventEmitter } from '../services/event-emitter.service';
+import { Space } from '../../common/entities';
 
 export const userDraftController: Controller = new EventEmitter();
 
@@ -16,6 +17,11 @@ export type UpdatedDraftError = {
   dataLabel: UserDataLabels;
 }
 
+export type SetSpace = {
+  space: Space,
+  callback: Function,
+};
+
 let userDraftModel: UserDraftModel | null = null;
 
 userDraftController.on(UserDraftEvents.INIT_EVENTS, initUserInputsEventsHandler);
@@ -28,6 +34,7 @@ function initUserInputsEventsHandler(): void {
     .on(UserDraftEvents.UPDATE_VALUE, updateValueHandler)
     .on(UserDraftEvents.SET_ERROR, setErrorHandler)
     .on(UserDraftEvents.RESET_STATES, resetStatesHandler)
+    .on(UserDraftEvents.SET_SPACE, setSpaceHandler)
     .on(UserDraftEvents.REMOVE_EVENTS, removeUserInputsEventsHandler);
 }
 
@@ -39,6 +46,7 @@ function removeUserInputsEventsHandler(): void {
     .off(UserDraftEvents.UPDATE_VALUE, updateValueHandler)
     .off(UserDraftEvents.SET_ERROR, setErrorHandler)
     .off(UserDraftEvents.RESET_STATES, resetStatesHandler)
+    .off(UserDraftEvents.SET_SPACE, setSpaceHandler)
     .off(UserDraftEvents.REMOVE_EVENTS, removeUserInputsEventsHandler);
 }
 
@@ -52,4 +60,9 @@ function setErrorHandler({error, dataLabel}: UpdatedDraftError): void {
 
 function resetStatesHandler(resetDataLabels: UserDataLabels[]): void {
   userDraftModel.resetStates(resetDataLabels);
+}
+
+function setSpaceHandler({space, callback}: SetSpace): void {
+  userDraftModel.setSpace(space);
+  callback();
 }
