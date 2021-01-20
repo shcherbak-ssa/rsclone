@@ -112,12 +112,15 @@
     "logout": {
       "title": "Disconnettersi",
       "confirmButtonValue": "Disconnettersi",
-      "content": "Sei sicuro di voler uscire?"
+      "message": "Sei sicuro di voler uscire?"
     },
     "delete-account": {
       "title": "Eliminare l'account",
       "confirmButtonValue": "Elimina",
-      "content": "Eliminando il tuo account personale, elimini tutti i dati associati. Pensa prima di agire, non si torna indietro! Sei sicuro?"
+      "message": "Eliminando il tuo account personale, elimini tutti i dati associati. Pensa prima di agire, non si torna indietro! Sei sicuro?",
+      "placeholder": "Digita 'DELETE ME'",
+      "description": "Digita 'DELETE ME' per confermare",
+      "confirmWord": "DELETE ME"
     },
     "create-space": {
       "title": "Crea uno spazio",

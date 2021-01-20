@@ -112,12 +112,15 @@
     "logout": {
       "title": "Log out",
       "confirmButtonValue": "Log out",
-      "content": "Are you sure you want to log out?"
+      "message": "Are you sure you want to log out?"
     },
     "delete-account": {
       "title": "Delete account",
       "confirmButtonValue": "Delete",
-      "content": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back! Are you sure?"
+      "message": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back! Are you sure?",
+      "placeholder": "Type 'DELETE ME'",
+      "description": "Type 'DELETE ME' to confirm",
+      "confirmWord": "DELETE ME"
     },
     "create-space": {
       "title": "Create a space",

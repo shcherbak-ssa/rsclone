@@ -21,11 +21,11 @@ export function LogoutPopupContainer() {
   if (popup === null) return <div></div>;
 
   const logoutPopupProps: PopupComponentProps = popup[0];
-  const logoutPopupContent: any = popup[1].content;
+  const logoutPopupMessage: any = popup[1].message;
 
   return (
     <PopupComponent {...logoutPopupProps}>
-      <PopupMessageComponent>{logoutPopupContent}</PopupMessageComponent>
+      <PopupMessageComponent>{logoutPopupMessage}</PopupMessageComponent>
     </PopupComponent>
   );
 }
