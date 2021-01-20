@@ -2,7 +2,7 @@ import { ActionIconComponentProps, ActionIconProps } from "../components/action-
 import { ActionIconLabels } from "../constants/ui.constants";
 import { actionIconData } from "../data/action-icon.data";
 
-export type ActionIconPropsHookParameters = {
+export type ActionIconPropsHookParams = {
   icons: ActionIconLabels[];
   iconPayloads?: {
     [key: string]: {
@@ -21,9 +21,9 @@ const actionIconClickHandlers = {
   },
 }
 
-export function useActionIconProps(
-  {icons, iconPayloads = {}}: ActionIconPropsHookParameters
-): ActionIconComponentProps[] {
+export function useActionIconProps({
+  icons, iconPayloads = {}
+}: ActionIconPropsHookParams): ActionIconComponentProps[] {
   const actionIconComponentsProps: ActionIconComponentProps[] = icons.map((iconLabel) => {
     const isIconInIconPayloads = iconLabel in iconPayloads;
     const description = isIconInIconPayloads ? iconPayloads[iconLabel].description : '';

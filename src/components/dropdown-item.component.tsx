@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './styles/dropdown-item.component.scss';
 
 import { Icon } from '@iconify/react';
@@ -10,9 +10,9 @@ export type DropdownItemComponentProps = {
   clickHandler: Function,
 };
 
-export function DropdownItemComponent({
-  item, clickHandler,
-}: DropdownItemComponentProps) {
+export function DropdownItemComponent({item, clickHandler}: DropdownItemComponentProps) {
+  const linkRef = useRef(null);
+
   const iconProps = {
     icon: item.icon,
     height: ICON_18_HEIGHT,
@@ -20,13 +20,23 @@ export function DropdownItemComponent({
   };
 
   function handleClick() {
-    clickHandler(item.label);
+    if (item.href && linkRef.current) {
+      linkRef.current.click();
+      clickHandler();
+    } else {
+      clickHandler(item.label);
+    }
+  }
+
+  function drawLink() {
+    return item.href ? <a href={item.href} ref={linkRef} target="_blank"></a> : '';
   }
   
   return (
     <div className="dropdown-item" data-class="click" onClick={handleClick}>
       <Icon {...iconProps}/>
       <div className="dropdown-item-text">{item.text}</div>
+      {drawLink()}
     </div>
   );
 }

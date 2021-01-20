@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/auth.component.scss';
 
 import { AssetsService } from "../services/assets.service";
-import { ActionIconPropsHookParameters, useActionIconProps } from '../hooks/action-icon-props.hook';
+import { ActionIconPropsHookParams, useActionIconProps } from '../hooks/action-icon-props.hook';
 import { ActionIconLabels } from '../constants/ui.constants';
 import { ActionIconComponent, ActionIconComponentProps } from './action-icon.component';
 import { useLanguagePart } from '../hooks/language-part.hook';
@@ -20,7 +20,7 @@ export function AuthComponent({children}: AuthComponentProps) {
 
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
 
-  const actionIconPropsParameters: ActionIconPropsHookParameters = {
+  const actionIconPropsParams: ActionIconPropsHookParams = {
     icons: [ActionIconLabels.INFO],
     iconPayloads: {
       [ActionIconLabels.INFO]: {
@@ -29,12 +29,11 @@ export function AuthComponent({children}: AuthComponentProps) {
     },
   };
 
-  const actionIconComponentsProps: ActionIconComponentProps[]
-    = useActionIconProps(actionIconPropsParameters);
+  const actionIconsProps: ActionIconComponentProps[] = useActionIconProps(actionIconPropsParams);
 
   function drawActionIcons() {
-    return actionIconComponentsProps.map((actionIconComponentProps, index) => {
-      return <ActionIconComponent key={index} {...actionIconComponentProps} />
+    return actionIconsProps.map((actionIconProps, index) => {
+      return <ActionIconComponent key={index} {...actionIconProps} />
     });
   }
 

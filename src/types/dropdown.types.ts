@@ -4,4 +4,5 @@ export type DropdownItem = {
   icon: object,
   text: string,
   label: DropdownItemLabels,
+  href?: string,
 };

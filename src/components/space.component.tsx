@@ -1,11 +1,12 @@
 import React from 'react';
+import classnames from 'classnames';
 import './styles/space.component.scss';
 
 import { Icon } from '@iconify/react';
 import threeDots from '@iconify/icons-bi/three-dots';
 
 import { SpaceLogoComponent, SpaceLogoComponentProps } from './space-logo.component';
-import { ICON_18_HEIGHT } from '../constants/ui.constants';
+import { Classnames, ICON_18_HEIGHT } from '../constants/ui.constants';
 import { SpaceColors } from '../../common/constants';
 import { Space } from '../../common/entities';
 
@@ -18,6 +19,8 @@ export function SpaceComponent({space}: SpaceComponentProps) {
     color: space.color as SpaceColors,
   };
 
+  const spaceIconClassnames = classnames('space-icon', {});
+
   return (
     <div className="space" data-class="click shadow">
       <div className="space-header">
@@ -27,7 +30,7 @@ export function SpaceComponent({space}: SpaceComponentProps) {
       <div className="space-line"></div>
       <div className="space-footer">
         <div className="space-date"></div>
-        <div className="space-icon" data-class="click flex-center">
+        <div className={spaceIconClassnames} data-class="click flex-center">
           <Icon icon={threeDots} height={ICON_18_HEIGHT}/>
         </div>
       </div>
