@@ -32,9 +32,7 @@ export function DeletePopupContainer({
         setIsLoading(true);
 
         controller.emit(controllerEvent, (deleted: boolean) => {
-          if (deleted) {
-            setIsLoading(false);
-          }
+          setIsLoading(false);
 
           const popupService: PopupService = new PopupService();
           popupService.closePopup(popupName);

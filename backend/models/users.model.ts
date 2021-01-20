@@ -3,13 +3,15 @@ import { usersCollectionDatabase } from '../database/users-collection.database';
 import { UpdatedUserData } from '../types/user.types';
 import { EMPTY_VALUE_LENGTH } from '../../src/constants';
 import { UniqueModel } from './unique.model';
-import { UserDataLabels } from '../constants';
+import { DatabaseNames, UserDataLabels } from '../constants';
 import { KeyboardShortcut, Space } from '../../common/entities';
 import { ClientError } from '../services/errors.service';
 import { ErrorLabels, StatusCodes } from '../../common/constants';
 import { UserFiles } from '../types/services.types';
 import { UserFilesService } from '../services/user-files.service';
 import { SpacesModel } from './spaces.model';
+import { DeleteDatabase } from '../types/database.types';
+import { DatabaseDBService } from '../services/database-db.service';
 
 export interface UsersDatabase {
   getUser(userID: string): Promise<User>;
@@ -56,6 +58,9 @@ export class UsersModel {
   async deleteUser(userID: string): Promise<any> {
     await this.database.deleteUser(userID);
     await this.userFiles.deleteUserFilesFolder(userID);
+
+    const userDatabase: DeleteDatabase = DatabaseDBService.createDatabase(userID);
+    await userDatabase.delete();
 
     return { deleted: true };
   }

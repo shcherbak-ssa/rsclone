@@ -2,8 +2,9 @@ import { Db } from 'mongodb';
 
 import { DatabaseCollectionService } from './database-collection.service';
 import { connectedMongoDatabase } from './database-connection.service';
+import { DeleteDatabase } from '../types/database.types';
 
-export class DatabaseDBService {
+export class DatabaseDBService implements DeleteDatabase {
   private database: Db;
 
   constructor(database: Db) {
@@ -19,5 +20,7 @@ export class DatabaseDBService {
     return DatabaseCollectionService.createCollection(collection);
   }
 
-  renameDatabase(newDatabaseName: string) {}
+  async delete(): Promise<void> {
+    await this.database.dropDatabase();
+  }
 }
