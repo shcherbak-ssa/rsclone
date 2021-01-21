@@ -12,6 +12,7 @@ export interface SpacesValidation {
 
 export enum SpacesControllerActions {
   CREATE_SPACE = 'create-space',
+  DELETE_SPACE = 'delete-space',
 };
 
 export class SpacesController extends BaseController {
@@ -34,6 +35,8 @@ export class SpacesController extends BaseController {
       switch (action) {
         case SpacesControllerActions.CREATE_SPACE:
           return await this.createSpace(userID, body, responseSender);
+        case SpacesControllerActions.DELETE_SPACE:
+          return await this.deleteSpace(userID, body, responseSender);
       }
     } catch (error) {
       responseSender.sendErrorResponse(error);
@@ -47,5 +50,12 @@ export class SpacesController extends BaseController {
     const space: Space = await this.spacesModel.createSpace(userID, newSpace);
 
     responseSender.sendSuccessJsonResponse(space, StatusCodes.CREATED);
+  }
+
+  private async deleteSpace(
+    userID: string, {deletedSpaceID}: any, responseSender: ResponseSender
+  ): Promise<void> {
+    await this.spacesModel.deleteSpace(userID, deletedSpaceID);
+    responseSender.sendSuccessJsonResponse({deletedSpaceID});
   }
 }

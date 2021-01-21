@@ -1,4 +1,4 @@
-import { Cursor } from 'mongodb';
+import { Cursor, ObjectID } from 'mongodb';
 
 import { DatabaseCollectionService } from '../services/database-collection.service';
 import { SpacesDatabase } from '../models/spaces.model';
@@ -26,6 +26,12 @@ export class SpacesCollectionDatabase implements SpacesDatabase {
 
     delete (newSpace as any)._id;
     return {...newSpace, id: createdSpaceID};
+  }
+
+  async deleteSpace(userID: string, deletedSpaceID: string): Promise<void> {
+    const userSpacesCollection: DatabaseCollectionService = await this.getUserSpacesCollection(userID);
+    const deleteSpaceFilter = { _id: new ObjectID(deletedSpaceID) };
+    await userSpacesCollection.deleteDocument(deleteSpaceFilter);
   }
 
   private async getUserSpacesCollection(userID: string): Promise<DatabaseCollectionService> {

@@ -39,8 +39,25 @@ export class SpacesModel extends BaseDraftModel {
 
       return true;
     } catch (error) {
-      console.dir(error);
       this.parseError(error);
+      return false;
+    }
+  }
+
+  async deleteSpace(deletedSpaceID: string): Promise<boolean> {
+    try {
+      const request: Request = this.createRequestWithBody({deletedSpaceID});
+      const response: Response = await this.requestSender.send(request).delete();
+      deletedSpaceID = response.parseResponse().deletedSpaceID;
+
+      const spacesStore: SpacesStore = this.getSpacesStore();
+      const spaces: Space[] = spacesStore.getSpaces();
+      const updatedSpaces: Space[] = spaces.filter((space) => space.id !== deletedSpaceID);
+
+      spacesStore.deleteSpace(updatedSpaces);
+      return true;
+    } catch (error) {
+      this.parseError(error); 
       return false;
     }
   }
@@ -49,9 +66,9 @@ export class SpacesModel extends BaseDraftModel {
     return this.storeManager.getStore(Stores.SPACES_STORE) as SpacesStore;
   }
 
-  private createRequestWithBody(space: any): Request {
+  private createRequestWithBody(body: any): Request {
     return this.addSpacesPathnameToRequest()
-      .setBody(space)
+      .setBody(body)
       .createRequest();
   }
 
