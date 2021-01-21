@@ -8,10 +8,11 @@ import { DropdownComponentProps } from '../components/dropdown.component';
 import { SpaceComponent, SpaceComponentProps } from '../components/space.component';
 import { DropdownItemLabels } from '../constants';
 import { useAppLanguage } from '../hooks/app-language.hook';
-import { SetSpace, userDraftController } from '../controllers/user-draft.controller';
+import { DraftActiveSpace, userDraftController } from '../controllers/user-draft.controller';
 import { PopupService } from '../services/popup.service';
 import { PopupNames } from '../constants/ui.constants';
-import { UserDraftEvents } from '../constants/events.constants';
+import { UserDraftEvents, UserEvents } from '../constants/events.constants';
+import { ActiveSpace, userController } from '../controllers/user.controller';
 
 export type SpaceContainerProps = {
   space: Space
@@ -55,15 +56,22 @@ export function SpaceContainer({space}: SpaceContainerProps) {
   };
 
   function openSpacePopup(popupName: PopupNames) {
-    const setSpace: SetSpace = {
+    const activeSpace: ActiveSpace = {
       space,
       callback: () => {
-        const popupService: PopupService = new PopupService();
-        popupService.openPopup(popupName);
+        const draftActiveSpace: DraftActiveSpace = {
+          space,
+          callback: () => {
+            const popupService: PopupService = new PopupService();
+            popupService.openPopup(popupName);
+          },
+        };
+    
+        userDraftController.emit(UserDraftEvents.SET_ACTIVE_SPACE, draftActiveSpace);
       },
     };
 
-    userDraftController.emit(UserDraftEvents.SET_SPACE, setSpace);
+    userController.emit(UserEvents.SET_ACTIVE_SPACE, activeSpace);
   }
   
   return <SpaceComponent {...spaceProps}/>;

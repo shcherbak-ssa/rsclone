@@ -19,6 +19,22 @@ export type User = {
   shortcuts: KeyboardShortcut[],
 };
 
+export type UserStoreState = {
+  avatar: string,
+  fullname: string,
+  username: string,
+  email: string,
+  password: string,
+  newPassword: string,
+  language: LanguageLabels,
+  theme: Themes,
+  shortcuts: KeyboardShortcut[],
+  id: string,
+  name: string,
+  color: SpaceColors,
+  logo: string,
+};
+
 export type GetUser = {
   user: User,
   spaces: Space[],
@@ -26,7 +42,7 @@ export type GetUser = {
 
 export type UserDataValue = string | KeyboardShortcut[];
 
-export const initialState: User = {
+export const initialState: UserStoreState = {
   [UserDataLabels.AVATAR]: '',
   [UserDataLabels.FULLNAME]: '',
   [UserDataLabels.EMAIL]: '',
@@ -36,6 +52,10 @@ export const initialState: User = {
   [UserDataLabels.THEME]: Themes.ORIGINAL,
   [UserDataLabels.LANGUAGE]: LanguageLabels.ENGLISH,
   [UserDataLabels.SHORTCUTS]: [],
+  [UserDataLabels.SPACE_ID]: '',
+  [UserDataLabels.SPACE_NAME]: '',
+  [UserDataLabels.SPACE_COLOR]: SpaceColors.BLUE,
+  [UserDataLabels.SPACE_LOGO]: '',
 };
 
 export type UpdatedStates = {
@@ -51,4 +71,5 @@ export interface UserStore {
   getStates(): User;
   updateStates(updatedStates: UpdatedStates): void;
   setStates(user: User): void;
+  setActiveSpace(activeSpace: Space): void;
 }

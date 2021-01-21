@@ -30,6 +30,12 @@ export class SpacesRouter implements BaseRouter {
           controllerData,
         );
         break;
+      case RequestMethods.PUT:
+        await this.runSpacesController(
+          SpacesControllerActions.UPDATE_SPACE,
+          controllerData,
+        );
+        break;
       case RequestMethods.DELETE:
         await this.runSpacesController(
           SpacesControllerActions.DELETE_SPACE,

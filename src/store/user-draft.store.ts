@@ -1,6 +1,5 @@
 import { AnyAction } from "redux";
 
-import { Stores, UserDataLabels } from "../constants";
 import {
   UserDraftStore,
   UserDraftState,
@@ -8,18 +7,18 @@ import {
   UserDraftStoreState,
   initialState,
   InputState,
-  SetSpace,
+  ActiveSpace,
 } from "../types/user-draft.types";
+import { Stores, UserDataLabels } from "../constants";
 import { reduxStore } from "../services/store.service";
 import { StoreCreator } from "../services/store-manager.service";
 import { StoreSelectors } from "../services/store-selectors.service";
-import { Space } from "../../common/entities";
 
 enum Constants {
   UPDATE_VALUE = 'user-draft-store/update-value',
   SET_ERROR = 'user-draft-store/set-error',
   RESET_STATES = 'user-draft-store/reset-states',
-  SET_SPACE = 'user-draft-store/set-space',
+  SET_ACTIVE_SPACE = 'user-draft-store/set-active-space',
 };
 
 /** types */
@@ -48,10 +47,10 @@ type ResetStatesAction = {
   },
 };
 
-type SetSpaceAction = {
-  type: Constants.SET_SPACE,
+type SetActiveSpaceAction = {
+  type: Constants.SET_ACTIVE_SPACE,
   payload: {
-    setSpace: SetSpace,
+    activeSpace: ActiveSpace,
   },
 };
 
@@ -60,7 +59,7 @@ type UserDraftStoreAction =
   | UpdateValueAction
   | SetErrorAction
   | ResetStatesAction
-  | SetSpaceAction;
+  | SetActiveSpaceAction;
 
 /** constants */
 const isInput = (inputState: UserDraftState): boolean => {
@@ -124,9 +123,9 @@ class UserDraftStoreImpl implements UserDraftStore {
     );
   }
 
-  setSpace(setSpace: SetSpace): void {
+  setActiveSpace(activeSpace: ActiveSpace): void {
     reduxStore.dispatch(
-      setSpaceAction(setSpace)
+      setActiveSpaceAction(activeSpace)
     );
   }
 
@@ -153,8 +152,8 @@ function userInputsStoreReducer(
       return {...state, ...payload.updatedDraft};
     case Constants.RESET_STATES:
       return {...state, ...payload.resetedStates};
-    case Constants.SET_SPACE:
-      return {...state, ...payload.setSpace};
+    case Constants.SET_ACTIVE_SPACE:
+      return {...state, ...payload.activeSpace};
     default:
       return state;
   }
@@ -182,9 +181,9 @@ function resetStatesAction(resetedStates: UserDraftStoreState): ResetStatesActio
   };
 }
 
-function setSpaceAction(setSpace: SetSpace): SetSpaceAction {
+function setActiveSpaceAction(activeSpace: ActiveSpace): SetActiveSpaceAction {
   return {
-    type: Constants.SET_SPACE,
-    payload: { setSpace },
+    type: Constants.SET_ACTIVE_SPACE,
+    payload: { activeSpace },
   };
 }

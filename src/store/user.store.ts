@@ -6,10 +6,12 @@ import { StoreSelectors } from "../services/store-selectors.service";
 import { reduxStore } from '../services/store.service';
 import { StoreCreator } from '../services/store-manager.service';
 import { ShortcutsLabels } from '../../common/constants';
+import { Space } from '../../common/entities';
 
 enum Constants {
   UPDATE_STATE = 'user-store/update-state',
   SET_STATES = 'user-store/set-states',
+  SET_ACTIVE_SPACE = 'user-store/set-active-space',
 };
 
 /** types */
@@ -31,7 +33,14 @@ type SetStatesAction = {
   },
 };
 
-type UserStoreAction = AnyAction | UpdateStateAction | SetStatesAction;
+type SetActiveSpaceAction = {
+  type: Constants.SET_ACTIVE_SPACE,
+  payload: {
+    activeSpace: Space,
+  },
+};
+
+type UserStoreAction = AnyAction | UpdateStateAction | SetStatesAction | SetActiveSpaceAction;
 
 /** constants */
 const userStoreSelectors: StoreSelectors = {
@@ -80,6 +89,12 @@ class UserStoreImpl implements UserStore {
       setStatesAction(user)
     );
   }
+
+  setActiveSpace(activeSpace: Space): void {
+    reduxStore.dispatch(
+      setActiveSpaceAction(activeSpace)
+    );
+  }
 }
 
 /** store creator */
@@ -98,6 +113,8 @@ function userStoreReducer(
       return {...state, ...payload.updatedStates};
     case Constants.SET_STATES:
       return {...initialState, ...payload.user};
+    case Constants.SET_ACTIVE_SPACE:
+      return {...state, ...payload.activeSpace};
     default:
       return state;
   }
@@ -115,5 +132,12 @@ function setStatesAction(user: User): SetStatesAction {
   return {
     type: Constants.SET_STATES,
     payload: { user },
+  };
+}
+
+function setActiveSpaceAction(activeSpace: Space): SetActiveSpaceAction {
+  return {
+    type: Constants.SET_ACTIVE_SPACE,
+    payload: { activeSpace },
   };
 }

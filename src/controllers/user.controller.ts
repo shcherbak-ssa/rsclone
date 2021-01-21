@@ -7,9 +7,15 @@ import { UserDeleteModel } from '../models/user-delete.model';
 import { UpdatedData } from '../types/user.types';
 import { UserUpdateModel } from '../models/user-update.model';
 import { languageController } from './language.controller';
+import { Space } from '../../common/entities';
 
 export type UpdateUserData = {
   updatedData: UpdatedData,
+  callback: Function,
+};
+
+export type ActiveSpace = {
+  space: Space,
   callback: Function,
 };
 
@@ -18,6 +24,7 @@ export const userController: Controller = new EventEmitter();
 userController
   .on(UserEvents.UPDATE_STATES, updatedStatesHandler)
   .on(UserEvents.SYNC_DRAFT, syncDraftHandler)
+  .on(UserEvents.SET_ACTIVE_SPACE, setActiveSpaceHandler)
   .on(UserEvents.UPDATE_USER, updateUserHandler)
   .on(UserEvents.DELETE_USER, deleteUserHandler);
 
@@ -29,6 +36,13 @@ function updatedStatesHandler(updatedStates: UpdatedData) {
 function syncDraftHandler() {
   const userModel: UserModel = new UserModel();
   userModel.syncDraft();
+}
+
+function setActiveSpaceHandler({space, callback}: ActiveSpace) {
+  const userModel: UserModel = new UserModel();
+  userModel.setActiveSpace(space);
+
+  callback();
 }
 
 async function updateUserHandler({updatedData, callback}: UpdateUserData) {

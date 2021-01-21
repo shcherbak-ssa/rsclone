@@ -17,7 +17,7 @@ export type UpdatedDraftError = {
   dataLabel: UserDataLabels;
 }
 
-export type SetSpace = {
+export type DraftActiveSpace = {
   space: Space,
   callback: Function,
 };
@@ -34,7 +34,7 @@ function initUserInputsEventsHandler(): void {
     .on(UserDraftEvents.UPDATE_VALUE, updateValueHandler)
     .on(UserDraftEvents.SET_ERROR, setErrorHandler)
     .on(UserDraftEvents.RESET_STATES, resetStatesHandler)
-    .on(UserDraftEvents.SET_SPACE, setSpaceHandler)
+    .on(UserDraftEvents.SET_ACTIVE_SPACE, setActiveSpaceHandler)
     .on(UserDraftEvents.REMOVE_EVENTS, removeUserInputsEventsHandler);
 }
 
@@ -46,7 +46,7 @@ function removeUserInputsEventsHandler(): void {
     .off(UserDraftEvents.UPDATE_VALUE, updateValueHandler)
     .off(UserDraftEvents.SET_ERROR, setErrorHandler)
     .off(UserDraftEvents.RESET_STATES, resetStatesHandler)
-    .off(UserDraftEvents.SET_SPACE, setSpaceHandler)
+    .off(UserDraftEvents.SET_ACTIVE_SPACE, setActiveSpaceHandler)
     .off(UserDraftEvents.REMOVE_EVENTS, removeUserInputsEventsHandler);
 }
 
@@ -62,7 +62,7 @@ function resetStatesHandler(resetDataLabels: UserDataLabels[]): void {
   userDraftModel.resetStates(resetDataLabels);
 }
 
-function setSpaceHandler({space, callback}: SetSpace): void {
-  userDraftModel.setSpace(space);
+function setActiveSpaceHandler({space, callback}: DraftActiveSpace): void {
+  userDraftModel.setActiveSpace(space);
   callback();
 }

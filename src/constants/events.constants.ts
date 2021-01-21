@@ -10,7 +10,7 @@ export enum UserDraftEvents {
   UPDATE_VALUE = 'user-draft-events/update-value',
   SET_ERROR = 'user-draft-events/set-error',
   RESET_STATES = 'user-draft-events/reset-states',
-  SET_SPACE = 'user-draft-events/set-space',
+  SET_ACTIVE_SPACE = 'user-draft-events/set-active-space',
 };
 
 export enum LanguageEvents {
@@ -29,6 +29,7 @@ export enum UserEvents {
   SYNC_DRAFT = 'user-events/sync-draft',
   DELETE_USER = 'user-events/delete-user',
   UPDATE_USER = 'user-events/update-user',
+  SET_ACTIVE_SPACE = 'user-events/set-active-space',
 };
 
 export enum AvatarEvents {

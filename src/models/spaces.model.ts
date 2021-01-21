@@ -1,4 +1,4 @@
-import { Space, NewSpace } from '../../common/entities';
+import { Space, NewSpace, UpdatedSpace } from '../../common/entities';
 import { Stores } from '../constants';
 import { StoreManagerService } from '../services/store-manager.service';
 import { Request, RequestCreator, Response } from '../types/services.types';
@@ -9,6 +9,7 @@ import { BaseDraftModel } from './base.model';
 
 export interface SpacesValidation {
   validateCreatedSpace(newSpace: NewSpace): Promise<NewSpace>;
+  validateUpdatedSpace(updatedSpace: UpdatedSpace): Promise<UpdatedSpace>;
 };
 
 export class SpacesModel extends BaseDraftModel {
@@ -44,6 +45,28 @@ export class SpacesModel extends BaseDraftModel {
     }
   }
 
+  async updateSpace(updatedSpace: UpdatedSpace): Promise<boolean> {
+    try {
+      updatedSpace = await this.validation.validateUpdatedSpace(updatedSpace);
+
+      const request: Request = this.createRequestWithBody(updatedSpace);
+      const response: Response = await this.requestSender.send(request).update();
+      updatedSpace = response.parseResponse();
+
+      const spacesStore: SpacesStore = this.getSpacesStore();
+      const spaces: Space[] = spacesStore.getSpaces();
+      const updatedSpaces: Space[] = spaces.map((space) => {
+        return space.id === updatedSpace.id ? {...space, ...updatedSpace.updates} : space;
+      });
+
+      spacesStore.updateSpaces(updatedSpaces);
+      return true;
+    } catch (error) {
+      this.parseError(error);
+      return false;
+    }
+  }
+
   async deleteSpace(deletedSpaceID: string): Promise<boolean> {
     try {
       const request: Request = this.createRequestWithBody({deletedSpaceID});
@@ -54,7 +77,7 @@ export class SpacesModel extends BaseDraftModel {
       const spaces: Space[] = spacesStore.getSpaces();
       const updatedSpaces: Space[] = spaces.filter((space) => space.id !== deletedSpaceID);
 
-      spacesStore.deleteSpace(updatedSpaces);
+      spacesStore.updateSpaces(updatedSpaces);
       return true;
     } catch (error) {
       this.parseError(error); 

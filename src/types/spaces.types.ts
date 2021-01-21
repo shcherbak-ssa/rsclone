@@ -8,5 +8,5 @@ export interface SpacesStore {
   getSpaces(): Space[];
   setSpaces(spaces: Space[]): void;
   addSpace(space: Space): void;
-  deleteSpace(spaces: Space[]): void;
+  updateSpaces(spaces: Space[]): void;
 };

@@ -5,6 +5,8 @@ import { UpdatedData, User, UserStore } from '../types/user.types';
 import { UserDataLabels } from '../constants';
 import { UserDraftModel } from './user-draft.model';
 import cloneDeep from 'clone-deep';
+import { ActiveSpace } from '../types/user-draft.types';
+import { Space } from '../../common/entities';
 
 export class UserModel {
   private storeManager: StoreManager;
@@ -35,6 +37,10 @@ export class UserModel {
   
       userDraftModel.updateValue(value, dataLabel as UserDataLabels);
     }
+  }
+
+  setActiveSpace(activeSpace: Space): void {
+    this.getUserStore().setActiveSpace(activeSpace);
   }
 
   private getUserStore(): UserStore {

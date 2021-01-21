@@ -1,6 +1,6 @@
 import { StatusCodes } from '../../common/constants';
 import { SpacesValidationImpl } from '../validation/spaces.validation';
-import { NewSpace, Space } from '../../common/entities';
+import { NewSpace, Space, UpdatedSpace } from '../../common/entities';
 import { BaseController } from './base.controller';
 import { SpacesModel } from '../models/spaces.model';
 import { ControllerData } from '../types/controller.types';
@@ -8,10 +8,12 @@ import { ResponseSender } from '../types/services.types';
 
 export interface SpacesValidation {
   validateCreatedSpace(newSpace: NewSpace): Promise<NewSpace>;
+  validateUpdatedSpace(updatedSpace: UpdatedSpace): Promise<UpdatedSpace>;
 }
 
 export enum SpacesControllerActions {
   CREATE_SPACE = 'create-space',
+  UPDATE_SPACE = 'update-space',
   DELETE_SPACE = 'delete-space',
 };
 
@@ -35,6 +37,8 @@ export class SpacesController extends BaseController {
       switch (action) {
         case SpacesControllerActions.CREATE_SPACE:
           return await this.createSpace(userID, body, responseSender);
+        case SpacesControllerActions.UPDATE_SPACE:
+          return await this.updatedSpace(userID, body, responseSender);
         case SpacesControllerActions.DELETE_SPACE:
           return await this.deleteSpace(userID, body, responseSender);
       }
@@ -50,6 +54,15 @@ export class SpacesController extends BaseController {
     const space: Space = await this.spacesModel.createSpace(userID, newSpace);
 
     responseSender.sendSuccessJsonResponse(space, StatusCodes.CREATED);
+  }
+
+  private async updatedSpace(
+    userID: string, updatedSpace: UpdatedSpace, responseSender: ResponseSender
+  ): Promise<void> {
+    updatedSpace = await this.validation.validateUpdatedSpace(updatedSpace);
+    await this.spacesModel.updateSpace(userID, updatedSpace);
+
+    responseSender.sendSuccessJsonResponse(updatedSpace);
   }
 
   private async deleteSpace(

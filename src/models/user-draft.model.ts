@@ -5,7 +5,7 @@ import {
   UserDraftStore,
   UserDraftStoreState,
   UserDraftState,
-  SetSpace,
+  ActiveSpace,
 } from '../types/user-draft.types';
 import { Stores, UserDataLabels } from '../constants';
 import { StoreManager } from '../types/store.types';
@@ -57,12 +57,12 @@ export class UserDraftModel {
     this.userDraftStore.resetStates(resetedStates);
   }
 
-  setSpace(space: Space): void {
-    const setSpace: SetSpace = {
+  setActiveSpace(space: Space): void {
+    const activeSpace: ActiveSpace = {
       ...space,
       name: { value: space.name, error: EMPTY_STRING },
     };
 
-    this.userDraftStore.setSpace(setSpace);
+    this.userDraftStore.setActiveSpace(activeSpace);
   }
 }

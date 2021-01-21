@@ -10,7 +10,7 @@ import { initialState, SpacesStore, SpacesStoreState } from '../types/spaces.typ
 enum Constants {
   SET_SPACES = 'spaces-store/set-spaces',
   ADD_SPACE = 'spaces-store/add-space',
-  DELETE_SPACE = 'spaces-store/delete-space',
+  UPDATE_SPACES = 'spaces-store/update-spaces',
 };
 
 /** types */
@@ -32,14 +32,14 @@ type AddSpaceAction = {
   },
 };
 
-type DeleteSpaceAction = {
-  type: Constants.DELETE_SPACE,
+type UpdateSpacesAction = {
+  type: Constants.UPDATE_SPACES,
   payload: {
     updatedSpaces: Space[],
   },
 };
 
-type SpacesStoreAction = AnyAction | SetSpacesAction | AddSpaceAction;
+type SpacesStoreAction = AnyAction | SetSpacesAction | AddSpaceAction | UpdateSpacesAction;
 
 /** constants */
 const spacesStoreSelectors: StoreSelectors = {
@@ -67,9 +67,9 @@ class SpacesStoreImpl implements SpacesStore {
     );
   }
 
-  deleteSpace(updatedSpaces: Space[]): void {
+  updateSpaces(updatedSpaces: Space[]): void {
     reduxStore.dispatch(
-      deleteSpaceAction(updatedSpaces)
+      updateSpacesAction(updatedSpaces)
     );
   }
 }
@@ -90,7 +90,7 @@ function spacesStoreReducer(
       return payload.spaces
     case Constants.ADD_SPACE:
       return [...state, payload.space];
-    case Constants.DELETE_SPACE:
+    case Constants.UPDATE_SPACES:
       return payload.updatedSpaces;
     default:
       return state;
@@ -112,9 +112,9 @@ function addSpaceAction(space: Space): AddSpaceAction {
   };
 }
 
-function deleteSpaceAction(updatedSpaces: Space[]): DeleteSpaceAction {
+function updateSpacesAction(updatedSpaces: Space[]): UpdateSpacesAction {
   return {
-    type: Constants.DELETE_SPACE,
+    type: Constants.UPDATE_SPACES,
     payload: { updatedSpaces },
   };
 }

@@ -36,7 +36,7 @@ export type UpdatedDraft = {
   [key: string]: UserDraftState;
 };
 
-export type SetSpace = {
+export type ActiveSpace = {
   id: string,
   name: InputState,
   color: string,
@@ -49,5 +49,5 @@ export interface UserDraftStore {
   updateValue(updatedDraft: UpdatedDraft): void;
   setError(updatedDraft: UpdatedDraft): void;
   resetStates(resetedStates: UserDraftStoreState): void;
-  setSpace(setSpace: SetSpace): void;
+  setActiveSpace(activeSpace: ActiveSpace): void;
 };

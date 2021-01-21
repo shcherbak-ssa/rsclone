@@ -4,7 +4,7 @@ import { NewSpace, Space, UpdatedSpace } from '../../common/entities';
 export interface SpacesDatabase {
   getSpaces(userID: string): Promise<Space[]>;
   createSpace(userID: string, newSpace: NewSpace): Promise<Space>;
-  // updateSpace(userID: string, updatedSpace: UpdatedSpace): Promise<UpdatedSpace>;
+  updateSpace(userID: string, updatedSpace: UpdatedSpace): Promise<void>;
   deleteSpace(userID: string, deletedSpaceID: string): Promise<void>;
 }
 
@@ -21,6 +21,10 @@ export class SpacesModel {
 
   async createSpace(userID: string, newSpace: NewSpace): Promise<Space> {
     return await this.database.createSpace(userID, newSpace);
+  }
+
+  async updateSpace(userID: string, updatedSpace: UpdatedSpace): Promise<void> {
+    await this.database.updateSpace(userID, updatedSpace);
   }
 
   async deleteSpace(userID: string, deletedSpaceID: string): Promise<void> {

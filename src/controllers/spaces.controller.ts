@@ -1,4 +1,4 @@
-import { NewSpace } from '../../common/entities';
+import { NewSpace, UpdatedSpace } from '../../common/entities';
 import { UserDataLabels } from '../constants';
 import { SpacesEvents, UserDraftEvents } from '../constants/events.constants';
 import { spacesDataLabels } from '../data/spaces.data';
@@ -11,28 +11,53 @@ import { userDraftController } from './user-draft.controller';
 
 export const spacesController: Controller = new EventEmitter();
 
+export type UpdatedSpaceData = {
+  updatedData: {[key: string]: string},
+  callback: Function,
+};
+
 spacesController
   .on(SpacesEvents.CREATE_SPACE, createSpaceHandler)
+  .on(SpacesEvents.UPDATE_SPACE, updateSpaceHandler)
   .on(SpacesEvents.DELETE_SPACE, deleteSpaceHandler);
 
 async function createSpaceHandler(callback: Function): Promise<void> {
-  const spaceDataLabels: UserDataLabels[] = [
+  const newSpaceDataLabels: UserDataLabels[] = [
     UserDataLabels.SPACE_NAME,
     UserDataLabels.SPACE_COLOR,
     UserDataLabels.SPACE_LOGO,
   ];
 
   const userDraftModel: UserDraftModel = new UserDraftModel();
-  const updatedData: UserDraftStoreState = userDraftModel.getDraftValues(spaceDataLabels);
+  const newSpace: UserDraftStoreState = userDraftModel.getDraftValues(newSpaceDataLabels);
 
   const spacesModel: SpacesModel = new SpacesModel();
-  const isCreatedSuccess: boolean = await spacesModel.createSpace(updatedData as NewSpace);
+  const isCreatedSuccess: boolean = await spacesModel.createSpace(newSpace as NewSpace);
 
   if (isCreatedSuccess) {
-    userDraftModel.resetStates(spaceDataLabels);
+    userDraftController.emit(UserDraftEvents.RESET_STATES, newSpaceDataLabels);
   }
 
   callback(isCreatedSuccess)
+}
+
+async function updateSpaceHandler({updatedData, callback}: UpdatedSpaceData): Promise<void> {
+  const userDraftModel: UserDraftModel = new UserDraftModel();
+  const spaceID = userDraftModel.getDraftState(UserDataLabels.SPACE_ID) as string;
+  
+  const updatedSpace: UpdatedSpace = {
+    id: spaceID,
+    updates: { ...updatedData },
+  };
+
+  const spacesModel: SpacesModel = new SpacesModel();
+  const updatingResult: boolean = await spacesModel.updateSpace(updatedSpace);
+
+  if (updatingResult) {
+    userDraftController.emit(UserDraftEvents.RESET_STATES, spacesDataLabels);
+  }
+  
+  callback(updatingResult);
 }
 
 async function deleteSpaceHandler(callback: Function) {
