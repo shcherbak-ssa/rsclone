@@ -1,6 +1,7 @@
 @import '../../assets/styles/assets.scss';
 
 .homepage-section {
+  animation: show-homepage-section .2s;
   padding-top: 80px;
   width: 100%;
 
@@ -61,5 +62,12 @@
 
   &-content {
     padding-bottom: 30px;
+  }
+}
+
+@keyframes show-homepage-section {
+  from {
+    opacity: 0;
+    padding-top: 100px;
   }
 }

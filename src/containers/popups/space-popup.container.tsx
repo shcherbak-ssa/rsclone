@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 
 import { PopupComponent, PopupComponentProps } from '../../components/popup.component';
 import { UserDataLabels } from '../../constants';
-import { SpacesEvents, UserDraftEvents, UserEvents } from '../../constants/events.constants';
+import { SpacesEvents } from '../../constants/events.constants';
 import { PopupNames } from '../../constants/ui.constants';
 import { spacesController, UpdatedSpaceData } from '../../controllers/spaces.controller';
-import { userDraftController } from '../../controllers/user-draft.controller';
-import { ActiveSpace, userController } from '../../controllers/user.controller';
-import { resetActiveSpaceData, spacesDataLabels } from '../../data/spaces.data';
 import { PopupPropsHookParams, usePopupProps } from '../../hooks/popup-props.hook';
 import { UpdatesControllerHookParams, useUpdatesController } from '../../hooks/updates-controller.hook';
 import { PopupService } from '../../services/popup.service';
+import { SpacesService } from '../../services/spaces.service';
 import { UpdatedDataService } from '../../services/updated-data.service';
 import { SpaceSettingsContainer } from '../space-settings.container';
 
@@ -21,7 +19,7 @@ export type SpacePopupContainerProps = {
 
 export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainerProps) {
   const [isInProgress, setIsInProgress] = useState(false);
-
+  const spacesService: SpacesService = new SpacesService();
   const controlDataLabels: UserDataLabels[] = [UserDataLabels.SPACE_NAME];
 
   if (popupName === PopupNames.UPDATE_SPACE) {
@@ -60,13 +58,7 @@ export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainer
       },
     },
     closeHanlder: () => {
-      const activeSpace: ActiveSpace = {
-        space: resetActiveSpaceData,
-        callback: () => {},
-      };
-
-      userController.emit(UserEvents.SET_ACTIVE_SPACE, activeSpace);
-      userDraftController.emit(UserDraftEvents.RESET_STATES, spacesDataLabels);
+      spacesService.resetSpaceStates();
     },
   };
 
@@ -78,6 +70,8 @@ export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainer
     if (isSuccess) {
       const popupService: PopupService = new PopupService();
       popupService.closePopup(popupName);
+
+      spacesService.resetSpaceStates();
     }
   }
 

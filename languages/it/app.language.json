@@ -118,9 +118,9 @@
       "title": "Eliminare l'account",
       "confirmButtonValue": "Elimina",
       "message": "Eliminando il tuo account personale, elimini tutti i dati associati. Pensa prima di agire, non si torna indietro! Sei sicuro?",
-      "placeholder": "Digita 'DELETE ME'",
-      "description": "Digita 'DELETE ME' per confermare",
-      "confirmWord": "DELETE ME"
+      "placeholder": "Digita 'DELETE'",
+      "description": "Digita 'DELETE' per confermare",
+      "confirmWord": "DELETE"
     },
     "delete-space": {
       "title": "Eliminare l'spazio",

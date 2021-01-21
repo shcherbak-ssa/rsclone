@@ -8,6 +8,7 @@ import { Base, BaseInputProps } from '../../components/base';
 import { EMPTY_STRING } from '../../constants/strings.constants';
 import { Controller } from '../../types/services.types';
 import { PopupService } from '../../services/popup.service';
+import { SpacesService } from '../../services/spaces.service';
 
 export type DeletePopupContainerProps = {
   popupName: PopupNames,
@@ -32,7 +33,7 @@ export function DeletePopupContainer({
         setIsLoading(true);
 
         controller.emit(controllerEvent, (deleted: boolean) => {
-          setIsLoading(false);
+          resetStates();
 
           if (deleted) {
             const popupService: PopupService = new PopupService();
@@ -42,13 +43,22 @@ export function DeletePopupContainer({
       },
     },
     closeHanlder: () => {
-      setIsLoading(false);
-      setIsConfirmed(false);
-      setConfirmDeletionValue(EMPTY_STRING);
+      resetStates();
+
+      if (popupName === PopupNames.DELETE_SPACE) {
+        const spacesService: SpacesService = new SpacesService();
+        spacesService.resetSpaceStates();
+      }
     },
   };
 
   const popup: [PopupComponentProps, any] | null = usePopupProps(popupPropsHookParams);
+
+  function resetStates() {
+    setIsLoading(false);
+    setIsConfirmed(false);
+    setConfirmDeletionValue(EMPTY_STRING);
+  }
 
   if (popup === null) return <div></div>;
 
