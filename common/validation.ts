@@ -113,7 +113,7 @@ export class Validation {
   private defaultStringPattern(): Joi.StringSchema {
     return Joi.string()
       .trim()
-      .pattern(/^[-\w\s]+$/)
+      .pattern(/^[-\w\sа-яА-Я]+$/)
       .max(MAX_FIELD_LENGTH)
   }
 }

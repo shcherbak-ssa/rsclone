@@ -57,7 +57,7 @@ export class AppModel extends BaseModel {
   }
 
   private getAppInitialRoutePathname(): string {
-    if (location.pathname.startsWith(USERNAME_PATHNAME_INITIAL_STRING)) {
+    if (location.pathname.startsWith(`/${USERNAME_PATHNAME_INITIAL_STRING}`)) {
       return location.pathname;
     } else {
       const appRoutes: AppRoutes = new AppRoutesService();

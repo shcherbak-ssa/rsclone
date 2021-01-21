@@ -4,11 +4,11 @@ import { AppRoutes } from '../types/services.types';
 import { UserLocalStorageService } from './user-local-storage.service';
 
 export class AppRoutesService implements AppRoutes {
-  private initialPath: string;
+  private username: string;
 
   constructor() {
     const userLocalStorage: UserLocalStorageService = new UserLocalStorageService();
-    this.initialPath = USERNAME_PATHNAME_INITIAL_STRING + userLocalStorage.getUsername();
+    this.username = USERNAME_PATHNAME_INITIAL_STRING + userLocalStorage.getUsername();
   }
 
   getRootRoutePath(): string {
@@ -24,6 +24,6 @@ export class AppRoutesService implements AppRoutes {
   }
 
   private concatPaths(routePath: string): string {
-    return this.initialPath + routePath;
+    return routePath.replace(':username', this.username);
   }
 }

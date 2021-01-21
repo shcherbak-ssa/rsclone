@@ -9,6 +9,7 @@ import { SettingsContainer } from './settings.container';
 import { spacesEmojis } from '../data/spaces.data';
 import { EmojiService } from '../services/emoji.service';
 import { SpacesService } from '../services/spaces.service';
+import { AppRoutePathnames } from '../constants';
 
 export default function AppContainer() {
   // @TODO: fix change route after username updating
@@ -31,9 +32,9 @@ export default function AppContainer() {
   return (
     <AppComponent>
       <Switch>
-        <Route path={appRoutes.getRootRoutePath()} exact component={SpacesContainer}/>
-        <Route path={appRoutes.getSpacesRoutePath()} component={SpacesContainer}/>
-        <Route path={appRoutes.getSettingsRoutePath()} component={SettingsContainer}/>
+        <Route path={AppRoutePathnames.ROOT} exact component={SpacesContainer}/>
+        <Route path={AppRoutePathnames.SPACES} exact component={SpacesContainer}/>
+        <Route path={AppRoutePathnames.SETTINGS} exact component={SettingsContainer}/>
       </Switch>
     </AppComponent>
   );

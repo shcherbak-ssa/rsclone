@@ -7,9 +7,9 @@ export const CONTENT_TYPE_HEADER: string = 'Content-Type';
 export const ZERO: number = 0;
 
 export enum AppRoutePathnames {
-  ROOT = '/',
-  SPACES = '/spaces',
-  SETTINGS = '/settings',
+  ROOT = '/:username',
+  SPACES = '/:username/spaces',
+  SETTINGS = '/:username/settings',
   REGISTRATION = '/registration',
   LOGIN = '/login',
 };
