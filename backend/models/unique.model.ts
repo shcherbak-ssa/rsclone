@@ -2,25 +2,32 @@ import { UserDataLabels } from '../constants';
 import { ErrorLabels } from '../../common/constants';
 import { ValidationError } from '../../common/validation';
 import { usersCollectionDatabase } from '../database/users-collection.database';
+import { SpacesCollectionDatabase } from '../database/spaces-collection.database';
 
-export interface UniqueDatabase {
+export interface UniqueUserDatabase {
   isUsernameUnique(username: string): Promise<boolean>;
   isEmailUnique(email: string): Promise<boolean>;
 }
 
+export interface UniqueSpaceDatabase {
+  isSpacePathnameUnique(userID: string, spacePathname: string): Promise<boolean>;
+}
+
 export class UniqueModel {
-  private database: UniqueDatabase;
+  private userDatabase: UniqueUserDatabase;
+  private spaceDatabase: UniqueSpaceDatabase;
 
   constructor() {
-    this.database = usersCollectionDatabase;
+    this.userDatabase = usersCollectionDatabase;
+    this.spaceDatabase = new SpacesCollectionDatabase();
   }
   
   async isUsernameUnique(username: string): Promise<boolean> {
-    return await this.database.isUsernameUnique(username);
+    return await this.userDatabase.isUsernameUnique(username);
   }
 
   async checkExistingUserWithCurrentUsername(username: string): Promise<void> {
-    const isUsernameUnique: boolean = await this.database.isUsernameUnique(username);
+    const isUsernameUnique: boolean = await this.userDatabase.isUsernameUnique(username);
 
     if (!isUsernameUnique) {
       throw new ValidationError(
@@ -34,7 +41,7 @@ export class UniqueModel {
   }
 
   async checkExistingUserWithCurrentEmail(email: string): Promise<void> {
-    const isEmailUnique: boolean = await this.database.isEmailUnique(email);
+    const isEmailUnique: boolean = await this.userDatabase.isEmailUnique(email);
 
     if (!isEmailUnique) {
       throw new ValidationError(
@@ -45,5 +52,9 @@ export class UniqueModel {
         }
       );
     }
+  }
+
+  async isSpacePathnameUnique(userID: string, spacePathname: string): Promise<boolean> {
+    return await this.spaceDatabase.isSpacePathnameUnique(userID, spacePathname);
   }
 }

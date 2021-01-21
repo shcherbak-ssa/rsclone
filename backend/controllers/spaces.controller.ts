@@ -1,10 +1,12 @@
 import { StatusCodes } from '../../common/constants';
 import { SpacesValidationImpl } from '../validation/spaces.validation';
-import { NewSpace, Space, UpdatedSpace } from '../../common/entities';
+import { CreatedSpace, NewSpace, Space, UpdatedSpace } from '../../common/entities';
 import { BaseController } from './base.controller';
 import { SpacesModel } from '../models/spaces.model';
 import { ControllerData } from '../types/controller.types';
-import { ResponseSender } from '../types/services.types';
+import { ResponseSender, SpacePathname } from '../types/services.types';
+import { SpacePathnameService } from '../services/space-pathname.service';
+import { UserDataLabels } from '../constants';
 
 export interface SpacesValidation {
   validateCreatedSpace(newSpace: NewSpace): Promise<NewSpace>;
@@ -20,12 +22,14 @@ export enum SpacesControllerActions {
 export class SpacesController extends BaseController {
   private validation: SpacesValidation;
   private spacesModel: SpacesModel;
+  private spacePathname: SpacePathname;
 
   constructor() {
     super();
 
     this.validation = new SpacesValidationImpl();
     this.spacesModel = new SpacesModel();
+    this.spacePathname = new SpacePathnameService();
   }
 
   async runController(
@@ -51,7 +55,10 @@ export class SpacesController extends BaseController {
     userID: string, newSpace: NewSpace, responseSender: ResponseSender
   ): Promise<void> {
     newSpace = await this.validation.validateCreatedSpace(newSpace);
-    const space: Space = await this.spacesModel.createSpace(userID, newSpace);
+    const spacePathname: string = await this.spacePathname.createSpacePathname(userID, newSpace.name);
+
+    const createdSpace: CreatedSpace = {...newSpace, [UserDataLabels.SPACE_PATHNAME]: spacePathname};
+    const space: Space = await this.spacesModel.createSpace(userID, createdSpace);
 
     responseSender.sendSuccessJsonResponse(space, StatusCodes.CREATED);
   }
@@ -60,6 +67,8 @@ export class SpacesController extends BaseController {
     userID: string, updatedSpace: UpdatedSpace, responseSender: ResponseSender
   ): Promise<void> {
     updatedSpace = await this.validation.validateUpdatedSpace(updatedSpace);
+
+    await this.updateSpacePathname(userID, updatedSpace);
     await this.spacesModel.updateSpace(userID, updatedSpace);
 
     responseSender.sendSuccessJsonResponse(updatedSpace);
@@ -70,5 +79,14 @@ export class SpacesController extends BaseController {
   ): Promise<void> {
     await this.spacesModel.deleteSpace(userID, deletedSpaceID);
     responseSender.sendSuccessJsonResponse({deletedSpaceID});
+  }
+
+  private async updateSpacePathname(userID: string, updatedSpace: UpdatedSpace): Promise<void> {
+    if (UserDataLabels.SPACE_NAME in updatedSpace.updates) {
+      const newSpaceName: string = updatedSpace.updates[UserDataLabels.SPACE_NAME];
+      const newSpacePathname: string = await this.spacePathname.createSpacePathname(userID, newSpaceName);
+
+      updatedSpace.updates = {...updatedSpace.updates, [UserDataLabels.SPACE_PATHNAME]: newSpacePathname};
+    }
   }
 }

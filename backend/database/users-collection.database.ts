@@ -8,7 +8,7 @@ import { CreateUserDatabase } from '../models/registration.model';
 import { FoundLoginUser, LoginUserDatabase } from '../models/login.model';
 import { GetUsernameDatabase } from '../models/auth-user.model';
 import { UsersDatabase } from '../models/users.model';
-import { UniqueDatabase } from '../models/unique.model';
+import { UniqueUserDatabase } from '../models/unique.model';
 import { KeyboardShortcut } from '../../common/entities';
 import { AvatarsDatabase } from '../models/avatars.model';
 
@@ -17,7 +17,7 @@ export let usersCollectionDatabase: UsersCollectionDatabase;
 export class UsersCollectionDatabase implements
   GetUsernameDatabase,
   CreateUserDatabase,
-  UniqueDatabase,
+  UniqueUserDatabase,
   LoginUserDatabase,
   UsersDatabase,
   AvatarsDatabase

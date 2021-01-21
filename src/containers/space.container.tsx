@@ -56,6 +56,7 @@ export function SpaceContainer({space}: SpaceContainerProps) {
   };
 
   function openSpacePopup(popupName: PopupNames) {
+    console.log(space);
     const activeSpace: ActiveSpace = {
       space,
       callback: () => {

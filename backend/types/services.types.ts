@@ -15,3 +15,7 @@ export interface Username {
 export interface UserFiles {
   deleteUserFilesFolder(userID: string): Promise<void>;
 }
+
+export interface SpacePathname {
+  createSpacePathname(userID: string, spaceName: string): Promise<string>;
+}

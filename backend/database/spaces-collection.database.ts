@@ -3,10 +3,20 @@ import { Cursor, ObjectID } from 'mongodb';
 import { DatabaseCollectionService } from '../services/database-collection.service';
 import { SpacesDatabase } from '../models/spaces.model';
 import { DatabaseDBService } from '../services/database-db.service';
-import { CollectionNames } from '../constants';
-import { NewSpace, Space, UpdatedSpace } from '../../common/entities';
+import { CollectionNames, UserDataLabels } from '../constants';
+import { CreatedSpace, NewSpace, Space, UpdatedSpace } from '../../common/entities';
+import { UniqueSpaceDatabase } from '../models/unique.model';
 
-export class SpacesCollectionDatabase implements SpacesDatabase {
+export class SpacesCollectionDatabase implements SpacesDatabase, UniqueSpaceDatabase {
+  private async getUserSpacesCollection(userID: string): Promise<DatabaseCollectionService> {
+    return DatabaseDBService.createDatabase(userID).createCollection(CollectionNames.SPACES);
+  }
+
+  private getSpaceSearchFilter(spaceID: string): {_id: ObjectID} {
+    return { _id: new ObjectID(spaceID) };
+  }
+
+  // implements SpacesDatabase
   async getSpaces(userID: string): Promise<Space[]> {
     const userSpacesCollection: DatabaseCollectionService = await this.getUserSpacesCollection(userID);
     const result: Cursor = await userSpacesCollection.getDocuments();
@@ -20,12 +30,12 @@ export class SpacesCollectionDatabase implements SpacesDatabase {
     return spaces;
   }
 
-  async createSpace(userID: string, newSpace: NewSpace): Promise<Space> {
+  async createSpace(userID: string, createdSpace: CreatedSpace): Promise<Space> {
     const userSpacesCollection: DatabaseCollectionService = await this.getUserSpacesCollection(userID);
-    const createdSpaceID: string = await userSpacesCollection.createDocument(newSpace);
+    const createdSpaceID: string = await userSpacesCollection.createDocument(createdSpace);
 
-    delete (newSpace as any)._id;
-    return {...newSpace, id: createdSpaceID};
+    delete (createdSpace as any)._id;
+    return {...createdSpace, id: createdSpaceID};
   }
 
   async updateSpace(userID: string, {id, updates}: UpdatedSpace): Promise<void> {
@@ -44,11 +54,13 @@ export class SpacesCollectionDatabase implements SpacesDatabase {
     await userSpacesCollection.deleteDocument(deleteSpaceFilter);
   }
 
-  private async getUserSpacesCollection(userID: string): Promise<DatabaseCollectionService> {
-    return DatabaseDBService.createDatabase(userID).createCollection(CollectionNames.SPACES);
-  }
+  // implements UniqueSpaceDatabase
+  async isSpacePathnameUnique(userID: string, spacePathname: string): Promise<boolean> {
+    const userSpacesCollection: DatabaseCollectionService = await this.getUserSpacesCollection(userID);
+    const uniqueQuery = {
+      [UserDataLabels.SPACE_PATHNAME]: spacePathname,
+    };
 
-  private getSpaceSearchFilter(spaceID: string): {_id: ObjectID} {
-    return { _id: new ObjectID(spaceID) };
+    return await userSpacesCollection.isUnique(uniqueQuery);
   }
 }

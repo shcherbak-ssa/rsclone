@@ -8,7 +8,7 @@ import {
   ShortcurtsSections,
   ShortcutsLabels,
 } from './constants';
-import { UserDataLabels } from '../src/constants';
+import { UserDataLabels } from '../backend/constants';
 import { spaceColors } from './data';
 
 const MIN_PASSWORD_LENGTH: number = 8;

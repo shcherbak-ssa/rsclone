@@ -9,18 +9,21 @@ export type Space = {
   name: string,
   color: string,
   logo: string,
+  pathname: string,
 };
 
 export type NewSpace = {
   name: string,
   color: string,
   logo: string,
+  pathname?: string,
 };
 
 export type CreatedSpace = {
   name: string,
   color: string,
   logo: string,
+  pathname: string,
 };
 
 export type UpdatedSpace = {

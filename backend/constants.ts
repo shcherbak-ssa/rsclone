@@ -1,8 +1,9 @@
 export const INDEX_FILENAME: string = 'index.html';
 export const ASSETS_EXTNAME_REGEXP: RegExp = /^\.(js|css|png|svg|ico)$/;
-export const EMPTY_VALUE_LENGTH: number = 0;
-
 export const USERS_FILES_DB_DIRNAME: string = 'db';
+export const MINUS_REPLACE_STRING: string = '-';
+export const EMPTY_VALUE_LENGTH: number = 0;
+export const INITIAL_PATHNAME_COUNT: number = 1;
 
 export enum DatabaseNames {
   USERS = 'users',
@@ -32,4 +33,5 @@ export enum UserDataLabels {
   SPACE_NAME = 'name',
   SPACE_COLOR = 'color',
   SPACE_LOGO = 'logo',
+  SPACE_PATHNAME = 'pathname',
 };

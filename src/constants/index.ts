@@ -28,6 +28,7 @@ export enum UserDataLabels {
   SPACE_NAME = 'name',
   SPACE_COLOR = 'color',
   SPACE_LOGO = 'logo',
+  SPACE_PATHNAME = 'pathname',
 };
 
 export enum Stores {
