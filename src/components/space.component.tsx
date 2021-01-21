@@ -22,6 +22,7 @@ export function SpaceComponent({
 }: SpaceComponentProps) {
   const spaceLogoProps: SpaceLogoComponentProps = {
     color: space.color as SpaceColors,
+    logo: space.logo,
   };
 
   const spaceIconClassnames = classnames('space-icon', {

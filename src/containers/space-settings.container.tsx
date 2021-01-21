@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { spaceColors } from '../../common/data';
-import { SpaceLogoTypes } from '../constants/ui.constants';
-import { SpaceLogoComponent, SpaceLogoComponentProps } from '../components/space-logo.component';
 import { SettingsGroupComponent, SettingsGroupComponentProps } from '../components/settings-group.component';
 import { SettingsGroupLabels, SettingsSectionLabels, UserDataLabels } from '../constants';
 import { useSettingsGroupProps, SettingsGroupPropsHookParams } from '../hooks/settings-group-props.hook';
@@ -15,9 +13,13 @@ import { SpaceColorComponent, SpaceColorComponentProps } from '../components/spa
 import { useUserDraftState } from '../hooks/user-draft-state.hook';
 import { UpdatedDraftValue, userDraftController } from '../controllers/user-draft.controller';
 import { UserDraftEvents } from '../constants/events.constants';
+import { SpaceSettingsLogoComponent, SpaceSettingsLogoComponentProps } from '../components/space-settings-logo.component';
+import { DropdownSpaceLogoComponent, DropdownSpaceLogoComponentProps } from '../components/dropdown-space-logo.component';
 
 export function SpaceSettingsContainer() {
   const activeColor = useUserDraftState(UserDataLabels.SPACE_COLOR);
+  const spaceLogo = useUserDraftState(UserDataLabels.SPACE_LOGO);
+  const [isDropdownSpaceLogoOpen, setIsDropdownSpaceLogoOpen] = useState(false);
 
   const colorGroupPropsHookParams: SettingsGroupPropsHookParams = {
     sectionLabel: SettingsSectionLabels.SPACE,
@@ -28,9 +30,19 @@ export function SpaceSettingsContainer() {
     dataLabel: UserDataLabels.SPACE_NAME,
   };
 
-  const spaceLogoProps: SpaceLogoComponentProps = {
-    logoType: SpaceLogoTypes.SETTINGS,
-    color: activeColor,
+  const spaceSettingsLogoProps: SpaceSettingsLogoComponentProps = {
+    activeColor,
+    currentLogo: spaceLogo,
+    clickHandler: () => {
+      setIsDropdownSpaceLogoOpen(!isDropdownSpaceLogoOpen);
+    },
+  };
+
+  const dropdownSpaceLogoProps: DropdownSpaceLogoComponentProps = {
+    selectSpaceLogo: (selectedSpaceLogo: string) => {
+      setIsDropdownSpaceLogoOpen(false);
+      updateSpaceLogo(selectedSpaceLogo);
+    },
   };
 
   const spaceNameInputProps: BaseInputProps = useUserInputProps(spaceNameInputPropsHookParams);
@@ -50,6 +62,10 @@ export function SpaceSettingsContainer() {
     });
   }
 
+  function drawDropdownSpaceLogo() {
+    return isDropdownSpaceLogoOpen ? <DropdownSpaceLogoComponent {...dropdownSpaceLogoProps}/> : '';
+  }
+
   function setActiveColor(nextColor: SpaceColors) {
     const updatedDraftData: UpdatedDraftValue = {
       value: nextColor,
@@ -59,12 +75,22 @@ export function SpaceSettingsContainer() {
     userDraftController.emit(UserDraftEvents.UPDATE_VALUE, updatedDraftData);
   }
 
+  function updateSpaceLogo(selectedSpaceLogo: string) {
+    const updatedDraftData: UpdatedDraftValue = {
+      value: selectedSpaceLogo,
+      dataLabel: UserDataLabels.SPACE_LOGO,
+    };
+
+    userDraftController.emit(UserDraftEvents.UPDATE_VALUE, updatedDraftData);
+  }
+
   return (
     <>
       <SpaceSettingsDataComponent>
-        <SpaceLogoComponent {...spaceLogoProps}/>
+        <SpaceSettingsLogoComponent {...spaceSettingsLogoProps}/>
         <Base.Input {...spaceNameInputProps}/>
       </SpaceSettingsDataComponent>
+      {drawDropdownSpaceLogo()}
       <SettingsGroupComponent {...colorSettingsGroupProps}>
         <SpaceColorContainerComponent>
           {drawColors()}

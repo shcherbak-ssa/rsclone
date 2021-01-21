@@ -38,17 +38,15 @@ export function DeletePopupContainer({
           if (deleted) {
             const popupService: PopupService = new PopupService();
             popupService.closePopup(popupName);
+
+            resetSpaceStates();
           }
         });
       },
     },
     closeHanlder: () => {
       resetStates();
-
-      if (popupName === PopupNames.DELETE_SPACE) {
-        const spacesService: SpacesService = new SpacesService();
-        spacesService.resetSpaceStates();
-      }
+      resetSpaceStates();
     },
   };
 
@@ -58,6 +56,13 @@ export function DeletePopupContainer({
     setIsLoading(false);
     setIsConfirmed(false);
     setConfirmDeletionValue(EMPTY_STRING);
+  }
+
+  function resetSpaceStates() {
+    if (popupName === PopupNames.DELETE_SPACE) {
+      const spacesService: SpacesService = new SpacesService();
+      spacesService.resetSpaceStates();
+    }
   }
 
   if (popup === null) return <div></div>;

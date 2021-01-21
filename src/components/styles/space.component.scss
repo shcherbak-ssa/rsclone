@@ -102,7 +102,6 @@
     }
 
     .dropdown {
-      animation: show-space-dropdown .2s;
       top: 120%;
       right: -10px;
 
@@ -111,12 +110,5 @@
         right: 16px;
       }
     }
-  }
-}
-
-@keyframes show-space-dropdown {
-  from {
-    opacity: 0;
-    top: 40%;
   }
 }

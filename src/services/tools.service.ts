@@ -17,4 +17,8 @@ export class ToolsService implements InitialInputState {
     const randomNumber: number = min + Math.random() * (max + 1 - min);
     return Math.floor(randomNumber);
   }
+
+  getElements(from: any[], start: number, count: number): any[] {
+    return from.slice(start, start + count);
+  }
 }

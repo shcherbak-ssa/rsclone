@@ -9,10 +9,11 @@ import { AssetsService } from '../services/assets.service';
 export type SpaceLogoComponentProps = {
   logoType?: SpaceLogoTypes,
   color: SpaceColors,
+  logo: string,
 };
 
 export function SpaceLogoComponent({
-  logoType = SpaceLogoTypes.SPACE, color,
+  logoType = SpaceLogoTypes.SPACE, color, logo,
 }: SpaceLogoComponentProps) {
   const componentClassnames = classnames('space-logo', logoType);
 
@@ -25,6 +26,8 @@ export function SpaceLogoComponent({
       className={componentClassnames} 
       data-class="flex-center"
       style={setBackgroundColorStyle()}
-    ></div>
+    >
+      {logo}
+    </div>
   );
 }

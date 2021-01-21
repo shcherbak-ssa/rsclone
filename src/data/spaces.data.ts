@@ -2,6 +2,8 @@ import { Space } from '../../common/entities';
 import { UserDataLabels } from '../constants';
 import { EMPTY_STRING } from '../constants/strings.constants';
 
+export let spacesEmojis: string[] = [];
+
 export const spacesDataLabels: UserDataLabels[] = [
   UserDataLabels.SPACE_ID,
   UserDataLabels.SPACE_COLOR,
