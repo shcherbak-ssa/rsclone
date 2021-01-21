@@ -38,4 +38,5 @@ export enum AvatarEvents {
 export enum SpacesEvents {
   CREATE_SPACE = 'spaces-events/create-space',
   UPDATE_SPACE = 'spaces-events/update-space',
+  DELETE_SPACE = 'spaces-events/delete-space',
 };

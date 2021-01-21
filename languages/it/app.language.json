@@ -122,6 +122,14 @@
       "description": "Digita 'DELETE ME' per confermare",
       "confirmWord": "DELETE ME"
     },
+    "delete-space": {
+      "title": "Eliminare l'spazio",
+      "confirmButtonValue": "Elimina",
+      "message": "Questa azione non può essere annullata. Questo eliminerà definitivamente il progetto",
+      "placeholder": "Digita 'DELETE'",
+      "description": "Digita 'DELETE' per confermare",
+      "confirmWord": "DELETE"
+    },
     "create-space": {
       "title": "Crea uno spazio",
       "confirmButtonValue": "Creare"

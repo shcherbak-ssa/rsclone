@@ -9,7 +9,9 @@ import { UserDraftStoreState } from '../types/user-draft.types';
 
 export const spacesController: Controller = new EventEmitter();
 
-spacesController.on(SpacesEvents.CREATE_SPACE, createSpaceHandler);
+spacesController
+  .on(SpacesEvents.CREATE_SPACE, createSpaceHandler)
+  .on(SpacesEvents.DELETE_SPACE, deleteSpaceHandler);
 
 async function createSpaceHandler(callback: Function): Promise<void> {
   const spaceDataLabels: UserDataLabels[] = [
@@ -29,4 +31,10 @@ async function createSpaceHandler(callback: Function): Promise<void> {
   }
 
   callback(isCreatedSuccess)
+}
+
+async function deleteSpaceHandler(callback: Function) {
+  const userDraftModel: UserDraftModel = new UserDraftModel();
+  const deleteSpaceID = userDraftModel.getDraftState(UserDataLabels.SPACE_ID) as string;
+  console.log(deleteSpaceID);
 }

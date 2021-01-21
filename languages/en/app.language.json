@@ -122,6 +122,14 @@
       "description": "Type 'DELETE ME' to confirm",
       "confirmWord": "DELETE ME"
     },
+    "delete-space": {
+      "title": "Delete space",
+      "confirmButtonValue": "Delete",
+      "message": "This action cannot be undone. This will permanently delete the project",
+      "placeholder": "Type 'DELETE'",
+      "description": "Type 'DELETE' to confirm",
+      "confirmWord": "DELETE"
+    },
     "create-space": {
       "title": "Create a space",
       "confirmButtonValue": "Create"

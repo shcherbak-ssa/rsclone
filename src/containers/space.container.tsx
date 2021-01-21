@@ -37,9 +37,10 @@ export function SpaceContainer({space}: SpaceContainerProps) {
     itemClickHandler: (label?: DropdownItemLabels) => {
       switch (label) {
         case DropdownItemLabels.SETTINGS_SPACE:
-          openUpdateSpacePopup();
+          openSpacePopup(PopupNames.UPDATE_SPACE);
           break;
         case DropdownItemLabels.DELETE_SPACE:
+          openSpacePopup(PopupNames.DELETE_SPACE);
           break;
       }
     },
@@ -53,12 +54,12 @@ export function SpaceContainer({space}: SpaceContainerProps) {
     },
   };
 
-  function openUpdateSpacePopup() {
+  function openSpacePopup(popupName: PopupNames) {
     const setSpace: SetSpace = {
       space,
       callback: () => {
         const popupService: PopupService = new PopupService();
-        popupService.openPopup(PopupNames.UPDATE_SPACE);
+        popupService.openPopup(popupName);
       },
     };
 

@@ -41,6 +41,11 @@ export function DeletePopupContainer({
         });
       },
     },
+    closeHanlder: () => {
+      setIsLoading(false);
+      setIsConfirmed(false);
+      setConfirmDeletionValue(EMPTY_STRING);
+    },
   };
 
   const popup: [PopupComponentProps, any] | null = usePopupProps(popupPropsHookParams);

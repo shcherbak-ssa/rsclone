@@ -33,6 +33,7 @@ export enum ActionIconLabels {
 export enum PopupNames {
   LOGOUT = 'logout',
   DELETE_ACCOUNT = 'delete-account',
+  DELETE_SPACE = 'delete-space',
   CREATE_SPACE = 'create-space',
   UPDATE_SPACE = 'update-space',
 };

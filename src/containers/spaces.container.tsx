@@ -15,6 +15,8 @@ import { PopupService } from '../services/popup.service';
 import { PopupNames } from '../constants/ui.constants';
 import { SpaceContainerProps, SpaceContainer } from './space.container';
 import { SpacesEvents } from '../constants/events.constants';
+import { DeletePopupContainer, DeletePopupContainerProps } from './popups/delete-popup.container';
+import { spacesController } from '../controllers/spaces.controller';
 
 export function SpacesContainer() {
   const spacesLanguage = useAppLanguage().homepage.spaces;
@@ -42,6 +44,12 @@ export function SpacesContainer() {
   const updateSpacePopupProps: SpacePopupContainerProps = {
     popupName: PopupNames.UPDATE_SPACE,
     spaceEvent: SpacesEvents.UPDATE_SPACE,
+  };
+
+  const deleteSpacePopupProps: DeletePopupContainerProps = {
+    popupName: PopupNames.DELETE_SPACE,
+    controller: spacesController,
+    controllerEvent: SpacesEvents.DELETE_SPACE,
   };
 
   function drawSpaces() {
@@ -72,6 +80,7 @@ export function SpacesContainer() {
       {drawSpaces()}
       <SpacePopupContainer {...createSpacePopupProps}/>
       <SpacePopupContainer {...updateSpacePopupProps}/>
+      <DeletePopupContainer {...deleteSpacePopupProps}/>
     </HomepageContainer>
   );
 }
