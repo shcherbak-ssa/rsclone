@@ -12,4 +12,9 @@ export class ToolsService implements InitialInputState {
   getSelectedItem(items: Array<{label: string}>, label: string): {label: string} {
     return items.find((item) => item.label === label);
   }
+
+  getRandomNumber(min: number, max: number) {
+    const randomNumber: number = min + Math.random() * (max + 1 - min);
+    return Math.floor(randomNumber);
+  }
 }

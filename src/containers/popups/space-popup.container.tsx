@@ -58,6 +58,7 @@ export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainer
       },
     },
     closeHanlder: () => {
+      setIsInProgress(false);
       spacesService.resetSpaceStates();
     },
   };

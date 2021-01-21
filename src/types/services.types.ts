@@ -1,4 +1,4 @@
-import { LanguageLabels } from "../../common/constants";
+import { LanguageLabels, SpaceColors } from "../../common/constants";
 import { UserLocalStorageType } from "./user.types";
 
 export interface Response {
@@ -56,4 +56,8 @@ export interface UsersUrlPathname {
   getAvatarsPathname(): string;
   getSpacesPathname(): string;
   getLanguagePathname(language: LanguageLabels): string;
+}
+
+export interface Spaces {
+  getRandomColor(): SpaceColors;
 }

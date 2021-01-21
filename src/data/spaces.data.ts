@@ -10,8 +10,8 @@ export const spacesDataLabels: UserDataLabels[] = [
 ];
 
 export const resetActiveSpaceData: Space = {
-  id: EMPTY_STRING,
-  name: EMPTY_STRING,
-  color: EMPTY_STRING,
-  logo: EMPTY_STRING,
+  [UserDataLabels.SPACE_ID]: EMPTY_STRING,
+  [UserDataLabels.SPACE_COLOR]: EMPTY_STRING,
+  [UserDataLabels.SPACE_NAME]: EMPTY_STRING,
+  [UserDataLabels.SPACE_LOGO]: EMPTY_STRING,
 };

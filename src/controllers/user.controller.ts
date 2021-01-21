@@ -41,6 +41,7 @@ function syncDraftHandler() {
 function setActiveSpaceHandler({space, callback}: ActiveSpace) {
   const userModel: UserModel = new UserModel();
   userModel.setActiveSpace(space);
+  userModel.syncDraft();
 
   callback();
 }

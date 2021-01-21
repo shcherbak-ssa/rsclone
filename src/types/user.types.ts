@@ -1,6 +1,8 @@
 import { LanguageLabels, SpaceColors, Themes } from '../../common/constants';
 import { KeyboardShortcut, Space } from '../../common/entities';
 import { UserDataLabels } from '../constants';
+import { SpacesService } from '../services/spaces.service';
+import { Spaces } from './services.types';
 
 export type UserLocalStorageType = null | {
   token: string;
@@ -42,6 +44,8 @@ export type GetUser = {
 
 export type UserDataValue = string | KeyboardShortcut[];
 
+const spacesService: Spaces = new SpacesService();
+
 export const initialState: UserStoreState = {
   [UserDataLabels.AVATAR]: '',
   [UserDataLabels.FULLNAME]: '',
@@ -54,7 +58,7 @@ export const initialState: UserStoreState = {
   [UserDataLabels.SHORTCUTS]: [],
   [UserDataLabels.SPACE_ID]: '',
   [UserDataLabels.SPACE_NAME]: '',
-  [UserDataLabels.SPACE_COLOR]: SpaceColors.BLUE,
+  [UserDataLabels.SPACE_COLOR]: spacesService.getRandomColor(),
   [UserDataLabels.SPACE_LOGO]: '',
 };
 
