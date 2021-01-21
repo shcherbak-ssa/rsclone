@@ -8,6 +8,7 @@ import { SpacesContainer } from './spaces.container';
 import { SettingsContainer } from './settings.container';
 import { spacesEmojis } from '../data/spaces.data';
 import { EmojiService } from '../services/emoji.service';
+import { SpacesService } from '../services/spaces.service';
 
 export default function AppContainer() {
   // @TODO: fix change route after username updating
@@ -21,6 +22,10 @@ export default function AppContainer() {
   async function loadSpacesEmojis() {
     const emojiService: EmojiService = new EmojiService();
     spacesEmojis = await emojiService.getAllEmojis();
+
+    const spacesService: SpacesService = new SpacesService();
+    const randomEmoji: string = spacesService.getRandomEmoji();
+    spacesService.updateSpaceLogo(randomEmoji);
   }
 
   return (

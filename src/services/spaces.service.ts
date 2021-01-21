@@ -1,18 +1,26 @@
 import { SpaceColors } from '../../common/constants';
 import { spaceColors } from '../../common/data';
 import { UserDataLabels, ZERO } from '../constants';
-import { UserEvents } from '../constants/events.constants';
+import { UserDraftEvents, UserEvents } from '../constants/events.constants';
+import { UpdatedDraftValue, userDraftController } from '../controllers/user-draft.controller';
 import { ActiveSpace, userController } from '../controllers/user.controller';
-import { resetActiveSpaceData } from '../data/spaces.data';
+import { resetActiveSpaceData, spacesEmojis } from '../data/spaces.data';
 import { Spaces } from '../types/services.types';
 import { ToolsService } from './tools.service';
 
 export class SpacesService implements Spaces {
+  private toolsService: ToolsService;
+
+  constructor() {
+    this.toolsService = new ToolsService();
+  }
+
   resetSpaceStates() {
     const activeSpace: ActiveSpace = {
       space: {
         ...resetActiveSpaceData,
         [UserDataLabels.SPACE_COLOR]: this.getRandomColor(),
+        [UserDataLabels.SPACE_LOGO]: this.getRandomEmoji(),
       },
       callback: () => {},
     };
@@ -20,9 +28,22 @@ export class SpacesService implements Spaces {
     userController.emit(UserEvents.SET_ACTIVE_SPACE, activeSpace);
   }
 
+  updateSpaceLogo(selectedSpaceLogo: string) {
+    const updatedDraftData: UpdatedDraftValue = {
+      value: selectedSpaceLogo,
+      dataLabel: UserDataLabels.SPACE_LOGO,
+    };
+
+    userDraftController.emit(UserDraftEvents.UPDATE_VALUE, updatedDraftData);
+  }
+
   getRandomColor(): SpaceColors {
-    const toolsService: ToolsService = new ToolsService();
-    const randomIndex: number = toolsService.getRandomNumber(ZERO, spaceColors.length);
+    const randomIndex: number = this.toolsService.getRandomNumber(ZERO, spaceColors.length - 1);
     return spaceColors[randomIndex];
+  }
+
+  getRandomEmoji(): string {
+    const randomIndex: number = this.toolsService.getRandomNumber(ZERO, spacesEmojis.length - 1);
+    return spacesEmojis[randomIndex];
   }
 }

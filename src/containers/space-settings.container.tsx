@@ -15,6 +15,7 @@ import { UpdatedDraftValue, userDraftController } from '../controllers/user-draf
 import { UserDraftEvents } from '../constants/events.constants';
 import { SpaceSettingsLogoComponent, SpaceSettingsLogoComponentProps } from '../components/space-settings-logo.component';
 import { DropdownSpaceLogoComponent, DropdownSpaceLogoComponentProps } from '../components/dropdown-space-logo.component';
+import { SpacesService } from '../services/spaces.service';
 
 export function SpaceSettingsContainer() {
   const activeColor = useUserDraftState(UserDataLabels.SPACE_COLOR);
@@ -41,7 +42,9 @@ export function SpaceSettingsContainer() {
   const dropdownSpaceLogoProps: DropdownSpaceLogoComponentProps = {
     selectSpaceLogo: (selectedSpaceLogo: string) => {
       setIsDropdownSpaceLogoOpen(false);
-      updateSpaceLogo(selectedSpaceLogo);
+
+      const spacesService: SpacesService = new SpacesService();
+      spacesService.updateSpaceLogo(selectedSpaceLogo);
     },
   };
 
@@ -70,15 +73,6 @@ export function SpaceSettingsContainer() {
     const updatedDraftData: UpdatedDraftValue = {
       value: nextColor,
       dataLabel: UserDataLabels.SPACE_COLOR,
-    };
-
-    userDraftController.emit(UserDraftEvents.UPDATE_VALUE, updatedDraftData);
-  }
-
-  function updateSpaceLogo(selectedSpaceLogo: string) {
-    const updatedDraftData: UpdatedDraftValue = {
-      value: selectedSpaceLogo,
-      dataLabel: UserDataLabels.SPACE_LOGO,
     };
 
     userDraftController.emit(UserDraftEvents.UPDATE_VALUE, updatedDraftData);

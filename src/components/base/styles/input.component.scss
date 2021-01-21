@@ -28,6 +28,7 @@
   &-placeholder {
     transition: .2s;
     transform: translateY(-50%);
+    user-select: none;
     -x-position: absolute 50% x x 16px;
 
     .original-theme & {

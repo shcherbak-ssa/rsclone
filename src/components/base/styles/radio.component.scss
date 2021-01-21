@@ -40,6 +40,7 @@
   }
 
   &-description {
+    user-select: none;
     -x-font-size: 16px/24px;
 
     .original-theme & {

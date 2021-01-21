@@ -4,6 +4,7 @@
   border-radius: 3px;
   padding: 16px;
   transition: .2s;
+  user-select: none;
   width: 100%;
 
   &:hover .space-icon {
@@ -37,6 +38,9 @@
 
   &-title {
     font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     -x-font-size: 16px/32px;
 
     .original-theme & {
