@@ -34,8 +34,10 @@ export function DeletePopupContainer({
         controller.emit(controllerEvent, (deleted: boolean) => {
           setIsLoading(false);
 
-          const popupService: PopupService = new PopupService();
-          popupService.closePopup(popupName);
+          if (deleted) {
+            const popupService: PopupService = new PopupService();
+            popupService.closePopup(popupName);
+          }
         });
       },
     },

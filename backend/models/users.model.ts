@@ -1,15 +1,12 @@
-import { GetUser, User } from '../types/user.types';
+import { User } from '../types/user.types';
 import { usersCollectionDatabase } from '../database/users-collection.database';
 import { UpdatedUserData } from '../types/user.types';
-import { EMPTY_VALUE_LENGTH } from '../../src/constants';
-import { UniqueModel } from './unique.model';
-import { DatabaseNames, UserDataLabels } from '../constants';
-import { KeyboardShortcut, Space } from '../../common/entities';
-import { ClientError } from '../services/errors.service';
+import { UserDataLabels } from '../constants';
+import { KeyboardShortcut } from '../../common/entities';
+import { ClientError, ServerError } from '../services/errors.service';
 import { ErrorLabels, StatusCodes } from '../../common/constants';
 import { UserFiles } from '../types/services.types';
 import { UserFilesService } from '../services/user-files.service';
-import { SpacesModel } from './spaces.model';
 import { DeleteDatabase } from '../types/database.types';
 import { DatabaseDBService } from '../services/database-db.service';
 
@@ -24,28 +21,17 @@ export interface UsersDatabase {
 export class UsersModel {
   private database: UsersDatabase;
   private userFiles: UserFiles;
-  private uniqueModel: UniqueModel;
-  private spacesModel: SpacesModel;
   
   constructor() {
     this.database = usersCollectionDatabase;
     this.userFiles = new UserFilesService();
-    this.uniqueModel = new UniqueModel();
-    this.spacesModel = new SpacesModel();
   }
 
-  async getUser(userID: string): Promise<GetUser> {
-    const user: User = await this.database.getUser(userID);
-    const spaces: Space[] = await this.spacesModel.getSpaces(userID);
-
-    return {user, spaces};
+  async getUser(userID: string): Promise<User> {
+    return await this.database.getUser(userID);
   }
 
   async updateUser(userID: string, updatedData: UpdatedUserData): Promise<any> {
-    if (Object.keys(updatedData).length === EMPTY_VALUE_LENGTH) return {};
-
-    await this.checkExistingUserWithCurrentUsername(updatedData);
-    await this.checkExistingUserWithCurrentEmail(updatedData);
     await this.validatePassword(userID, updatedData);
     await this.preparingKeyboardShorcutsForUpdating(userID, updatedData);
 
@@ -56,26 +42,16 @@ export class UsersModel {
   }
 
   async deleteUser(userID: string): Promise<any> {
-    await this.database.deleteUser(userID);
-    await this.userFiles.deleteUserFilesFolder(userID);
+    try {
+      await this.database.deleteUser(userID);
+      await this.userFiles.deleteUserFilesFolder(userID);
 
-    const userDatabase: DeleteDatabase = DatabaseDBService.createDatabase(userID);
-    await userDatabase.delete();
+      const userDatabase: DeleteDatabase = DatabaseDBService.createDatabase(userID);
+      await userDatabase.delete();
 
-    return { deleted: true };
-  }
-
-  private async checkExistingUserWithCurrentUsername(updatedData: UpdatedUserData): Promise<void> {
-    if (UserDataLabels.USERNAME in updatedData) {
-      const username = updatedData[UserDataLabels.USERNAME] as string;
-      await this.uniqueModel.checkExistingUserWithCurrentUsername(username);
-    }
-  }
-
-  private async checkExistingUserWithCurrentEmail(updatedData: UpdatedUserData): Promise<void> {
-    if (UserDataLabels.EMAIL in updatedData) {
-      const email = updatedData[UserDataLabels.EMAIL] as string;
-      await this.uniqueModel.checkExistingUserWithCurrentEmail(email);
+      return { deleted: true };
+    } catch (error) {
+      throw new ServerError(error.message, {deleted: false});
     }
   }
 

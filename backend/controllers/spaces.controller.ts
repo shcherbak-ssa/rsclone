@@ -4,6 +4,7 @@ import { NewSpace, Space } from '../../common/entities';
 import { BaseController } from './base.controller';
 import { SpacesModel } from '../models/spaces.model';
 import { ControllerData } from '../types/controller.types';
+import { ResponseSender } from '../types/services.types';
 
 export interface SpacesValidation {
   validateCreatedSpace(newSpace: NewSpace): Promise<NewSpace>;
@@ -19,36 +20,32 @@ export class SpacesController extends BaseController {
 
   constructor() {
     super();
+
     this.validation = new SpacesValidationImpl();
     this.spacesModel = new SpacesModel();
   }
 
   async runController(
-    action: SpacesControllerActions, controllerData: ControllerData
+    action: SpacesControllerActions, {userID, body, responseSender}: ControllerData
   ): Promise<void> {
-    const {responseSender} = controllerData;
-    const actionResult: any = await super.runController(action, controllerData);
+    try {
+      if (!userID) throw this.unknowUserIDError();
 
-    if (actionResult !== null) {
-      if (action === SpacesControllerActions.CREATE_SPACE) {
-        responseSender.sendSuccessJsonResponse(actionResult, StatusCodes.CREATED);
-      } else {
-        responseSender.sendSuccessJsonResponse(actionResult);
+      switch (action) {
+        case SpacesControllerActions.CREATE_SPACE:
+          return await this.createSpace(userID, body, responseSender);
       }
+    } catch (error) {
+      responseSender.sendErrorResponse(error);
     }
   }
 
-  protected async doAction(
-    action: SpacesControllerActions, userID: string, body: any
-  ): Promise<any> {
-    switch (action) {
-      case SpacesControllerActions.CREATE_SPACE:
-        return await this.createSpace(userID, body);
-    }
-  }
-
-  private async createSpace(userID: string, newSpace: NewSpace): Promise<Space> {
+  private async createSpace(
+    userID: string, newSpace: NewSpace, responseSender: ResponseSender
+  ): Promise<void> {
     newSpace = await this.validation.validateCreatedSpace(newSpace);
-    return await this.spacesModel.createSpace(userID, newSpace);
+    const space: Space = await this.spacesModel.createSpace(userID, newSpace);
+
+    responseSender.sendSuccessJsonResponse(space, StatusCodes.CREATED);
   }
 }

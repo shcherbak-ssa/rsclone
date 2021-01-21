@@ -13,9 +13,10 @@ export class UserDeleteModel extends BaseModel {
         const logout: Logout = new LogoutService();
         logout.logoutUser();
       }
+
+      return deletionResult.deleted;
     } catch (error) {
       console.log(error);
-    } finally {
       return false;
     }
   }

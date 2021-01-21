@@ -1,7 +1,4 @@
 import { AvatarsService } from '../services/avatars.service';
-import { UsersModel } from './users.model';
-import { UpdatedUserData } from '../types/user.types';
-import { UserDataLabels } from '../constants';
 import { ClientError } from '../services/errors.service';
 import { StatusCodes } from '../../common/constants';
 import { usersCollectionDatabase } from '../database/users-collection.database';
@@ -25,12 +22,10 @@ export interface AvatarsDatabase {
 export class AvatarsModel {
   private avatars: Avatars;
   private database: AvatarsDatabase;
-  private usersModel: UsersModel;
 
   constructor() {
     this.avatars = new AvatarsService();
     this.database = usersCollectionDatabase;
-    this.usersModel = new UsersModel();
   }
 
   async getAvatar(userID: string): Promise<string> {
@@ -47,36 +42,20 @@ export class AvatarsModel {
     return userAvatarFilename;
   }
 
-  async createAvatar(userID: string, avatarFile: AvatarFile): Promise<any> {
+  async createAvatar(userID: string, avatarFile: AvatarFile): Promise<string> {
     await this.avatars.create(userID, avatarFile);
-    await this.updateUserOnDatabase(userID, avatarFile.type);
-
-    return {};
+    return avatarFile.type;
   }
 
-  async updatedAvatar(userID: string, avatarFile: AvatarFile): Promise<any> {
+  async updatedAvatar(userID: string, avatarFile: AvatarFile): Promise<string> {
     const currentFileType: string = await this.database.getAvatarFileType(userID);
-
     await this.avatars.update(userID, currentFileType, avatarFile);
-    await this.updateUserOnDatabase(userID, avatarFile.type);
 
-    return {};
+    return avatarFile.type;
   }
 
-  async deleteAvatar(userID: string): Promise<any> {
+  async deleteAvatar(userID: string): Promise<void> {
     const currentFileType: string = await this.database.getAvatarFileType(userID);
-
     await this.avatars.delete(userID, currentFileType);
-    await this.updateUserOnDatabase(userID, '');
-
-    return {};
-  }
-
-  private async updateUserOnDatabase(userID: string, fileType: string): Promise<void> {
-    const updatedAvatar: UpdatedUserData = {
-      [UserDataLabels.AVATAR]: fileType,
-    };
-
-    await this.usersModel.updateUser(userID, updatedAvatar);
   }
 }
