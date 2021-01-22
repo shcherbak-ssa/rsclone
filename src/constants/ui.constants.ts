@@ -17,6 +17,8 @@ export enum Classnames {
   SELECT_TYPE = 'select-type',
   IS_DROP_ACTIVE = 'is-drop-active',
   IS_SPACE_PAGE_OPEN = 'is-space-page-open',
+  SHOW_SPACE_SIDEBAR_FRAME = 'show-space-sidebar-frame',
+  HIDE_SPACE_SIDEBAR_FRAME = 'hide-space-sidebar-frame',
 };
 
 export enum ButtonTypes {

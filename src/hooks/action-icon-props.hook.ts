@@ -3,13 +3,14 @@ import { ActionIconLabels } from "../constants/ui.constants";
 import { actionIconData } from "../data/action-icon.data";
 
 export type ActionIconPropsHookParams = {
-  icons: ActionIconLabels[];
+  icons: ActionIconLabels[],
   iconPayloads?: {
     [key: string]: {
       clickHandler?: () => void;
       description: string;
     }
-  };
+  },
+  activeActionIconLabel?: string,
 };
 
 const actionIconClickHandlers = {
@@ -22,7 +23,7 @@ const actionIconClickHandlers = {
 }
 
 export function useActionIconProps({
-  icons, iconPayloads = {}
+  icons, iconPayloads = {}, activeActionIconLabel,
 }: ActionIconPropsHookParams): ActionIconComponentProps[] {
   const actionIconComponentsProps: ActionIconComponentProps[] = icons.map((iconLabel) => {
     const isIconInIconPayloads = iconLabel in iconPayloads;
@@ -35,10 +36,16 @@ export function useActionIconProps({
       iconProps: actionIconProps,
       description,
       clickHandler,
+      label: iconLabel,
+      ...getActiveActionIconLabel(),
     };
 
     return actionIconComponentProps;
   });
+
+  function getActiveActionIconLabel(): any {
+    return activeActionIconLabel !== undefined ? {activeActionIconLabel} : {};
+  }
 
   return actionIconComponentsProps;
 }

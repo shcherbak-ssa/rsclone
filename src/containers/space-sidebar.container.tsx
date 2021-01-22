@@ -13,7 +13,14 @@ import { SpacesService } from '../services/spaces.service';
 import { AppRoutes } from '../types/services.types';
 import { useAppLanguage } from '../hooks/app-language.hook';
 
-export function SpaceSidebarContainer() {
+export type SpaceSidebarContainerProps = {
+  activeSpaceSidebarActionIcon: string,
+  setActiveSpaceSidebarActionIcon: Function,
+};
+
+export function SpaceSidebarContainer({
+  activeSpaceSidebarActionIcon, setActiveSpaceSidebarActionIcon,
+}: SpaceSidebarContainerProps) {
   const history = useHistory();
   const appLanguage = useAppLanguage();
   const {userAvatar, userFullname} = useAvatarUserData();
@@ -41,16 +48,27 @@ export function SpaceSidebarContainer() {
     iconPayloads: {
       [ActionIconLabels.SETTINGS]: {
         description: appLanguage.actionIconDescriptions[ActionIconLabels.SETTINGS],
-        clickHandler: () => {},
+        clickHandler: () => {
+          setNextActiveSpaceSidebarActionIcon(ActionIconLabels.SETTINGS);
+        },
       },
       [ActionIconLabels.SHORTCUTS]: {
         description: appLanguage.actionIconDescriptions[ActionIconLabels.SHORTCUTS],
-        clickHandler: () => {},
+        clickHandler: () => {
+          setNextActiveSpaceSidebarActionIcon(ActionIconLabels.SHORTCUTS);
+        },
       },
     },
+    activeActionIconLabel: activeSpaceSidebarActionIcon,
   };
 
   const actionIconsProps: ActionIconComponentProps[] = useActionIconProps(actionIconPropsParams);
+
+  function setNextActiveSpaceSidebarActionIcon(actionIconLabel: ActionIconLabels): void {
+    const nextActiveSpaceSidebarActionIcon = actionIconLabel === activeSpaceSidebarActionIcon
+      ? '' : actionIconLabel;
+    setActiveSpaceSidebarActionIcon(nextActiveSpaceSidebarActionIcon);
+  }
 
   function drawActionIcons() {
     return actionIconsProps.map((actionIconProps, index) => {

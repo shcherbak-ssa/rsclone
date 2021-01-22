@@ -100,6 +100,8 @@ $original-space-page-border-color: #D9E3E8;
 $original-space-page-editor-background-color: #fff;
 $original-space-page-title-color: #242A31;
 
+$original-sidebar-frame-header-border-color: rgba(255, 255, 255, 0.1);
+
 /** light theme */
 $light-auth-color: #393E46;
 $light-auth-background-color: #F1F1F1;
@@ -109,7 +111,7 @@ $light-auth-form-link-hover-color: #5835B0;
 $light-auth-form-error-color: #DB524E;
 $light-auth-form-error-background-color: #FAFAFA;
 
-$light-app-background-color: #F1F1F1;
+$light-app-background-color: #FAFAFA;
 $light-sidebar-icon-color: #393E46;
 $light-sidebar-icon-active-color: #111111;
 $light-sidebar-line-background-color: rgba(#111, 0.4);
@@ -205,6 +207,8 @@ $light-space-page-pages-background-color: #F1F1F1;
 $light-space-page-border-color: #D4D4D4;
 $light-space-page-editor-background-color: #fff;
 $light-space-page-title-color: #111111;
+
+$light-sidebar-frame-header-border-color: rgba(17, 17, 17, 0.4);
 
 /** dark theme */
 $dark-auth-color: #fff;
@@ -309,3 +313,5 @@ $dark-space-page-pages-background-color: #2D2D2D;
 $dark-space-page-border-color: rgba(255, 255, 255, 0.4);
 $dark-space-page-editor-background-color: #393E46;
 $dark-space-page-title-color: #fff;
+
+$dark-sidebar-frame-header-border-color: rgba(255, 255, 255, 0.4);

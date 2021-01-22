@@ -11,7 +11,7 @@ export type SpacePageComponentProps = {
 };
 
 export function SpacePageComponent({space}: SpacePageComponentProps) {
-  if (space === null) return '';
+  if (space === null) return <div></div>;
 
   const spaceLogoProps: SpaceLogoComponentProps = {
     logoType: SpaceLogoTypes.PAGE,

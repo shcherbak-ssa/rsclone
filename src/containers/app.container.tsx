@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -11,10 +11,14 @@ import { SettingsContainer } from './settings.container';
 import { AppRoutePathnames, Stores } from '../constants';
 import { SpacePageContainer } from './space-page.container';
 import { storeSelectorsService } from '../services/store-selectors.service';
-import { SpaceSidebarContainer } from './space-sidebar.container';
+import { SpaceSidebarContainer, SpaceSidebarContainerProps } from './space-sidebar.container';
+import { SpaceSidebarFrameComponent, SpaceSidebarFrameComponentProps } from '../components/space-sidebar-frame.component';
+import { ActionIconLabels } from '../constants/ui.constants';
 
 export default function AppContainer() {
   useChangeTheme();
+
+  const [activeSpaceSidebarActionIcon, setActiveSpaceSidebarActionIcon] = useState('');
 
   const activeSpaceSelectors = storeSelectorsService.get(Stores.ACTIVE_SPACE_STORE);
   const isOpenSpacePage: boolean = useSelector(activeSpaceSelectors.getIsOpen());
@@ -23,14 +27,49 @@ export default function AppContainer() {
     isOpenSpacePage
   };
 
+  useEffect(() => {
+    setActiveSpaceSidebarActionIcon('');
+  }, [isOpenSpacePage]);
+
   function drawSpaceSidebar() {
     if (!isOpenSpacePage) return '';
 
-    return <SpaceSidebarContainer />;
+    const spaceSidebarProps: SpaceSidebarContainerProps = {
+      activeSpaceSidebarActionIcon,
+      setActiveSpaceSidebarActionIcon,
+    };
+
+    return <SpaceSidebarContainer {...spaceSidebarProps}/>;
   }
 
   function drawMenu() {
     return isOpenSpacePage ? '' : <MenuContainer />;
+  }
+
+  function drawSpaceSidebarFrame() {
+    if (!isOpenSpacePage) return '';
+
+    const spaceSidebarFrameProps: SpaceSidebarFrameComponentProps = {
+      activeSpaceSidebarActionIcon,
+      setActiveSpaceSidebarActionIcon,
+    };
+
+    return (
+      <SpaceSidebarFrameComponent {...spaceSidebarFrameProps}>
+        {drawSpaceSidebarFrameContent()}
+      </SpaceSidebarFrameComponent>
+    );
+  }
+
+  function drawSpaceSidebarFrameContent() {
+    switch (activeSpaceSidebarActionIcon) {
+      case ActionIconLabels.SETTINGS:
+        return <div></div>;
+      case ActionIconLabels.SHORTCUTS:
+        return <div></div>;
+      default:
+        return <div></div>;
+    }
   }
 
   return (
@@ -39,6 +78,7 @@ export default function AppContainer() {
         {drawSpaceSidebar()}
       </SidebarComponent>
       {drawMenu()}
+      {drawSpaceSidebarFrame()}
       <Switch>
         <Route path={AppRoutePathnames.ROOT} exact component={SpacesContainer}/>
         <Route path={AppRoutePathnames.SPACES} component={SpacesContainer}/>
