@@ -4,6 +4,8 @@ import { StoreCreator } from "./store-manager.service";
 export class StoreLoaderService {
   async loadStore(storeName: Stores): Promise<StoreCreator> {
     switch (storeName) {
+      case Stores.ACTIVE_SPACE_STORE:
+        return await this.loadAppStore();
       case Stores.LANGUAGE_STORE:
         return await this.loadLanguageStore();
       case Stores.USER_DRAFT_STORE:
@@ -15,6 +17,11 @@ export class StoreLoaderService {
       case Stores.SPACES_STORE:
         return await this.loadSpacesStore();
     }
+  }
+
+  private async loadAppStore(): Promise<StoreCreator> {
+    const {activeSpaceStoreCreator} = await import('../store/active-space.store');
+    return activeSpaceStoreCreator;
   }
 
   private async loadLanguageStore(): Promise<StoreCreator> {

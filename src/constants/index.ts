@@ -33,8 +33,9 @@ export enum UserDataLabels {
 };
 
 export enum Stores {
-  LANGUAGE_STORE = 'language-store',
+  ACTIVE_SPACE_STORE = 'active-space-store',
   AUTH_STORE = 'auth-store',
+  LANGUAGE_STORE = 'language-store',
   USER_DRAFT_STORE = 'user-draft-store',
   USER_STORE = 'user-store',
   SPACES_STORE = 'spaces-store',

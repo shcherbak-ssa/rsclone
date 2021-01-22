@@ -11,7 +11,7 @@ enum Constants {
 }
 
 /** types */
-type AuthStoreSelectorState = {
+type AuthStoreSelector = {
   [Stores.AUTH_STORE]: AuthStoreState;
 };
 
@@ -25,7 +25,7 @@ type AuthStoreAction = AnyAction | SetAuthErrorAction;
 /** constants */
 const authStoreSelectors: StoreSelectors = {
   getAuthError: () => {
-    return (state: AuthStoreSelectorState) => {
+    return (state: AuthStoreSelector) => {
       return state[Stores.AUTH_STORE].authError;
     };
   },

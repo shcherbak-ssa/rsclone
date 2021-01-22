@@ -26,6 +26,8 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
     appController.emit(AppEvents.INIT_AUTHORIZATION, renderAppCallback);
   } else {
     const storeManager: StoreManager = new StoreManagerService();
+    await storeManager.addStore(Stores.ACTIVE_SPACE_STORE);
+
     const userStore = storeManager.getStore(Stores.USER_STORE) as UserStore;
 
     const requestedLanguage: RequestedLanguage = {
