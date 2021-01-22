@@ -51,8 +51,12 @@ const spacesStoreSelectors: StoreSelectors = {
 };
 
 class SpacesStoreImpl implements SpacesStore {
+  getSpaceByPathname(spacePathname: string): Space {
+    return this.getSpacesStore().find((space) => space.pathname === spacePathname);
+  }
+
   getSpaces(): Space[] {
-    return reduxStore.getState()[Stores.SPACES_STORE];
+    return this.getSpacesStore();
   }
 
   setSpaces(spaces: Space[]): void {
@@ -71,6 +75,10 @@ class SpacesStoreImpl implements SpacesStore {
     reduxStore.dispatch(
       updateSpacesAction(updatedSpaces)
     );
+  }
+
+  private getSpacesStore(): SpacesStoreState {
+    return reduxStore.getState()[Stores.SPACES_STORE];
   }
 }
 

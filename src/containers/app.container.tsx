@@ -41,10 +41,9 @@ export default function AppContainer() {
       {drawMenu()}
       <Switch>
         <Route path={AppRoutePathnames.ROOT} exact component={SpacesContainer}/>
-        <Route path={AppRoutePathnames.SPACES} exact component={SpacesContainer}/>
-        <Route path={AppRoutePathnames.SETTINGS} exact component={SettingsContainer}/>
-
-        <Route path={AppRoutePathnames.SPACE_PAGE} exact>
+        <Route path={AppRoutePathnames.SPACES} component={SpacesContainer}/>
+        <Route path={AppRoutePathnames.SETTINGS} component={SettingsContainer}/>
+        <Route path={AppRoutePathnames.SPACE_PAGE}>
           <SpacePageContainer />
         </Route>
       </Switch>

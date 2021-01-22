@@ -21,4 +21,8 @@ export class ToolsService implements InitialInputState {
   getElements(from: any[], start: number, count: number): any[] {
     return from.slice(start, start + count);
   }
+
+  getSpacePathname(): string {
+    return location.pathname.split('/').reverse()[0];
+  }
 }

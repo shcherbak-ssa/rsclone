@@ -62,6 +62,7 @@
   }
 
   &-editor {
+    animation: show-space-page-editor .2s;
     -x-size: calc(100% - 280px) 100%;
 
     .original-theme & {
@@ -82,5 +83,11 @@
   from {
     opacity: 0;
     padding-left: 120px;
+  }
+}
+
+@keyframes show-space-page-editor {
+  from {
+    width: 100%;
   }
 }

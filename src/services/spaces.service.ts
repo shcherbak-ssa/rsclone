@@ -27,9 +27,7 @@ export class SpacesService implements Spaces {
         [UserDataLabels.SPACE_COLOR]: this.getRandomColor(),
         [UserDataLabels.SPACE_LOGO]: this.getRandomEmoji(),
       },
-      callback: () => {
-        userDraftController.emit(UserDraftEvents.RESET_STATES, spacesDataLabels);
-      },
+      callback: () => {},
     };
 
     userController.emit(UserEvents.SET_ACTIVE_SPACE, resetedSpace);

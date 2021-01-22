@@ -4,6 +4,7 @@
   border-radius: 3px;
   flex-shrink: 0;
   margin-right: 8px;
+  user-select: none;
 
   .original-theme & {
     background: $original-space-logo-default-background-color;

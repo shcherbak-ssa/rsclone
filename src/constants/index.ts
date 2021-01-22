@@ -5,6 +5,7 @@ export const SETTINGS_AVATAR_SIZE: number = 98;
 export const JSON_CONTENT_TYPE: string = 'application/json; charset=utf-8';
 export const CONTENT_TYPE_HEADER: string = 'Content-Type';
 export const ZERO: number = 0;
+export const SPACE_PAGE_PATHNAME_REGEXP: RegExp = /\/s\//;
 
 export enum AppRoutePathnames {
   REGISTRATION = '/registration',

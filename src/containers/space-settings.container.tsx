@@ -18,7 +18,7 @@ import { DropdownSpaceLogoComponent, DropdownSpaceLogoComponentProps } from '../
 import { SpacesService } from '../services/spaces.service';
 
 export function SpaceSettingsContainer() {
-  const activeColor = useUserDraftState(UserDataLabels.SPACE_COLOR);
+  const spageColor = useUserDraftState(UserDataLabels.SPACE_COLOR);
   const spaceLogo = useUserDraftState(UserDataLabels.SPACE_LOGO);
   const [isDropdownSpaceLogoOpen, setIsDropdownSpaceLogoOpen] = useState(false);
 
@@ -32,7 +32,7 @@ export function SpaceSettingsContainer() {
   };
 
   const spaceSettingsLogoProps: SpaceSettingsLogoComponentProps = {
-    activeColor,
+    activeColor: spageColor,
     currentLogo: spaceLogo,
     clickHandler: () => {
       setIsDropdownSpaceLogoOpen(!isDropdownSpaceLogoOpen);
@@ -57,7 +57,7 @@ export function SpaceSettingsContainer() {
     return spaceColors.map((color, index) => {
       const spaceColorProps: SpaceColorComponentProps = {
         color,
-        activeColor,
+        activeColor: spageColor,
         setActiveColor,
       };
 

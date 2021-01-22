@@ -7,10 +7,12 @@ import { SpaceLogoTypes } from '../constants/ui.constants';
 import { SpaceColors } from '../../common/constants';
 
 export type SpacePageComponentProps = {
-  space: Space,
+  space: Space | null,
 };
 
 export function SpacePageComponent({space}: SpacePageComponentProps) {
+  if (space === null) return '';
+
   const spaceLogoProps: SpaceLogoComponentProps = {
     logoType: SpaceLogoTypes.PAGE,
     color: space.color as SpaceColors,
