@@ -142,5 +142,9 @@
   "dropdowns": {
     "settings-space": "Settings",
     "delete-space": "Delete"
+  },
+  "actionIconDescriptions": {
+    "settings": "Settings",
+    "shortcuts": "Shortcuts"
   }
 }

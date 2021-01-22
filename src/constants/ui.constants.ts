@@ -29,6 +29,7 @@ export enum ActionIconLabels {
   INFO = 'info',
   LOGO = 'logo',
   SETTINGS = 'settings',
+  SHORTCUTS = 'shortcuts',
 };
 
 export enum PopupNames {

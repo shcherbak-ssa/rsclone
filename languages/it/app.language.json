@@ -142,5 +142,9 @@
   "dropdowns": {
     "settings-space": "Impostazioni",
     "delete-space": "Elimina"
+  },
+  "actionIconDescriptions": {
+    "settings": "Impostazioni",
+    "shortcuts": "Tasti rapidi"
   }
 }
