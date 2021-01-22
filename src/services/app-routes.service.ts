@@ -1,5 +1,5 @@
 import { AppRoutePathnames } from '../constants';
-import { USERNAME_PATHNAME_INITIAL_STRING } from '../constants/strings.constants';
+import { SPACE_PATHNAME_REPLACE_STRING, USERNAME_PATHNAME_INITIAL_STRING, USERNAME_REPLACE_STRING } from '../constants/strings.constants';
 import { AppRoutes } from '../types/services.types';
 import { UserLocalStorageService } from './user-local-storage.service';
 
@@ -12,18 +12,24 @@ export class AppRoutesService implements AppRoutes {
   }
 
   getRootRoutePath(): string {
-    return this.concatPaths(AppRoutePathnames.ROOT);
+    return this.replaceUsername(AppRoutePathnames.ROOT);
   }
 
   getSpacesRoutePath(): string {
-    return this.concatPaths(AppRoutePathnames.SPACES);
+    return this.replaceUsername(AppRoutePathnames.SPACES);
   }
 
   getSettingsRoutePath(): string {
-    return this.concatPaths(AppRoutePathnames.SETTINGS);
+    return this.replaceUsername(AppRoutePathnames.SETTINGS);
   }
 
-  private concatPaths(routePath: string): string {
-    return routePath.replace(':username', this.username);
+  getSpacePageRoutePath(spacePathname: string): string {
+    return this
+      .replaceUsername(AppRoutePathnames.SPACE_PAGE)
+      .replace(SPACE_PATHNAME_REPLACE_STRING, spacePathname);
+  }
+
+  private replaceUsername(routePath: string): string {
+    return routePath.replace(USERNAME_REPLACE_STRING, this.username);
   }
 }

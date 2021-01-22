@@ -35,6 +35,7 @@ export type UserStoreState = {
   name: string,
   color: SpaceColors,
   logo: string,
+  pathname: string,
 };
 
 export type GetUser = {
@@ -60,6 +61,7 @@ export const initialState: UserStoreState = {
   [UserDataLabels.SPACE_NAME]: '',
   [UserDataLabels.SPACE_COLOR]: spacesService.getRandomColor(),
   [UserDataLabels.SPACE_LOGO]: '',
+  [UserDataLabels.SPACE_PATHNAME]: '',
 };
 
 export type UpdatedStates = {

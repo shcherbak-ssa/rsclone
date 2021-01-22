@@ -19,6 +19,7 @@ export const initialState: UserDraftStoreState = {
   [UserDataLabels.SPACE_NAME]: initialInputState,
   [UserDataLabels.SPACE_COLOR]: SpaceColors.GREEN,
   [UserDataLabels.SPACE_LOGO]: '',
+  [UserDataLabels.SPACE_PATHNAME]: '',
 };
 
 export type UserDraftStoreState = {

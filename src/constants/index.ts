@@ -7,11 +7,12 @@ export const CONTENT_TYPE_HEADER: string = 'Content-Type';
 export const ZERO: number = 0;
 
 export enum AppRoutePathnames {
+  REGISTRATION = '/registration',
+  LOGIN = '/login',
   ROOT = '/:username',
   SPACES = '/:username/spaces',
   SETTINGS = '/:username/settings',
-  REGISTRATION = '/registration',
-  LOGIN = '/login',
+  SPACE_PAGE = '/:username/space/:spacePathname'
 };
 
 export enum UserDataLabels {
