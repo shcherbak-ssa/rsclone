@@ -41,3 +41,8 @@ export enum SpacesEvents {
   UPDATE_SPACE = 'spaces-events/update-space',
   DELETE_SPACE = 'spaces-events/delete-space',
 };
+
+export enum ActiveSpaceEvents {
+  SET_ACTIVE_SPACE = 'active-space-events/set-active-space',
+  REMOVE_ACTIVE_SPACE = 'active-space-events/remove-active-space',
+}
