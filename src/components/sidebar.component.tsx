@@ -5,7 +5,11 @@ import { ActionIconComponentProps, ActionIconComponent } from './action-icon.com
 import { actionSidebarIconLabels } from '../data/action-icon.data';
 import { useActionIconProps } from '../hooks/action-icon-props.hook';
 
-export function SidebarComponent() {
+type SidebarComponentProps = {
+  children?: React.ReactNode,
+};
+
+export function SidebarComponent({children}: SidebarComponentProps) {
   const actionIconComponentsProps: ActionIconComponentProps[] = useActionIconProps({
     icons: actionSidebarIconLabels,
   });
@@ -18,7 +22,9 @@ export function SidebarComponent() {
 
   return (
     <div className="sidebar" data-class="flex-column">
-      <div className="sidebar-space" data-class="flex-column"></div>
+      <div className="sidebar-space" data-class="flex-column">
+        {children}
+      </div>
       <div className="sidebar-icons" data-class="flex-column">
         <div className="sidebar-line"></div>
         {drawActionIcons()}

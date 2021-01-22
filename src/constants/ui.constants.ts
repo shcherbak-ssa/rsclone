@@ -16,6 +16,7 @@ export enum Classnames {
   SHOW_SIDEBAR = 'show-sidebar',
   SELECT_TYPE = 'select-type',
   IS_DROP_ACTIVE = 'is-drop-active',
+  IS_SPACE_PAGE_OPEN = 'is-space-page-open',
 };
 
 export enum ButtonTypes {
@@ -53,4 +54,5 @@ export enum InputDraftDescriptionLabels {
 export enum SpaceLogoTypes {
   SPACE = 'space',
   SETTINGS = 'settings',
+  PAGE = 'page',
 }

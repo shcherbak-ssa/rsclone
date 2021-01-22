@@ -12,8 +12,7 @@ import { LogoutPopupContainer } from './popups/logout-popup.container';
 import { MenuItemComponentProps } from '../components/menu-item.component';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { AppRoutesService } from '../services/app-routes.service';
-import { UserDataLabels } from '../constants';
-import { useUserState } from '../hooks/user-state.hook';
+import { useAvatarUserData } from '../hooks/avatar-user-data.hook';
 
 export function MenuContainer() {
   const history = useHistory();
@@ -21,8 +20,7 @@ export function MenuContainer() {
   const [activeMenuItem, setActiveMenuItem] = useState('');
 
   const appRoutesService: AppRoutesService = new AppRoutesService();
-  const userAvatarUrl = useUserState(UserDataLabels.AVATAR);
-  const userFullname = useUserState(UserDataLabels.FULLNAME);
+  const {userAvatar, userFullname} = useAvatarUserData();
 
   const menuItemsProps: {[key: string]: MenuItemComponentProps} = {
     spaces: {
@@ -59,7 +57,7 @@ export function MenuContainer() {
 
   const menuComponentProps: MenuComponentProps = {
     menuItemsProps,
-    avatarUrl: userAvatarUrl,
+    avatarUrl: userAvatar,
     activeMenuItem,
     userFullname,
   };

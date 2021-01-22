@@ -1,13 +1,11 @@
-import { NewSpace, UpdatedSpace } from '../../common/entities';
+import { NewSpace, Space, UpdatedSpace } from '../../common/entities';
 import { UserDataLabels } from '../constants';
-import { SpacesEvents, UserDraftEvents } from '../constants/events.constants';
-import { spacesDataLabels } from '../data/spaces.data';
+import { SpacesEvents } from '../constants/events.constants';
 import { SpacesModel } from '../models/spaces.model';
 import { UserDraftModel } from '../models/user-draft.model';
 import { EventEmitter } from '../services/event-emitter.service';
 import { Controller } from '../types/services.types';
 import { UserDraftStoreState } from '../types/user-draft.types';
-import { userDraftController } from './user-draft.controller';
 
 export const spacesController: Controller = new EventEmitter();
 
@@ -32,13 +30,13 @@ async function createSpaceHandler(callback: Function): Promise<void> {
   const newSpace: UserDraftStoreState = userDraftModel.getDraftValues(newSpaceDataLabels);
 
   const spacesModel: SpacesModel = new SpacesModel();
-  const isCreatedSuccess: boolean = await spacesModel.createSpace(newSpace as NewSpace);
+  const createdSpace: Space | null = await spacesModel.createSpace(newSpace as NewSpace);
 
-  if (isCreatedSuccess) {
-    userDraftController.emit(UserDraftEvents.RESET_STATES, newSpaceDataLabels);
+  if (createdSpace === null) {
+    callback(false);
+  } else {
+    callback(true, createdSpace);
   }
-
-  callback(isCreatedSuccess)
 }
 
 async function updateSpaceHandler({updatedData, callback}: UpdatedSpaceData): Promise<void> {
@@ -51,13 +49,9 @@ async function updateSpaceHandler({updatedData, callback}: UpdatedSpaceData): Pr
   };
 
   const spacesModel: SpacesModel = new SpacesModel();
-  const updatingResult: boolean = await spacesModel.updateSpace(updatedSpace);
-
-  if (updatingResult) {
-    userDraftController.emit(UserDraftEvents.RESET_STATES, spacesDataLabels);
-  }
+  const isUpdatedSuccess: boolean = await spacesModel.updateSpace(updatedSpace);
   
-  callback(updatingResult);
+  callback(isUpdatedSuccess);
 }
 
 async function deleteSpaceHandler(callback: Function) {
@@ -65,11 +59,7 @@ async function deleteSpaceHandler(callback: Function) {
   const deletedSpaceID = userDraftModel.getDraftState(UserDataLabels.SPACE_ID) as string;
   
   const spacesModel: SpacesModel = new SpacesModel();
-  const deletionResult: boolean = await spacesModel.deleteSpace(deletedSpaceID);
-
-  if (deletionResult) {
-    userDraftController.emit(UserDraftEvents.RESET_STATES, spacesDataLabels);
-  }
+  const isDeletedSuccess: boolean = await spacesModel.deleteSpace(deletedSpaceID);
   
-  callback(deletionResult);
+  callback(isDeletedSuccess);
 }

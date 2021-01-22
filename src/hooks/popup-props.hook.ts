@@ -8,11 +8,11 @@ import { usePopupLanguage } from './popup-language.hook';
 export type PopupPropsHookParams = {
   popupName: PopupNames,
   confirmButtonProps: any,
-  closeHanlder?: Function,
+  closeHandler?: Function,
 };
 
 export function usePopupProps({
-  popupName, confirmButtonProps, closeHanlder
+  popupName, confirmButtonProps, closeHandler
 }: PopupPropsHookParams): [PopupComponentProps, any] | null {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const popupLanguage = usePopupLanguage(popupName);
@@ -42,8 +42,8 @@ export function usePopupProps({
   function closePopup() {
     setIsPopupOpen(false);
 
-    if (closeHanlder) {
-      closeHanlder();
+    if (closeHandler) {
+      closeHandler();
     }
   }
 

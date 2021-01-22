@@ -41,6 +41,12 @@ const activeSpaceStoreSelectors: StoreSelectors = {
       return state[Stores.ACTIVE_SPACE_STORE].isOpen;
     };
   },
+
+  getActiveSpace: () => {
+    return (state: ActiveSpaceStoreSelector) => {
+      return state[Stores.ACTIVE_SPACE_STORE].space;
+    };
+  },
 };
 
 class ActiveSpaceStoreImpl implements ActiveSpaceStore {

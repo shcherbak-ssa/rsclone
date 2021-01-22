@@ -37,6 +37,7 @@ export interface AppRoutes {
   getRootRoutePath(): string;
   getSpacesRoutePath(): string;
   getSettingsRoutePath(): string;
+  getSpacePageRoutePath(spacePathname: string): string;
 }
 
 export interface UserLocalStorage {
@@ -59,5 +60,10 @@ export interface UsersUrlPathname {
 }
 
 export interface Spaces {
+  setInitialRandomSpaceLogo(): void;
   getRandomColor(): SpaceColors;
+}
+
+export interface Emoji {
+  loadSpacesEmojis(): Promise<void>;
 }

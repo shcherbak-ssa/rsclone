@@ -1,13 +1,22 @@
 import React from 'react';
+import classnames from 'classnames';
 import './styles/app.component.scss';
+import { Classnames } from '../constants/ui.constants';
 
-type AppComponentProps = {
+export type AppComponentProps = {
+  isOpenSpacePage: boolean,
   children?: React.ReactNode,
 };
 
-export function AppComponent({children}: AppComponentProps) {
+export function AppComponent({
+  isOpenSpacePage, children,
+}: AppComponentProps) {
+  const componentClassnames = classnames('app', {
+    [Classnames.IS_SPACE_PAGE_OPEN]: isOpenSpacePage,
+  });
+
   return (
-    <div className="app">
+    <div className={componentClassnames}>
       <div className="app-header"></div>
       <div className="app-homepage">
         <div className="app-menu"></div>

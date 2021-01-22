@@ -4,17 +4,16 @@ import { AssetsService } from '../services/assets.service';
 import { SettingsAvatarComponent, SettingsAvatarComponentProps } from '../components/settings-avatar.component';
 import { UserDataLabels, SettingsSectionLabels } from '../constants';
 import { useUserDraftState } from '../hooks/user-draft-state.hook';
-import { useUserState } from '../hooks/user-state.hook';
 import { userDraftController } from '../controllers/user-draft.controller';
 import { UserDraftEvents } from '../constants/events.constants';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { ErrorLabels } from '../../common/constants';
+import { useAvatarUserData } from '../hooks/avatar-user-data.hook';
 
 export function SettingsAvatarContainer() {
-  const userAvatar = useUserState(UserDataLabels.AVATAR);
   const userDraftAvatar = useUserDraftState(UserDataLabels.AVATAR);
-  const userFullname = useUserState(UserDataLabels.FULLNAME);
   const settingsAvatarLanguage = useAppLanguage().settings[SettingsSectionLabels.USER].avatar;
+  const {userAvatar, userFullname} = useAvatarUserData();
 
   const [loadedFilename, setLoadedFilename] = useState('');
   const assetsService: AssetsService = new AssetsService();

@@ -4,7 +4,7 @@ import { UserDataLabels, ZERO } from '../constants';
 import { UserDraftEvents, UserEvents } from '../constants/events.constants';
 import { UpdatedDraftValue, userDraftController } from '../controllers/user-draft.controller';
 import { ActiveSpace, userController } from '../controllers/user.controller';
-import { resetActiveSpaceData, spacesEmojis } from '../data/spaces.data';
+import { resetActiveSpaceData, spacesDataLabels, spacesEmojis } from '../data/spaces.data';
 import { Spaces } from '../types/services.types';
 import { ToolsService } from './tools.service';
 
@@ -15,17 +15,24 @@ export class SpacesService implements Spaces {
     this.toolsService = new ToolsService();
   }
 
+  setInitialRandomSpaceLogo(): void {
+    const randomEmoji: string = this.getRandomEmoji();
+    this.updateSpaceLogo(randomEmoji);
+  }
+
   resetSpaceStates() {
-    const activeSpace: ActiveSpace = {
+    const resetedSpace: ActiveSpace = {
       space: {
         ...resetActiveSpaceData,
         [UserDataLabels.SPACE_COLOR]: this.getRandomColor(),
         [UserDataLabels.SPACE_LOGO]: this.getRandomEmoji(),
       },
-      callback: () => {},
+      callback: () => {
+        userDraftController.emit(UserDraftEvents.RESET_STATES, spacesDataLabels);
+      },
     };
 
-    userController.emit(UserEvents.SET_ACTIVE_SPACE, activeSpace);
+    userController.emit(UserEvents.SET_ACTIVE_SPACE, resetedSpace);
   }
 
   updateSpaceLogo(selectedSpaceLogo: string) {

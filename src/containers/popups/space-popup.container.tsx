@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Space } from '../../../common/entities';
 
 import { PopupComponent, PopupComponentProps } from '../../components/popup.component';
 import { UserDataLabels } from '../../constants';
@@ -11,6 +12,8 @@ import { PopupService } from '../../services/popup.service';
 import { SpacesService } from '../../services/spaces.service';
 import { UpdatedDataService } from '../../services/updated-data.service';
 import { SpaceSettingsContainer } from '../space-settings.container';
+import { useSetActiveSpace } from '../../hooks/set-active-space.hook';
+import { useOpenSpacePage } from '../../hooks/open-space-page.hook';
 
 export type SpacePopupContainerProps = {
   popupName: PopupNames,
@@ -18,7 +21,10 @@ export type SpacePopupContainerProps = {
 };
 
 export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainerProps) {
+  const setActiveSpace = useSetActiveSpace();
+  const openSpacePage = useOpenSpacePage();
   const [isInProgress, setIsInProgress] = useState(false);
+
   const spacesService: SpacesService = new SpacesService();
   const controlDataLabels: UserDataLabels[] = [UserDataLabels.SPACE_NAME];
 
@@ -57,7 +63,7 @@ export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainer
         }
       },
     },
-    closeHanlder: () => {
+    closeHandler: () => {
       setIsInProgress(false);
       spacesService.resetSpaceStates();
     },
@@ -65,14 +71,20 @@ export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainer
 
   const popup: [PopupComponentProps, any] | null = usePopupProps(popupPropsHookParams);
 
-  function spaceEventCallback(isSuccess: boolean) {
+  function spaceEventCallback(isSuccess: boolean, createdSpace?: Space) {
     setIsInProgress(false);
 
     if (isSuccess) {
       const popupService: PopupService = new PopupService();
       popupService.closePopup(popupName);
 
-      spacesService.resetSpaceStates();
+      if (popupName === PopupNames.CREATE_SPACE) {
+        setActiveSpace(createdSpace, () => {
+          openSpacePage(createdSpace);
+        });
+      } else {
+        spacesService.resetSpaceStates();
+      }
     }
   }
 

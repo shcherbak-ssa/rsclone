@@ -1,5 +1,5 @@
 import { AppEvents, LanguageEvents } from "../constants/events.constants";
-import { Controller } from "../types/services.types";
+import { Controller, Emoji, Spaces } from "../types/services.types";
 import { AppModel } from "../models/app.model";
 import { languageController } from './language.controller';
 import { EventEmitter } from "../services/event-emitter.service";
@@ -10,6 +10,8 @@ import { StoreManager } from "../types/store.types";
 import { StoreManagerService } from "../services/store-manager.service";
 import { UserStore } from "../types/user.types";
 import { Stores, UserDataLabels } from "../constants";
+import { EmojiService } from "../services/emoji.service";
+import { SpacesService } from "../services/spaces.service";
 
 export const appController: Controller = new EventEmitter();
 
@@ -44,6 +46,12 @@ async function initAppHeadler(renderAppCallback: (initialRoutePathname: string) 
         },
       },
     );
+
+    const emojiService: Emoji = new EmojiService();
+    await emojiService.loadSpacesEmojis();
+
+    const spacesService: Spaces = new SpacesService();
+    spacesService.setInitialRandomSpaceLogo();
   }
 }
 

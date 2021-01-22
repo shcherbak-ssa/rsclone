@@ -1,3 +1,86 @@
 @import '../../assets/styles/assets.scss';
 
-.space-page {}
+.space-page {
+  animation: show-space-page .2s;
+  display: flex;
+  padding-left: 72px;
+  -x-size: 100%;
+
+  &-pages {
+    border-radius: 10px 0 0 10px;
+    -x-size: 280px 100%;
+
+    .original-theme & {
+      background: $original-space-page-pages-background-color;
+      border-right: 1px solid $original-space-page-border-color;
+    }
+
+    .light-theme & {
+      background: $light-space-page-pages-background-color;
+      border: 1px solid $light-space-page-border-color;
+    }
+
+    .dark-theme & {
+      background: $dark-space-page-pages-background-color;
+    }
+  }
+
+  &-header {
+    border-bottom: 1px solid;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+
+    .original-theme & {
+      border-bottom-color: $original-space-page-border-color;
+    }
+
+    .light-theme & {
+      border-bottom-color: $light-space-page-border-color;
+    }
+
+    .dark-theme & {
+      border-bottom-color: $dark-space-page-border-color;
+    }
+  }
+
+  &-title {
+    font-weight: 500;
+    -x-font-size: 24px/32px;
+
+    .original-theme & {
+      color: $original-space-page-title-color;
+    }
+
+    .light-theme & {
+      color: $light-space-page-title-color;
+    }
+
+    .dark-theme & {
+      color: $dark-space-page-title-color;
+    }
+  }
+
+  &-editor {
+    -x-size: calc(100% - 280px) 100%;
+
+    .original-theme & {
+      background: $original-space-page-editor-background-color;
+    }
+
+    .light-theme & {
+      background: $light-space-page-editor-background-color;
+    }
+
+    .dark-theme & {
+      background: $dark-space-page-editor-background-color;
+    }
+  }
+}
+
+@keyframes show-space-page {
+  from {
+    opacity: 0;
+    padding-left: 120px;
+  }
+}

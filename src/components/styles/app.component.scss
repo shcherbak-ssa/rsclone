@@ -76,4 +76,19 @@
       display: none;
     }
   }
+
+  &.is-space-page-open {
+    overflow: hidden;
+
+    .app {
+      &-header, &-menu {
+        display: none;
+      }
+
+      &-homepage {
+        width: 100%;
+        padding: 0;
+      }
+    }
+  }
 }

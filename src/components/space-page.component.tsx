@@ -1,10 +1,31 @@
 import React from 'react';
 import './styles/space-page.component.scss';
 
-export type SpacePageComponentProps = {};
+import { Space } from '../../common/entities';
+import { SpaceLogoComponent, SpaceLogoComponentProps } from './space-logo.component';
+import { SpaceLogoTypes } from '../constants/ui.constants';
+import { SpaceColors } from '../../common/constants';
 
-export function SpacePageComponent({}: SpacePageComponentProps) {
+export type SpacePageComponentProps = {
+  space: Space,
+};
+
+export function SpacePageComponent({space}: SpacePageComponentProps) {
+  const spaceLogoProps: SpaceLogoComponentProps = {
+    logoType: SpaceLogoTypes.PAGE,
+    color: space.color as SpaceColors,
+    logo: space.logo,
+  };
+
   return (
-    <div className="space-page"></div>
+    <div className="space-page">
+      <div className="space-page-pages">
+        <div className="space-page-header">
+          <SpaceLogoComponent {...spaceLogoProps}/>
+          <div className="space-page-title">{space.name}</div>
+        </div>
+      </div>
+      <div className="space-page-editor"></div>
+    </div>
   );
 }

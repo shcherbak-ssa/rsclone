@@ -28,7 +28,7 @@ export class SpacesModel extends BaseDraftModel {
     this.getSpacesStore().setSpaces(spaces);
   }
 
-  async createSpace(newSpace: NewSpace): Promise<boolean> {
+  async createSpace(newSpace: NewSpace): Promise<Space | null> {
     try {
       newSpace = await this.validation.validateCreatedSpace(newSpace);
 
@@ -38,10 +38,10 @@ export class SpacesModel extends BaseDraftModel {
       const createdSpace: Space = response.parseResponse();
       this.getSpacesStore().addSpace(createdSpace);
 
-      return true;
+      return createdSpace;
     } catch (error) {
       this.parseError(error);
-      return false;
+      return null;
     }
   }
 

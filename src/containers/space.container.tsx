@@ -8,19 +8,20 @@ import { DropdownComponentProps } from '../components/dropdown.component';
 import { SpaceComponent, SpaceComponentProps } from '../components/space.component';
 import { DropdownItemLabels } from '../constants';
 import { useAppLanguage } from '../hooks/app-language.hook';
-import { DraftActiveSpace, userDraftController } from '../controllers/user-draft.controller';
 import { PopupService } from '../services/popup.service';
 import { PopupNames } from '../constants/ui.constants';
-import { UserDraftEvents, UserEvents } from '../constants/events.constants';
-import { ActiveSpace, userController } from '../controllers/user.controller';
+import { useOpenSpacePage } from '../hooks/open-space-page.hook';
+import { useSetActiveSpace } from '../hooks/set-active-space.hook';
 
 export type SpaceContainerProps = {
-  space: Space
+  space: Space,
 };
 
 export function SpaceContainer({space}: SpaceContainerProps) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const appLanguage = useAppLanguage();
+  const setActiveSpace = useSetActiveSpace();
+  const openSpacePage = useOpenSpacePage();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const dropdownProps: DropdownComponentProps = {
     items: [
@@ -53,25 +54,18 @@ export function SpaceContainer({space}: SpaceContainerProps) {
     iconClickHandler: () => {
       setIsDropdownOpen(!isDropdownOpen);
     },
+    clickHandler: () => {
+      setActiveSpace(space, () => {
+        openSpacePage(space);
+      });
+    },
   };
 
   function openSpacePopup(popupName: PopupNames) {
-    const activeSpace: ActiveSpace = {
-      space,
-      callback: () => {
-        const draftActiveSpace: DraftActiveSpace = {
-          space,
-          callback: () => {
-            const popupService: PopupService = new PopupService();
-            popupService.openPopup(popupName);
-          },
-        };
-    
-        userDraftController.emit(UserDraftEvents.SET_ACTIVE_SPACE, draftActiveSpace);
-      },
-    };
-
-    userController.emit(UserEvents.SET_ACTIVE_SPACE, activeSpace);
+    setActiveSpace(space, () => {
+      const popupService: PopupService = new PopupService();
+      popupService.openPopup(popupName);
+    });
   }
   
   return <SpaceComponent {...spaceProps}/>;

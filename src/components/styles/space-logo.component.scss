@@ -2,6 +2,7 @@
 
 .space-logo {
   border-radius: 3px;
+  flex-shrink: 0;
   margin-right: 8px;
 
   .original-theme & {
@@ -19,6 +20,11 @@
   &.space {
     font-size: 18px;
     -x-size: 30px;
+  }
+
+  &.page {
+    font-size: 24px;
+    -x-size: 36px;
   }
 
   &.settings {

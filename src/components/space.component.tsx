@@ -15,10 +15,11 @@ export type SpaceComponentProps = {
   space: Space,
   dropdownProps: DropdownComponentProps | null,
   iconClickHandler: Function,
+  clickHandler: Function,
 };
 
 export function SpaceComponent({
-  space, dropdownProps, iconClickHandler
+  space, dropdownProps, iconClickHandler, clickHandler,
 }: SpaceComponentProps) {
   const spaceLogoProps: SpaceLogoComponentProps = {
     color: space.color as SpaceColors,
@@ -28,6 +29,10 @@ export function SpaceComponent({
   const spaceIconClassnames = classnames('space-icon', {
     [Classnames.IS_ACTIVE]: dropdownProps !== null,
   });
+
+  function handleClick() {
+    clickHandler();
+  }
 
   function handleIconClick(e: React.MouseEvent) {
     e.stopPropagation();
@@ -39,7 +44,7 @@ export function SpaceComponent({
   }
 
   return (
-    <div className="space" data-class="click shadow">
+    <div className="space" data-class="click shadow" onClick={handleClick}>
       <div className="space-header">
         <SpaceLogoComponent {...spaceLogoProps}/>
         <div className="space-title">{space.name}</div>

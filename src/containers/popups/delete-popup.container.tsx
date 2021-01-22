@@ -44,7 +44,7 @@ export function DeletePopupContainer({
         });
       },
     },
-    closeHanlder: () => {
+    closeHandler: () => {
       resetStates();
       resetSpaceStates();
     },
