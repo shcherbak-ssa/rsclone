@@ -118,16 +118,16 @@
       "title": "Delete account",
       "confirmButtonValue": "Delete",
       "message": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back! Are you sure?",
-      "placeholder": "Type 'DELETE'",
-      "description": "Type 'DELETE' to confirm",
+      "placeholder": "Type DELETE",
+      "description": "Type DELETE to confirm",
       "confirmWord": "DELETE"
     },
     "delete-space": {
       "title": "Delete space",
       "confirmButtonValue": "Delete",
       "message": "This action cannot be undone. This will permanently delete the project",
-      "placeholder": "Type 'DELETE'",
-      "description": "Type 'DELETE' to confirm",
+      "placeholder": "Type DELETE",
+      "description": "Type DELETE to confirm",
       "confirmWord": "DELETE"
     },
     "create-space": {
