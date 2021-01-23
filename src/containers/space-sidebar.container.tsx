@@ -42,7 +42,6 @@ export function SpaceSidebarContainer({
 
   const actionIconPropsParams: ActionIconPropsHookParams = {
     icons: [
-      ActionIconLabels.SHORTCUTS,
       ActionIconLabels.SETTINGS,
     ],
     iconPayloads: {
@@ -52,12 +51,6 @@ export function SpaceSidebarContainer({
           setNextActiveSpaceSidebarActionIcon(ActionIconLabels.SETTINGS);
         },
       },
-      [ActionIconLabels.SHORTCUTS]: {
-        description: appLanguage.actionIconDescriptions[ActionIconLabels.SHORTCUTS],
-        clickHandler: () => {
-          setNextActiveSpaceSidebarActionIcon(ActionIconLabels.SHORTCUTS);
-        },
-      },
     },
     activeActionIconLabel: activeSpaceSidebarActionIcon,
   };
@@ -65,8 +58,9 @@ export function SpaceSidebarContainer({
   const actionIconsProps: ActionIconComponentProps[] = useActionIconProps(actionIconPropsParams);
 
   function setNextActiveSpaceSidebarActionIcon(actionIconLabel: ActionIconLabels): void {
-    const nextActiveSpaceSidebarActionIcon = actionIconLabel === activeSpaceSidebarActionIcon
-      ? '' : actionIconLabel;
+    const nextActiveSpaceSidebarActionIcon
+      = actionIconLabel === activeSpaceSidebarActionIcon ? '' : actionIconLabel;
+
     setActiveSpaceSidebarActionIcon(nextActiveSpaceSidebarActionIcon);
   }
 

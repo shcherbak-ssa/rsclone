@@ -52,8 +52,10 @@ async function updateSpaceHandler({updatedData, callback}: UpdatedSpaceData): Pr
   const spacesModel: SpacesModel = new SpacesModel();
   const isUpdatedSuccess: boolean = await spacesModel.updateSpace(updatedSpace);
 
-  const userModel: UserModel = new UserModel();
-  userModel.updateStates(updatedData);
+  if (isUpdatedSuccess) {
+    const userModel: UserModel = new UserModel();
+    userModel.updateStates(updatedData);
+  }
   
   callback(isUpdatedSuccess);
 }
