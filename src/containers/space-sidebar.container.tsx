@@ -29,7 +29,7 @@ export function SpaceSidebarContainer({
     avatarUrl: userAvatar,
     userFullname,
     clickHandler: () => {
-      activeSpaceController.emit(ActiveSpaceEvents.REMOVE_ACTIVE_SPACE);
+      activeSpaceController.emit(ActiveSpaceEvents.SET_IS_OPEN, false);
 
       const appRoutes: AppRoutes = new AppRoutesService();
       const rootRoutePath: string = appRoutes.getRootRoutePath();

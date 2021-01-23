@@ -10,7 +10,7 @@
     border-bottom: 1px solid;
     display: flex;
     justify-content: flex-end;
-    padding-bottom: 23px;
+    padding-bottom: 21px;
 
     .original-theme & {
       border-bottom-color: $original-sidebar-frame-header-border-color;
@@ -55,6 +55,10 @@
 
   &-content {
     padding: 24px 0;
+
+    .settings-section {
+      padding: 18px;
+    }
   }
 
   &.show-space-sidebar-frame {

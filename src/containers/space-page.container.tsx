@@ -13,30 +13,33 @@ import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ToolsService } from '../services/tools.service';
 import { useSetActiveSpace } from '../hooks/set-active-space.hook';
 
-export function SpacePageContainer() {
+type SpacePageContainerProps = {
+  isSpacePageOpen: boolean,
+};
+
+export function SpacePageContainer({isSpacePageOpen}: SpacePageContainerProps) {
   const setActiveSpace = useSetActiveSpace();
-  const activeSpaceSelectors = storeSelectorsService.get(Stores.ACTIVE_SPACE_STORE);
-  const activeSpace: Space = useSelector(activeSpaceSelectors.getActiveSpace());
-  const [space, setSpace] = useState(activeSpace);
+  const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
+  const activeSpace: Space = useSelector(userStoreSelectors.getActiveSpace());
 
   useEffect(() => {
-    if (activeSpace === null) {
+    if (!isSpacePageOpen) {
       const storeManager: StoreManager = new StoreManagerService();
       const spacesStore = storeManager.getStore(Stores.SPACES_STORE) as SpacesStore;
       const toolsService: ToolsService = new ToolsService();
 
       const spacePathname: string = toolsService.getSpacePathname();
       const activeSpace: Space = spacesStore.getSpaceByPathname(spacePathname);
-      
-      setSpace(activeSpace);
+
+      console.log(activeSpace);
       setActiveSpace(activeSpace, () => {
-        activeSpaceController.emit(ActiveSpaceEvents.SET_ACTIVE_SPACE, activeSpace);
+        activeSpaceController.emit(ActiveSpaceEvents.SET_IS_OPEN, true);
       });
     }
   }, []);
 
   const spacePageProps: SpacePageComponentProps = {
-    space,
+    space: activeSpace,
   };
 
   return (

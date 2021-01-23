@@ -4,15 +4,15 @@ import './styles/app.component.scss';
 import { Classnames } from '../constants/ui.constants';
 
 export type AppComponentProps = {
-  isOpenSpacePage: boolean,
+  isSpacePageOpen: boolean,
   children?: React.ReactNode,
 };
 
 export function AppComponent({
-  isOpenSpacePage, children,
+  isSpacePageOpen, children,
 }: AppComponentProps) {
   const componentClassnames = classnames('app', {
-    [Classnames.IS_SPACE_PAGE_OPEN]: isOpenSpacePage,
+    [Classnames.IS_SPACE_PAGE_OPEN]: isSpacePageOpen,
   });
 
   return (

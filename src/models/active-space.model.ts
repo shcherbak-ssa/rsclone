@@ -1,4 +1,3 @@
-import { Space } from '../../common/entities';
 import { Stores } from '../constants';
 import { StoreManagerService } from '../services/store-manager.service';
 import { ActiveSpaceStore } from '../types/active-space.types';
@@ -12,11 +11,7 @@ export class ActiveSpaceModel {
     this.activeSpaceStore = storeManager.getStore(Stores.ACTIVE_SPACE_STORE) as ActiveSpaceStore;
   }
   
-  async setActiveSpace(space: Space): Promise<void> {
-    this.activeSpaceStore.setActiveSpace(space);
-  }
-
-  removeActiveSpace(): void {
-    this.activeSpaceStore.removeActiveSpace();
+  async setIsOpen(isOpen: boolean): Promise<void> {
+    this.activeSpaceStore.setIsOpen(isOpen);
   }
 }

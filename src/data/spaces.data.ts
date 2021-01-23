@@ -9,6 +9,7 @@ export const spacesDataLabels: UserDataLabels[] = [
   UserDataLabels.SPACE_COLOR,
   UserDataLabels.SPACE_NAME,
   UserDataLabels.SPACE_LOGO,
+  UserDataLabels.SPACE_PATHNAME,
 ];
 
 export const resetActiveSpaceData: Space = {

@@ -16,7 +16,7 @@ export function useOpenSpacePage(): Function {
   }
 
   return (space: Space) => {
-    activeSpaceController.emit(ActiveSpaceEvents.SET_ACTIVE_SPACE, space);
+    activeSpaceController.emit(ActiveSpaceEvents.SET_IS_OPEN, true);
     changeAppRoute(space);
   };
 }

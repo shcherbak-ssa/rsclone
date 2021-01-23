@@ -8,8 +8,7 @@ import { reduxStore } from '../services/store.service';
 import { ActiveSpaceStore, ActiveSpaceStoreState, initialState } from '../types/active-space.types';
 
 enum Constants {
-  SET_ACTIVE_SPACE = 'active-space-store/set-active-space',
-  REMOVE_ACTIVE_SPACE = 'active-space-store/remove-active-space',
+  SET_IS_OPEN = 'active-space-store/set-is-open',
 };
 
 /** types */
@@ -17,22 +16,14 @@ type ActiveSpaceStoreSelector = {
   [Stores.ACTIVE_SPACE_STORE]: ActiveSpaceStoreState
 };
 
-type SetActiveSpaceAction = {
-  type: Constants.SET_ACTIVE_SPACE,
+type SetIsOpenAction = {
+  type: Constants.SET_IS_OPEN,
   payload: {
-    space: Space,
+    isOpen: boolean,
   },
 };
 
-type RemoveActiveSpaceAction = {
-  type: Constants.REMOVE_ACTIVE_SPACE,
-  payload: {},
-};
-
-type ActiveSpaceStoreAction =
-  | AnyAction
-  | SetActiveSpaceAction
-  | RemoveActiveSpaceAction;
+type ActiveSpaceStoreAction = AnyAction | SetIsOpenAction;
 
 /** constants */
 const activeSpaceStoreSelectors: StoreSelectors = {
@@ -41,24 +32,12 @@ const activeSpaceStoreSelectors: StoreSelectors = {
       return state[Stores.ACTIVE_SPACE_STORE].isOpen;
     };
   },
-
-  getActiveSpace: () => {
-    return (state: ActiveSpaceStoreSelector) => {
-      return state[Stores.ACTIVE_SPACE_STORE].space;
-    };
-  },
 };
 
 class ActiveSpaceStoreImpl implements ActiveSpaceStore {
-  setActiveSpace(space: Space): void {
+  setIsOpen(isOpen: boolean): void {
     reduxStore.dispatch(
-      setActiveSpaceAction(space)
-    );
-  }
-
-  removeActiveSpace(): void {
-    reduxStore.dispatch(
-      removeActiveSpaceAction()
+      setIsOpenAction(isOpen)
     );
   }
 }
@@ -75,26 +54,17 @@ function activeSpaceStoreReducer(
   state: ActiveSpaceStoreState = initialState, {type, payload}: ActiveSpaceStoreAction
 ): ActiveSpaceStoreState {
   switch (type) {
-    case Constants.SET_ACTIVE_SPACE:
-      return {...state, isOpen: true, space: payload.space};
-    case Constants.REMOVE_ACTIVE_SPACE:
-      return {...state, isOpen: false, space: null};
+    case Constants.SET_IS_OPEN:
+      return {...state, isOpen: payload.isOpen};
     default:
       return state;
   }
 }
 
 /** actions */
-function setActiveSpaceAction(space: Space): SetActiveSpaceAction {
+function setIsOpenAction(isOpen: boolean): SetIsOpenAction {
   return {
-    type: Constants.SET_ACTIVE_SPACE,
-    payload: { space },
-  };
-}
-
-function removeActiveSpaceAction(): RemoveActiveSpaceAction {
-  return {
-    type: Constants.REMOVE_ACTIVE_SPACE,
-    payload: {},
+    type: Constants.SET_IS_OPEN,
+    payload: { isOpen },
   };
 }

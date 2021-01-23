@@ -15,10 +15,11 @@ export type SettingsSectionPropsHookParams = {
   sectionLabel: SettingsSectionLabels,
   controlDataLabels: UserDataLabels[],
   savingFinishHandler?: Function,
+  saveUpdatedData?: Function,
 };
 
 export function useSettingsSectionProps({
-  sectionLabel, controlDataLabels, savingFinishHandler,
+  sectionLabel, controlDataLabels, savingFinishHandler, saveUpdatedData,
 }: SettingsSectionPropsHookParams): SettingsSectionComponentProps {
   const [isSavingActive, setIsSavingActive] = useState(false);
   const appLanguage = useAppLanguage();
@@ -68,6 +69,10 @@ export function useSettingsSectionProps({
 
   function updateData() {
     if (!updatedData.isUpdatesExist()) return finishSaving(true);
+
+    if (saveUpdatedData) {
+      return saveUpdatedData(updatedData.get(), finishSaving);
+    }
 
     const updatedUserData: UpdateUserData = {
       updatedData: updatedData.get(),

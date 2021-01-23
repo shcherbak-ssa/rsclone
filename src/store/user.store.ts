@@ -7,6 +7,7 @@ import { reduxStore } from '../services/store.service';
 import { StoreCreator } from '../services/store-manager.service';
 import { ShortcutsLabels } from '../../common/constants';
 import { Space } from '../../common/entities';
+import { spacesDataLabels } from '../data/spaces.data';
 
 enum Constants {
   UPDATE_STATE = 'user-store/update-state',
@@ -65,6 +66,19 @@ const userStoreSelectors: StoreSelectors = {
     return (state: UserStoreSelector) => {
       return state[Stores.USER_STORE][UserDataLabels.SHORTCUTS]
         .find((item) => item.label === label).keys;
+    };
+  },
+
+  getActiveSpace: () => {
+    return (state: UserStoreSelector) => {
+      const storeStates: User = state[Stores.USER_STORE];
+      const activeSpace: any = {};
+
+      spacesDataLabels.forEach((dataLabel) => {
+        activeSpace[dataLabel] = storeStates[dataLabel];
+      });
+
+      return activeSpace;
     };
   },
 };

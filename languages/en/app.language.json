@@ -101,6 +101,7 @@
       }
     },
     "space": {
+      "title": "Space",
       "groups": {
         "color": {
           "title": "Color"

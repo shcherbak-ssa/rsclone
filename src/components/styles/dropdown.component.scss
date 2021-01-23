@@ -48,6 +48,10 @@
       @media screen and (max-width: 500px) {
         grid-template-columns: repeat(3, 1fr);
       }
+
+      .settings-section & {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     .dropdown-arrow {

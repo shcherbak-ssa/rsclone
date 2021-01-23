@@ -3,6 +3,7 @@ import { UserDataLabels } from '../constants';
 import { SpacesEvents } from '../constants/events.constants';
 import { SpacesModel } from '../models/spaces.model';
 import { UserDraftModel } from '../models/user-draft.model';
+import { UserModel } from '../models/user.model';
 import { EventEmitter } from '../services/event-emitter.service';
 import { Controller } from '../types/services.types';
 import { UserDraftStoreState } from '../types/user-draft.types';
@@ -50,6 +51,9 @@ async function updateSpaceHandler({updatedData, callback}: UpdatedSpaceData): Pr
 
   const spacesModel: SpacesModel = new SpacesModel();
   const isUpdatedSuccess: boolean = await spacesModel.updateSpace(updatedSpace);
+
+  const userModel: UserModel = new UserModel();
+  userModel.updateStates(updatedData);
   
   callback(isUpdatedSuccess);
 }

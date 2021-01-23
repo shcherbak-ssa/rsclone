@@ -14,6 +14,7 @@ import { storeSelectorsService } from '../services/store-selectors.service';
 import { SpaceSidebarContainer, SpaceSidebarContainerProps } from './space-sidebar.container';
 import { SpaceSidebarFrameComponent, SpaceSidebarFrameComponentProps } from '../components/space-sidebar-frame.component';
 import { ActionIconLabels } from '../constants/ui.constants';
+import { SpacePageSettingsContainer } from './space-page-settings.container';
 
 export default function AppContainer() {
   useChangeTheme();
@@ -21,18 +22,18 @@ export default function AppContainer() {
   const [activeSpaceSidebarActionIcon, setActiveSpaceSidebarActionIcon] = useState('');
 
   const activeSpaceSelectors = storeSelectorsService.get(Stores.ACTIVE_SPACE_STORE);
-  const isOpenSpacePage: boolean = useSelector(activeSpaceSelectors.getIsOpen());
+  const isSpacePageOpen: boolean = useSelector(activeSpaceSelectors.getIsOpen());
 
   const appComponentProps: AppComponentProps = {
-    isOpenSpacePage
+    isSpacePageOpen,
   };
 
   useEffect(() => {
     setActiveSpaceSidebarActionIcon('');
-  }, [isOpenSpacePage]);
+  }, [isSpacePageOpen]);
 
   function drawSpaceSidebar() {
-    if (!isOpenSpacePage) return '';
+    if (!isSpacePageOpen) return '';
 
     const spaceSidebarProps: SpaceSidebarContainerProps = {
       activeSpaceSidebarActionIcon,
@@ -43,11 +44,11 @@ export default function AppContainer() {
   }
 
   function drawMenu() {
-    return isOpenSpacePage ? '' : <MenuContainer />;
+    return isSpacePageOpen ? '' : <MenuContainer />;
   }
 
   function drawSpaceSidebarFrame() {
-    if (!isOpenSpacePage) return '';
+    if (!isSpacePageOpen) return '';
 
     const spaceSidebarFrameProps: SpaceSidebarFrameComponentProps = {
       activeSpaceSidebarActionIcon,
@@ -64,7 +65,7 @@ export default function AppContainer() {
   function drawSpaceSidebarFrameContent() {
     switch (activeSpaceSidebarActionIcon) {
       case ActionIconLabels.SETTINGS:
-        return <div></div>;
+        return <SpacePageSettingsContainer />;
       case ActionIconLabels.SHORTCUTS:
         return <div></div>;
       default:
@@ -84,7 +85,7 @@ export default function AppContainer() {
         <Route path={AppRoutePathnames.SPACES} component={SpacesContainer}/>
         <Route path={AppRoutePathnames.SETTINGS} component={SettingsContainer}/>
         <Route path={AppRoutePathnames.SPACE_PAGE}>
-          <SpacePageContainer />
+          <SpacePageContainer isSpacePageOpen={isSpacePageOpen} />
         </Route>
       </Switch>
     </AppComponent>
