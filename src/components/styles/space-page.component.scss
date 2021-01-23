@@ -9,6 +9,11 @@
     border-radius: 10px 0 0 10px;
     -x-size: 280px 100%;
 
+    @media screen and (min-width: 1440px) {
+      width: calc((100% - 1500px) / 2 + 380px);
+      padding-left: calc((100% - 1500px) / 2);
+    }
+
     .original-theme & {
       background: $original-space-page-pages-background-color;
       border-right: 1px solid $original-space-page-border-color;
