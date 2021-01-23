@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Space } from '../../common/entities';
@@ -12,12 +12,14 @@ import { activeSpaceController } from '../controllers/active-space.controller';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ToolsService } from '../services/tools.service';
 import { useSetActiveSpace } from '../hooks/set-active-space.hook';
+import { useCloseSpacePage } from '../hooks/close-space-page.hook';
 
 type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
 };
 
 export function SpacePageContainer({isSpacePageOpen}: SpacePageContainerProps) {
+  const closeSpacePage = useCloseSpacePage();
   const setActiveSpace = useSetActiveSpace();
   const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
   const activeSpace: Space = useSelector(userStoreSelectors.getActiveSpace());
@@ -31,10 +33,13 @@ export function SpacePageContainer({isSpacePageOpen}: SpacePageContainerProps) {
       const spacePathname: string = toolsService.getSpacePathname();
       const activeSpace: Space = spacesStore.getSpaceByPathname(spacePathname);
 
-      console.log(activeSpace);
-      setActiveSpace(activeSpace, () => {
-        activeSpaceController.emit(ActiveSpaceEvents.SET_IS_OPEN, true);
-      });
+      if (activeSpace) {
+        setActiveSpace(activeSpace, () => {
+          activeSpaceController.emit(ActiveSpaceEvents.SET_IS_OPEN, true);
+        });
+      } else {
+        closeSpacePage();
+      }
     }
   }, []);
 

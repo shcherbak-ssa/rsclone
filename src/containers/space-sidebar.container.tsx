@@ -1,17 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { ActionIconComponent, ActionIconComponentProps } from '../components/action-icon.component';
 
+import { ActionIconComponent, ActionIconComponentProps } from '../components/action-icon.component';
 import { AvatarComponent, AvatarComponentProps } from '../components/avatar.component';
-import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ActionIconLabels } from '../constants/ui.constants';
-import { activeSpaceController } from '../controllers/active-space.controller';
 import { ActionIconPropsHookParams, useActionIconProps } from '../hooks/action-icon-props.hook';
 import { useAvatarUserData } from '../hooks/avatar-user-data.hook';
-import { AppRoutesService } from '../services/app-routes.service';
-import { SpacesService } from '../services/spaces.service';
-import { AppRoutes } from '../types/services.types';
 import { useAppLanguage } from '../hooks/app-language.hook';
+import { useCloseSpacePage } from '../hooks/close-space-page.hook';
 
 export type SpaceSidebarContainerProps = {
   activeSpaceSidebarActionIcon: string,
@@ -21,22 +16,15 @@ export type SpaceSidebarContainerProps = {
 export function SpaceSidebarContainer({
   activeSpaceSidebarActionIcon, setActiveSpaceSidebarActionIcon,
 }: SpaceSidebarContainerProps) {
-  const history = useHistory();
   const appLanguage = useAppLanguage();
+  const closeSpacePage = useCloseSpacePage();
   const {userAvatar, userFullname} = useAvatarUserData();
 
   const avatarProps: AvatarComponentProps = {
     avatarUrl: userAvatar,
     userFullname,
     clickHandler: () => {
-      activeSpaceController.emit(ActiveSpaceEvents.SET_IS_OPEN, false);
-
-      const appRoutes: AppRoutes = new AppRoutesService();
-      const rootRoutePath: string = appRoutes.getRootRoutePath();
-      history.push(rootRoutePath);
-
-      const spacesService: SpacesService = new SpacesService();
-      spacesService.resetSpaceStates();
+      closeSpacePage();
     },
   };
 

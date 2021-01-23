@@ -8,7 +8,7 @@ import { Base, BaseInputProps } from '../../components/base';
 import { EMPTY_STRING } from '../../constants/strings.constants';
 import { Controller } from '../../types/services.types';
 import { PopupService } from '../../services/popup.service';
-import { SpacesService } from '../../services/spaces.service';
+import { useCloseSpacePage } from '../../hooks/close-space-page.hook';
 
 export type DeletePopupContainerProps = {
   popupName: PopupNames,
@@ -19,6 +19,7 @@ export type DeletePopupContainerProps = {
 export function DeletePopupContainer({
   popupName, controller, controllerEvent,
 }: DeletePopupContainerProps) {
+  const closeSpacePage = useCloseSpacePage();
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [confirmDeletionValue, setConfirmDeletionValue] = useState(EMPTY_STRING);
@@ -39,14 +40,13 @@ export function DeletePopupContainer({
             const popupService: PopupService = new PopupService();
             popupService.closePopup(popupName);
 
-            resetSpaceStates();
+            closeSpacePage();
           }
         });
       },
     },
     closeHandler: () => {
       resetStates();
-      resetSpaceStates();
     },
   };
 
@@ -56,13 +56,6 @@ export function DeletePopupContainer({
     setIsLoading(false);
     setIsConfirmed(false);
     setConfirmDeletionValue(EMPTY_STRING);
-  }
-
-  function resetSpaceStates() {
-    if (popupName === PopupNames.DELETE_SPACE) {
-      const spacesService: SpacesService = new SpacesService();
-      spacesService.resetSpaceStates();
-    }
   }
 
   if (popup === null) return <div></div>;

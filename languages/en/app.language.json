@@ -107,6 +107,16 @@
           "title": "Color"
         }
       }
+    },
+    "delete-space": {
+      "title": "Delete",
+      "actions": {
+        "delete-space": {
+          "title": "Delete space",
+          "description": "This action cannot be undone. This will permanently delete the project",
+          "buttonValue": "Delete"
+        }
+      }
     }
   },
   "popups": {

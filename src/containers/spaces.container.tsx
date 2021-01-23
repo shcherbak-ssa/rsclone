@@ -17,6 +17,7 @@ import { SpaceContainerProps, SpaceContainer } from './space.container';
 import { SpacesEvents } from '../constants/events.constants';
 import { DeletePopupContainer, DeletePopupContainerProps } from './popups/delete-popup.container';
 import { spacesController } from '../controllers/spaces.controller';
+import { SpacesService } from '../services/spaces.service';
 
 export function SpacesContainer() {
   const spacesLanguage = useAppLanguage().homepage.spaces;
@@ -71,6 +72,9 @@ export function SpacesContainer() {
   }
 
   function openCreateSpacePopup() {
+    const spacesService: SpacesService = new SpacesService();
+    spacesService.resetSpaceStates();
+
     const popupService: PopupService = new PopupService();
     popupService.openPopup(PopupNames.CREATE_SPACE);
   }

@@ -101,9 +101,20 @@
       }
     },
     "space": {
+      "title": "Spazio",
       "groups": {
         "color": {
           "title": "Colore"
+        }
+      }
+    },
+    "delete-space": {
+      "title": "Elimina",
+      "actions": {
+        "delete-space": {
+          "title": "Eliminare l'spazio",
+          "description": "Questa azione non può essere annullata. Questo eliminerà definitivamente il progetto",
+          "buttonValue": "Elimina"
         }
       }
     }

@@ -6,6 +6,7 @@ import { SettingsSectionPropsHookParams, useSettingsSectionProps } from '../hook
 import { SpaceSettingsContainer } from './space-settings.container';
 import { UpdatedSpaceData, spacesController } from '../controllers/spaces.controller';
 import { SpacesEvents } from '../constants/events.constants';
+import { SpacePageDeleteContainer } from './space-page-delete.container';
 
 export function SpacePageSettingsContainer() {
   const settingsSectionPropsHookParams: SettingsSectionPropsHookParams = {
@@ -29,8 +30,11 @@ export function SpacePageSettingsContainer() {
     = useSettingsSectionProps(settingsSectionPropsHookParams);
 
   return (
-    <SettingsSectionComponent {...settingsSectionProps}>
-      <SpaceSettingsContainer />
-    </SettingsSectionComponent>
+    <>
+      <SettingsSectionComponent {...settingsSectionProps}>
+        <SpaceSettingsContainer />
+      </SettingsSectionComponent>
+      <SpacePageDeleteContainer />
+    </>
   );
 }

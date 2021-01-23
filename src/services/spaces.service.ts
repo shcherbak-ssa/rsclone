@@ -4,7 +4,7 @@ import { UserDataLabels, ZERO } from '../constants';
 import { UserDraftEvents, UserEvents } from '../constants/events.constants';
 import { UpdatedDraftValue, userDraftController } from '../controllers/user-draft.controller';
 import { ActiveSpace, userController } from '../controllers/user.controller';
-import { resetActiveSpaceData, spacesDataLabels, spacesEmojis } from '../data/spaces.data';
+import { resetActiveSpaceData, spacesEmojis } from '../data/spaces.data';
 import { Spaces } from '../types/services.types';
 import { ToolsService } from './tools.service';
 
@@ -43,12 +43,16 @@ export class SpacesService implements Spaces {
   }
 
   getRandomColor(): SpaceColors {
-    const randomIndex: number = this.toolsService.getRandomNumber(ZERO, spaceColors.length - 1);
+    const randomIndex: number = this.getRandomNumber(spaceColors);
     return spaceColors[randomIndex];
   }
 
   getRandomEmoji(): string {
-    const randomIndex: number = this.toolsService.getRandomNumber(ZERO, spacesEmojis.length - 1);
+    const randomIndex: number = this.getRandomNumber(spacesEmojis);
     return spacesEmojis[randomIndex];
+  }
+
+  private getRandomNumber(from: any[]): number {
+    return this.toolsService.getRandomNumber(ZERO, from.length - 1);
   }
 }

@@ -9,7 +9,6 @@ import { spacesController, UpdatedSpaceData } from '../../controllers/spaces.con
 import { PopupPropsHookParams, usePopupProps } from '../../hooks/popup-props.hook';
 import { UpdatesControllerHookParams, useUpdatesController } from '../../hooks/updates-controller.hook';
 import { PopupService } from '../../services/popup.service';
-import { SpacesService } from '../../services/spaces.service';
 import { UpdatedDataService } from '../../services/updated-data.service';
 import { SpaceSettingsContainer } from '../space-settings.container';
 import { useSetActiveSpace } from '../../hooks/set-active-space.hook';
@@ -24,8 +23,6 @@ export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainer
   const setActiveSpace = useSetActiveSpace();
   const openSpacePage = useOpenSpacePage();
   const [isInProgress, setIsInProgress] = useState(false);
-
-  const spacesService: SpacesService = new SpacesService();
   const controlDataLabels: UserDataLabels[] = [UserDataLabels.SPACE_NAME];
 
   if (popupName === PopupNames.UPDATE_SPACE) {
@@ -65,7 +62,6 @@ export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainer
     },
     closeHandler: () => {
       setIsInProgress(false);
-      spacesService.resetSpaceStates();
     },
   };
 
@@ -82,8 +78,6 @@ export function SpacePopupContainer({popupName, spaceEvent}: SpacePopupContainer
         setActiveSpace(createdSpace, () => {
           openSpacePage(createdSpace);
         });
-      } else {
-        spacesService.resetSpaceStates();
       }
     }
   }

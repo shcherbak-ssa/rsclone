@@ -58,6 +58,15 @@
 
     .settings-section {
       padding: 18px;
+
+      .settings-action {
+        display: block;
+        padding: 0 0 6px 0;
+
+        &-content {
+          margin-bottom: 16px;
+        }
+      }
     }
   }
 

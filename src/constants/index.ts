@@ -59,11 +59,13 @@ export enum SettingsSectionLabels {
   SHORTCUTS = 'shortcuts',
   DANGER = 'danger',
   SPACE = 'space',
+  DELETE_SPACE = 'delete-space',
 };
 
 export enum SettingsActionLabels {
   DELETE_ACCOUNT = 'delete-account',
   CHANGE_PASSWORD = 'change-password',
+  DELETE_SPACE = 'delete-space',
 };
 
 export enum SettingsGroupLabels {
