@@ -4,7 +4,7 @@ import { DatabaseCollectionService } from '../services/database-collection.servi
 import { SpacesDatabase } from '../models/spaces.model';
 import { DatabaseDBService } from '../services/database-db.service';
 import { CollectionNames, UserDataLabels } from '../constants';
-import { CreatedSpace, NewSpace, Space, UpdatedSpace } from '../../common/entities';
+import { CreatedSpace, Space, UpdatedSpace } from '../../common/entities';
 import { UniqueSpaceDatabase } from '../models/unique.model';
 
 export class SpacesCollectionDatabase implements SpacesDatabase, UniqueSpaceDatabase {
@@ -32,9 +32,8 @@ export class SpacesCollectionDatabase implements SpacesDatabase, UniqueSpaceData
 
   async createSpace(userID: string, createdSpace: CreatedSpace): Promise<Space> {
     const userSpacesCollection: DatabaseCollectionService = await this.getUserSpacesCollection(userID);
-    const createdSpaceID: string = await userSpacesCollection.createDocument(createdSpace);
+    const createdSpaceID: string = await userSpacesCollection.createDocument({...createdSpace});
 
-    delete (createdSpace as any)._id;
     return {...createdSpace, id: createdSpaceID};
   }
 

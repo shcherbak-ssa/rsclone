@@ -32,3 +32,13 @@ export type UpdatedSpace = {
     [key: string]: string,
   },
 };
+
+export type Page = {
+  id: string,
+  title: string,
+  description: string,
+  pathname: string,
+  nodes: PageNode[],
+};
+
+export type PageNode = {};

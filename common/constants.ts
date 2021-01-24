@@ -99,3 +99,10 @@ export enum SpaceColors {
   ORANGE = 'F77D05',
   YELLOW = 'FFD139',
 };
+
+export enum PageDataLabels {
+  ID = 'id',
+  TITLE = 'title',
+  DESCRIPTION = 'description',
+  NODES = 'nodes',
+};

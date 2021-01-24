@@ -7,6 +7,10 @@ import { ControllerData } from '../types/controller.types';
 import { ResponseSender, SpacePathname } from '../types/services.types';
 import { SpacePathnameService } from '../services/space-pathname.service';
 import { UserDataLabels } from '../constants';
+import { PagesModel } from '../models/pages.model';
+import { PageAccess, PageAccessCreator } from '../types/pages.types';
+import { PageAccessService } from '../services/page-access.service';
+import { initialPage } from '../data/page.data';
 
 export interface SpacesValidation {
   validateCreatedSpace(newSpace: NewSpace): Promise<NewSpace>;
@@ -23,6 +27,7 @@ export class SpacesController extends BaseController {
   private validation: SpacesValidation;
   private spacesModel: SpacesModel;
   private spacePathname: SpacePathname;
+  private pagesModel: PagesModel;
 
   constructor() {
     super();
@@ -30,6 +35,7 @@ export class SpacesController extends BaseController {
     this.validation = new SpacesValidationImpl();
     this.spacesModel = new SpacesModel();
     this.spacePathname = new SpacePathnameService();
+    this.pagesModel = new PagesModel();
   }
 
   async runController(
@@ -59,6 +65,13 @@ export class SpacesController extends BaseController {
 
     const createdSpace: CreatedSpace = {...newSpace, [UserDataLabels.SPACE_PATHNAME]: spacePathname};
     const space: Space = await this.spacesModel.createSpace(userID, createdSpace);
+
+    const pageAccessCreator: PageAccessCreator = new PageAccessService();
+    pageAccessCreator.setUserID(userID);
+    pageAccessCreator.setSpaceID(space.id);
+
+    const pageAccess: PageAccess = pageAccessCreator.getPageAccess();
+    await this.pagesModel.createPage(pageAccess, initialPage);
 
     responseSender.sendSuccessJsonResponse(space, StatusCodes.CREATED);
   }
