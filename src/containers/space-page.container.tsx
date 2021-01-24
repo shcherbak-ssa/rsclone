@@ -13,6 +13,7 @@ import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ToolsService } from '../services/tools.service';
 import { useSetActiveSpace } from '../hooks/set-active-space.hook';
 import { useCloseSpacePage } from '../hooks/close-space-page.hook';
+import { PageContainer } from './page.container';
 
 export type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
@@ -50,6 +51,9 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   };
 
   return (
-    <SpacePageComponent {...spacePageProps}/>
+    <SpacePageComponent {...spacePageProps}>
+      <div></div>
+      <PageContainer />
+    </SpacePageComponent>
   );
 }

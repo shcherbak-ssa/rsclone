@@ -57,5 +57,5 @@ export enum InputDraftDescriptionLabels {
 export enum SpaceLogoTypes {
   SPACE = 'space',
   SETTINGS = 'settings',
-  PAGE = 'page',
+  PAGE = 'page-logo',
 }

@@ -10,9 +10,10 @@ import { DocumentBodyService } from '../services/document-body.service';
 export type SpacePageComponentProps = {
   space: Space | null,
   closeMenuHandler: Function,
+  children?: React.ReactNode,
 };
 
-export function SpacePageComponent({space, closeMenuHandler}: SpacePageComponentProps) {
+export function SpacePageComponent({space, closeMenuHandler, children}: SpacePageComponentProps) {
   if (space === null) return <div></div>;
 
   const documentBodyService: DocumentBodyService = new DocumentBodyService();
@@ -57,8 +58,12 @@ export function SpacePageComponent({space, closeMenuHandler}: SpacePageComponent
         <SpaceLogoComponent {...spaceLogoProps}/>
         <div className="space-page-title">{space.name}</div>
       </div>
-      <div className="space-page-pages"></div>
-      <div className="space-page-editor"></div>
+      <div className="space-page-pages">
+        {children[0]}
+      </div>
+      <div className="space-page-editor">
+        {children[1]}
+      </div>
       <div className="space-page-tint" onClick={closeSpacePageMenu}></div>
     </div>
   );
