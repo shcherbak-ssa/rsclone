@@ -3,15 +3,41 @@
 .space-page {
   animation: show-space-page .2s;
   display: flex;
-  -x-size: 100%;
+  position: relative;
+  transition: .2s;
+  -x-size: 100% 100vh;
+
+  @media screen and (max-width: 1023px) {
+    transform: translateX(-320px);
+    width: calc(100vw + 320px);
+
+    .is-space-page-menu-open & {
+      transform: translateX(0);
+    }
+  }
+
+  @media screen and (max-width: 390px) {
+    transform: translateX(calc(72px - 100vw));
+    width: calc(200vw - 72px);
+  }
 
   &-pages {
     border-radius: 10px 0 0 10px;
+    transition: .2s;
+    padding-top: 100px;
     -x-size: 280px 100%;
 
     @media screen and (min-width: 1440px) {
       width: calc((100% - 1500px) / 2 + 380px);
       padding-left: calc((100% - 1500px) / 2);
+    }
+
+    @media screen and (max-width: 1023px) {
+      width: 320px;
+    }
+
+    @media screen and (max-width: 390px) {
+      width: calc(100vw - 72px);
     }
 
     .original-theme & {
@@ -34,6 +60,8 @@
     display: flex;
     align-items: center;
     padding: 16px;
+    width: 280px;
+    -x-position: absolute 0 x x 0;
 
     .original-theme & {
       border-bottom-color: $original-space-page-border-color;
@@ -46,11 +74,54 @@
     .dark-theme & {
       border-bottom-color: $dark-space-page-border-color;
     }
+
+    .space-logo {
+      transition: .2s;
+
+      .is-space-page-menu-open & {
+        transform: translateX(-56px);
+      }
+    }
+
+    @media screen and (min-width: 1600px) {
+      padding-left: calc((100% - 1500px) / 2);
+    }
+
+    @media screen and (min-width: 1440px) {
+      width: calc((100% - 1500px) / 2 + 380px);
+    }
+
+    @media screen and (max-width: 1023px) {
+      left: 320px;
+      width: 100vw;
+      z-index: 9;
+
+      .original-theme & {
+        background: $original-space-page-header-background-color;
+      }
+  
+      .light-theme & {
+        background: $light-space-page-header-background-color;
+      }
+  
+      .dark-theme & {
+        background: $dark-space-page-header-background-color;
+      }
+    }
+
+    @media screen and (max-width: 390px) {
+      left: calc(100vw - 72px);
+    }
   }
 
   &-title {
     font-weight: 500;
+    transition: .2s;
     -x-font-size: 24px/32px;
+
+    .is-space-page-menu-open & {
+      transform: translateX(-56px);
+    }
 
     .original-theme & {
       color: $original-space-page-title-color;
@@ -65,8 +136,73 @@
     }
   }
 
+  &-menu-button {
+    display: none;
+    flex-direction: column;
+    margin-right: 16px;
+    transition: .2s;
+    -x-size: 40px;
+
+    @media screen and (max-width: 1023px) {
+      display: flex;
+    }
+
+    .is-space-page-menu-open & {
+      transform: translateX(-72px);
+    }
+
+    .original-theme &, .light-theme &, .dark-theme & {
+      opacity: .6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    span {
+      border-radius: 2px;
+      transition: .2s;
+      -x-size: 24px 2px;
+
+      .original-theme & {
+        background: $original-space-page-menu-button-span-background-color;
+      }
+    
+      .light-theme & {
+        background: $light-space-page-menu-button-span-background-color;
+      }
+      
+      .dark-theme & {
+        background: $dark-space-page-menu-button-span-background-color;
+      }
+
+      &:nth-child(2) {
+        margin: 5px 0;
+      }
+    }
+
+    .is-space-page-menu-open & {
+      span {
+        &:nth-child(1) {
+          transform: rotate(45deg);
+          margin-bottom: -14px;
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+        }
+
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+
   &-editor {
     animation: show-space-page-editor .2s;
+    position: relative;
+    z-index: 1;
     -x-size: calc(100% - 280px) 100%;
 
     .original-theme & {
@@ -79,6 +215,22 @@
 
     .dark-theme & {
       background: $dark-space-page-editor-background-color;
+    }
+
+    @media screen and (max-width: 1023px) {
+      width: 100vw;
+    }
+  }
+
+  &-tint {
+    background: rgba(17, 17, 17, 0.5);
+    display: none;
+    z-index: 9;
+    -x-size: 100vw 100vh;
+    -x-position: absolute 0 0 x x;
+
+    .is-space-page-menu-open & {
+      display: block;
     }
   }
 }

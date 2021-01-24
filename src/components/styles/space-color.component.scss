@@ -2,6 +2,7 @@
 
 .space-color {
   border-radius: 3px;
+  flex-shrink: 0;
   -x-size: 30px;
 
   &-icon {

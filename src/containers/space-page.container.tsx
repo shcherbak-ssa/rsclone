@@ -14,11 +14,12 @@ import { ToolsService } from '../services/tools.service';
 import { useSetActiveSpace } from '../hooks/set-active-space.hook';
 import { useCloseSpacePage } from '../hooks/close-space-page.hook';
 
-type SpacePageContainerProps = {
+export type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
+  closeMenuHandler: Function,
 };
 
-export function SpacePageContainer({isSpacePageOpen}: SpacePageContainerProps) {
+export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePageContainerProps) {
   const closeSpacePage = useCloseSpacePage();
   const setActiveSpace = useSetActiveSpace();
   const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
@@ -45,9 +46,10 @@ export function SpacePageContainer({isSpacePageOpen}: SpacePageContainerProps) {
 
   const spacePageProps: SpacePageComponentProps = {
     space: activeSpace,
+    closeMenuHandler,
   };
 
   return (
-    <SpacePageComponent {...spacePageProps}></SpacePageComponent>
+    <SpacePageComponent {...spacePageProps}/>
   );
 }

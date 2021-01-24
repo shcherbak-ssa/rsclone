@@ -42,8 +42,10 @@ export function SpaceSidebarFrameComponent({
           <Icon {...closeIconProps}/>
         </div>
       </div>
-      <div className="space-sidebar-frame-content">
-        {children || EMPTY_STRING}
+      <div className="space-sidebar-frame-container">
+        <div className="space-sidebar-frame-content">
+          {children || EMPTY_STRING}
+        </div>
       </div>
     </div>
   );
