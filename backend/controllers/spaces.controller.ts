@@ -8,13 +8,18 @@ import { ResponseSender, SpacePathname } from '../types/services.types';
 import { SpacePathnameService } from '../services/space-pathname.service';
 import { UserDataLabels } from '../constants';
 import { PagesModel } from '../models/pages.model';
-import { PageAccess, PageAccessCreator } from '../types/pages.types';
+import { NewPage, PageAccess, PageAccessCreator } from '../types/pages.types';
 import { PageAccessService } from '../services/page-access.service';
 import { initialPage } from '../data/page.data';
+import { usersCollectionDatabase } from '../database/users-collection.database';
 
 export interface SpacesValidation {
   validateCreatedSpace(newSpace: NewSpace): Promise<NewSpace>;
   validateUpdatedSpace(updatedSpace: UpdatedSpace): Promise<UpdatedSpace>;
+}
+
+export interface GetUserLanguageDatabase {
+  getUserLanguage(userID: string): Promise<string>;
 }
 
 export enum SpacesControllerActions {
@@ -28,6 +33,7 @@ export class SpacesController extends BaseController {
   private spacesModel: SpacesModel;
   private spacePathname: SpacePathname;
   private pagesModel: PagesModel;
+  private userDatabase: GetUserLanguageDatabase;
 
   constructor() {
     super();
@@ -36,6 +42,7 @@ export class SpacesController extends BaseController {
     this.spacesModel = new SpacesModel();
     this.spacePathname = new SpacePathnameService();
     this.pagesModel = new PagesModel();
+    this.userDatabase = usersCollectionDatabase;
   }
 
   async runController(
@@ -75,7 +82,9 @@ export class SpacesController extends BaseController {
     pageAccessCreator.setSpaceID(space.id);
 
     const pageAccess: PageAccess = pageAccessCreator.getPageAccess();
-    const createdInitialPage: Page = await this.pagesModel.createPage(pageAccess, initialPage);
+    const userLanguage: string = await this.userDatabase.getUserLanguage(userID);
+    const userInitialPage: NewPage = initialPage[userLanguage];
+    const createdInitialPage: Page = await this.pagesModel.createPage(pageAccess, userInitialPage);
 
     const updatedSpace: UpdatedSpace = {
       id: space.id,

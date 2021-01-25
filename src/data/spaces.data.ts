@@ -10,6 +10,7 @@ export const spacesDataLabels: UserDataLabels[] = [
   UserDataLabels.SPACE_NAME,
   UserDataLabels.SPACE_LOGO,
   UserDataLabels.SPACE_PATHNAME,
+  UserDataLabels.SPACE_PAGES,
 ];
 
 export const resetActiveSpaceData: Space = {
@@ -18,4 +19,5 @@ export const resetActiveSpaceData: Space = {
   [UserDataLabels.SPACE_NAME]: EMPTY_STRING,
   [UserDataLabels.SPACE_LOGO]: EMPTY_STRING,
   [UserDataLabels.SPACE_PATHNAME]: EMPTY_STRING,
+  [UserDataLabels.SPACE_PAGES]: [],
 };

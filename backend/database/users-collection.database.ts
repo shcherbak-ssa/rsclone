@@ -11,6 +11,7 @@ import { UsersDatabase } from '../models/users.model';
 import { UniqueUserDatabase } from '../models/unique.model';
 import { KeyboardShortcut } from '../../common/entities';
 import { AvatarsDatabase } from '../models/avatars.model';
+import { GetUserLanguageDatabase } from '../controllers/spaces.controller';
 
 export let usersCollectionDatabase: UsersCollectionDatabase;
 
@@ -20,7 +21,8 @@ export class UsersCollectionDatabase implements
   UniqueUserDatabase,
   LoginUserDatabase,
   UsersDatabase,
-  AvatarsDatabase
+  AvatarsDatabase,
+  GetUserLanguageDatabase
 {
   private databaseCollection: DatabaseCollectionService;
   
@@ -148,5 +150,22 @@ export class UsersCollectionDatabase implements
     );
 
     return result.avatar;
+  }
+
+  // implements GetUserLanguageDatabase
+  async getUserLanguage(userID: string): Promise<string> {
+    const getUserLanguageQuery = this.getUserIDSearchObject(userID);
+    const getUserLanguageOptions = {
+      projection: {
+        [UserDataLabels.LANGUAGE]: 1,
+      },
+    };
+
+    const findUser = await this.databaseCollection.getDocument(
+      getUserLanguageQuery,
+      getUserLanguageOptions
+    );
+
+    return findUser[UserDataLabels.LANGUAGE];
   }
 }
