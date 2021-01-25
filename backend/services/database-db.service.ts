@@ -23,4 +23,8 @@ export class DatabaseDBService implements DeleteDatabase {
   async delete(): Promise<void> {
     await this.database.dropDatabase();
   }
+
+  async deleteCollection(collectionName: string): Promise<void> {
+    await this.database.dropCollection(collectionName);
+  }
 }

@@ -1,5 +1,7 @@
 import { SpacesCollectionDatabase } from '../database/spaces-collection.database';
-import { CreatedSpace, NewSpace, Space, UpdatedSpace } from '../../common/entities';
+import { CreatedSpace, Space, UpdatedSpace } from '../../common/entities';
+import { DeleteDatabase } from '../types/database.types';
+import { DatabaseDBService } from '../services/database-db.service';
 
 export interface SpacesDatabase {
   getSpaces(userID: string): Promise<Space[]>;
@@ -29,5 +31,8 @@ export class SpacesModel {
 
   async deleteSpace(userID: string, deletedSpaceID: string): Promise<void> {
     await this.database.deleteSpace(userID, deletedSpaceID);
+
+    const userDatabase: DeleteDatabase = DatabaseDBService.createDatabase(userID);
+    await userDatabase.deleteCollection(deletedSpaceID);
   }
 }

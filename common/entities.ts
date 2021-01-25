@@ -10,6 +10,7 @@ export type Space = {
   color: string,
   logo: string,
   pathname: string,
+  pages: string[],
 };
 
 export type NewSpace = {
@@ -24,12 +25,13 @@ export type CreatedSpace = {
   color: string,
   logo: string,
   pathname: string,
+  pages: string[],
 };
 
 export type UpdatedSpace = {
   id: string,
   updates: {
-    [key: string]: string,
+    [key: string]: string | string[],
   },
 };
 

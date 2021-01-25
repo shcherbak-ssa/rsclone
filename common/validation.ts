@@ -90,7 +90,6 @@ export class Validation {
           label: Joi.string()
             .valid(
               ShortcutsLabels.ADD_PAGE,
-              ShortcutsLabels.ADD_SECTION,
               ShortcutsLabels.ADD_SPACE
             ),
         })

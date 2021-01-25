@@ -34,4 +34,5 @@ export enum UserDataLabels {
   SPACE_COLOR = 'color',
   SPACE_LOGO = 'logo',
   SPACE_PATHNAME = 'pathname',
+  SPACE_PAGES = 'pages',
 };

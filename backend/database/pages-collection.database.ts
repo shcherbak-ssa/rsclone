@@ -14,4 +14,6 @@ export class PagesCollectionDatabase implements PagesDatabase {
     const userPagesCollection: DatabaseCollectionService = await this.getUserPagesCollection(userID, spaceID);
     return await userPagesCollection.createDocument({...newPage});
   }
+
+  
 }

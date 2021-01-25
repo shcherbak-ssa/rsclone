@@ -1,6 +1,6 @@
 import { StatusCodes } from '../../common/constants';
 import { SpacesValidationImpl } from '../validation/spaces.validation';
-import { CreatedSpace, NewSpace, Space, UpdatedSpace } from '../../common/entities';
+import { CreatedSpace, NewSpace, Page, Space, UpdatedSpace } from '../../common/entities';
 import { BaseController } from './base.controller';
 import { SpacesModel } from '../models/spaces.model';
 import { ControllerData } from '../types/controller.types';
@@ -63,7 +63,11 @@ export class SpacesController extends BaseController {
     newSpace = await this.validation.validateCreatedSpace(newSpace);
     const spacePathname: string = await this.spacePathname.createSpacePathname(userID, newSpace.name);
 
-    const createdSpace: CreatedSpace = {...newSpace, [UserDataLabels.SPACE_PATHNAME]: spacePathname};
+    const createdSpace: CreatedSpace = {
+      ...newSpace,
+      [UserDataLabels.SPACE_PATHNAME]: spacePathname,
+      [UserDataLabels.SPACE_PAGES]: [],
+    };
     const space: Space = await this.spacesModel.createSpace(userID, createdSpace);
 
     const pageAccessCreator: PageAccessCreator = new PageAccessService();
@@ -71,8 +75,19 @@ export class SpacesController extends BaseController {
     pageAccessCreator.setSpaceID(space.id);
 
     const pageAccess: PageAccess = pageAccessCreator.getPageAccess();
-    await this.pagesModel.createPage(pageAccess, initialPage);
+    const createdInitialPage: Page = await this.pagesModel.createPage(pageAccess, initialPage);
 
+    const updatedSpace: UpdatedSpace = {
+      id: space.id,
+      updates: {
+        [UserDataLabels.SPACE_PAGES]: [
+          createdInitialPage.id,
+        ],
+      },
+    };
+    await this.spacesModel.updateSpace(userID, updatedSpace);  
+
+    space.pages.push(createdInitialPage.id);
     responseSender.sendSuccessJsonResponse(space, StatusCodes.CREATED);
   }
 
@@ -96,7 +111,7 @@ export class SpacesController extends BaseController {
 
   private async updateSpacePathname(userID: string, updatedSpace: UpdatedSpace): Promise<void> {
     if (UserDataLabels.SPACE_NAME in updatedSpace.updates) {
-      const newSpaceName: string = updatedSpace.updates[UserDataLabels.SPACE_NAME];
+      const newSpaceName: string = updatedSpace.updates[UserDataLabels.SPACE_NAME] as string;
       const newSpacePathname: string = await this.spacePathname.createSpacePathname(userID, newSpaceName);
 
       updatedSpace.updates = {...updatedSpace.updates, [UserDataLabels.SPACE_PATHNAME]: newSpacePathname};

@@ -18,6 +18,6 @@ export class PagesModel {
 
   async createPage(pageAccess: PageAccess, newPage: NewPage): Promise<Page> {
     const pageID: string = await this.database.createPage(pageAccess, newPage);
-    return {...newPage, id: pageID};
+    return {...newPage, id: `${pageID}`};
   }
 }
