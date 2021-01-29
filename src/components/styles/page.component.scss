@@ -7,9 +7,14 @@
 
   &-list {
     padding-left: 16px;
+    height: 100%;
 
     &-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       font-weight: 500;
+      user-select: none;
       word-break: break-word;
       padding: 7px 24px 7px 16px;
       transition: .2s;
@@ -61,6 +66,31 @@
           border-color: $dark-space-page-border-color;
         }
       }
+    }
+
+    &-icon {
+      margin-left: 8px;
+      -x-size: 24px;
+    }
+  }
+
+  &-add {
+    border-top: 1px solid;
+    margin-top: 24px;
+
+    .original-theme & {
+      border-color: $original-space-page-border-color;
+      color: $original-space-page-add-color;
+    }
+
+    .light-theme & {
+      border-color: $light-space-page-border-color;
+      color: $light-space-page-add-color;
+    }
+
+    .dark-theme & {
+      border-color: $dark-space-page-border-color;
+      color: $dark-space-page-add-color;
     }
   }
 }

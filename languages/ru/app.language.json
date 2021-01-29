@@ -157,5 +157,8 @@
   "actionIconDescriptions": {
     "settings": "Настройки",
     "shortcuts": "Горячие клавиши"
+  },
+  "page": {
+    "addPage": "Новая страница"
   }
 }

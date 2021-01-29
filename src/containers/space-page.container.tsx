@@ -15,6 +15,8 @@ import { useSetActiveSpace } from '../hooks/set-active-space.hook';
 import { useCloseSpacePage } from '../hooks/close-space-page.hook';
 import { PageContainer } from './page.container';
 import { PageListComponentProps, PageListComponent } from '../components/page-list.component';
+import { ShortcutsLabels } from '../../common/constants';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 export type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
@@ -27,10 +29,13 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
 
   const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
   const activeSpace: Space = useSelector(userStoreSelectors.getActiveSpace());
+  const addPageShortcutKeys = useSelector(userStoreSelectors.getShortcutKeys(ShortcutsLabels.ADD_PAGE));
 
   const activeSpaceSelectors = storeSelectorsService.get(Stores.ACTIVE_SPACE_STORE);
   const activePage: Page = useSelector(activeSpaceSelectors.getActivePage());
   const pageTitles: string[] = useSelector(activeSpaceSelectors.getPageTitles());
+
+  useHotkeys(addPageShortcutKeys, addPage);
 
   useEffect(() => {
     if (!isSpacePageOpen) {
@@ -62,10 +67,15 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     pageIDs: activeSpace.pages,
     activePage,
     setActivePage,
+    addPage,
   };
 
   function setActivePage(pageID: string) {
     activeSpaceController.emit(ActiveSpaceEvents.SET_ACTIVE_PAGE, pageID);
+  }
+
+  function addPage() {
+    console.log('add page');
   }
 
   return (

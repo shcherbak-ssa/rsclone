@@ -157,5 +157,8 @@
   "actionIconDescriptions": {
     "settings": "Settings",
     "shortcuts": "Shortcuts"
+  },
+  "page": {
+    "addPage": "New page"
   }
 }

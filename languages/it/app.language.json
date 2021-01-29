@@ -157,5 +157,8 @@
   "actionIconDescriptions": {
     "settings": "Impostazioni",
     "shortcuts": "Tasti rapidi"
+  },
+  "page": {
+    "addPage": "Nuova pagina"
   }
 }
