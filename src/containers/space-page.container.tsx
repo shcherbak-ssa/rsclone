@@ -42,8 +42,6 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   const activePage: Page = useSelector(activeSpaceSelectors.getActivePage());
   const pageTitles: string[] = useSelector(activeSpaceSelectors.getPageTitles());
 
-  useHotkeys(addPageShortcutKeys, addPage);
-
   useEffect(() => {
     if (!isSpacePageOpen) {
       const storeManager: StoreManager = new StoreManagerService();
@@ -73,6 +71,8 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     setDeletePagePopupProps(deletePopupProps);
   }, []);
 
+  useHotkeys(addPageShortcutKeys, addPage);
+
   const spacePageProps: SpacePageComponentProps = {
     space: activeSpace,
     closeMenuHandler,
@@ -89,16 +89,16 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     deletePage,
   };
 
+  const newPage: NewPage = {
+    newPageTitle: appLanguage.page.newPageTitle,
+    spacePathname: activeSpace.pathname,
+  };
+
   function setActivePage(pageID: string) {
     activeSpaceController.emit(ActiveSpaceEvents.SET_ACTIVE_PAGE, pageID);
   }
 
   function addPage() {
-    const newPage: NewPage = {
-      newPageTitle: appLanguage.page.newPageTitle,
-      spacePathname: activeSpace.pathname,
-    };
-
     activeSpaceController.emit(ActiveSpaceEvents.ADD_PAGE, newPage);
   }
 
@@ -110,8 +110,8 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     };
 
     setDeletePagePopupProps({
-      controllerPayload: deletePagePopupControllerPayload,
       ...deletePagePopupProps,
+      controllerPayload: deletePagePopupControllerPayload,
     });
 
     const popupService: PopupService = new PopupService();
