@@ -85,7 +85,7 @@ export class PagesController extends BaseController {
   async deletePage(
     userID: string, spaceID: string, {deletePageID}: any, responseSender: ResponseSender
   ): Promise<void> {
-    const pageAccess: PageAccess = this.createPageAccess(userID, spaceID);
+    const pageAccess: PageAccess = this.createPageAccess(userID, spaceID, deletePageID);
     await this.pagesModel.deletePage(pageAccess);
 
     await this.updateSpacePageIDs(userID, spaceID, (spacePageIDs: string[]) => {

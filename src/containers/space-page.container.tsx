@@ -20,7 +20,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { DeletePopupContainer, DeletePopupContainerProps } from './popups/delete-popup.container';
 import { PopupNames } from '../constants/ui.constants';
-import { EMPTY_STRING } from '../constants/strings.constants';
+import { PopupService } from '../services/popup.service';
 
 export type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
@@ -63,6 +63,16 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     }
   }, []);
 
+  useEffect(() => {
+    const deletePopupProps: DeletePopupContainerProps = {
+      popupName: PopupNames.DELETE_PAGE,
+      controller: activeSpaceController,
+      controllerEvent: ActiveSpaceEvents.DELETE_PAGE,
+    };
+
+    setDeletePagePopupProps(deletePopupProps);
+  }, []);
+
   const spacePageProps: SpacePageComponentProps = {
     space: activeSpace,
     closeMenuHandler,
@@ -93,21 +103,25 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   }
 
   function deletePage(pageID: string) {
-    const deletePopupProps: DeletePopupContainerProps = {
-      popupName: PopupNames.DELETE_SPACE,
-      controller: activeSpaceController,
-      controllerEvent: ActiveSpaceEvents.DELETE_PAGE,
-      controllerPayload: {
-        pageID,
-        spacePathname: activeSpace.pathname,
-      },
+    const deletePagePopupControllerPayload = {
+      pageID,
+      activePage,
+      spacePathname: activeSpace.pathname,
     };
 
-    setDeletePagePopupProps(deletePopupProps);
+    setDeletePagePopupProps({
+      controllerPayload: deletePagePopupControllerPayload,
+      ...deletePagePopupProps,
+    });
+
+    const popupService: PopupService = new PopupService();
+    popupService.openPopup(PopupNames.DELETE_PAGE);
   }
 
   function drawDeletePagePopup() {
-    return deletePagePopupProps === null ? EMPTY_STRING : <DeletePopupContainer {...deletePagePopupProps}/>;
+    if (deletePagePopupProps === null) return <div></div>;
+
+    return <DeletePopupContainer {...deletePagePopupProps}/>;
   }
 
   return (

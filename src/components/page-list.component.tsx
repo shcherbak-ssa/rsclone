@@ -31,6 +31,7 @@ export function PageListComponent({
   function drawPageListItems() {
     return pageIDs.map((pageID, index) => {
       const pageListItemProps: PageListItemComponentProps = {
+        isLastPage: pageIDs.length === 1,
         color,
         pageID,
         pageTitle: pageTitles[index],

@@ -1,3 +1,4 @@
+import { Page } from '../../common/entities';
 import { NEW_PAGE_ID, UserDataLabels } from '../constants';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ActiveSpaceModel } from '../models/active-space.model';
@@ -13,6 +14,7 @@ export type NewPage = {
 
 export type DeletePage = {
   pageID: string,
+  activePage: Page,
   spacePathname: string,
   callback: Function,
 };
@@ -56,12 +58,18 @@ async function addPageHandler({newPageTitle, spacePathname}: NewPage): Promise<v
   });
 }
 
-async function deletePageHandler({pageID, spacePathname, callback}: DeletePage): Promise<void> {
+async function deletePageHandler({
+  pageID, activePage, spacePathname, callback,
+}: DeletePage): Promise<void> {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
   const deleted: boolean = await activeSpaceModel.deletePage(pageID, spacePathname);
 
   if (deleted) {
     updateSpacePages((spacePageIDs: string[]) => {
+      if (activePage.id === pageID) {
+        activeSpaceController.emit(ActiveSpaceEvents.SET_ACTIVE_PAGE, spacePageIDs[0]);
+      }
+
       return spacePageIDs.filter((id) => id !== pageID);
     });
   }

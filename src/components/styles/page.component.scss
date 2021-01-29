@@ -39,7 +39,11 @@
 
       &:hover {
         .page-list-icon {
-          opacity: 1;
+          opacity: .6;
+
+          &:hover {
+            opacity: 1;
+          }
         }
 
         .original-theme & {
@@ -87,6 +91,10 @@
   &-add {
     border-top: 1px solid;
     margin-top: 24px;
+
+    .page-list-icon {
+      opacity: 1 !important;
+    }
 
     .original-theme & {
       border-color: $original-space-page-border-color;

@@ -67,7 +67,9 @@ export function DeletePopupContainer({
       const popupService: PopupService = new PopupService();
       popupService.closePopup(popupName);
 
-      closeSpacePage();
+      if (popupName === PopupNames.DELETE_SPACE) {
+        closeSpacePage();
+      }
     }
   }
 

@@ -9,10 +9,12 @@ import { Page } from '../../common/entities';
 import { AssetsService } from '../services/assets.service';
 import { NEW_PAGE_ID } from '../constants';
 import { ICON_18_HEIGHT } from '../constants/ui.constants';
+import { EMPTY_STRING } from '../constants/strings.constants';
 
 const LOADER_ITEMS_COUNT: number = 4;
 
 export type PageListItemComponentProps = {
+  isLastPage: boolean,
   color: string,
   pageTitle: string,
   pageID: string,
@@ -22,7 +24,7 @@ export type PageListItemComponentProps = {
 };
 
 export function PageListItemComponent({
-  color, pageTitle, pageID, activePage, setActivePage, deletePage
+  isLastPage, color, pageTitle, pageID, activePage, setActivePage, deletePage
 }: PageListItemComponentProps) {
   const isActivePage = pageID === activePage.id;
 
@@ -52,21 +54,12 @@ export function PageListItemComponent({
       return <div className="lds-ellipsis">{drawLoaderItems()}</div>;
     }
 
-    const deletePageIconProps = {
-      icon: deleteIcon,
-      height: ICON_18_HEIGHT,
-    };
+    
 
     return (
       <>
         <div className="page-list-title">{getPageListTitle()}</div>
-        <div
-          className="page-list-icon"
-          data-class="click flex-center"
-          onClick={handleDeletePageIconClick}
-        >
-          <Icon {...deletePageIconProps}/>
-        </div>
+        {drawPageListIcon()}
       </>
     );
   }
@@ -79,6 +72,25 @@ export function PageListItemComponent({
 
   function getPageListTitle() {
     return isActivePage ? activePage.title : pageTitle;
+  }
+
+  function drawPageListIcon() {
+    if (isLastPage) return EMPTY_STRING;
+
+    const deletePageIconProps = {
+      icon: deleteIcon,
+      height: ICON_18_HEIGHT,
+    };
+
+    return (
+      <div
+        className="page-list-icon"
+        data-class="click flex-center"
+        onClick={handleDeletePageIconClick}
+      >
+        <Icon {...deletePageIconProps}/>
+      </div>
+    )
   }
 
   return (
