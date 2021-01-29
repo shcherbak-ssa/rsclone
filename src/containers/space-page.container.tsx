@@ -8,7 +8,7 @@ import { storeSelectorsService } from '../services/store-selectors.service';
 import { StoreManager } from '../types/store.types';
 import { StoreManagerService } from '../services/store-manager.service';
 import { SpacesStore } from '../types/spaces.types';
-import { activeSpaceController } from '../controllers/active-space.controller';
+import { activeSpaceController, NewPage } from '../controllers/active-space.controller';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ToolsService } from '../services/tools.service';
 import { useSetActiveSpace } from '../hooks/set-active-space.hook';
@@ -17,6 +17,7 @@ import { PageContainer } from './page.container';
 import { PageListComponentProps, PageListComponent } from '../components/page-list.component';
 import { ShortcutsLabels } from '../../common/constants';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { useAppLanguage } from '../hooks/app-language.hook';
 
 export type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
@@ -24,6 +25,8 @@ export type SpacePageContainerProps = {
 };
 
 export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePageContainerProps) {
+  const appLanguage = useAppLanguage();
+
   const closeSpacePage = useCloseSpacePage();
   const setActiveSpace = useSetActiveSpace();
 
@@ -62,6 +65,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   };
 
   const pageListProps: PageListComponentProps = {
+    addPageValue: appLanguage.page.addPage,
     color: activeSpace.color,
     pageTitles,
     pageIDs: activeSpace.pages,
@@ -75,7 +79,13 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   }
 
   function addPage() {
-    console.log('add page');
+    const newPage: NewPage = {
+      newPageTitle: appLanguage.page.newPageTitle,
+      pages: [...activeSpace.pages],
+      spacePathname: activeSpace.pathname,
+    };
+
+    activeSpaceController.emit(ActiveSpaceEvents.ADD_PAGE, newPage);
   }
 
   return (

@@ -11,6 +11,7 @@ enum Constants {
   SET_IS_OPEN = 'active-space-store/set-is-open',
   OPEN_SPACE = 'active-space-store/open-space',
   CLOSE_SPACE = 'active-space-store/close-space',
+  ADD_PAGE = 'active-space-store/add-page',
   SET_ACTIVE_PAGE = 'active-space-store/set-active-page',
 };
 
@@ -38,6 +39,13 @@ type CloseSpaceAction = {
   payload: {},
 };
 
+type AddPageAction = {
+  type: Constants.ADD_PAGE,
+  payload: {
+    page: Page,
+  },
+};
+
 type SetActivePageAction = {
   type: Constants.SET_ACTIVE_PAGE,
   payload: {
@@ -50,6 +58,7 @@ type ActiveSpaceStoreAction =
   | SetIsOpenAction
   | OpenSpaceAction
   | CloseSpaceAction
+  | AddPageAction
   | SetActivePageAction;
 
 /** constants */
@@ -97,6 +106,12 @@ class ActiveSpaceStoreImpl implements ActiveSpaceStore {
     );
   }
 
+  addPage(page: Page): void {
+    reduxStore.dispatch(
+      addPageAction(page)
+    );
+  }
+
   setActivePage(page: Page): void {
     reduxStore.dispatch(
       setActivePageAction(page)
@@ -129,6 +144,12 @@ function activeSpaceStoreReducer(
       };
     case Constants.CLOSE_SPACE:
       return initialState;
+    case Constants.ADD_PAGE:
+      return {
+        ...state,
+        pages: [...state.pages, payload.page],
+        activePage: payload.page,
+      };
     case Constants.SET_ACTIVE_PAGE:
       return {
         ...state,
@@ -158,6 +179,13 @@ function closeSpaceAction(): CloseSpaceAction {
   return {
     type: Constants.CLOSE_SPACE,
     payload: {},
+  };
+}
+
+function addPageAction(page: Page): AddPageAction {
+  return {
+    type: Constants.ADD_PAGE,
+    payload: { page },
   };
 }
 

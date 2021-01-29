@@ -6,6 +6,7 @@ export const JSON_CONTENT_TYPE: string = 'application/json; charset=utf-8';
 export const CONTENT_TYPE_HEADER: string = 'Content-Type';
 export const ZERO: number = 0;
 export const SPACE_PAGE_PATHNAME_REGEXP: RegExp = /\/s\//;
+export const NEW_PAGE_ID: string = 'new-page';
 
 export enum AppRoutePathnames {
   REGISTRATION = '/registration',

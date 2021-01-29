@@ -36,6 +36,7 @@ export type UserStoreState = {
   color: SpaceColors,
   logo: string,
   pathname: string,
+  pages: string[],
 };
 
 export type GetUser = {
@@ -43,7 +44,7 @@ export type GetUser = {
   spaces: Space[],
 };
 
-export type UserDataValue = string | KeyboardShortcut[];
+export type UserDataValue = string | string[] | KeyboardShortcut[];
 
 const spacesService: Spaces = new SpacesService();
 
@@ -62,6 +63,7 @@ export const initialState: UserStoreState = {
   [UserDataLabels.SPACE_COLOR]: spacesService.getRandomColor(),
   [UserDataLabels.SPACE_LOGO]: '',
   [UserDataLabels.SPACE_PATHNAME]: '',
+  [UserDataLabels.SPACE_PAGES]: [],
 };
 
 export type UpdatedStates = {
@@ -69,7 +71,7 @@ export type UpdatedStates = {
 };
 
 export type UpdatedData = {
-  [key: string]: string,
+  [key: string]: string | string[],
 };
 
 export interface UserStore {

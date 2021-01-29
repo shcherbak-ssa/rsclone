@@ -17,5 +17,6 @@ export interface ActiveSpaceStore {
   setIsOpen(isOpen: boolean): void;
   openSpace(pages: Page[]): void;
   closeSpace(): void;
+  addPage(page: Page): void;
   setActivePage(page: Page): void;
 }

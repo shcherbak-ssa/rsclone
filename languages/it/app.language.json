@@ -159,6 +159,7 @@
     "shortcuts": "Tasti rapidi"
   },
   "page": {
-    "addPage": "Nuova pagina"
+    "addPage": "Nuova pagina",
+    "newPageTitle": "Senza titolo"
   }
 }

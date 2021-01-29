@@ -40,11 +40,34 @@ export class ActiveSpaceModel extends BaseModel {
     this.activeSpaceStore.setActivePage(activePage);
   }
 
+  async createPage(newPageTitle: string, spacePathname: string): Promise<string> {
+    try {
+      const createPageRequest: Request = this.createPageCreatingRequest(spacePathname, {newPageTitle});
+      const response: Response = await this.requestSender.send(createPageRequest).create();
+
+      const page: Page = response.parseResponse();
+      this.activeSpaceStore.addPage(page);
+
+      return page.id;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   private createSpacePagesRequest(spacePathname: string): Request {
     const spacePagesPathname: string = this.urlPathname.getPagesPathname(spacePathname);
 
     return this.requestCreator
       .appendUrlPathname(spacePagesPathname)
+      .createRequest();
+  }
+
+  private createPageCreatingRequest(spacePathname: string, body: any): Request {
+    const spacePagesPathname: string = this.urlPathname.getPagesPathname(spacePathname);
+
+    return this.requestCreator
+      .appendUrlPathname(spacePagesPathname)
+      .setBody(body)
       .createRequest();
   }
 }

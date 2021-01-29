@@ -5,10 +5,10 @@ import plusIcon from '@iconify/icons-ant-design/plus-outlined';
 
 import { Page } from '../../common/entities';
 import { PageListItemComponent, PageListItemComponentProps } from './page-list-item.component';
-import { useAppLanguage } from '../hooks/app-language.hook';
 import { ICON_18_HEIGHT } from '../constants/ui.constants';
 
 export type PageListComponentProps = {
+  addPageValue: string,
   color: string,
   pageTitles: string[],
   pageIDs: string[],
@@ -18,10 +18,8 @@ export type PageListComponentProps = {
 };
 
 export function PageListComponent({
-  color, pageTitles, pageIDs, activePage, setActivePage, addPage,
+  addPageValue, color, pageTitles, pageIDs, activePage, setActivePage, addPage,
 }: PageListComponentProps) {
-  const appLanguage = useAppLanguage();
-
   if (activePage === null) return <div>Loading...</div>;
 
   const addPageIconProps = {
@@ -51,7 +49,7 @@ export function PageListComponent({
     <div className="page-list">
       {drawPageListItems()}
       <div className="page-list-item page-add" data-class="click" onClick={handleAddPageClick}>
-        {appLanguage.page.addPage}
+        {addPageValue}
         <div className="page-list-icon" data-class="flex-center">
           <Icon {...addPageIconProps}/>
         </div>

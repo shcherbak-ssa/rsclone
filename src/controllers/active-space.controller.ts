@@ -1,14 +1,24 @@
+import { NEW_PAGE_ID, UserDataLabels } from '../constants';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ActiveSpaceModel } from '../models/active-space.model';
+import { UserModel } from '../models/user.model';
 import { EventEmitter } from '../services/event-emitter.service';
 import { Controller } from '../types/services.types';
+import { UpdatedData } from '../types/user.types';
+
+export type NewPage = {
+  newPageTitle: string,
+  pages: string[],
+  spacePathname: string,
+};
 
 export const activeSpaceController: Controller = new EventEmitter();
 
 activeSpaceController
   .on(ActiveSpaceEvents.OPEN_SPACE, openSpaceHandler)
   .on(ActiveSpaceEvents.CLOSE_SPACE, closeSpaceHandler)
-  .on(ActiveSpaceEvents.SET_ACTIVE_PAGE, setActivePageHandler);
+  .on(ActiveSpaceEvents.SET_ACTIVE_PAGE, setActivePageHandler)
+  .on(ActiveSpaceEvents.ADD_PAGE, addPageHandler);
 
 async function openSpaceHandler(spacePathname: string): Promise<void> {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
@@ -23,4 +33,26 @@ function closeSpaceHandler(): void {
 function setActivePageHandler(pageID: string): void {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
   activeSpaceModel.setActiveSpaceID(pageID);
+}
+
+async function addPageHandler({newPageTitle, pages, spacePathname}: NewPage): Promise<void> {
+  pages.push(NEW_PAGE_ID);
+
+  const userModel: UserModel = new UserModel();
+  let updatedSpacePages: UpdatedData = {
+    [UserDataLabels.SPACE_PAGES]: [...pages],
+  };
+
+  userModel.updateStates(updatedSpacePages);
+
+  const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
+  const newPageID: string = await activeSpaceModel.createPage(newPageTitle, spacePathname);
+
+  updatedSpacePages = {
+    [UserDataLabels.SPACE_PAGES]: pages.map((pageID) => {
+      return pageID === NEW_PAGE_ID ? newPageID : pageID;
+    }),
+  };
+
+  userModel.updateStates(updatedSpacePages);
 }

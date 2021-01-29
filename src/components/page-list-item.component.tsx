@@ -4,6 +4,9 @@ import classnames from 'classnames';
 import { Classnames } from '../constants/ui.constants';
 import { Page } from '../../common/entities';
 import { AssetsService } from '../services/assets.service';
+import { NEW_PAGE_ID } from '../constants';
+
+const LOADER_ITEMS_COUNT: number = 4;
 
 export type PageListItemComponentProps = {
   color: string,
@@ -34,6 +37,22 @@ export function PageListItemComponent({
     }
   }
 
+  function drawListItemContent() {
+    if (pageID === NEW_PAGE_ID) {
+      return <div className="lds-ellipsis">{drawLoaderItems()}</div>;
+    }
+
+    return (
+      <div className="page-list-title">{getPageListTitle()}</div>
+    );
+  }
+
+  function drawLoaderItems() {
+    return new Array(LOADER_ITEMS_COUNT).fill(0).map((it, index) => {
+      return <div style={AssetsService.createHexBackgroundColorStyle(color)} key={index}></div>
+    });
+  }
+
   function getPageListTitle() {
     return isActivePage ? activePage.title : pageTitle;
   }
@@ -45,7 +64,7 @@ export function PageListItemComponent({
       style={setActivePageStyles()}
       onClick={handleClick}
     >
-      <div className="page-list-title">{getPageListTitle()}</div>
+      {drawListItemContent()}
     </div>
   );
 }

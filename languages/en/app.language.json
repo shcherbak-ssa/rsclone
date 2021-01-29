@@ -159,6 +159,7 @@
     "shortcuts": "Shortcuts"
   },
   "page": {
-    "addPage": "New page"
+    "addPage": "New page",
+    "newPageTitle": "Untitled"
   }
 }
