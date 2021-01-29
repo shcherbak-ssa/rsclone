@@ -30,6 +30,12 @@ export class PagesRouter implements BaseRouter {
           controllerData,
         );
         break;
+      case RequestMethods.POST:
+        await this.runPagesController(
+          PagesControllerActions.CREATE_PAGE,
+          controllerData,
+        );
+        break;
     }
   }
 }

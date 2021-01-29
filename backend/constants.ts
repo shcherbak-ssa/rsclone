@@ -4,6 +4,7 @@ export const USERS_FILES_DB_DIRNAME: string = 'db';
 export const MINUS_REPLACE_STRING: string = '-';
 export const EMPTY_VALUE_LENGTH: number = 0;
 export const INITIAL_PATHNAME_COUNT: number = 1;
+export const EMPTY_STRING: string = '';
 
 export enum DatabaseNames {
   USERS = 'users',
@@ -35,4 +36,5 @@ export enum UserDataLabels {
   SPACE_LOGO = 'logo',
   SPACE_PATHNAME = 'pathname',
   SPACE_PAGES = 'pages',
+  PAGE_PATHNAME = 'pathname',
 };

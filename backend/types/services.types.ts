@@ -19,3 +19,7 @@ export interface UserFiles {
 export interface SpacePathname {
   createSpacePathname(userID: string, spaceName: string): Promise<string>;
 }
+
+export interface PagePathname {
+  createPagePathname(userID: string, spaceID: string, pageTitle: string): Promise<string>;
+}

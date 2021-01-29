@@ -5,14 +5,17 @@ import { DatabaseDBService } from '../services/database-db.service';
 import { PagesDatabase } from '../models/pages.model';
 import { NewPage, PageAccess } from '../types/pages.types';
 import { Page } from '../../common/entities';
+import { UniquePageDatabase } from '../models/unique.model';
+import { UserDataLabels } from '../constants';
 
-export class PagesCollectionDatabase implements PagesDatabase {
+export class PagesCollectionDatabase implements PagesDatabase, UniquePageDatabase {
   private async getUserPagesCollection(
     userID: string, spaceID: string,
   ): Promise<DatabaseCollectionService> {
     return DatabaseDBService.createDatabase(userID).createCollection(spaceID);
   }
 
+  // implements PagesDatabase
   async getPages(userID: string, spaceID: string): Promise<Page[]> {
     const userPagesCollection: DatabaseCollectionService
       = await this.getUserPagesCollection(userID, spaceID);
@@ -33,5 +36,18 @@ export class PagesCollectionDatabase implements PagesDatabase {
       = await this.getUserPagesCollection(userID, spaceID);
 
     return await userPagesCollection.createDocument({...newPage});
+  }
+
+  // implements UniquePageDatabase
+  async isPagePathnameUnique(
+    userID: string, spaceID: string, pagePathname: string
+  ): Promise<boolean> {
+    const userPagesCollection: DatabaseCollectionService
+      = await this.getUserPagesCollection(userID, spaceID);
+    const uniqueQuery = {
+      [UserDataLabels.PAGE_PATHNAME]: pagePathname,
+    };
+
+    return await userPagesCollection.isUnique(uniqueQuery);
   }
 }

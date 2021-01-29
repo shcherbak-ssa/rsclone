@@ -3,6 +3,7 @@ import { ErrorLabels } from '../../common/constants';
 import { ValidationError } from '../../common/validation';
 import { usersCollectionDatabase } from '../database/users-collection.database';
 import { SpacesCollectionDatabase } from '../database/spaces-collection.database';
+import { PagesCollectionDatabase } from '../database/pages-collection.database';
 
 export interface UniqueUserDatabase {
   isUsernameUnique(username: string): Promise<boolean>;
@@ -13,13 +14,19 @@ export interface UniqueSpaceDatabase {
   isSpacePathnameUnique(userID: string, spacePathname: string): Promise<boolean>;
 }
 
+export interface UniquePageDatabase {
+  isPagePathnameUnique(userID: string, spaceID: string, pagePathname: string): Promise<boolean>;
+}
+
 export class UniqueModel {
   private userDatabase: UniqueUserDatabase;
   private spaceDatabase: UniqueSpaceDatabase;
+  private pageDatabase: UniquePageDatabase;
 
   constructor() {
     this.userDatabase = usersCollectionDatabase;
     this.spaceDatabase = new SpacesCollectionDatabase();
+    this.pageDatabase = new PagesCollectionDatabase();
   }
   
   async isUsernameUnique(username: string): Promise<boolean> {
@@ -56,5 +63,11 @@ export class UniqueModel {
 
   async isSpacePathnameUnique(userID: string, spacePathname: string): Promise<boolean> {
     return await this.spaceDatabase.isSpacePathnameUnique(userID, spacePathname);
+  }
+
+  async isPagePathnameUnique(
+    userID: string, spaceID: string, pagePathname: string
+  ): Promise<boolean> {
+    return await this.pageDatabase.isPagePathnameUnique(userID, spaceID, pagePathname);
   }
 }
