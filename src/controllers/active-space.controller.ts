@@ -12,13 +12,21 @@ export type NewPage = {
   spacePathname: string,
 };
 
+export type DeletePage = {
+  pageID: string,
+  pages: string[],
+  spacePathname: string,
+  callback: Function,
+};
+
 export const activeSpaceController: Controller = new EventEmitter();
 
 activeSpaceController
   .on(ActiveSpaceEvents.OPEN_SPACE, openSpaceHandler)
   .on(ActiveSpaceEvents.CLOSE_SPACE, closeSpaceHandler)
   .on(ActiveSpaceEvents.SET_ACTIVE_PAGE, setActivePageHandler)
-  .on(ActiveSpaceEvents.ADD_PAGE, addPageHandler);
+  .on(ActiveSpaceEvents.ADD_PAGE, addPageHandler)
+  .on(ActiveSpaceEvents.DELETE_PAGE, deletePageHandler);
 
 async function openSpaceHandler(spacePathname: string): Promise<void> {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
@@ -55,4 +63,20 @@ async function addPageHandler({newPageTitle, pages, spacePathname}: NewPage): Pr
   };
 
   userModel.updateStates(updatedSpacePages);
+}
+
+async function deletePageHandler({pageID, pages, spacePathname, callback}: DeletePage): Promise<void> {
+  const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
+  const deleted: boolean = await activeSpaceModel.deletePage(pageID, spacePathname);
+
+  if (deleted) {
+    const userModel: UserModel = new UserModel();
+    const updatedSpacePages: UpdatedData = {
+      [UserDataLabels.SPACE_PAGES]: pages.filter((id) => id !== pageID),
+    };
+
+    userModel.updateStates(updatedSpacePages);
+  }
+
+  callback(deleted);
 }

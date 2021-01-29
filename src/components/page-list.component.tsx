@@ -15,10 +15,11 @@ export type PageListComponentProps = {
   activePage: Page | null,
   setActivePage: Function,
   addPage: Function,
+  deletePage: Function,
 };
 
 export function PageListComponent({
-  addPageValue, color, pageTitles, pageIDs, activePage, setActivePage, addPage,
+  addPageValue, color, pageTitles, pageIDs, activePage, setActivePage, addPage, deletePage,
 }: PageListComponentProps) {
   if (activePage === null) return <div>Loading...</div>;
 
@@ -35,6 +36,7 @@ export function PageListComponent({
         pageTitle: pageTitles[index],
         activePage,
         setActivePage,
+        deletePage,
       };
 
       return <PageListItemComponent key={pageID} {...pageListItemProps}/>

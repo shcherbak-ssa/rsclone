@@ -13,6 +13,7 @@ enum Constants {
   CLOSE_SPACE = 'active-space-store/close-space',
   ADD_PAGE = 'active-space-store/add-page',
   SET_ACTIVE_PAGE = 'active-space-store/set-active-page',
+  DELETE_PAGE = 'active-space-store/delete-page',
 };
 
 /** types */
@@ -53,13 +54,21 @@ type SetActivePageAction = {
   },
 };
 
+type DeletePageAction = {
+  type: Constants.DELETE_PAGE,
+  payload: {
+    pages: Page[],
+  },
+};
+
 type ActiveSpaceStoreAction =
   | AnyAction
   | SetIsOpenAction
   | OpenSpaceAction
   | CloseSpaceAction
   | AddPageAction
-  | SetActivePageAction;
+  | SetActivePageAction
+  | DeletePageAction;
 
 /** constants */
 const activeSpaceStoreSelectors: StoreSelectors = {
@@ -117,6 +126,12 @@ class ActiveSpaceStoreImpl implements ActiveSpaceStore {
       setActivePageAction(page)
     );
   }
+
+  deletePage(pages: Page[]): void {
+    reduxStore.dispatch(
+      deletePageAction(pages)
+    );
+  }
 }
 
 /** store creator */
@@ -154,6 +169,11 @@ function activeSpaceStoreReducer(
       return {
         ...state,
         activePage: payload.page,
+      };
+    case Constants.DELETE_PAGE:
+      return {
+        ...state,
+        pages: [...payload.pages],
       };
     default:
       return state;
@@ -193,5 +213,12 @@ function setActivePageAction(page: Page): SetActivePageAction {
   return {
     type: Constants.SET_ACTIVE_PAGE,
     payload: { page },
+  };
+}
+
+function deletePageAction(pages: Page[]): DeletePageAction {
+  return {
+    type: Constants.DELETE_PAGE,
+    payload: { pages },
   };
 }

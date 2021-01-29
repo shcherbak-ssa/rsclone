@@ -21,6 +21,10 @@
       width: 100%;
       -x-font-size: 14px/1.5;
 
+      .page-list-icon {
+        opacity: 0;
+      }
+
       .original-theme & {
         color: $original-space-page-title-color;
       }
@@ -34,6 +38,10 @@
       }
 
       &:hover {
+        .page-list-icon {
+          opacity: 1;
+        }
+
         .original-theme & {
           background: rgba($original-space-page-title-color, .1);
         }
@@ -70,6 +78,8 @@
 
     &-icon {
       margin-left: 8px;
+      z-index: 1;
+      transition: .2s;
       -x-size: 24px;
     }
   }

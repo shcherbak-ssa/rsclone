@@ -19,4 +19,5 @@ export interface ActiveSpaceStore {
   closeSpace(): void;
   addPage(page: Page): void;
   setActivePage(page: Page): void;
+  deletePage(pages: Page[]): void;
 }

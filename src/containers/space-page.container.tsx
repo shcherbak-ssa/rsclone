@@ -72,6 +72,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     activePage,
     setActivePage,
     addPage,
+    deletePage,
   };
 
   function setActivePage(pageID: string) {
@@ -86,6 +87,10 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     };
 
     activeSpaceController.emit(ActiveSpaceEvents.ADD_PAGE, newPage);
+  }
+
+  function deletePage(pageID: string) {
+    console.log('delete-page', pageID);
   }
 
   return (

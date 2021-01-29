@@ -45,7 +45,7 @@ export class ActiveSpaceModel extends BaseModel {
 
   async createPage(newPageTitle: string, spacePathname: string): Promise<string> {
     try {
-      const createPageRequest: Request = this.createPageCreatingRequest(spacePathname, {newPageTitle});
+      const createPageRequest: Request = this.createRequestWithBody(spacePathname, {newPageTitle});
       const response: Response = await this.requestSender.send(createPageRequest).create();
 
       const page: Page = response.parseResponse();
@@ -68,6 +68,34 @@ export class ActiveSpaceModel extends BaseModel {
     }
   }
 
+  async deletePage(deletePageID: string, spacePathname: string): Promise<boolean> {
+    try {
+      const createPageRequest: Request = this.createRequestWithBody(spacePathname, {id: deletePageID});
+      const response: Response = await this.requestSender.send(createPageRequest).delete();
+      response.parseResponse();
+
+      const pages: Page[] = this.activeSpaceStore.getPages();
+      const updatedPages: Page[] = pages.filter((page) => page.id !== deletePageID);
+      this.activeSpaceStore.deletePage(updatedPages);
+
+      const spaces: Space[] = this.spacesStore.getSpaces();
+      const updatedSpaces: Space[] = spaces.map((space) => {
+        if (space.pathname === spacePathname) {
+          space.pages = space.pages.filter((id) => id !== deletePageID);
+        }
+
+        return space;
+      });
+
+      this.spacesStore.updateSpaces(updatedSpaces);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   private createSpacePagesRequest(spacePathname: string): Request {
     const spacePagesPathname: string = this.urlPathname.getPagesPathname(spacePathname);
 
@@ -76,7 +104,7 @@ export class ActiveSpaceModel extends BaseModel {
       .createRequest();
   }
 
-  private createPageCreatingRequest(spacePathname: string, body: any): Request {
+  private createRequestWithBody(spacePathname: string, body: any): Request {
     const spacePagesPathname: string = this.urlPathname.getPagesPathname(spacePathname);
 
     return this.requestCreator
