@@ -68,6 +68,19 @@ export class SpacesCollectionDatabase implements SpacesDatabase, UniqueSpaceData
     return `${result._id}`;
   }
 
+  async getSpacePageIDs(userID: string, spaceID: string): Promise<string[]> {
+    const userSpacesCollection: DatabaseCollectionService = await this.getUserSpacesCollection(userID);
+    const getSpacePageIDsFilter = this.getSpaceSearchFilter(spaceID);
+    const getSpacePageIDsOptions = {
+      projection: {
+        [UserDataLabels.SPACE_PAGES]: 1,
+      },
+    };
+
+    const result = await userSpacesCollection.getDocument(getSpacePageIDsFilter, getSpacePageIDsOptions);
+    return result[UserDataLabels.SPACE_PAGES];
+  }
+
   // implements UniqueSpaceDatabase
   async isSpacePathnameUnique(userID: string, spacePathname: string): Promise<boolean> {
     const userSpacesCollection: DatabaseCollectionService = await this.getUserSpacesCollection(userID);

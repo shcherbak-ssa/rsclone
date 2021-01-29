@@ -9,6 +9,7 @@ export interface SpacesDatabase {
   updateSpace(userID: string, updatedSpace: UpdatedSpace): Promise<void>;
   deleteSpace(userID: string, deletedSpaceID: string): Promise<void>;
   getSpaceID(userID: string, spacePathname: string): Promise<string>;
+  getSpacePageIDs(userID: string, spaceID: string): Promise<string[]>;
 }
 
 export class SpacesModel {
@@ -39,5 +40,9 @@ export class SpacesModel {
 
   async getSpaceID(userID: string, spacePathname: string): Promise<string> {
     return await this.database.getSpaceID(userID, spacePathname);
+  }
+
+  async getSpacePageIDs(userID: string, spaceID: string): Promise<string[]> {
+    return await this.database.getSpacePageIDs(userID, spaceID);
   }
 }

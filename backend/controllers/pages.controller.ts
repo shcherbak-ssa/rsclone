@@ -2,12 +2,14 @@ import { PagePathname, ResponseSender } from '../types/services.types';
 import { ControllerData } from '../types/controller.types';
 import { BaseController } from './base.controller';
 import { ServerError } from '../services/errors.service';
-import { Page } from '../../common/entities';
+import { Page, UpdatedSpace } from '../../common/entities';
 import { PagesModel } from '../models/pages.model';
 import { NewPage, PageAccess, PageAccessCreator } from '../types/pages.types';
 import { PageAccessService } from '../services/page-access.service';
 import { StatusCodes } from '../../common/constants';
 import { PagePathnameService } from '../services/page-pathname.service';
+import { SpacesModel } from '../models/spaces.model';
+import { UserDataLabels } from '../constants';
 
 export enum PagesControllerActions {
   GET_PAGES = 'get-pages',
@@ -17,12 +19,14 @@ export enum PagesControllerActions {
 export class PagesController extends BaseController {
   private pagesModel: PagesModel;
   private pagePathname: PagePathname;
+  private spacesModel: SpacesModel;
 
   constructor() {
     super();
 
     this.pagesModel = new PagesModel();
     this.pagePathname = new PagePathnameService();
+    this.spacesModel = new SpacesModel();
   }
 
   async runController(
@@ -71,6 +75,17 @@ export class PagesController extends BaseController {
 
     const newPage: NewPage = this.createNewPage(newPageTitle, pagePathname);
     const createdNewPage: Page = await this.pagesModel.createPage(pageAccess, newPage);
+
+    const spacePages: string[] = await this.spacesModel.getSpacePageIDs(userID, spaceID);
+    spacePages.push(createdNewPage.id);
+
+    const updatedSpace: UpdatedSpace = {
+      id: spaceID,
+      updates: {
+        [UserDataLabels.SPACE_PAGES]: spacePages,
+      },
+    };
+    this.spacesModel.updateSpace(userID, updatedSpace);
 
     responseSender.sendSuccessJsonResponse({...createdNewPage}, StatusCodes.CREATED);
   }
