@@ -70,7 +70,7 @@ export class ActiveSpaceModel extends BaseModel {
 
   async deletePage(deletePageID: string, spacePathname: string): Promise<boolean> {
     try {
-      const createPageRequest: Request = this.createRequestWithBody(spacePathname, {id: deletePageID});
+      const createPageRequest: Request = this.createRequestWithBody(spacePathname, {deletePageID});
       const response: Response = await this.requestSender.send(createPageRequest).delete();
       response.parseResponse();
 

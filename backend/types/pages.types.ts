@@ -1,9 +1,9 @@
 import { PageNode } from '../../common/entities';
 
 export interface PageAccessCreator {
-  setUserID(userID: string): void;
-  setSpaceID(spaceID: string): void;
-  setPageID(pageID: string): void;
+  setUserID(userID: string): PageAccessCreator;
+  setSpaceID(spaceID: string): PageAccessCreator;
+  setPageID(pageID: string): PageAccessCreator;
   getPageAccess(): PageAccess;
 }
 

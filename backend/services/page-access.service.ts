@@ -7,16 +7,19 @@ export class PageAccessService implements PageAccessCreator {
     pageID: '',
   };
 
-  setUserID(userID: string): void {
+  setUserID(userID: string): PageAccessService {
     this.pageAccess.userID = userID;
+    return this;
   }
 
-  setSpaceID(spaceID: string): void {
+  setSpaceID(spaceID: string): PageAccessService {
     this.pageAccess.spaceID = spaceID;
+    return this;
   }
 
-  setPageID(pageID: string): void {
+  setPageID(pageID: string): PageAccessService {
     this.pageAccess.pageID = pageID;
+    return this;
   }
 
   getPageAccess(): PageAccess {

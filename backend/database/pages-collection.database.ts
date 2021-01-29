@@ -1,4 +1,4 @@
-import { Cursor } from 'mongodb';
+import { Cursor, ObjectID } from 'mongodb';
 
 import { DatabaseCollectionService } from '../services/database-collection.service';
 import { DatabaseDBService } from '../services/database-db.service';
@@ -13,6 +13,10 @@ export class PagesCollectionDatabase implements PagesDatabase, UniquePageDatabas
     userID: string, spaceID: string,
   ): Promise<DatabaseCollectionService> {
     return DatabaseDBService.createDatabase(userID).createCollection(spaceID);
+  }
+
+  private getPageSearchFilter(pageID: string): {_id: ObjectID} {
+    return { _id: new ObjectID(pageID) };
   }
 
   // implements PagesDatabase
@@ -36,6 +40,14 @@ export class PagesCollectionDatabase implements PagesDatabase, UniquePageDatabas
       = await this.getUserPagesCollection(userID, spaceID);
 
     return await userPagesCollection.createDocument({...newPage});
+  }
+
+  async deletePage({userID, spaceID, pageID}: PageAccess): Promise<void> {
+    const userPagesCollection: DatabaseCollectionService
+      = await this.getUserPagesCollection(userID, spaceID);
+
+    const deletePageFilter = this.getPageSearchFilter(pageID);
+    await userPagesCollection.deleteDocument(deletePageFilter);
   }
 
   // implements UniquePageDatabase

@@ -36,6 +36,12 @@ export class PagesRouter implements BaseRouter {
           controllerData,
         );
         break;
+      case RequestMethods.DELETE:
+        await this.runPagesController(
+          PagesControllerActions.DELETE_PAGE,
+          controllerData,
+        );
+        break;
     }
   }
 }
