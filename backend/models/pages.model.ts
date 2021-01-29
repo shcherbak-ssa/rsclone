@@ -3,7 +3,7 @@ import { Page } from '../../common/entities';
 import { PagesCollectionDatabase } from '../database/pages-collection.database';
 
 export interface PagesDatabase {
-  // getPage(pageAccess: PageAccess): Promise<Page>;
+  getPages(userID: string, spaceID: string): Promise<Page[]>;
   createPage(pageAccess: PageAccess, newPage: NewPage): Promise<string>;
   // updatePage(pageAccess: PageAccess): Promise<boolean>;
   // deletePage(pageAccess: PageAccess): Promise<boolean>;
@@ -14,6 +14,10 @@ export class PagesModel {
 
   constructor() {
     this.database = new PagesCollectionDatabase();
+  }
+
+  async getPages(userID: string, spaceID: string): Promise<Page[]> {
+    return await this.database.getPages(userID, spaceID);
   }
 
   async createPage(pageAccess: PageAccess, newPage: NewPage): Promise<Page> {

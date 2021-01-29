@@ -10,7 +10,7 @@ export function useCloseSpacePage() {
   const history = useHistory();
 
   return () => {
-    activeSpaceController.emit(ActiveSpaceEvents.SET_IS_OPEN, false);
+    activeSpaceController.emit(ActiveSpaceEvents.CLOSE_SPACE);
 
     const appRoutes: AppRoutes = new AppRoutesService();
     const rootRoutePath: string = appRoutes.getRootRoutePath();

@@ -4,4 +4,63 @@
   margin: 0 90px;
   max-width: 750px;
   height: 100%;
+
+  &-list {
+    padding-left: 16px;
+
+    &-item {
+      font-weight: 500;
+      word-break: break-word;
+      padding: 7px 24px 7px 16px;
+      transition: .2s;
+      width: 100%;
+      -x-font-size: 14px/1.5;
+
+      .original-theme & {
+        color: $original-space-page-title-color;
+      }
+  
+      .light-theme & {
+        color: $light-space-page-title-color;
+      }
+  
+      .dark-theme & {
+        color: $dark-space-page-title-color;
+      }
+
+      &:hover {
+        .original-theme & {
+          background: rgba($original-space-page-title-color, .1);
+        }
+    
+        .light-theme & {
+          background: rgba($light-space-page-title-color, .1);
+        }
+    
+        .dark-theme & {
+          background: rgba($dark-space-page-title-color, .1);
+        }
+      }
+
+      &.is-active {
+        border: 1px solid;
+        border-right: none;
+
+        .original-theme & {
+          background: $original-space-page-editor-background-color;
+          border-color: $original-space-page-border-color;
+        }
+    
+        .light-theme & {
+          background: $light-space-page-editor-background-color;
+          border-color: $light-space-page-border-color;
+        }
+    
+        .dark-theme & {
+          background: $dark-space-page-editor-background-color;
+          border-color: $dark-space-page-border-color;
+        }
+      }
+    }
+  }
 }

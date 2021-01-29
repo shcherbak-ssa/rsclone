@@ -19,6 +19,11 @@ export class UrlPathnameService implements UsersUrlPathname {
     return this.getPathname(RequestPathnames.SPACES);
   }
 
+  getPagesPathname(spacePathname: string): string {
+    const pagesPathnameTemplate: string = this.getPathname(RequestPathnames.PAGES);
+    return this.replacePatameter(pagesPathnameTemplate, spacePathname);
+  }
+
   private getPathname(templatePathname: RequestPathnames): string {
     const username: string = this.getUsername();
     return this.replacePatameter(templatePathname, username);
@@ -30,6 +35,6 @@ export class UrlPathnameService implements UsersUrlPathname {
   }
 
   private replacePatameter(pathname: string, replaceString: string) {
-    return pathname.replace(/:[a-z]+/, replaceString);
+    return pathname.replace(/:[a-z]+/i, replaceString);
   }
 }

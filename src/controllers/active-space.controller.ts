@@ -5,9 +5,22 @@ import { Controller } from '../types/services.types';
 
 export const activeSpaceController: Controller = new EventEmitter();
 
-activeSpaceController.on(ActiveSpaceEvents.SET_IS_OPEN, setIsOpenHandler);
+activeSpaceController
+  .on(ActiveSpaceEvents.OPEN_SPACE, openSpaceHandler)
+  .on(ActiveSpaceEvents.CLOSE_SPACE, closeSpaceHandler)
+  .on(ActiveSpaceEvents.SET_ACTIVE_PAGE, setActivePageHandler);
 
-async function setIsOpenHandler(isOpen: boolean): Promise<void> {
+async function openSpaceHandler(spacePathname: string): Promise<void> {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
-  await activeSpaceModel.setIsOpen(isOpen);
+  await activeSpaceModel.openSpace(spacePathname);
+}
+
+function closeSpaceHandler(): void {
+  const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
+  activeSpaceModel.closeSpace();
+}
+
+function setActivePageHandler(pageID: string): void {
+  const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
+  activeSpaceModel.setActiveSpaceID(pageID);
 }

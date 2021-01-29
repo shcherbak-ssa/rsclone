@@ -6,6 +6,7 @@ export enum RequestPathnames {
   USERS = '/@:username/users',
   AVATARS = '/@:username/avatars',
   SPACES = '/@:username/spaces',
+  PAGES = '/@:username/s/:spacePathname',
 };
 
 export enum MiddlewarePathnames {
@@ -14,6 +15,7 @@ export enum MiddlewarePathnames {
   AUTH_USER = '/@:username',
   LANGUAGES = '/languages/:language',
   AVATARS = '/@:username/avatars',
+  ACTIVE_SPACE = '/@:username/s/:spacePathname',
 };
 
 export enum RequestMethods {

@@ -1,5 +1,8 @@
+import { EMPTY_STRING } from '../constants/strings.constants';
 import { InitialInputState } from '../types/tools.types';
 import { InputState } from '../types/user-draft.types';
+
+const SPLITED_LOCATION_PATHNAME_LENGTH_WITHOUT_PAGE_PATHNAME: number = 4;
 
 export class ToolsService implements InitialInputState {
   getInitialInputState(): InputState {
@@ -22,7 +25,22 @@ export class ToolsService implements InitialInputState {
     return from.slice(start, start + count);
   }
 
-  getSpacePathname(): string {
-    return location.pathname.split('/').reverse()[0];
+  getOpenSpacePathnames(): {
+    spacePathname: string,
+    pagePathname: string,
+  } {
+    const splitedLocationPathname: string[] = location.pathname.split('/').reverse();
+
+    if (splitedLocationPathname.length === SPLITED_LOCATION_PATHNAME_LENGTH_WITHOUT_PAGE_PATHNAME) {
+      return {
+        spacePathname: splitedLocationPathname[0],
+        pagePathname: EMPTY_STRING,
+      };
+    }
+
+    return {
+      spacePathname: splitedLocationPathname[1],
+      pagePathname: splitedLocationPathname[0],
+    };
   }
 }

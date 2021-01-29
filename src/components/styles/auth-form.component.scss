@@ -4,8 +4,9 @@
   -x-size: 100%;
 
   &-title {
-    font: bold 32px/40px 'Montserrat', sans-serif;
+    font-weight: 700;
     margin-bottom: 32px;
+    -x-font-size: 32px/40px;
 
     @media screen and (max-width: 450px) {
       font-size: 28px;

@@ -43,5 +43,7 @@ export enum SpacesEvents {
 };
 
 export enum ActiveSpaceEvents {
-  SET_IS_OPEN = 'active-space-events/set-is-open',
+  OPEN_SPACE = 'active-space-events/open-space',
+  CLOSE_SPACE = 'active-space-events/close-space',
+  SET_ACTIVE_PAGE = 'active-space-events/set-active-page',
 }

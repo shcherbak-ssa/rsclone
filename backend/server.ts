@@ -9,10 +9,12 @@ import { AuthUserMiddleware } from './middlewares/auth-user.middleware';
 import { LanguageMiddleware } from './middlewares/language.middleware';
 import { ControllerMiddleware } from './middlewares/controller.middleware';
 import { AvatarsMiddleware } from './middlewares/avatars.middleware';
+import { ActiveSpaceMiddleware } from './middlewares/active-space.middleware';
 import { AuthRouter } from './routers/auth.router';
 import { UsersRouter } from './routers/users.router';
 import { AvatarsRouter } from './routers/avatars.router';
 import { SpacesRouter } from './routers/spaces.router';
+import { PagesRouter } from './routers/pages.router';
 import { App, AppOptions } from './app';
 import { UserFilesService } from './services/user-files.service';
 import { AvatarFile } from './models/avatars.model';
@@ -33,7 +35,7 @@ DatabaseConnectionService.init().connect()
     UsersCollectionDatabase.create();
   })
   .then(() => {
-    return UserFilesService.init();
+    UserFilesService.init();
   })
   .then(() => {
     const appOptions: AppOptions = {
@@ -44,6 +46,7 @@ DatabaseConnectionService.init().connect()
         new UsersRouter(),
         new AvatarsRouter(),
         new SpacesRouter(),
+        new PagesRouter(),
       ],
       middlewares: [
         bodyParser.json(),
@@ -51,8 +54,9 @@ DatabaseConnectionService.init().connect()
       appMiddlewares: [
         new EntryMiddleware(),
         new AuthUserMiddleware(),
-        new AvatarsMiddleware(),
         new ControllerMiddleware(),
+        new ActiveSpaceMiddleware(),
+        new AvatarsMiddleware(),
         new LanguageMiddleware(),
       ],
     };

@@ -7,6 +7,12 @@ export class AssetsService {
       backgroundColor: `#${color}`,
     };
   }
+
+  static createHexColorStyle(color: string): any {
+    return {
+      color: `#${color}`,
+    };
+  }
   
   getIconUrl(icon: string): string {
     return `/assets/${icon}.svg`;

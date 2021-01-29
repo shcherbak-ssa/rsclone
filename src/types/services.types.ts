@@ -57,6 +57,7 @@ export interface UsersUrlPathname {
   getAvatarsPathname(): string;
   getSpacesPathname(): string;
   getLanguagePathname(language: LanguageLabels): string;
+  getPagesPathname(spacePathname: string): string;
 }
 
 export interface Spaces {

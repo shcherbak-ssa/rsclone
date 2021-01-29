@@ -3,7 +3,7 @@ import { UserDraftEvents, UserEvents } from '../constants/events.constants';
 import { DraftActiveSpace, userDraftController } from '../controllers/user-draft.controller';
 import { ActiveSpace, userController } from '../controllers/user.controller';
 
-export function useSetActiveSpace(): Function {
+export function useSetActiveSpace(): (space: Space, callback: Function) => void {
   function setActiveSpace(space: Space, callback: Function) {
     const activeSpace: ActiveSpace = { space, callback };
     userController.emit(UserEvents.SET_ACTIVE_SPACE, activeSpace);
