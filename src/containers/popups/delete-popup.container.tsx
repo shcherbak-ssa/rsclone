@@ -9,17 +9,21 @@ import { EMPTY_STRING } from '../../constants/strings.constants';
 import { Controller } from '../../types/services.types';
 import { PopupService } from '../../services/popup.service';
 import { useCloseSpacePage } from '../../hooks/close-space-page.hook';
+import { useAppLanguage } from '../../hooks/app-language.hook';
 
 export type DeletePopupContainerProps = {
   popupName: PopupNames,
   controller: Controller,
   controllerEvent: string,
+  controllerPayload?: any,
 };
 
 export function DeletePopupContainer({
-  popupName, controller, controllerEvent,
+  popupName, controller, controllerEvent, controllerPayload,
 }: DeletePopupContainerProps) {
+  const appLanguage = useAppLanguage();
   const closeSpacePage = useCloseSpacePage();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [confirmDeletionValue, setConfirmDeletionValue] = useState(EMPTY_STRING);
@@ -33,16 +37,14 @@ export function DeletePopupContainer({
       clickHandler: () => {
         setIsLoading(true);
 
-        controller.emit(controllerEvent, (deleted: boolean) => {
-          resetStates();
-
-          if (deleted) {
-            const popupService: PopupService = new PopupService();
-            popupService.closePopup(popupName);
-
-            closeSpacePage();
-          }
-        });
+        if (controllerPayload) {
+          controller.emit(controllerEvent, {
+            ...controllerPayload,
+            callback: controllerCallback,
+          });
+        } else {
+          controller.emit(controllerEvent, controllerCallback);
+        }
       },
     },
     closeHandler: () => {
@@ -58,19 +60,31 @@ export function DeletePopupContainer({
     setConfirmDeletionValue(EMPTY_STRING);
   }
 
+  function controllerCallback(deleted: boolean): void {
+    resetStates();
+
+    if (deleted) {
+      const popupService: PopupService = new PopupService();
+      popupService.closePopup(popupName);
+
+      closeSpacePage();
+    }
+  }
+
   if (popup === null) return <div></div>;
 
   const deletePopupProps: PopupComponentProps = popup[0];
   const deletePopupLanguage: any = popup[1];
+  const {deletePopupConfirmation} = appLanguage;
 
   const confirmDeletionInputProps: BaseInputProps = {
     value: confirmDeletionValue,
     error: EMPTY_STRING,
-    placeholder: deletePopupLanguage.placeholder,
-    description: deletePopupLanguage.description,
+    placeholder: deletePopupConfirmation.placeholder,
+    description: deletePopupConfirmation.description,
     updateValue: (value: string) => {
       setConfirmDeletionValue(value);
-      setIsConfirmed(value === deletePopupLanguage.confirmWord);
+      setIsConfirmed(value === deletePopupConfirmation.confirmWord);
     },
   };
 

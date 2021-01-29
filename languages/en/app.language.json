@@ -128,18 +128,12 @@
     "delete-account": {
       "title": "Delete account",
       "confirmButtonValue": "Delete",
-      "message": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back! Are you sure?",
-      "placeholder": "Type DELETE",
-      "description": "Type DELETE to confirm",
-      "confirmWord": "DELETE"
+      "message": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back! Are you sure?"
     },
     "delete-space": {
       "title": "Delete space",
       "confirmButtonValue": "Delete",
-      "message": "This action cannot be undone. This will permanently delete the project",
-      "placeholder": "Type DELETE",
-      "description": "Type DELETE to confirm",
-      "confirmWord": "DELETE"
+      "message": "This action cannot be undone. This will permanently delete the project"
     },
     "create-space": {
       "title": "Create a space",
@@ -148,6 +142,11 @@
     "update-space": {
       "title": "Space settings",
       "confirmButtonValue": "Save changes"
+    },
+    "delete-page": {
+      "title": "Delete page",
+      "confirmButtonValue": "Delete",
+      "message": "This action cannot be undone. This will permanently delete the page and all content"
     }
   },
   "dropdowns": {
@@ -161,5 +160,10 @@
   "page": {
     "addPage": "New page",
     "newPageTitle": "Untitled"
+  },
+  "deletePopupConfirmation": {
+    "placeholder": "Type DELETE",
+    "description": "Type DELETE to confirm",
+    "confirmWord": "DELETE"
   }
 }

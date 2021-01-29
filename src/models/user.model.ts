@@ -3,7 +3,7 @@ import cloneDeep from 'clone-deep';
 import { Stores } from '../constants';
 import { StoreManagerService } from '../services/store-manager.service';
 import { StoreManager } from '../types/store.types';
-import { UpdatedData, User, UserStore } from '../types/user.types';
+import { UpdatedData, User, UserDataValue, UserStore } from '../types/user.types';
 import { UserDataLabels } from '../constants';
 import { UserDraftModel } from './user-draft.model';
 import { Space } from '../../common/entities';
@@ -20,6 +20,10 @@ export class UserModel {
 
     this.getUserStore().setStates(user);
     this.syncDraft();
+  }
+
+  getState(dataLabel: UserDataLabels): UserDataValue {
+    return this.getUserStore().getState(dataLabel);
   }
 
   updateStates(updatedStates: UpdatedData): void {

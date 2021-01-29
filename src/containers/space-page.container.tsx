@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Page, Space } from '../../common/entities';
@@ -18,6 +18,9 @@ import { PageListComponentProps, PageListComponent } from '../components/page-li
 import { ShortcutsLabels } from '../../common/constants';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useAppLanguage } from '../hooks/app-language.hook';
+import { DeletePopupContainer, DeletePopupContainerProps } from './popups/delete-popup.container';
+import { PopupNames } from '../constants/ui.constants';
+import { EMPTY_STRING } from '../constants/strings.constants';
 
 export type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
@@ -26,6 +29,7 @@ export type SpacePageContainerProps = {
 
 export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePageContainerProps) {
   const appLanguage = useAppLanguage();
+  const [deletePagePopupProps, setDeletePagePopupProps] = useState(null);
 
   const closeSpacePage = useCloseSpacePage();
   const setActiveSpace = useSetActiveSpace();
@@ -82,7 +86,6 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   function addPage() {
     const newPage: NewPage = {
       newPageTitle: appLanguage.page.newPageTitle,
-      pages: [...activeSpace.pages],
       spacePathname: activeSpace.pathname,
     };
 
@@ -90,13 +93,28 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   }
 
   function deletePage(pageID: string) {
-    console.log('delete-page', pageID);
+    const deletePopupProps: DeletePopupContainerProps = {
+      popupName: PopupNames.DELETE_SPACE,
+      controller: activeSpaceController,
+      controllerEvent: ActiveSpaceEvents.DELETE_PAGE,
+      controllerPayload: {
+        pageID,
+        spacePathname: activeSpace.pathname,
+      },
+    };
+
+    setDeletePagePopupProps(deletePopupProps);
+  }
+
+  function drawDeletePagePopup() {
+    return deletePagePopupProps === null ? EMPTY_STRING : <DeletePopupContainer {...deletePagePopupProps}/>;
   }
 
   return (
     <SpacePageComponent {...spacePageProps}>
       <PageListComponent {...pageListProps}/>
       <PageContainer />
+      {drawDeletePagePopup()}
     </SpacePageComponent>
   );
 }

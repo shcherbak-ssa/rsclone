@@ -8,13 +8,11 @@ import { UpdatedData } from '../types/user.types';
 
 export type NewPage = {
   newPageTitle: string,
-  pages: string[],
   spacePathname: string,
 };
 
 export type DeletePage = {
   pageID: string,
-  pages: string[],
   spacePathname: string,
   callback: Function,
 };
@@ -43,40 +41,41 @@ function setActivePageHandler(pageID: string): void {
   activeSpaceModel.setActiveSpaceID(pageID);
 }
 
-async function addPageHandler({newPageTitle, pages, spacePathname}: NewPage): Promise<void> {
-  pages.push(NEW_PAGE_ID);
-
-  const userModel: UserModel = new UserModel();
-  let updatedSpacePages: UpdatedData = {
-    [UserDataLabels.SPACE_PAGES]: [...pages],
-  };
-
-  userModel.updateStates(updatedSpacePages);
+async function addPageHandler({newPageTitle, spacePathname}: NewPage): Promise<void> {
+  updateSpacePages((spacePageIDs: string[]) => {
+    return [...spacePageIDs, NEW_PAGE_ID];
+  });
 
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
   const newPageID: string = await activeSpaceModel.createPage(newPageTitle, spacePathname);
 
-  updatedSpacePages = {
-    [UserDataLabels.SPACE_PAGES]: pages.map((pageID) => {
+  updateSpacePages((spacePageIDs: string[]) => {
+    return spacePageIDs.map((pageID) => {
       return pageID === NEW_PAGE_ID ? newPageID : pageID;
-    }),
-  };
-
-  userModel.updateStates(updatedSpacePages);
+    });
+  });
 }
 
-async function deletePageHandler({pageID, pages, spacePathname, callback}: DeletePage): Promise<void> {
+async function deletePageHandler({pageID, spacePathname, callback}: DeletePage): Promise<void> {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
   const deleted: boolean = await activeSpaceModel.deletePage(pageID, spacePathname);
 
   if (deleted) {
-    const userModel: UserModel = new UserModel();
-    const updatedSpacePages: UpdatedData = {
-      [UserDataLabels.SPACE_PAGES]: pages.filter((id) => id !== pageID),
-    };
-
-    userModel.updateStates(updatedSpacePages);
+    updateSpacePages((spacePageIDs: string[]) => {
+      return spacePageIDs.filter((id) => id !== pageID);
+    });
   }
 
   callback(deleted);
+}
+
+function updateSpacePages(updatingFunction: Function) {
+  const userModel: UserModel = new UserModel();
+  const spacePageIDs = userModel.getState(UserDataLabels.SPACE_PAGES) as string[];
+
+  const updatedSpacePages: UpdatedData = {
+    [UserDataLabels.SPACE_PAGES]: updatingFunction(spacePageIDs),
+  };
+
+  userModel.updateStates(updatedSpacePages);
 }

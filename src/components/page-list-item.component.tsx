@@ -42,7 +42,8 @@ export function PageListItemComponent({
     }
   }
 
-  function handleDeletePageIconClick() {
+  function handleDeletePageIconClick(e: React.MouseEvent) {
+    e.stopPropagation();
     deletePage(pageID);
   }
 
