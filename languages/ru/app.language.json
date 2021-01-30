@@ -161,7 +161,11 @@
     "addPage": "Новая страница",
     "newPageTitle": "Без названия",
     "titlePlaceholder": "Заголовок страницы",
-    "descriptionPlaceholder": "Описание страницы (необязательно)"
+    "descriptionPlaceholder": "Описание страницы (необязательно)",
+    "linkLabels": {
+      "previous": "Предыдущая страница",
+      "next": "Следующая страница"
+    }
   },
   "deletePopupConfirmation": {
     "placeholder": "Введите УДАЛИТЬ",

@@ -60,3 +60,8 @@ export enum SpaceLogoTypes {
   SETTINGS = 'settings',
   PAGE = 'page-logo',
 }
+
+export enum PageLinkTypes {
+  PREVIOUS = 'previous',
+  NEXT = 'next',
+}

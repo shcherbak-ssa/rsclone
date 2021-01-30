@@ -161,7 +161,11 @@
     "addPage": "Nuova pagina",
     "newPageTitle": "Senza titolo",
     "titlePlaceholder": "Titolo della pagina",
-    "descriptionPlaceholder": "Descrizione della pagina (opzionale)"
+    "descriptionPlaceholder": "Descrizione della pagina (opzionale)",
+    "linkLabels": {
+      "previous": "Pagina precedente",
+      "next": "Pagina successiva"
+    }
   },
   "deletePopupConfirmation": {
     "placeholder": "Digita DELETE",

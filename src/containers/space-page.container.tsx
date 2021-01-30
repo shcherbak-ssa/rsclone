@@ -104,6 +104,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   };
 
   const pageProps: PageContainerProps = {
+    activeSpace,
     activePage,
     pageLanguage,
   };

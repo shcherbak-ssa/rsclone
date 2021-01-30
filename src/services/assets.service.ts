@@ -13,6 +13,13 @@ export class AssetsService {
       color: `#${color}`,
     };
   }
+
+  static createHexPageLinkHoverStyles(color: string): any {
+    return {
+      borderColor: `#${color}`,
+      color: `#${color}`,
+    };
+  }
   
   getIconUrl(icon: string): string {
     return `/assets/${icon}.svg`;

@@ -161,7 +161,11 @@
     "addPage": "New page",
     "newPageTitle": "Untitled",
     "titlePlaceholder": "Page title",
-    "descriptionPlaceholder": "Page description (optional)"
+    "descriptionPlaceholder": "Page description (optional)",
+    "linkLabels": {
+      "previous": "Previous",
+      "next": "Next"
+    }
   },
   "deletePopupConfirmation": {
     "placeholder": "Type DELETE",
