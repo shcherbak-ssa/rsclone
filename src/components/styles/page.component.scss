@@ -8,6 +8,13 @@
   &-list {
     padding-left: 16px;
     height: 100%;
+    overflow: hidden;
+
+    &-container {
+      max-height: calc(100% - 100px);
+      overflow-y: auto;
+      padding: 6px 0;
+    }
 
     &-item {
       display: flex;

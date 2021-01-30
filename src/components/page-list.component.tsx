@@ -50,7 +50,9 @@ export function PageListComponent({
 
   return (
     <div className="page-list">
-      {drawPageListItems()}
+      <div className="page-list-container">
+        {drawPageListItems()}
+      </div>
       <div className="page-list-item page-add" data-class="click" onClick={handleAddPageClick}>
         {addPageValue}
         <div className="page-list-icon" data-class="flex-center">
