@@ -117,11 +117,8 @@
   }
 
   &-title {
-    font-family: inherit;
     font-weight: 500;
     margin-bottom: 8px;
-    resize: none;
-    width: 100%;
     -x-font-size: 32px/1.5;
 
     .original-theme & {
@@ -135,5 +132,29 @@
     .dark-theme & {
       color: $dark-space-page-title-color;
     }
+  }
+
+  &-description {
+    height: 30px;
+    font-weight: 400;
+    -x-font-size: 16px/1.625;
+
+    .original-theme & {
+      color: $original-space-page-add-color;
+    }
+
+    .light-theme & {
+      color: $light-space-page-add-color;
+    }
+
+    .dark-theme & {
+      color: $dark-space-page-add-color;
+    }
+  }
+
+  &-title, &-description {
+    font-family: inherit;
+    resize: none;
+    width: 100%;
   }
 }
