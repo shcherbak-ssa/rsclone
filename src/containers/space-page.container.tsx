@@ -146,6 +146,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
       pageID,
       activePage,
       spacePathname: activeSpace.pathname,
+      changePagePathname,
     };
 
     setDeletePagePopupProps({

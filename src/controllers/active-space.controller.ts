@@ -28,6 +28,7 @@ export type DeletePage = {
   activePage: Page,
   spacePathname: string,
   callback: Function,
+  changePagePathname: (pageID: string) => void,
 };
 
 export const activeSpaceController: Controller = new EventEmitter();
@@ -74,7 +75,7 @@ async function addPageHandler({newPageTitle, spacePathname, callback}: NewPage):
 }
 
 async function deletePageHandler({
-  pageID, activePage, spacePathname, callback,
+  pageID, activePage, spacePathname, callback, changePagePathname,
 }: DeletePage): Promise<void> {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
   const deleted: boolean = await activeSpaceModel.deletePage(pageID, spacePathname);
@@ -82,7 +83,15 @@ async function deletePageHandler({
   if (deleted) {
     updateSpacePages((spacePageIDs: string[]) => {
       if (activePage.id === pageID) {
-        activeSpaceController.emit(ActiveSpaceEvents.SET_ACTIVE_PAGE, spacePageIDs[0]);
+        const initialPageID: string = spacePageIDs[0];
+        const setActivePagePayload: SetActivePage = {
+          pageID: initialPageID,
+          callback: () => {
+            changePagePathname(initialPageID);
+          },
+        };
+
+        activeSpaceController.emit(ActiveSpaceEvents.SET_ACTIVE_PAGE, setActivePagePayload);
       }
 
       return spacePageIDs.filter((id) => id !== pageID);
