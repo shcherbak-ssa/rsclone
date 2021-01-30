@@ -30,7 +30,12 @@ export class SpacePathnameService implements SpacePathname {
   private async generateSpacePathname(
     userID: string, spacePathname: string, initialCount: number
   ): Promise<string> {
-    spacePathname += initialCount;
+    if (initialCount === INITIAL_PATHNAME_COUNT) {
+      spacePathname += initialCount;
+    } else {
+      spacePathname = spacePathname.replace(/\d+$/, `${initialCount}`);
+    }
+
     return await this.getUniqueSpacePathname(userID, spacePathname, initialCount += 1);
   }
 }

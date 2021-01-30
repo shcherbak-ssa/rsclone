@@ -39,7 +39,12 @@ export class PagePathnameService implements PagePathname {
   private async generateSpacePathname(
     userID: string, spaceID: string, pagePathname: string, initialCount: number
   ): Promise<string> {
-    pagePathname += initialCount;
+    if (initialCount === INITIAL_PATHNAME_COUNT) {
+      pagePathname += initialCount;
+    } else {
+      pagePathname = pagePathname.replace(/\d+$/, `${initialCount}`);
+    }
+
     return await this.getUniquePagePathname(userID, spaceID, pagePathname, initialCount += 1);
   }
 }
