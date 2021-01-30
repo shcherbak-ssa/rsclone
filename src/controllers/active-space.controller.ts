@@ -1,7 +1,8 @@
-import { Page } from '../../common/entities';
+import { Page, UpdatedSpace } from '../../common/entities';
 import { NEW_PAGE_ID, UserDataLabels } from '../constants';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ActiveSpaceModel } from '../models/active-space.model';
+import { SpacesModel } from '../models/spaces.model';
 import { UserModel } from '../models/user.model';
 import { EventEmitter } from '../services/event-emitter.service';
 import { Controller } from '../types/services.types';
@@ -40,6 +41,7 @@ activeSpaceController
   .on(ActiveSpaceEvents.ADD_PAGE, addPageHandler)
   .on(ActiveSpaceEvents.DELETE_PAGE, deletePageHandler);
 
+/** handlers */
 async function openSpaceHandler({spacePathname, pagePathname}: OpenSpace): Promise<void> {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
   await activeSpaceModel.openSpace(spacePathname, pagePathname);
@@ -71,6 +73,8 @@ async function addPageHandler({newPageTitle, spacePathname, callback}: NewPage):
     });
   });
 
+  updateLastUpdatedFieldOfActiveSpace(spacePathname);
+
   callback(newPageID);
 }
 
@@ -96,11 +100,14 @@ async function deletePageHandler({
 
       return spacePageIDs.filter((id) => id !== pageID);
     });
+
+    updateLastUpdatedFieldOfActiveSpace(spacePathname);
   }
 
   callback(deleted);
 }
 
+/** tools */
 function updateSpacePages(updatingFunction: Function) {
   const userModel: UserModel = new UserModel();
   const spacePageIDs = userModel.getState(UserDataLabels.SPACE_PAGES) as string[];
@@ -110,4 +117,18 @@ function updateSpacePages(updatingFunction: Function) {
   };
 
   userModel.updateStates(updatedSpacePages);
+}
+
+function updateLastUpdatedFieldOfActiveSpace(spacePathname: string): void {
+  const spacesModel: SpacesModel = new SpacesModel();
+  const activeSpaceID: string = spacesModel.getSpaceIDByPathname(spacePathname);
+
+  const updatedSpace: UpdatedSpace = {
+    id: activeSpaceID,
+    updates: {
+      [UserDataLabels.SPACE_LAST_UPDATED]: +new Date(),
+    },
+  };
+
+  spacesModel.updateStoreSpaces(updatedSpace);
 }

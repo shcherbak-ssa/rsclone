@@ -51,15 +51,10 @@ export class SpacesModel extends BaseDraftModel {
 
       const request: Request = this.createRequestWithBody(updatedSpace);
       const response: Response = await this.requestSender.send(request).update();
+
       updatedSpace = response.parseResponse();
+      this.updateStoreSpaces(updatedSpace);
 
-      const spacesStore: SpacesStore = this.getSpacesStore();
-      const spaces: Space[] = spacesStore.getSpaces();
-      const updatedSpaces: Space[] = spaces.map((space) => {
-        return space.id === updatedSpace.id ? {...space, ...updatedSpace.updates} : space;
-      });
-
-      spacesStore.updateSpaces(updatedSpaces);
       return true;
     } catch (error) {
       this.parseError(error);
@@ -73,16 +68,37 @@ export class SpacesModel extends BaseDraftModel {
       const response: Response = await this.requestSender.send(request).delete();
       deletedSpaceID = response.parseResponse().deletedSpaceID;
 
-      const spacesStore: SpacesStore = this.getSpacesStore();
-      const spaces: Space[] = spacesStore.getSpaces();
-      const updatedSpaces: Space[] = spaces.filter((space) => space.id !== deletedSpaceID);
+      this.updateStoreSpaces(undefined, (spaces: Space[]) => {
+        return spaces.filter((space) => space.id !== deletedSpaceID);
+      });
 
-      spacesStore.updateSpaces(updatedSpaces);
       return true;
     } catch (error) {
       this.parseError(error); 
       return false;
     }
+  }
+
+  updateStoreSpaces(
+    updatedSpace: UpdatedSpace, updateFunction?: Function
+  ): void {
+    const spacesStore: SpacesStore = this.getSpacesStore();
+    const spaces: Space[] = spacesStore.getSpaces();
+
+    const updatedSpaces: Space[]
+      = updateFunction ? updateFunction(spaces) : this.updateSpaces(spaces, updatedSpace);
+
+    spacesStore.updateSpaces(updatedSpaces);
+  }
+
+  getSpaceIDByPathname(spacePathname: string): string {
+    return this.getSpacesStore().getSpaceByPathname(spacePathname).id;
+  }
+
+  private updateSpaces(spaces: Space[], updatedSpace: UpdatedSpace): Space[] {
+    return spaces.map((space) => {
+      return space.id === updatedSpace.id ? {...space, ...updatedSpace.updates} : space;
+    });
   }
 
   private getSpacesStore(): SpacesStore {

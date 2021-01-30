@@ -122,6 +122,7 @@ export class PagesController extends BaseController {
       id: spaceID,
       updates: {
         [UserDataLabels.SPACE_PAGES]: updatingFunction(spacePageIDs),
+        [UserDataLabels.SPACE_LAST_UPDATED]: +new Date(),
       },
     };
 
