@@ -47,7 +47,7 @@ export type Page = {
 export type UpdatedPage = {
   id: string,
   updates: {
-    [key: string]: string | PageNode[],
+    [key: string]: string | PageNode,
   },
 };
 

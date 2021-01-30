@@ -47,5 +47,6 @@ export enum ActiveSpaceEvents {
   CLOSE_SPACE = 'active-space-events/close-space',
   SET_ACTIVE_PAGE = 'active-space-events/set-active-page',
   ADD_PAGE = 'active-space-events/add-page',
+  UPDATE_PAGE = 'active-space-events/update-page',
   DELETE_PAGE = 'active-space-events/delete-page',
 }

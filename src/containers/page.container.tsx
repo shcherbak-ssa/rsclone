@@ -31,11 +31,14 @@ export function PageContainer({
   const pageTitleProps: PageTitleComponentProps = {
     pageTitle: activePage.title,
     placeholder: pageLanguage.titlePlaceholder,
+    activePageID: activePage.id,
+    newPageTitle: pageLanguage.newPageTitle,
   };
 
   const pageDescriptionProps: PageDescriptionComponentProps = {
     pageDescription: activePage.description,
     placeholder: pageLanguage.descriptionPlaceholder,
+    activePageID: activePage.id,
   };
 
   function drawPageNavigation() {

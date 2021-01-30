@@ -1,4 +1,4 @@
-import { Page, Space } from '../../common/entities';
+import { Page, Space, UpdatedPage } from '../../common/entities';
 import { Stores } from '../constants';
 import { StoreManagerService } from '../services/store-manager.service';
 import { ActiveSpaceStore } from '../types/active-space.types';
@@ -51,21 +51,34 @@ export class ActiveSpaceModel extends BaseModel {
       const createPageRequest: Request = this.createRequestWithBody(spacePathname, {newPageTitle});
       const response: Response = await this.requestSender.send(createPageRequest).create();
 
-      const page: Page = response.parseResponse();
-      this.activeSpaceStore.addPage(page);
+      const createdPage: Page = response.parseResponse();
+      this.activeSpaceStore.addPage(createdPage);
 
-      const spaces: Space[] = this.spacesStore.getSpaces();
-      const updatedSpaces: Space[] = spaces.map((space) => {
-        if (space.pathname === spacePathname) {
-          space.pages.push(page.id);
-        }
-
-        return space;
+      this.updateSpacePageIDs(spacePathname, (spacePageIDs: string[]) => {
+        return [...spacePageIDs, createdPage.id];
       });
 
-      this.spacesStore.updateSpaces(updatedSpaces);
+      return createdPage.id;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-      return page.id;
+  async updatePage(updatedPage: UpdatedPage, spacePathname: string): Promise<void> {
+    try {
+      const updatedPageRequest: Request = this.createRequestWithBody(spacePathname, updatedPage);
+      const response: Response = await this.requestSender.send(updatedPageRequest).update();
+
+      updatedPage = response.parseResponse();
+
+      let activePage: Page = this.activeSpaceStore.getActivePage();
+      activePage = {...activePage, ...updatedPage.updates};
+
+      const updatedPages: Page[] = this.updateSpacePages((pages: Page[]) => {
+        return pages.map((page) => page.id === activePage.id ? activePage : page);
+      });
+
+      this.activeSpaceStore.updateActivePage(activePage, updatedPages);
     } catch (error) {
       console.log(error);
     }
@@ -77,20 +90,14 @@ export class ActiveSpaceModel extends BaseModel {
       const response: Response = await this.requestSender.send(createPageRequest).delete();
       response.parseResponse();
 
-      const pages: Page[] = this.activeSpaceStore.getPages();
-      const updatedPages: Page[] = pages.filter((page) => page.id !== deletePageID);
+      const updatedPages: Page[] = this.updateSpacePages((pages: Page[]) => {
+        return pages.filter((page) => page.id !== deletePageID);
+      });
       this.activeSpaceStore.deletePage(updatedPages);
 
-      const spaces: Space[] = this.spacesStore.getSpaces();
-      const updatedSpaces: Space[] = spaces.map((space) => {
-        if (space.pathname === spacePathname) {
-          space.pages = space.pages.filter((id) => id !== deletePageID);
-        }
-
-        return space;
+      this.updateSpacePageIDs(spacePathname, (spacePageIDs: string[]) => {
+        return spacePageIDs.filter((pageID) => pageID !== deletePageID);
       });
-
-      this.spacesStore.updateSpaces(updatedSpaces);
 
       return true;
     } catch (error) {
@@ -114,5 +121,23 @@ export class ActiveSpaceModel extends BaseModel {
       .appendUrlPathname(spacePagesPathname)
       .setBody(body)
       .createRequest();
+  }
+
+  private updateSpacePageIDs(spacePathname: string, updateFunction: Function): void {
+    const spaces: Space[] = this.spacesStore.getSpaces();
+    const updatedSpaces: Space[] = spaces.map((space) => {
+      if (space.pathname === spacePathname) {
+        space.pages = updateFunction(space.pages);
+      }
+
+      return space;
+    });
+
+    this.spacesStore.updateSpaces(updatedSpaces);
+  }
+
+  private updateSpacePages(updateFunction: Function): Page[] {
+    const pages: Page[] = this.activeSpaceStore.getPages();
+    return updateFunction(pages);
   }
 }

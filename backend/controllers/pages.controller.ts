@@ -98,7 +98,7 @@ export class PagesController extends BaseController {
     updatedPage = await this.validation.validateUpdatedPage(updatedPage);
     const pageAccess: PageAccess = this.createPageAccess(userID, spaceID, updatedPage.id);
 
-    if (UserDataLabels.PAGE_TITLE in updatedPage) {
+    if (UserDataLabels.PAGE_TITLE in updatedPage.updates) {
       const updatedPageTitle = updatedPage.updates[UserDataLabels.PAGE_TITLE] as string;
       const updatedPagePathname: string
         = await this.pagePathname.createPagePathname(userID, spaceID, updatedPageTitle);

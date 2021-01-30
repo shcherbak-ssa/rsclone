@@ -13,6 +13,7 @@ enum Constants {
   CLOSE_SPACE = 'active-space-store/close-space',
   ADD_PAGE = 'active-space-store/add-page',
   SET_ACTIVE_PAGE = 'active-space-store/set-active-page',
+  UPDATE_ACTIVE_PAGE = 'active-space-store/update-active-page',
   DELETE_PAGE = 'active-space-store/delete-page',
 };
 
@@ -55,6 +56,14 @@ type SetActivePageAction = {
   },
 };
 
+type UpdateActivePageAction = {
+  type: Constants.UPDATE_ACTIVE_PAGE,
+  payload: {
+    activePage: Page,
+    pages: Page[],
+  },
+};
+
 type DeletePageAction = {
   type: Constants.DELETE_PAGE,
   payload: {
@@ -69,6 +78,7 @@ type ActiveSpaceStoreAction =
   | CloseSpaceAction
   | AddPageAction
   | SetActivePageAction
+  | UpdateActivePageAction
   | DeletePageAction;
 
 /** constants */
@@ -98,6 +108,10 @@ class ActiveSpaceStoreImpl implements ActiveSpaceStore {
     return reduxStore.getState()[Stores.ACTIVE_SPACE_STORE].pages;
   }
 
+  getActivePage(): Page {
+    return reduxStore.getState()[Stores.ACTIVE_SPACE_STORE].activePage;
+  }
+
   setIsOpen(isOpen: boolean): void {
     reduxStore.dispatch(
       setIsOpenAction(isOpen)
@@ -125,6 +139,12 @@ class ActiveSpaceStoreImpl implements ActiveSpaceStore {
   setActivePage(page: Page): void {
     reduxStore.dispatch(
       setActivePageAction(page)
+    );
+  }
+
+  updateActivePage(activePage: Page, pages: Page[]): void {
+    reduxStore.dispatch(
+      updateActivePageAction(activePage, pages)
     );
   }
 
@@ -171,6 +191,12 @@ function activeSpaceStoreReducer(
         ...state,
         activePage: payload.page,
       };
+    case Constants.UPDATE_ACTIVE_PAGE:
+      return {
+        ...state,
+        pages: [...payload.pages],
+        activePage: payload.activePage,
+      };
     case Constants.DELETE_PAGE:
       return {
         ...state,
@@ -214,6 +240,13 @@ function setActivePageAction(page: Page): SetActivePageAction {
   return {
     type: Constants.SET_ACTIVE_PAGE,
     payload: { page },
+  };
+}
+
+function updateActivePageAction(activePage: Page, pages: Page[]): UpdateActivePageAction {
+  return {
+    type: Constants.UPDATE_ACTIVE_PAGE,
+    payload: { activePage, pages },
   };
 }
 

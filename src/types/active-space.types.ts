@@ -1,4 +1,4 @@
-import { Page } from '../../common/entities';
+import { Page, PageNode } from '../../common/entities';
 
 export const initialState: ActiveSpaceStoreState = {
   isOpen: false,
@@ -14,10 +14,12 @@ export type ActiveSpaceStoreState = {
 
 export interface ActiveSpaceStore {
   getPages(): Page[];
+  getActivePage(): Page;
   setIsOpen(isOpen: boolean): void;
   openSpace(pages: Page[], activePage: Page | null): void;
   closeSpace(): void;
   addPage(page: Page): void;
   setActivePage(page: Page): void;
+  updateActivePage(activePage: Page, pages: Page[]): void;
   deletePage(pages: Page[]): void;
 }

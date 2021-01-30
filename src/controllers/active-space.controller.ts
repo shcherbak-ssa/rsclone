@@ -1,11 +1,13 @@
-import { Page, UpdatedSpace } from '../../common/entities';
+import { Page, UpdatedPage, UpdatedSpace } from '../../common/entities';
 import { NEW_PAGE_ID, UserDataLabels } from '../constants';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ActiveSpaceModel } from '../models/active-space.model';
 import { SpacesModel } from '../models/spaces.model';
 import { UserModel } from '../models/user.model';
 import { EventEmitter } from '../services/event-emitter.service';
+import { ToolsService } from '../services/tools.service';
 import { Controller } from '../types/services.types';
+import { OpenSpacePathnames } from '../types/tools.types';
 import { UpdatedData } from '../types/user.types';
 
 export type OpenSpace = {
@@ -20,14 +22,12 @@ export type SetActivePage = {
 
 export type NewPage = {
   newPageTitle: string,
-  spacePathname: string,
   callback: (pageID: string) => void,
 };
 
 export type DeletePage = {
   pageID: string,
   activePage: Page,
-  spacePathname: string,
   callback: Function,
   changePagePathname: (pageID: string) => void,
 };
@@ -39,6 +39,7 @@ activeSpaceController
   .on(ActiveSpaceEvents.CLOSE_SPACE, closeSpaceHandler)
   .on(ActiveSpaceEvents.SET_ACTIVE_PAGE, setActivePageHandler)
   .on(ActiveSpaceEvents.ADD_PAGE, addPageHandler)
+  .on(ActiveSpaceEvents.UPDATE_PAGE, updatePageHandler)
   .on(ActiveSpaceEvents.DELETE_PAGE, deletePageHandler);
 
 /** handlers */
@@ -59,12 +60,12 @@ function setActivePageHandler({pageID, callback}: SetActivePage): void {
   callback();
 }
 
-async function addPageHandler({newPageTitle, spacePathname, callback}: NewPage): Promise<void> {
+async function addPageHandler({newPageTitle, callback}: NewPage): Promise<void> {
   updateSpacePages((spacePageIDs: string[]) => {
     return [...spacePageIDs, NEW_PAGE_ID];
   });
 
-  const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
+  const {activeSpaceModel, spacePathname} = getPageActionsAssets();
   const newPageID: string = await activeSpaceModel.createPage(newPageTitle, spacePathname);
 
   updateSpacePages((spacePageIDs: string[]) => {
@@ -78,10 +79,15 @@ async function addPageHandler({newPageTitle, spacePathname, callback}: NewPage):
   callback(newPageID);
 }
 
+async function updatePageHandler(updatedPage: UpdatedPage): Promise<void> {
+  const {activeSpaceModel, spacePathname} = getPageActionsAssets();
+  await activeSpaceModel.updatePage(updatedPage, spacePathname);
+}
+
 async function deletePageHandler({
-  pageID, activePage, spacePathname, callback, changePagePathname,
+  pageID, activePage, callback, changePagePathname,
 }: DeletePage): Promise<void> {
-  const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
+  const {activeSpaceModel, spacePathname} = getPageActionsAssets();
   const deleted: boolean = await activeSpaceModel.deletePage(pageID, spacePathname);
 
   if (deleted) {
@@ -108,6 +114,24 @@ async function deletePageHandler({
 }
 
 /** tools */
+function getPageActionsAssets(): {
+  spacePathname: string,
+  activeSpaceModel: ActiveSpaceModel,
+} {
+  const spacePathname: string = getOpenSpacePathname();
+  const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
+
+  return {
+    spacePathname,
+    activeSpaceModel,
+  };
+}
+
+function getOpenSpacePathname(): string {
+  const toolsService: OpenSpacePathnames = new ToolsService();
+  return toolsService.getOpenSpacePathnames().spacePathname;
+}
+
 function updateSpacePages(updatingFunction: Function) {
   const userModel: UserModel = new UserModel();
   const spacePageIDs = userModel.getState(UserDataLabels.SPACE_PAGES) as string[];

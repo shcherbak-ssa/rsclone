@@ -1,10 +1,10 @@
 import { EMPTY_STRING } from '../constants/strings.constants';
-import { InitialInputState } from '../types/tools.types';
+import { InitialInputState, OpenSpacePathnames } from '../types/tools.types';
 import { InputState } from '../types/user-draft.types';
 
 const SPLITED_LOCATION_PATHNAME_LENGTH_WITHOUT_PAGE_PATHNAME: number = 4;
 
-export class ToolsService implements InitialInputState {
+export class ToolsService implements InitialInputState, OpenSpacePathnames {
   getInitialInputState(): InputState {
     return {
       value: '',

@@ -113,7 +113,6 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
 
   const newPage: NewPage = {
     newPageTitle: pageLanguage.newPageTitle,
-    spacePathname: activeSpace.pathname,
     callback: changePagePathname,
   };
 
@@ -157,7 +156,6 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     const deletePagePopupControllerPayload = {
       pageID,
       activePage,
-      spacePathname: activeSpace.pathname,
       changePagePathname,
     };
 
