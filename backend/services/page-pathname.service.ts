@@ -1,12 +1,15 @@
 import { UniqueModel } from '../models/unique.model';
-import { EMPTY_STRING, INITIAL_PATHNAME_COUNT, MINUS_REPLACE_STRING } from '../constants';
+import { EMPTY_STRING, INITIAL_PATHNAME_COUNT } from '../constants';
 import { PagePathname } from '../types/services.types';
+import { PathnameService } from './pathname.service';
 
 export class PagePathnameService implements PagePathname {
   private uniqueModel: UniqueModel;
+  private pathnameService: PathnameService;
 
   constructor() {
     this.uniqueModel = new UniqueModel();
+    this.pathnameService = new PathnameService();
   }
 
   async createPagePathname(
@@ -17,34 +20,28 @@ export class PagePathnameService implements PagePathname {
   }
 
   private createPagePathnameFromPageTitle(pageTitle: string): string {
-    return pageTitle
-      .toLowerCase()
+    return this.pathnameService
+      .replaceSpaces(pageTitle)
       .replace(/[!@#$%^&*\(\)\[\]\{\}+=?\/<>]/g, EMPTY_STRING)
-      .replace(/\s+/g, MINUS_REPLACE_STRING);
   }
 
   private async getUniquePagePathname(
     userID: string,
     spaceID: string,
     pagePathname: string,
-    initialCount: number = INITIAL_PATHNAME_COUNT
+    count: number = INITIAL_PATHNAME_COUNT
   ): Promise<string> {
     const isUnique: boolean
       = await this.uniqueModel.isPagePathnameUnique(userID, spaceID, pagePathname);
 
     return isUnique
-      ? pagePathname : await this.generateSpacePathname(userID, spaceID, pagePathname, initialCount);
+      ? pagePathname : await this.generateSpacePathname(userID, spaceID, pagePathname, count);
   }
 
   private async generateSpacePathname(
-    userID: string, spaceID: string, pagePathname: string, initialCount: number
+    userID: string, spaceID: string, pagePathname: string, count: number
   ): Promise<string> {
-    if (initialCount === INITIAL_PATHNAME_COUNT) {
-      pagePathname += initialCount;
-    } else {
-      pagePathname = pagePathname.replace(/\d+$/, `${initialCount}`);
-    }
-
-    return await this.getUniquePagePathname(userID, spaceID, pagePathname, initialCount += 1);
+    pagePathname = this.pathnameService.appendCount(pagePathname, count);
+    return await this.getUniquePagePathname(userID, spaceID, pagePathname, count += 1);
   }
 }
