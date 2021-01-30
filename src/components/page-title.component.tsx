@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
+
+import { MAX_PAGE_TITLE_LENGTH } from '../../common/validation';
+import { PageHeaderTextareaHookParams, usePageHeaderTextareaProps } from '../hooks/page-header-textarea-props.hook';
 
 export type PageTitleComponentProps = {
   pageTitle: string,
@@ -9,19 +12,17 @@ export type PageTitleComponentProps = {
 export function PageTitleComponent({
   pageTitle, placeholder,
 }: PageTitleComponentProps) {
-  const [textareaValue, setTextareaValue] = useState(pageTitle);
+  const pageHeaderTextareaPropsHookParams: PageHeaderTextareaHookParams = {
+    initialValue: pageTitle,
+    limitValueLength: MAX_PAGE_TITLE_LENGTH,
+    placeholder,
+  };
 
-  useEffect(() => {
-    setTextareaValue(pageTitle);
-  }, [pageTitle]);
+  const textareaHookProps = usePageHeaderTextareaProps(pageHeaderTextareaPropsHookParams);
 
   const textareaProps = {
     className: 'page-title',
-    value: textareaValue,
-    placeholder,
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setTextareaValue(e.target.value);
-    },
+    ...textareaHookProps,
   };
   
   return <TextareaAutosize {...textareaProps}/>;

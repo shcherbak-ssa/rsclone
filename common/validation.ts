@@ -12,10 +12,11 @@ import { UserDataLabels } from '../backend/constants';
 import { spaceColors } from './data';
 
 const MIN_PASSWORD_LENGTH: number = 8;
-const MAX_FIELD_LENGTH: number = 256;
+const MAX_FIELD_LENGTH: number = 128;
 const MIN_PAGE_TITLE_LENGTH: number = 1;
-export const MAX_PAGE_TITLE_LENGTH: number = 256;
-export const MAX_PAGE_DESCRIPTION_LENGTH: number = 512;
+
+export const MAX_PAGE_TITLE_LENGTH: number = 96;
+export const MAX_PAGE_DESCRIPTION_LENGTH: number = 256;
 
 export type ValidationErrorPayload = {
   dataLabel: UserDataLabels,

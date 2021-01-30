@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
+
+import { MAX_PAGE_DESCRIPTION_LENGTH } from '../../common/validation';
+import { PageHeaderTextareaHookParams, usePageHeaderTextareaProps } from '../hooks/page-header-textarea-props.hook';
 
 const MAX_DESCRIPTION_TEXTAREA_ROWS: number = 3;
 
@@ -11,20 +14,18 @@ export type PageDescriptionComponentProps = {
 export function PageDescriptionComponent({
   pageDescription, placeholder,
 }: PageDescriptionComponentProps) {
-  const [textareaValue, setTextareaValue] = useState(pageDescription);
+  const pageHeaderTextareaPropsHookParams: PageHeaderTextareaHookParams = {
+    initialValue: pageDescription,
+    limitValueLength: MAX_PAGE_DESCRIPTION_LENGTH,
+    placeholder,
+  };
 
-  useEffect(() => {
-    setTextareaValue(pageDescription);
-  }, [pageDescription]);
+  const textareaHookProps = usePageHeaderTextareaProps(pageHeaderTextareaPropsHookParams);
 
   const textareaProps = {
     className: 'page-description',
-    value: textareaValue,
-    placeholder,
     maxRows: MAX_DESCRIPTION_TEXTAREA_ROWS,
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setTextareaValue(e.target.value);
-    },
+    ...textareaHookProps,
   };
   
   return <TextareaAutosize {...textareaProps}/>;
