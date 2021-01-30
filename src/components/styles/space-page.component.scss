@@ -201,6 +201,7 @@
 
   &-editor {
     animation: show-space-page-editor .2s;
+    overflow-y: auto;
     position: relative;
     z-index: 1;
     -x-size: calc(100% - 280px) 100%;

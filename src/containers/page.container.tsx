@@ -5,6 +5,7 @@ import { PageComponent } from '../components/page.component';
 import { PageHeaderComponent } from '../components/page-header.component';
 import { PageTitleComponent, PageTitleComponentProps } from '../components/page-title.component';
 import { PageDescriptionComponent, PageDescriptionComponentProps } from '../components/page-description.component';
+import { PageContentComponent } from '../components/page-content.component';
 
 export type PageContainerProps = {
   activePage: Page,
@@ -28,6 +29,7 @@ export function PageContainer({activePage, pageLanguage}: PageContainerProps) {
         <PageTitleComponent {...pageTitleProps}/>
         <PageDescriptionComponent {...pageDescriptionProps}/>
       </PageHeaderComponent>
+      <PageContentComponent></PageContentComponent>
     </PageComponent>
   );
 }

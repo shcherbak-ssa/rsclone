@@ -120,8 +120,9 @@
   }
 
   &-header {
-    padding: 40px 0px;
     border-bottom: 2px solid;
+    margin-bottom: 32px;
+    padding: 40px 0px;
 
     .original-theme & {
       border-bottom-color: $original-space-page-border-color;
@@ -177,5 +178,9 @@
     font-family: inherit;
     resize: none;
     width: 100%;
+  }
+
+  &-content {
+    min-height: 100vh;
   }
 }
