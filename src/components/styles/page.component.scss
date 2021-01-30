@@ -111,4 +111,26 @@
       color: $dark-space-page-add-color;
     }
   }
+
+  &-header {
+    padding: 40px 0px;
+  }
+
+  &-title {
+    margin-bottom: 8px;
+    width: 100%;
+    -x-font-size: 32px/1.5;
+
+    .original-theme & {
+      color: $original-space-page-title-color;
+    }
+
+    .light-theme & {
+      color: $light-space-page-title-color;
+    }
+
+    .dark-theme & {
+      color: $dark-space-page-title-color;
+    }
+  }
 }
