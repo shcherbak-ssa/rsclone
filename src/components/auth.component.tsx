@@ -1,24 +1,29 @@
 import React from 'react';
 import './styles/auth.component.scss';
 
-import { AssetsService } from "../services/assets.service";
+import { Icon } from '@iconify/react';
+import booksIcon from '@iconify/icons-wpf/books';
+
 import { ActionIconPropsHookParams, useActionIconProps } from '../hooks/action-icon-props.hook';
 import { ActionIconLabels } from '../constants/ui.constants';
 import { ActionIconComponent, ActionIconComponentProps } from './action-icon.component';
 import { useLanguagePart } from '../hooks/language-part.hook';
 import { LanguageParts } from '../../common/constants';
 
-const LOGO_LOGIN_ICON: string = 'logo-login';
+const LOGO_ICON_HEIGHT: number = 32;
 
 type AuthComponentProps = {
   children?: React.ReactNode;
 };
 
 export function AuthComponent({children}: AuthComponentProps) {
-  const assetsService: AssetsService = new AssetsService();
-  const logoIcon: string = assetsService.getIconUrl(LOGO_LOGIN_ICON);
-
   const authLanguage = useLanguagePart(LanguageParts.AUTH);
+
+  const logoIconProps = {
+    icon: booksIcon,
+    height: LOGO_ICON_HEIGHT,
+    className: 'auth-logo',
+  };
 
   const actionIconPropsParams: ActionIconPropsHookParams = {
     icons: [ActionIconLabels.INFO],
@@ -41,7 +46,7 @@ export function AuthComponent({children}: AuthComponentProps) {
     <div className="auth">
       <div className="auth-content">
         <div className="auth-header">
-          <img src={logoIcon} className="auth-logo" />
+          <Icon {...logoIconProps}/>
           GitBook Clone
         </div>
         <div className="auth-form-container" data-class="shadow">

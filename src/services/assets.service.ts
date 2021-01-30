@@ -20,10 +20,6 @@ export class AssetsService {
       color: `#${color}`,
     };
   }
-  
-  getIconUrl(icon: string): string {
-    return `/assets/${icon}.svg`;
-  }
 
   getImageUrl(image: string): string {
     return `/assets/${image}.png`;
