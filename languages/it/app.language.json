@@ -159,7 +159,9 @@
   },
   "page": {
     "addPage": "Nuova pagina",
-    "newPageTitle": "Senza titolo"
+    "newPageTitle": "Senza titolo",
+    "titlePlaceholder": "Titolo della pagina",
+    "descriptionPlaceholder": "Descrizione della pagina (opzionale)"
   },
   "deletePopupConfirmation": {
     "placeholder": "Digita DELETE",

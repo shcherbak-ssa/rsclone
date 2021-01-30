@@ -7,11 +7,13 @@ import { Page } from '../../common/entities';
 
 export type PageContainerProps = {
   activePage: Page,
+  pageLanguage: any,
 };
 
-export function PageContainer({activePage}: PageContainerProps) {
+export function PageContainer({activePage, pageLanguage}: PageContainerProps) {
   const pageTitleProps: PageTitleComponentProps = {
     pageTitle: activePage.title,
+    placeholder: pageLanguage.titlePlaceholder,
   };
 
   return (

@@ -159,7 +159,9 @@
   },
   "page": {
     "addPage": "Новая страница",
-    "newPageTitle": "Без названия"
+    "newPageTitle": "Без названия",
+    "titlePlaceholder": "Заголовок страницы",
+    "descriptionPlaceholder": "Описание страницы (необязательно)"
   },
   "deletePopupConfirmation": {
     "placeholder": "Введите УДАЛИТЬ",

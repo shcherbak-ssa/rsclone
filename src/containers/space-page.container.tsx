@@ -14,7 +14,7 @@ import { ActiveSpaceEvents } from '../constants/events.constants';
 import { ToolsService } from '../services/tools.service';
 import { useSetActiveSpace } from '../hooks/set-active-space.hook';
 import { useCloseSpacePage } from '../hooks/close-space-page.hook';
-import { PageContainer } from './page.container';
+import { PageContainer, PageContainerProps } from './page.container';
 import { PageListComponentProps, PageListComponent } from '../components/page-list.component';
 import { ShortcutsLabels } from '../../common/constants';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -34,7 +34,7 @@ export type SpacePageContainerProps = {
 
 export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePageContainerProps) {
   const history = useHistory();
-  const appLanguage = useAppLanguage();
+  const pageLanguage = useAppLanguage().page;
 
   const [deletePagePopupProps, setDeletePagePopupProps] = useState(null);
 
@@ -91,7 +91,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   };
 
   const pageListProps: PageListComponentProps = {
-    addPageValue: appLanguage.page.addPage,
+    addPageValue: pageLanguage.addPage,
     color: activeSpace.color,
     pageTitles,
     pageIDs: activeSpace.pages,
@@ -101,8 +101,13 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     deletePage,
   };
 
+  const pageProps: PageContainerProps = {
+    activePage,
+    pageLanguage,
+  };
+
   const newPage: NewPage = {
-    newPageTitle: appLanguage.page.newPageTitle,
+    newPageTitle: pageLanguage.newPageTitle,
     spacePathname: activeSpace.pathname,
     callback: changePagePathname,
   };
@@ -164,10 +169,10 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     return (
       <Switch>
         <Route path={AppRoutePathnames.SPACE_PAGE} exact>
-          <PageContainer activePage={activePage}/>
+          <PageContainer {...pageProps}/>
         </Route>
         <Route path={AppRoutePathnames.ACTIVE_PAGE}>
-          <PageContainer activePage={activePage}/>
+          <PageContainer {...pageProps}/>
         </Route>
       </Switch>
     );

@@ -159,7 +159,9 @@
   },
   "page": {
     "addPage": "New page",
-    "newPageTitle": "Untitled"
+    "newPageTitle": "Untitled",
+    "titlePlaceholder": "Page title",
+    "descriptionPlaceholder": "Page description (optional)"
   },
   "deletePopupConfirmation": {
     "placeholder": "Type DELETE",

@@ -3,10 +3,11 @@ import TextareaAutosize from 'react-textarea-autosize';
 
 export type PageTitleComponentProps = {
   pageTitle: string,
+  placeholder: string,
 };
 
 export function PageTitleComponent({
-  pageTitle,
+  pageTitle, placeholder,
 }: PageTitleComponentProps) {
   const [textareaValue, setTextareaValue] = useState(pageTitle);
 
@@ -17,6 +18,7 @@ export function PageTitleComponent({
   const textareaProps = {
     className: 'page-title',
     value: textareaValue,
+    placeholder,
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTextareaValue(e.target.value);
     },
