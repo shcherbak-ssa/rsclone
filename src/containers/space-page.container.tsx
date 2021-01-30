@@ -157,6 +157,21 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     popupService.openPopup(PopupNames.DELETE_PAGE);
   }
 
+  function drawPage() {
+    if (!activePage) return <div>Loading...</div>;
+
+    return (
+      <Switch>
+        <Route path={AppRoutePathnames.SPACE_PAGE} exact>
+          <PageContainer activePage={activePage}/>
+        </Route>
+        <Route path={AppRoutePathnames.ACTIVE_PAGE}>
+          <PageContainer activePage={activePage}/>
+        </Route>
+      </Switch>
+    );
+  }
+
   function drawDeletePagePopup() {
     if (deletePagePopupProps === null) return <div></div>;
 
@@ -166,14 +181,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   return (
     <SpacePageComponent {...spacePageProps}>
       <PageListComponent {...pageListProps}/>
-      <Switch>
-        <Route path={AppRoutePathnames.SPACE_PAGE} exact>
-          <PageContainer activePage={activePage}/>
-        </Route>
-        <Route path={AppRoutePathnames.ACTIVE_PAGE}>
-          <PageContainer activePage={activePage}/>
-        </Route>
-      </Switch>
+      {drawPage()}
       {drawDeletePagePopup()}
     </SpacePageComponent>
   );

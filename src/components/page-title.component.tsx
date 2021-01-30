@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
 export type PageTitleComponentProps = {
@@ -9,6 +9,10 @@ export function PageTitleComponent({
   pageTitle,
 }: PageTitleComponentProps) {
   const [textareaValue, setTextareaValue] = useState(pageTitle);
+
+  useEffect(() => {
+    setTextareaValue(pageTitle);
+  }, [pageTitle]);
 
   const textareaProps = {
     className: 'page-title',
