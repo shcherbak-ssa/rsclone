@@ -121,6 +121,19 @@
 
   &-header {
     padding: 40px 0px;
+    border-bottom: 2px solid;
+
+    .original-theme & {
+      border-bottom-color: $original-space-page-border-color;
+    }
+
+    .light-theme & {
+      border-bottom-color: $light-space-page-border-color;
+    }
+
+    .dark-theme & {
+      border-bottom-color: $dark-space-page-border-color;
+    }
   }
 
   &-title {
@@ -160,6 +173,7 @@
   }
 
   &-title, &-description {
+    background: transparent;
     font-family: inherit;
     resize: none;
     width: 100%;

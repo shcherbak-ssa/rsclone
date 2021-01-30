@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
+const MAX_DESCRIPTION_TEXTAREA_ROWS: number = 3;
+
 export type PageDescriptionComponentProps = {
   pageDescription: string,
   placeholder: string,
@@ -19,6 +21,7 @@ export function PageDescriptionComponent({
     className: 'page-description',
     value: textareaValue,
     placeholder,
+    maxRows: MAX_DESCRIPTION_TEXTAREA_ROWS,
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTextareaValue(e.target.value);
     },
