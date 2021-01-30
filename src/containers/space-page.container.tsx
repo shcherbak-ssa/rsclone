@@ -26,6 +26,7 @@ import { AppRoutes } from '../types/services.types';
 import { AppRoutesService } from '../services/app-routes.service';
 import { ActiveSpaceStore } from '../types/active-space.types';
 import { EMPTY_STRING } from '../constants/strings.constants';
+import { useCloseSpacePageMenu } from '../hooks/close-space-page-menu.hook';
 
 export type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
@@ -40,6 +41,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
 
   const closeSpacePage = useCloseSpacePage();
   const setActiveSpace = useSetActiveSpace();
+  const closeSpacePageMenu = useCloseSpacePageMenu(closeMenuHandler);
 
   const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
   const activeSpace: Space = useSelector(userStoreSelectors.getActiveSpace());
@@ -121,6 +123,8 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     };
 
     activeSpaceController.emit(ActiveSpaceEvents.SET_ACTIVE_PAGE, setActivePagePayload);
+
+    closeSpacePageMenu();
   }
 
   function addPage() {

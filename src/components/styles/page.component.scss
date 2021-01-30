@@ -5,6 +5,14 @@
   max-width: 750px;
   height: 100%;
 
+  @media screen and (max-width: 1023px) {
+    padding-top: 80px;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin: 0 24px;
+  }
+
   &-list {
     padding-left: 16px;
     height: 100%;

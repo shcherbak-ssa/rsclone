@@ -6,6 +6,7 @@ import { SpaceLogoComponent, SpaceLogoComponentProps } from './space-logo.compon
 import { Classnames, SpaceLogoTypes } from '../constants/ui.constants';
 import { SpaceColors } from '../../common/constants';
 import { DocumentBodyService } from '../services/document-body.service';
+import { useCloseSpacePageMenu } from '../hooks/close-space-page-menu.hook';
 
 export type SpacePageComponentProps = {
   space: Space | null,
@@ -14,9 +15,9 @@ export type SpacePageComponentProps = {
 };
 
 export function SpacePageComponent({space, closeMenuHandler, children}: SpacePageComponentProps) {
-  if (space === null) return <div></div>;
+  const closeSpacePageMenu = useCloseSpacePageMenu(closeMenuHandler);
 
-  const documentBodyService: DocumentBodyService = new DocumentBodyService();
+  if (space === null) return <div></div>;
 
   const spaceLogoProps: SpaceLogoComponentProps = {
     logoType: SpaceLogoTypes.PAGE,
@@ -30,12 +31,8 @@ export function SpacePageComponent({space, closeMenuHandler, children}: SpacePag
     };
   }, []);
 
-  function closeSpacePageMenu() {
-    documentBodyService.removeClass(Classnames.IS_SPACE_PAGE_MENU_OPEN);
-    closeMenuHandler();
-  }
-
   function handleMenuButtonClick() {
+    const documentBodyService: DocumentBodyService = new DocumentBodyService();
     documentBodyService.toggleClass(Classnames.IS_SPACE_PAGE_MENU_OPEN);
 
     if (!documentBodyService.hasClass(Classnames.IS_SPACE_PAGE_MENU_OPEN)) {
