@@ -14,7 +14,10 @@
         "There are no spaces here yet. Click the",
         "button or press the",
         "keys to add a space"
-      ]
+      ],
+      "lastUpdated": {
+        "label": "Last updated"
+      }
     },
     "settings": {
       "title": "Settings",

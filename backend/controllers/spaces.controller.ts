@@ -92,6 +92,7 @@ export class SpacesController extends BaseController {
         [UserDataLabels.SPACE_PAGES]: [
           createdInitialPage.id,
         ],
+        [UserDataLabels.SPACE_LAST_UPDATED]: +new Date(),
       },
     };
     await this.spacesModel.updateSpace(userID, updatedSpace);  
@@ -104,6 +105,7 @@ export class SpacesController extends BaseController {
     userID: string, updatedSpace: UpdatedSpace, responseSender: ResponseSender
   ): Promise<void> {
     updatedSpace = await this.validation.validateUpdatedSpace(updatedSpace);
+    updatedSpace.updates[UserDataLabels.SPACE_LAST_UPDATED] = +new Date();
 
     await this.updateSpacePathname(userID, updatedSpace);
     await this.spacesModel.updateSpace(userID, updatedSpace);

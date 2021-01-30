@@ -79,6 +79,30 @@
     justify-content: space-between;
   }
 
+  &-date {
+    font-size: 12px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    opacity: .8;
+
+    .original-theme & {
+      color: $original-space-icon-color;
+    }
+  
+    .light-theme & {
+      color: $light-space-icon-color;
+    }
+  
+    .dark-theme & {
+      color: $dark-space-icon-color;
+    }
+
+    &-icon {
+      margin-right: 4px;
+    }
+  }
+
   &-icon {
     transition: .2s;
     opacity: .4;

@@ -36,5 +36,6 @@ export enum UserDataLabels {
   SPACE_LOGO = 'logo',
   SPACE_PATHNAME = 'pathname',
   SPACE_PAGES = 'pages',
+  SPACE_LAST_UPDATED = 'lastUpdated',
   PAGE_PATHNAME = 'pathname',
 };

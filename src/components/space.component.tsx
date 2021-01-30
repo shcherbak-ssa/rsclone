@@ -4,12 +4,17 @@ import './styles/space.component.scss';
 
 import { Icon } from '@iconify/react';
 import threeDots from '@iconify/icons-bi/three-dots';
+import lastUpdatedIcon from '@iconify/icons-ic/round-update';
 
 import { Space } from '../../common/entities';
 import { SpaceColors } from '../../common/constants';
 import { Classnames, ICON_18_HEIGHT } from '../constants/ui.constants';
 import { SpaceLogoComponent, SpaceLogoComponentProps } from './space-logo.component';
 import { DropdownComponentProps, DropdownComponent } from './dropdown.component';
+import { useAppLanguage } from '../hooks/app-language.hook';
+import { LastUpdatedService } from '../services/last-updated.service';
+
+const DATE_ICON_HEIGHT: number = 14;
 
 export type SpaceComponentProps = {
   space: Space,
@@ -21,6 +26,8 @@ export type SpaceComponentProps = {
 export function SpaceComponent({
   space, dropdownProps, iconClickHandler, clickHandler,
 }: SpaceComponentProps) {
+  const appLanguage = useAppLanguage();
+
   const spaceLogoProps: SpaceLogoComponentProps = {
     color: space.color as SpaceColors,
     logo: space.logo,
@@ -29,6 +36,12 @@ export function SpaceComponent({
   const spaceIconClassnames = classnames('space-icon', {
     [Classnames.IS_ACTIVE]: dropdownProps !== null,
   });
+
+  const dateIconProps = {
+    icon: lastUpdatedIcon,
+    height: DATE_ICON_HEIGHT,
+    className: 'space-date-icon',
+  };
 
   function handleClick() {
     clickHandler();
@@ -43,6 +56,13 @@ export function SpaceComponent({
     return dropdownProps === null ? '' : <DropdownComponent {...dropdownProps}/>
   }
 
+  function getLastUpdated() {
+    return LastUpdatedService.getLastUpdated(
+      space.lastUpdated,
+      appLanguage.homepage.spaces.lastUpdated.label,
+    );
+  }
+
   return (
     <div className="space" data-class="click shadow" onClick={handleClick}>
       <div className="space-header">
@@ -51,7 +71,10 @@ export function SpaceComponent({
       </div>
       <div className="space-line"></div>
       <div className="space-footer">
-        <div className="space-date"></div>
+        <div className="space-date">
+          <Icon {...dateIconProps}/>
+          {getLastUpdated()}
+        </div>
         <div
           className={spaceIconClassnames}
           data-class="click flex-center"

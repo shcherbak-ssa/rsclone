@@ -14,7 +14,10 @@
         "Non ci sono ancora spazi qui. Fai clic su",
         "o premere il tasti",
         "per aggiungere uno spazio"
-      ]
+      ],
+      "lastUpdated": {
+        "label": "Ultimo aggiornamento"
+      }
     },
     "settings": {
       "title": "Impostazioni",

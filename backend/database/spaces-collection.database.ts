@@ -34,7 +34,11 @@ export class SpacesCollectionDatabase implements SpacesDatabase, UniqueSpaceData
     const userSpacesCollection: DatabaseCollectionService = await this.getUserSpacesCollection(userID);
     const createdSpaceID: string = await userSpacesCollection.createDocument({...createdSpace});
 
-    return {...createdSpace, id: `${createdSpaceID}`};
+    return {
+      ...createdSpace,
+      [UserDataLabels.SPACE_LAST_UPDATED]: +new Date(),
+      id: `${createdSpaceID}`,
+    };
   }
 
   async updateSpace(userID: string, {id, updates}: UpdatedSpace): Promise<void> {

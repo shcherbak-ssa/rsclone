@@ -11,6 +11,7 @@ export type Space = {
   logo: string,
   pathname: string,
   pages: string[],
+  lastUpdated: number,
 };
 
 export type NewSpace = {
@@ -31,7 +32,7 @@ export type CreatedSpace = {
 export type UpdatedSpace = {
   id: string,
   updates: {
-    [key: string]: string | string[],
+    [key: string]: string | string[] | number,
   },
 };
 
