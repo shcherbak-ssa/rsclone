@@ -107,6 +107,8 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     activeSpace,
     activePage,
     pageLanguage,
+    pageTitles,
+    setActivePage,
   };
 
   const newPage: NewPage = {
