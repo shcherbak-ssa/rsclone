@@ -13,6 +13,9 @@ import { spaceColors } from './data';
 
 const MIN_PASSWORD_LENGTH: number = 8;
 const MAX_FIELD_LENGTH: number = 256;
+const MIN_PAGE_TITLE_LENGTH: number = 1;
+export const MAX_PAGE_TITLE_LENGTH: number = 256;
+export const MAX_PAGE_DESCRIPTION_LENGTH: number = 512;
 
 export type ValidationErrorPayload = {
   dataLabel: UserDataLabels,
@@ -109,6 +112,19 @@ export class Validation {
     return Joi.string();
   }
 
+  pageTitle(): Joi.StringSchema {
+    return Joi.string()
+      .trim()
+      .min(MIN_PAGE_TITLE_LENGTH)
+      .max(MAX_PAGE_TITLE_LENGTH);
+  }
+
+  pageDescription(): Joi.StringSchema {
+    return Joi.string()
+      .trim()
+      .max(MAX_PAGE_DESCRIPTION_LENGTH);
+  }
+
   private defaultStringPattern(): Joi.StringSchema {
     return Joi.string()
       .trim()
@@ -139,7 +155,6 @@ export function parseValidationError(error: any) {
         throwValidationError(message, context.peer, ErrorLabels.NEW_PASSWORD_REQUIRED);
       }
     default:
-      console.dir(error);
       throw error;
   }
 }

@@ -4,7 +4,7 @@ import { DatabaseCollectionService } from '../services/database-collection.servi
 import { DatabaseDBService } from '../services/database-db.service';
 import { PagesDatabase } from '../models/pages.model';
 import { NewPage, PageAccess } from '../types/pages.types';
-import { Page } from '../../common/entities';
+import { Page, UpdatedPage } from '../../common/entities';
 import { UniquePageDatabase } from '../models/unique.model';
 import { UserDataLabels } from '../constants';
 
@@ -40,6 +40,20 @@ export class PagesCollectionDatabase implements PagesDatabase, UniquePageDatabas
       = await this.getUserPagesCollection(userID, spaceID);
 
     return await userPagesCollection.createDocument({...newPage});
+  }
+
+  async updatePage(
+    {userID, spaceID, pageID}: PageAccess, {updates}: UpdatedPage
+  ): Promise<void> {
+    const userPagesCollection: DatabaseCollectionService
+      = await this.getUserPagesCollection(userID, spaceID);
+
+    const updatePageFilter = this.getPageSearchFilter(pageID);
+    const updatesOptions = {
+      $set: { ...updates },
+    };
+
+    await userPagesCollection.updateDocument(updatePageFilter, updatesOptions);
   }
 
   async deletePage({userID, spaceID, pageID}: PageAccess): Promise<void> {

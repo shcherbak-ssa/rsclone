@@ -44,4 +44,11 @@ export type Page = {
   nodes: PageNode[],
 };
 
+export type UpdatedPage = {
+  id: string,
+  updates: {
+    [key: string]: string | PageNode[],
+  },
+};
+
 export type PageNode = {};

@@ -1,11 +1,11 @@
 import { NewPage, PageAccess } from '../types/pages.types';
-import { Page } from '../../common/entities';
+import { Page, UpdatedPage } from '../../common/entities';
 import { PagesCollectionDatabase } from '../database/pages-collection.database';
 
 export interface PagesDatabase {
   getPages(userID: string, spaceID: string): Promise<Page[]>;
   createPage(pageAccess: PageAccess, newPage: NewPage): Promise<string>;
-  // updatePage(pageAccess: PageAccess): Promise<boolean>;
+  updatePage(pageAccess: PageAccess, updatedPage: UpdatedPage): Promise<void>;
   deletePage(pageAccess: PageAccess): Promise<void>;
 }
 
@@ -23,6 +23,10 @@ export class PagesModel {
   async createPage(pageAccess: PageAccess, newPage: NewPage): Promise<Page> {
     const pageID: string = await this.database.createPage(pageAccess, newPage);
     return {...newPage, id: `${pageID}`};
+  }
+
+  async updatePage(pageAccess: PageAccess, updatedPage: UpdatedPage): Promise<void> {
+    await this.database.updatePage(pageAccess, updatedPage);
   }
 
   async deletePage(pageAccess: PageAccess): Promise<void> {

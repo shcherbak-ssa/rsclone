@@ -19,7 +19,3 @@ export type NewPage = {
   pathname: string,
   nodes: PageNode[],
 };
-
-export type UpdatedPage = {
-  
-};
