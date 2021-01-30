@@ -3,7 +3,7 @@
 .page {
   margin: 0 90px;
   max-width: 750px;
-  height: 100%;
+  padding-bottom: 64px;
 
   @media screen and (max-width: 1023px) {
     padding-top: 80px;
@@ -190,5 +190,9 @@
 
   &-content {
     min-height: 100vh;
+  }
+
+  &-footer {
+    margin-top: 64px;
   }
 }
