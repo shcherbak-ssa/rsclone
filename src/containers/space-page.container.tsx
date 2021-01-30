@@ -85,6 +85,12 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     setDeletePagePopupProps(deletePopupProps);
   }, []);
 
+  useEffect(() => {
+    if (activePage) {
+      changePagePathname(activePage.id);
+    }
+  }, [activePage && activePage.title]);
+
   useHotkeys(addPageShortcutKeys, addPage);
 
   const spacePageProps: SpacePageComponentProps = {

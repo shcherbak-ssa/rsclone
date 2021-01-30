@@ -189,7 +189,7 @@
   }
 
   &-content {
-    min-height: 100vh;
+    min-height: 10vh;
   }
 
   &-footer {
@@ -211,10 +211,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-grow: 1;
     gap: 16px;
     padding: 16px;
     transition: .2s;
+    width: 100%;
 
     .original-theme & {
       border-color: $original-space-page-border-color;

@@ -82,6 +82,8 @@ async function addPageHandler({newPageTitle, callback}: NewPage): Promise<void> 
 async function updatePageHandler(updatedPage: UpdatedPage): Promise<void> {
   const {activeSpaceModel, spacePathname} = getPageActionsAssets();
   await activeSpaceModel.updatePage(updatedPage, spacePathname);
+
+  updateLastUpdatedFieldOfActiveSpace(spacePathname);
 }
 
 async function deletePageHandler({

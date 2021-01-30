@@ -58,6 +58,7 @@ export function usePageHeaderTextareaProps({
       };
 
       activeSpaceController.emit(ActiveSpaceEvents.UPDATE_PAGE, updatedPage);
+      setTextareaValue(value);
     },
   };
 
