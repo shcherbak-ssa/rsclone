@@ -7,9 +7,20 @@ import { EventEmitter } from '../services/event-emitter.service';
 import { Controller } from '../types/services.types';
 import { UpdatedData } from '../types/user.types';
 
+export type OpenSpace = {
+  spacePathname: string,
+  pagePathname?: string,
+};
+
+export type SetActivePage = {
+  pageID: string,
+  callback: () => void,
+};
+
 export type NewPage = {
   newPageTitle: string,
   spacePathname: string,
+  callback: (pageID: string) => void,
 };
 
 export type DeletePage = {
@@ -28,9 +39,9 @@ activeSpaceController
   .on(ActiveSpaceEvents.ADD_PAGE, addPageHandler)
   .on(ActiveSpaceEvents.DELETE_PAGE, deletePageHandler);
 
-async function openSpaceHandler(spacePathname: string): Promise<void> {
+async function openSpaceHandler({spacePathname, pagePathname}: OpenSpace): Promise<void> {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
-  await activeSpaceModel.openSpace(spacePathname);
+  await activeSpaceModel.openSpace(spacePathname, pagePathname);
 }
 
 function closeSpaceHandler(): void {
@@ -38,12 +49,14 @@ function closeSpaceHandler(): void {
   activeSpaceModel.closeSpace();
 }
 
-function setActivePageHandler(pageID: string): void {
+function setActivePageHandler({pageID, callback}: SetActivePage): void {
   const activeSpaceModel: ActiveSpaceModel = new ActiveSpaceModel();
   activeSpaceModel.setActiveSpaceID(pageID);
+
+  callback();
 }
 
-async function addPageHandler({newPageTitle, spacePathname}: NewPage): Promise<void> {
+async function addPageHandler({newPageTitle, spacePathname, callback}: NewPage): Promise<void> {
   updateSpacePages((spacePageIDs: string[]) => {
     return [...spacePageIDs, NEW_PAGE_ID];
   });
@@ -56,6 +69,8 @@ async function addPageHandler({newPageTitle, spacePathname}: NewPage): Promise<v
       return pageID === NEW_PAGE_ID ? newPageID : pageID;
     });
   });
+
+  callback(newPageID);
 }
 
 async function deletePageHandler({

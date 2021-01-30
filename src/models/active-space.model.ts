@@ -19,7 +19,7 @@ export class ActiveSpaceModel extends BaseModel {
     this.spacesStore = storeManager.getStore(Stores.SPACES_STORE) as SpacesStore;
   }
   
-  async openSpace(spacePathname: string) {
+  async openSpace(spacePathname: string, pagePathname?: string) {
     try {
       this.activeSpaceStore.setIsOpen(true);
 
@@ -27,7 +27,10 @@ export class ActiveSpaceModel extends BaseModel {
       const response: Response = await this.requestSender.send(spacePagesRequest).get();
 
       const {pages}: {pages: Page[]} = response.parseResponse();
-      this.activeSpaceStore.openSpace(pages);
+      const activePage: Page | null
+        = pagePathname ? pages.find((page) => page.pathname === pagePathname) : null;
+
+      this.activeSpaceStore.openSpace(pages, activePage);
     } catch (error) {
       console.log(error);
     }

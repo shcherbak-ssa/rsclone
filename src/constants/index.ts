@@ -14,7 +14,8 @@ export enum AppRoutePathnames {
   ROOT = '/:username',
   SPACES = '/:username/spaces',
   SETTINGS = '/:username/settings',
-  SPACE_PAGE = '/:username/s/:spacePathname'
+  SPACE_PAGE = '/:username/s/:spacePathname',
+  ACTIVE_PAGE = '/:username/s/:spacePathname/:pagePathname',
 };
 
 export enum UserDataLabels {

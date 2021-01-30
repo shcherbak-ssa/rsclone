@@ -1,5 +1,10 @@
+import {
+  SPACE_PATHNAME_REPLACE_STRING,
+  PAGE_PATHNAME_REPLACE_STRING,
+  USERNAME_PATHNAME_INITIAL_STRING,
+  USERNAME_REPLACE_STRING,
+} from '../constants/strings.constants';
 import { AppRoutePathnames } from '../constants';
-import { SPACE_PATHNAME_REPLACE_STRING, USERNAME_PATHNAME_INITIAL_STRING, USERNAME_REPLACE_STRING } from '../constants/strings.constants';
 import { AppRoutes } from '../types/services.types';
 import { UserLocalStorageService } from './user-local-storage.service';
 
@@ -27,6 +32,13 @@ export class AppRoutesService implements AppRoutes {
     return this
       .replaceUsername(AppRoutePathnames.SPACE_PAGE)
       .replace(SPACE_PATHNAME_REPLACE_STRING, spacePathname);
+  }
+
+  getActivePageRoutePath(spacePathname: string, pagePathname: string): string {
+    return this
+      .replaceUsername(AppRoutePathnames.ACTIVE_PAGE)
+      .replace(SPACE_PATHNAME_REPLACE_STRING, spacePathname)
+      .replace(PAGE_PATHNAME_REPLACE_STRING, pagePathname);
   }
 
   private replaceUsername(routePath: string): string {

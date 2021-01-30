@@ -8,3 +8,4 @@ export const EMPTY_STRING: string = '';
 
 export const USERNAME_REPLACE_STRING: string = ':username';
 export const SPACE_PATHNAME_REPLACE_STRING: string = ':spacePathname';
+export const PAGE_PATHNAME_REPLACE_STRING: string = ':pagePathname';

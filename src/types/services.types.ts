@@ -38,6 +38,7 @@ export interface AppRoutes {
   getSpacesRoutePath(): string;
   getSettingsRoutePath(): string;
   getSpacePageRoutePath(spacePathname: string): string;
+  getActivePageRoutePath(spacePathname: string, pagePathname: string): string;
 }
 
 export interface UserLocalStorage {

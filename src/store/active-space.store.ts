@@ -32,6 +32,7 @@ type OpenSpaceAction = {
   type: Constants.OPEN_SPACE,
   payload: {
     pages: Page[],
+    activePage: Page | null,
   },
 };
 
@@ -103,9 +104,9 @@ class ActiveSpaceStoreImpl implements ActiveSpaceStore {
     );
   }
 
-  openSpace(pages: Page[]): void {
+  openSpace(pages: Page[], activePage: Page | null): void {
     reduxStore.dispatch(
-      openSpaceAction(pages)
+      openSpaceAction(pages, activePage)
     );
   }
 
@@ -155,7 +156,7 @@ function activeSpaceStoreReducer(
       return {
         ...state,
         pages: payload.pages,
-        activePage: payload.pages[0],
+        activePage: payload.activePage === null ? payload.pages[0] : payload.activePage,
       };
     case Constants.CLOSE_SPACE:
       return initialState;
@@ -188,10 +189,10 @@ function setIsOpenAction(isOpen: boolean): SetIsOpenAction {
   };
 }
 
-function openSpaceAction(pages: Page[]): OpenSpaceAction {
+function openSpaceAction(pages: Page[], activePage: Page | null): OpenSpaceAction {
   return {
     type: Constants.OPEN_SPACE,
-    payload: { pages },
+    payload: { pages, activePage },
   };
 }
 

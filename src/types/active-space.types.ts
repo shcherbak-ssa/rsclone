@@ -15,7 +15,7 @@ export type ActiveSpaceStoreState = {
 export interface ActiveSpaceStore {
   getPages(): Page[];
   setIsOpen(isOpen: boolean): void;
-  openSpace(pages: Page[]): void;
+  openSpace(pages: Page[], activePage: Page | null): void;
   closeSpace(): void;
   addPage(page: Page): void;
   setActivePage(page: Page): void;
