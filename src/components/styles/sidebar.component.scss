@@ -26,6 +26,16 @@
     align-items: center;
     z-index: 99;
     position: relative;
+
+    .dropdown {
+      left: 120%;
+      bottom: 0;
+
+      &-arrow {
+        left: -5px;
+        bottom: 15px;
+      }
+    }
   }
 
   &-line {

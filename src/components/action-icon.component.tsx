@@ -4,6 +4,8 @@ import './styles/action-icon.component.scss';
 
 import { Icon } from '@iconify/react';
 import { ActionIconLabels, Classnames } from '../constants/ui.constants';
+import { EMPTY_STRING } from '../constants/strings.constants';
+import { DropdownService } from '../services/dropdown.service';
 
 export type ActionIconProps = {
   icon: object;
@@ -17,10 +19,11 @@ export type ActionIconComponentProps = {
   clickHandler: Function;
   label: ActionIconLabels,
   activeActionIconLabel?: string,
+  dropdownComponent?: (props: any) => JSX.Element | null,
 };
 
 export function ActionIconComponent({
-  description, iconProps, clickHandler, label, activeActionIconLabel,
+  description, iconProps, clickHandler, label, activeActionIconLabel, dropdownComponent = null,
 }: ActionIconComponentProps) {
   const [isActive, setIsActive] = useState(false);
 
@@ -28,9 +31,14 @@ export function ActionIconComponent({
     [Classnames.IS_ACTIVE]: getNextActiveState(),
   });
 
-  function handleClick() {
+  function handleClick(e: React.MouseEvent) {
     clickHandler();
     setIsActive(!isActive);
+
+    if (dropdownComponent) {
+      e.stopPropagation();
+      DropdownService.closeDropdowns();
+    }
   }
 
   function getNextActiveState(): boolean {
@@ -38,7 +46,17 @@ export function ActionIconComponent({
   }
 
   function drawDescription() {
-    return description ? <div className="action-icon-description">{description}</div> : '';
+    return description ? <div className="action-icon-description">{description}</div> : EMPTY_STRING;
+  }
+
+  function drawDropdown() {
+    if (dropdownComponent) {
+      return dropdownComponent({
+        closeHandler: () => setIsActive(false),
+      });
+    }
+
+    return EMPTY_STRING
   }
 
   return (
@@ -49,6 +67,7 @@ export function ActionIconComponent({
     >
       <Icon {...iconProps} />
       {drawDescription()}
+      {drawDropdown()}
     </div>
   );
 }

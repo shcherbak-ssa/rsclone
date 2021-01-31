@@ -1,13 +1,16 @@
 import { ActionIconComponentProps, ActionIconProps } from "../components/action-icon.component";
-import { ActionIconLabels } from "../constants/ui.constants";
+import { EMPTY_STRING } from "../constants/strings.constants";
+import { ActionIconLabels, DropdownNames } from "../constants/ui.constants";
 import { actionIconData } from "../data/action-icon.data";
+import { DropdownService } from "../services/dropdown.service";
 
 export type ActionIconPropsHookParams = {
   icons: ActionIconLabels[],
   iconPayloads?: {
     [key: string]: {
+      description?: string;
       clickHandler?: () => void;
-      description: string;
+      dropdownComponent?: (props: any) => JSX.Element | null,
     }
   },
   activeActionIconLabel?: string,
@@ -15,7 +18,7 @@ export type ActionIconPropsHookParams = {
 
 const actionIconClickHandlers = {
   [ActionIconLabels.INFO]: () => {
-    console.log('info');
+    DropdownService.openDropdown(DropdownNames.INFORMATION);
   },
   [ActionIconLabels.LOGO]: () => {
     location.replace(location.origin);
@@ -26,10 +29,19 @@ export function useActionIconProps({
   icons, iconPayloads = {}, activeActionIconLabel,
 }: ActionIconPropsHookParams): ActionIconComponentProps[] {
   const actionIconComponentsProps: ActionIconComponentProps[] = icons.map((iconLabel) => {
-    const isIconInIconPayloads = iconLabel in iconPayloads;
-    const description = isIconInIconPayloads ? iconPayloads[iconLabel].description : '';
-    const clickHandler = isIconInIconPayloads && iconPayloads[iconLabel].clickHandler
-      ? iconPayloads[iconLabel].clickHandler : actionIconClickHandlers[iconLabel];
+    let
+      description = EMPTY_STRING,
+      clickHandler = actionIconClickHandlers[iconLabel],
+      dropdownComponent = null;
+
+    if (iconLabel in iconPayloads) {
+      const iconPayload = iconPayloads[iconLabel];
+
+      description = iconPayload.description || description;
+      clickHandler = iconPayload.clickHandler || clickHandler;
+      dropdownComponent = iconPayload.dropdownComponent || dropdownComponent;
+    }
+
     
     const actionIconProps: ActionIconProps = actionIconData[iconLabel];
     const actionIconComponentProps: ActionIconComponentProps = {
@@ -37,6 +49,7 @@ export function useActionIconProps({
       description,
       clickHandler,
       label: iconLabel,
+      dropdownComponent,
       ...getActiveActionIconLabel(),
     };
 

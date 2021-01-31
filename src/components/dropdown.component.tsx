@@ -12,7 +12,9 @@ export type DropdownComponentProps = {
   dropdownName?: DropdownNames,
 };
 
-export function DropdownComponent({items, itemClickHandler, dropdownName}: DropdownComponentProps) {
+export function DropdownComponent({
+  items, itemClickHandler, dropdownName
+}: DropdownComponentProps) {
   useEffect(() => {
     if (dropdownName) {
       const dropdownService: DropdownService = new DropdownService();
