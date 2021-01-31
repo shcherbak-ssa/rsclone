@@ -18,13 +18,13 @@ import { StoreManagerService } from './services/store-manager.service';
 import { UserLocalStorage } from './types/services.types';
 import { UserLocalStorageService } from './services/user-local-storage.service';
 
-class AppIniter {
+class App {
   store: ReduxStore;
 
-  static async initApp() {
-    const appIniter: AppIniter = new AppIniter();
-    await appIniter.initStore();  
-    appIniter.initMode();
+  static async init() {
+    const app: App = new App();
+    await app.initStore();  
+    app.initMode();
   }
 
   async initStore(): Promise<void> {
@@ -59,4 +59,4 @@ class AppIniter {
   }
 }
 
-AppIniter.initApp();
+App.init();
