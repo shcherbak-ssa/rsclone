@@ -34,7 +34,9 @@ export function SettingsLoginContainer() {
       UserDataLabels.NEW_PASSWORD,
     ],
     savingFinishHandler: (isSuccess: boolean) => {
-      setIsChangePasswordActive(!isSuccess);
+      if (isSuccess && isChangePasswordActive) {
+        setIsChangePasswordActive(false);
+      }
     },
   };
   const settingsActionPropsHookParams: SettingsActionPropsHookParams = {
