@@ -174,12 +174,5 @@
     "placeholder": "Введите УДАЛИТЬ",
     "description": "Введите УДАЛИТЬ для подтверждения",
     "confirmWord": "УДАЛИТЬ"
-  },
-  "information": {
-    "author": "Автор",
-    "original": "Оригинал",
-    "rsschool": "RS School",
-    "design": "Дизайн",
-    "article": "Статья"
   }
 }

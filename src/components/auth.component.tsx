@@ -9,6 +9,7 @@ import { ActionIconLabels } from '../constants/ui.constants';
 import { ActionIconComponent, ActionIconComponentProps } from './action-icon.component';
 import { useLanguagePart } from '../hooks/language-part.hook';
 import { LanguageParts } from '../../common/constants';
+import { InformationDropdownContainer } from '../containers/information-dropdown.container';
 
 const LOGO_ICON_HEIGHT: number = 32;
 
@@ -30,6 +31,7 @@ export function AuthComponent({children}: AuthComponentProps) {
     iconPayloads: {
       [ActionIconLabels.INFO]: {
         description: authLanguage.actionIconDescription[ActionIconLabels.INFO],
+        dropdownComponent: InformationDropdownContainer,
       },
     },
   };

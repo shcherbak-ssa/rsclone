@@ -174,12 +174,5 @@
     "placeholder": "Type DELETE",
     "description": "Type DELETE to confirm",
     "confirmWord": "DELETE"
-  },
-  "information": {
-    "author": "Author",
-    "original": "Original app",
-    "rsschool": "RS School",
-    "design": "Design",
-    "article": "Article"
   }
 }

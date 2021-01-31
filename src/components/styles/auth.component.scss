@@ -79,5 +79,14 @@
     .action-icon:not(:last-child) {
       margin: 0 42px 0 0;
     }
+
+    .dropdown {
+      bottom: 120%;
+
+      &-arrow {
+        left: calc(50% - 5px);
+        bottom: -5px;
+      }
+    }
   }
 }

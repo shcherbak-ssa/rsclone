@@ -11,5 +11,12 @@
     "new-password-required": "Текущий пароль необходимо ввести с новым паролем",
     "password-required": "Новый пароль необходимо ввести с текущим паролем",
     "invalid-password": "Неправильный пароль"
+  },
+  "information": {
+    "author": "Автор",
+    "original": "Оригинал",
+    "rsschool": "RS School",
+    "design": "Дизайн",
+    "article": "Статья"
   }
 }

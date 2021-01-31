@@ -10,14 +10,15 @@ import { DropdownComponent, DropdownComponentProps } from '../components/dropdow
 import { DropdownNames } from '../constants/ui.constants';
 import { DropdownService } from '../services/dropdown.service';
 import { DropdownItem } from '../types/dropdown.types';
-import { useAppLanguage } from '../hooks/app-language.hook';
+import { useLanguagePart } from '../hooks/language-part.hook';
+import { LanguageParts } from '../../common/constants';
 
 type InformationDropdownContainerProps = {
   closeHandler: () => void,
 };
 
 export function InformationDropdownContainer({closeHandler}: InformationDropdownContainerProps) {
-  const informationLanguage = useAppLanguage().information;
+  const informationLanguage = useLanguagePart(LanguageParts.ASSETS).information;
   const [isInformationDropdownOpen, setIsInformationDropdownOpen] = useState(false);
 
   const informationDropdownItems: DropdownItem[] = [

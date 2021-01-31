@@ -11,5 +11,12 @@
     "new-password-required": "Current password must be entered with new password",
     "password-required": "New password must be entered with current password",
     "invalid-password": "Invalid password"
+  },
+  "information": {
+    "author": "Author",
+    "original": "Original app",
+    "rsschool": "RS School",
+    "design": "Design",
+    "article": "Article"
   }
 }
