@@ -174,5 +174,12 @@
     "placeholder": "Digita DELETE",
     "description": "Digita DELETE per confermare",
     "confirmWord": "DELETE"
+  },
+  "information": {
+    "author": "Autore",
+    "original": "App originale",
+    "rsschool": "RS School",
+    "design": "Design",
+    "article": "Articolo"
   }
 }

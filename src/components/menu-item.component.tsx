@@ -11,7 +11,7 @@ export type MenuItemComponentProps = {
   icon: object,
   text: string,
   isActive?: boolean,
-  clickHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
+  clickHandler: () => void,
 };
 
 export function MenuItemComponent({icon, text, isActive, clickHandler}: MenuItemComponentProps) {
