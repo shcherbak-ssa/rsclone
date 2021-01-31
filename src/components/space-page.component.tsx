@@ -60,8 +60,8 @@ export function SpacePageComponent({space, closeMenuHandler, children}: SpacePag
       </div>
       <div className="space-page-editor">
         {children[1]}
+        <div className="space-page-tint" onClick={closeSpacePageMenu}></div>
       </div>
-      <div className="space-page-tint" onClick={closeSpacePageMenu}></div>
       {children[2]}
     </div>
   );

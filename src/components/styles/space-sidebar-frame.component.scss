@@ -2,13 +2,23 @@
 
 .space-sidebar-frame {
   height: 100vh;
-  opacity: 0;
   padding: 23px 12px;
   transition: .2s;
-  flex-shrink: 0;
+  position: absolute;
+  overflow: hidden;
+  z-index: 12;
 
+  .original-theme & {
+    background: $original-app-background-color;
+  }
+  
   .light-theme & {
     padding: 23px 10px;
+    background: $light-app-background-color;
+  }
+  
+  .dark-theme & {
+    background: $dark-app-background-color;
   }
 
   &-header {
@@ -92,7 +102,6 @@
   }
 
   &.show-space-sidebar-frame {
-    opacity: 1;
     width: 320px;
 
     @media screen and (max-width: 389px) {
@@ -103,6 +112,5 @@
   &.hide-space-sidebar-frame {
     padding: 0;
     width: 0;
-    opacity: 0;
   }
 }
