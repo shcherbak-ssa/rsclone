@@ -65,3 +65,8 @@ export enum PageLinkTypes {
   PREVIOUS = 'previous',
   NEXT = 'next',
 }
+
+export enum DropdownNames {
+  SPACE = 'space',
+  INFORMATION = 'information',
+}

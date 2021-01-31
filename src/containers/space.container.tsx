@@ -9,9 +9,10 @@ import { SpaceComponent, SpaceComponentProps } from '../components/space.compone
 import { DropdownItemLabels } from '../constants';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { PopupService } from '../services/popup.service';
-import { PopupNames } from '../constants/ui.constants';
+import { DropdownNames, PopupNames } from '../constants/ui.constants';
 import { useOpenSpacePage } from '../hooks/open-space-page.hook';
 import { useSetActiveSpace } from '../hooks/set-active-space.hook';
+import { DropdownService } from '../services/dropdown.service';
 
 export type SpaceContainerProps = {
   space: Space,
@@ -44,14 +45,18 @@ export function SpaceContainer({space}: SpaceContainerProps) {
         case DropdownItemLabels.DELETE_SPACE:
           openSpacePopup(PopupNames.DELETE_SPACE);
           break;
+        default:
+          setIsDropdownOpen(false);
       }
     },
+    dropdownName: DropdownNames.SPACE,
   };
 
   const spaceProps: SpaceComponentProps = {
     space,
     dropdownProps: isDropdownOpen ? dropdownProps : null,
     iconClickHandler: () => {
+      DropdownService.closeDropdowns();
       setIsDropdownOpen(!isDropdownOpen);
     },
     clickHandler: () => {
