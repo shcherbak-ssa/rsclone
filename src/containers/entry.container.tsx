@@ -1,7 +1,8 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
-import { AppRoutePathnames } from '../constants';
 
+import { LoaderComponent } from '../components/loader.component';
+import { AppRoutePathnames } from '../constants';
 import { UserDraftEvents } from '../constants/events.constants';
 import { userDraftController } from '../controllers/user-draft.controller';
 
@@ -22,7 +23,7 @@ export function EntryContainer({initialRoutePathname}: EntryContainerProps) {
   }, []);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoaderComponent />}>
       <Switch>
         <Route path={AppRoutePathnames.LOGIN} component={LoginContainer} />
         <Route path={AppRoutePathnames.REGISTRATION} component={RegistrationContainer} />

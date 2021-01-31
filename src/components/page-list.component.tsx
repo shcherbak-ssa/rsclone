@@ -6,6 +6,7 @@ import plusIcon from '@iconify/icons-ant-design/plus-outlined';
 import { Page } from '../../common/entities';
 import { PageListItemComponent, PageListItemComponentProps } from './page-list-item.component';
 import { ICON_18_HEIGHT } from '../constants/ui.constants';
+import { LoaderComponent } from './loader.component';
 
 export type PageListComponentProps = {
   addPageValue: string,
@@ -21,7 +22,7 @@ export type PageListComponentProps = {
 export function PageListComponent({
   addPageValue, color, pageTitles, pageIDs, activePage, setActivePage, addPage, deletePage,
 }: PageListComponentProps) {
-  if (activePage === null) return <div>Loading...</div>;
+  if (activePage === null) return <LoaderComponent />;
 
   const addPageIconProps = {
     icon: plusIcon,

@@ -27,6 +27,7 @@ import { AppRoutesService } from '../services/app-routes.service';
 import { ActiveSpaceStore } from '../types/active-space.types';
 import { EMPTY_STRING } from '../constants/strings.constants';
 import { useCloseSpacePageMenu } from '../hooks/close-space-page-menu.hook';
+import { LoaderComponent } from '../components/loader.component';
 
 export type SpacePageContainerProps = {
   isSpacePageOpen: boolean,
@@ -175,7 +176,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
   }
 
   function drawPage() {
-    if (!activePage) return <div>Loading...</div>;
+    if (!activePage) return <LoaderComponent />;
 
     return (
       <Switch>

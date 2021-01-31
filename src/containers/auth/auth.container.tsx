@@ -13,5 +13,5 @@ export function AuthContainer({children}: AuthContainerProps) {
     new DocumentBodyService().addClass(Themes.ORIGINAL);
   }, []);
 
-  return <AuthComponent children={children} />;
+  return <AuthComponent>{children}</AuthComponent>;
 }
