@@ -3,6 +3,7 @@ export const ICON_18_HEIGHT: number = 18;
 export enum DocumentElementIDs {
   ROOT = 'root',
   POPUP = 'popup',
+  THEME = 'theme',
 };
 
 export enum Classnames {

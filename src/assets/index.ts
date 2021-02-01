@@ -3,6 +3,7 @@ import './images/light-theme.png';
 import './images/dark-theme.png';
 
 import './themes/original-theme.css';
+import './themes/light-theme.css';
 
 import './styles/main.scss';
 
