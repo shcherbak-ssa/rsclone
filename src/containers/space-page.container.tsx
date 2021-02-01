@@ -92,7 +92,7 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
     }
   }, [activePage && activePage.title]);
 
-  useHotkeys(addPageShortcutKeys, addPage);
+  useHotkeys(addPageShortcutKeys, () => addPage());
 
   const spacePageProps: SpacePageComponentProps = {
     space: activeSpace,
