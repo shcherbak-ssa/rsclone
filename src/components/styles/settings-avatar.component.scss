@@ -1,5 +1,3 @@
-@import '../../assets/styles/assets.scss';
-
 .settings-avatar {
   display: flex;
 
@@ -24,10 +22,6 @@
     background: var(--settings-avatar-container-background-color);
     margin-bottom: 6px;
     -x-size: 100% 126px;
-    
-    .dark-theme & {
-      background: $dark-settings-avatar-container-background-color;
-    }
 
     .avatar {
       font-size: 24px;
@@ -42,11 +36,6 @@
     height: 126px;
     transition: .2s;
     -x-font-size: 13px/17px;
-    
-    .dark-theme & {
-      border-color: $dark-settings-avatar-drop-border-color;
-      color: $dark-settings-avatar-drop-color;
-    }
   }
 
   &-loaded-file, &-drop {
@@ -61,10 +50,6 @@
     color: var(--settings-avatar-filename-color);
     font-weight: 500;
     -x-font-size: 16px/24px;
-    
-    .dark-theme & {
-      color: $dark-settings-avatar-filename-color;
-    }
   }
 
   &-link {
@@ -75,19 +60,11 @@
     &:hover {
       text-decoration: underline;
     }
-    
-    .dark-theme & {
-      color: $dark-settings-avatar-link-color;
-    }
   }
 
   &-error {
     color: var(--input-error-color);
     font-size: 15px;
-    
-    .dark-theme & {
-      color: $dark-input-error-color;
-    }
   }
 
   &-image, &-drop {
@@ -101,10 +78,6 @@
   &.is-drop-active {
     .settings-avatar-drop {
       background: var(--settings-avatar-drop-active-backgroun-color);
-      
-      .dark-theme & {
-        background: $dark-settings-avatar-drop-active-backgroun-color;
-      }
     }
   }
 }

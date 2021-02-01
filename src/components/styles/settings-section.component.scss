@@ -1,5 +1,3 @@
-@import '../../assets/styles/assets.scss';
-
 .settings-section {
   background: var(--settings-section-background-color);
   border-radius: 4px;
@@ -16,10 +14,6 @@
   .light-theme & {
     box-shadow: 0 4px 4px rgba(51, 51, 51, 0.04), 0 4px 16px rgba(51, 51, 51, 0.08);
   }
-  
-  .dark-theme & {
-    background: $dark-settings-section-background-color;
-  }
 
   &-header {
     display: flex;
@@ -32,30 +26,18 @@
     color: var(--settings-section-title-color);
     font-weight: 500;
     font-size: 18px;
-    
-    .dark-theme & {
-      color: $dark-settings-section-title-color;
-    }
   }
 
   &-content {
     border-top: 1px solid var(--settings-section-line-color);
     padding-top: 24px;
     transition: .4s;
-    
-    .dark-theme & {
-      border-top: 1px solid $dark-settings-section-line-color;
-    }
   }
 
   &-message {
     color: var(--settings-section-message-color);
     margin-bottom: 24px;
     -x-font-size: 14px/20px;
-    
-    .dark-theme & {
-      color: $dark-settings-section-message-color;
-    }
   }
 
   &.is-disable {
@@ -74,10 +56,6 @@
 
     &:hover {
       background: var(--settings-section-close-hover-background-color);
-
-      .dark-theme & {
-        background: $dark-settings-section-close-hover-background-color;
-      }
     }
   }
 }

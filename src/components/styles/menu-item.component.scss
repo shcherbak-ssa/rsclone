@@ -1,5 +1,3 @@
-@import '../../assets/styles/assets.scss';
-
 .menu-item {
   border-radius: 3px;
   color: var(--menu-item-color);
@@ -31,18 +29,5 @@
 
   &.is-active {
     color: var(--menu-item-color-active);
-  }
-  
-  .dark-theme & {
-    color: $dark-menu-item-color;
-
-    &:hover {
-      background: $dark-menu-item-background-color-hover;
-      color: $dark-menu-item-color-hover;
-    }
-
-    &.is-active {
-      color: $dark-menu-item-color-active;
-    }
   }
 }

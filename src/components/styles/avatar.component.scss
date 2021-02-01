@@ -1,5 +1,3 @@
-@import '../../assets/styles/assets.scss';
-
 .avatar {
   background: {
     color: var(--avatar-background-color);
@@ -10,10 +8,4 @@
   border: 2px solid var(--avatar-border-color);
   border-radius: 50%;
   color: var(--avatar-color);
-  
-  .dark-theme & {
-    background-color: $dark-avatar-background-color;
-    border-color: $dark-avatar-border-color;
-    color: $dark-avatar-color;
-  }
 }

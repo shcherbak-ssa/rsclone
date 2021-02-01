@@ -1,5 +1,3 @@
-@import '../../assets/styles/assets.scss';
-
 .space-sidebar-frame {
   background: var(--app-background-color);
   height: 100vh;
@@ -12,20 +10,12 @@
   .light-theme & {
     padding: 23px 10px;
   }
-  
-  .dark-theme & {
-    background: $dark-app-background-color;
-  }
 
   &-header {
     border-bottom: 1px solid var(--sidebar-frame-header-border-color);
     display: flex;
     justify-content: flex-end;
     padding-bottom: 21px;
-  
-    .dark-theme & {
-      border-bottom-color: $dark-sidebar-frame-header-border-color;
-    }
   }
 
   &-close-icon {
@@ -33,7 +23,7 @@
     transform: rotate(180deg);
     -x-size: 24px;
 
-    .original-theme & {
+    .original-theme &, .dark-theme & {
       opacity: .6;
     }
   
@@ -43,11 +33,6 @@
       &:hover, &.is-active {
         color: var(--sidebar-icon-active-color);
       }
-    }
-    
-    .dark-theme & {
-      color: $dark-sidebar-icon-color;
-      opacity: .6;
     }
   
     &:hover, &.is-active {

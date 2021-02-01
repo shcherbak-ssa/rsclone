@@ -1,5 +1,3 @@
-@import '../../../assets/styles/assets.scss';
-
 .radio {
   display: flex;
   width: 100%;
@@ -9,19 +7,11 @@
     margin-right: 12px;
     transition: .2s;
     -x-size: 24px;
-    
-    .dark-theme & {
-      background: $dark-radio-label-background-color;
-    }
 
     span {
       background: var(--radio-span-background-color);
       display: none;
       -x-size: 10px;
-      
-      .dark-theme & {
-        background: $dark-radio-span-background-color;
-      }
     }
   }
 
@@ -29,10 +19,6 @@
     color: var(--radio-description-color);
     user-select: none;
     -x-font-size: 16px/24px;
-    
-    .dark-theme & {
-      color: $dark-radio-description-color;
-    }
   }
 
   &-label, &-label span {
@@ -40,29 +26,17 @@
   }
 
   &:hover {
-    .radio {
-      &-label {
-        background: var(--radio-label-hover-background-color);
-        
-        .dark-theme & {
-          background: $dark-radio-label-hover-background-color;
-        }
-      }
+    .radio-label {
+      background: var(--radio-label-hover-background-color);
     }
   }
 
   &.is-selected {
-    .radio {
-      &-label {
-        background: var(--radio-label-selected-background-color);
-        
-        .dark-theme & {
-          background: $dark-radio-label-selected-background-color;
-        }
+    .radio-label {
+      background: var(--radio-label-selected-background-color);
 
-        span {
-          display: block;
-        }
+      span {
+        display: block;
       }
     }
   }

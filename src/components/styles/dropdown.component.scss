@@ -1,5 +1,3 @@
-@import '../../assets/styles/assets.scss';
-
 .dropdown {
   animation: show-dropdown .2s;
   border-radius: 4px;
@@ -16,10 +14,6 @@
 
   &, &-arrow {
     background: var(--dropdown-background-color);
-  
-    .dark-theme & {
-      background: $dark-dropdown-background-color;
-    }
   }
 
   &.dropdown-space-logo {

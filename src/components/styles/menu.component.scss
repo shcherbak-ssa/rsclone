@@ -1,5 +1,3 @@
-@import '../../assets/styles/assets.scss';
-
 .menu {
   width: 224px;
   transition: .2s;
@@ -36,10 +34,6 @@
       background: var(--app-background-color);
       padding: 12px 13px;
       -x-size: 250px 100%;
-      
-      .dark-theme & {
-        background: $dark-app-background-color;
-      }
     }
   }
 
@@ -59,20 +53,12 @@
     color: var(--menu-username-color);
     font-weight: 500;
     -x-font-size: 16px/32px;
-    
-    .dark-theme & {
-      color: $dark-menu-username-color;
-    }
   }
 
   &-line {
     background: var(--menu-line-background);
     margin: 14px 0;
     -x-size: 100% 1px;
-    
-    .dark-theme & {
-      background: $dark-menu-line-background;
-    }
   }
 
   &-button {
@@ -108,10 +94,6 @@
       border-radius: 2px;
       transition: .2s;
       -x-size: 24px 2px;
-      
-      .dark-theme & {
-        background: $dark-menu-button-span-background-color;
-      }
 
       &:nth-child(2) {
         margin: 5px 0;

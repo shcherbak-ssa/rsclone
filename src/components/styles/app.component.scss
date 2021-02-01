@@ -1,14 +1,8 @@
-@import '../../assets/styles/assets.scss';
-
 .app {
   background: var(--app-background-color);
   overflow-y: scroll;
   position: relative;
   -x-size: 100%;
-  
-  .dark-theme & {
-    background: $dark-app-background-color;
-  }
 
   &-header {
     background: var(--app-background-color);
@@ -19,10 +13,6 @@
 
     @media screen and (max-width: 767px) {
       display: block;
-    }
-    
-    .dark-theme & {
-      background: $dark-app-background-color;
     }
   }
 

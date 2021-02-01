@@ -1,5 +1,3 @@
-@import '../../assets/styles/assets.scss';
-
 .dropdown-item {
   color: var(--dropdown-item-color);
   display: flex;
@@ -12,15 +10,6 @@
   &:hover {
     background: var(--dropdown-item-hover-background-color);
     color: var(--dropdown-item-hover-color);
-  }
-
-  .dark-theme & {
-    color: $dark-dropdown-item-color;
-
-    &:hover {
-      background: $dark-dropdown-item-hover-background-color;
-      color: $dark-dropdown-item-hover-color;
-    }
   }
 
   &-icon {
