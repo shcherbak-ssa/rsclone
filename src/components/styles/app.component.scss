@@ -74,6 +74,10 @@
             position: fixed;
           }
         }
+
+        @media screen and (min-width: 1366px) {
+          max-width: none;
+        }
       }
     }
   }
