@@ -27,6 +27,8 @@ export function useUpdatesController({
   const draftStates = useSelector(userDraftStoreSelectors.getStoreStates(controlDataLabels));
 
   useEffect(() => {
+    userController.emit(UserEvents.SYNC_DRAFT);
+
     return () => {
       userController.emit(UserEvents.SYNC_DRAFT);
     };
