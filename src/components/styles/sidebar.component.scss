@@ -42,10 +42,6 @@
     background: var(--sidebar-line-background-color);
     margin-bottom: 8px;
     -x-size: 42px 1px;
-
-    .light-theme & {
-      background: $light-sidebar-line-background-color;
-    }
     
     .dark-theme & {
       background: $dark-sidebar-line-background-color;

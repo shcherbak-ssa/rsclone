@@ -24,10 +24,6 @@
     background: var(--settings-avatar-container-background-color);
     margin-bottom: 6px;
     -x-size: 100% 126px;
-
-    .light-theme & {
-      background: $light-settings-avatar-container-background-color;
-    }
     
     .dark-theme & {
       background: $dark-settings-avatar-container-background-color;
@@ -46,11 +42,6 @@
     height: 126px;
     transition: .2s;
     -x-font-size: 13px/17px;
-
-    .light-theme & {
-      border-color: $light-settings-avatar-drop-border-color;
-      color: $light-settings-avatar-drop-color;
-    }
     
     .dark-theme & {
       border-color: $dark-settings-avatar-drop-border-color;
@@ -70,10 +61,6 @@
     color: var(--settings-avatar-filename-color);
     font-weight: 500;
     -x-font-size: 16px/24px;
-
-    .light-theme & {
-      color: $light-settings-avatar-filename-color;
-    }
     
     .dark-theme & {
       color: $dark-settings-avatar-filename-color;
@@ -88,10 +75,6 @@
     &:hover {
       text-decoration: underline;
     }
-
-    .light-theme & {
-      color: $light-settings-avatar-link-color;
-    }
     
     .dark-theme & {
       color: $dark-settings-avatar-link-color;
@@ -101,10 +84,6 @@
   &-error {
     color: var(--input-error-color);
     font-size: 15px;
-
-    .light-theme & {
-      color: $light-input-error-color;
-    }
     
     .dark-theme & {
       color: $dark-input-error-color;
@@ -122,10 +101,6 @@
   &.is-drop-active {
     .settings-avatar-drop {
       background: var(--settings-avatar-drop-active-backgroun-color);
-  
-      .light-theme & {
-        background: $light-settings-avatar-drop-active-backgroun-color;
-      }
       
       .dark-theme & {
         background: $dark-settings-avatar-drop-active-backgroun-color;

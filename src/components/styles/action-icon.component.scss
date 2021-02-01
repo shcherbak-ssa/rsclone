@@ -15,11 +15,10 @@
   }
 
   .light-theme & {
-    color: $light-sidebar-icon-color;
     opacity: .9;
 
     &:hover, &.is-active {
-      color: $light-sidebar-icon-active-color;
+      color: var(--sidebar-icon-active-color);
     }
   }
   

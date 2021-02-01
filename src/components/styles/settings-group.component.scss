@@ -12,10 +12,6 @@
     letter-spacing: 2px;
     margin-bottom: 8px;
     -x-font-size: 12px/17px;
-
-    .light-theme & {
-      color: $light-settings-group-title-color;
-    }
     
     .dark-theme & {
       color: $dark-settings-group-title-color;

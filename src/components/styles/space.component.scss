@@ -17,7 +17,9 @@
   }
 
   .light-theme & {
-    background: $light-space-background-color;
+    &:hover {
+      background: var(--space-background-color);
+    }
   }
 
   .dark-theme & {
@@ -40,10 +42,6 @@
     white-space: nowrap;
     -x-font-size: 16px/32px;
   
-    .light-theme & {
-      color: $light-space-title-color;
-    }
-  
     .dark-theme & {
       color: $dark-space-title-color;
     }
@@ -53,10 +51,6 @@
     background: var(--space-line-background-color);
     margin: 16px 0;
     -x-size: 100% 1px;
-  
-    .light-theme & {
-      background: $light-space-line-background-color;
-    }
   
     .dark-theme & {
       background: $dark-space-line-background-color;
@@ -77,10 +71,6 @@
     align-items: center;
     opacity: .8;
   
-    .light-theme & {
-      color: $light-space-icon-color;
-    }
-  
     .dark-theme & {
       color: $dark-space-icon-color;
     }
@@ -96,10 +86,6 @@
     opacity: .4;
     z-index: 1;
     -x-size: 24px;
-  
-    .light-theme & {
-      color: $light-space-icon-color;
-    }
   
     .dark-theme & {
       color: $dark-space-icon-color;

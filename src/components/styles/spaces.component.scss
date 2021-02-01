@@ -34,11 +34,6 @@
     padding: 24px;
     -x-font-size: 14px/28px;
 
-    .light-theme & {
-      border-color: $light-spaces-message-color;
-      color: $light-spaces-message-color;
-    }
-
     .dark-theme & {
       border-color: $dark-spaces-message-color;
       color: $dark-spaces-message-color;
@@ -50,10 +45,6 @@
       margin: 0 4px;
       padding: 3px 5px;
       white-space: nowrap;
-
-      .light-theme & {
-        background: $light-spaces-message-label-background-color;
-      }
 
       .dark-theme & {
         background: $dark-spaces-message-label-background-color;

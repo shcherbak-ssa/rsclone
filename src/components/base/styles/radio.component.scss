@@ -9,10 +9,6 @@
     margin-right: 12px;
     transition: .2s;
     -x-size: 24px;
-
-    .light-theme & {
-      background: $light-radio-label-background-color;
-    }
     
     .dark-theme & {
       background: $dark-radio-label-background-color;
@@ -22,10 +18,6 @@
       background: var(--radio-span-background-color);
       display: none;
       -x-size: 10px;
-
-      .light-theme & {
-        background: $light-radio-span-background-color;
-      }
       
       .dark-theme & {
         background: $dark-radio-span-background-color;
@@ -37,10 +29,6 @@
     color: var(--radio-description-color);
     user-select: none;
     -x-font-size: 16px/24px;
-
-    .light-theme & {
-      color: $light-radio-description-color;
-    }
     
     .dark-theme & {
       color: $dark-radio-description-color;
@@ -55,10 +43,6 @@
     .radio {
       &-label {
         background: var(--radio-label-hover-background-color);
-
-        .light-theme & {
-          background: $light-radio-label-hover-background-color;
-        }
         
         .dark-theme & {
           background: $dark-radio-label-hover-background-color;
@@ -71,10 +55,6 @@
     .radio {
       &-label {
         background: var(--radio-label-selected-background-color);
-
-        .light-theme & {
-          background: $light-radio-label-selected-background-color;
-        }
         
         .dark-theme & {
           background: $dark-radio-label-selected-background-color;

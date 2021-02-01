@@ -37,10 +37,6 @@
       padding: 12px 13px;
       -x-size: 250px 100%;
       
-      .light-theme & {
-        background: $light-app-background-color;
-      }
-      
       .dark-theme & {
         background: $dark-app-background-color;
       }
@@ -63,10 +59,6 @@
     color: var(--menu-username-color);
     font-weight: 500;
     -x-font-size: 16px/32px;
-
-    .light-theme & {
-      color: $light-menu-username-color;
-    }
     
     .dark-theme & {
       color: $dark-menu-username-color;
@@ -77,10 +69,6 @@
     background: var(--menu-line-background);
     margin: 14px 0;
     -x-size: 100% 1px;
-
-    .light-theme & {
-      background: $light-menu-line-background;
-    }
     
     .dark-theme & {
       background: $dark-menu-line-background;
@@ -110,7 +98,7 @@
   
       &:hover {
         span {
-          background: $light-menu-button-span-background-active-color;
+          background: var(--menu-button-span-background-active-color);
         }
       }
     }
@@ -120,10 +108,6 @@
       border-radius: 2px;
       transition: .2s;
       -x-size: 24px 2px;
-    
-      .light-theme & {
-        background: $light-menu-button-span-background-color;
-      }
       
       .dark-theme & {
         background: $dark-menu-button-span-background-color;

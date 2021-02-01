@@ -43,32 +43,12 @@
   }
 
   .light-theme & {
-    &.primary {
-      background: $light-button-primary-background-color;
-      color: $light-button-primary-color;
-  
-      &:hover {
-        background: $light-button-primary-background-color-hover;
-      }
-    }
 
     &.secondary {
-      background: $light-button-secondary-background-color;
-      border: 1px solid $light-button-secondary-border-color;
-      color: $light-button-secondary-color;
+      border: 1px solid var(--button-secondary-border-color);
   
       &:hover {
-        color: $light-button-secondary-hover-color;
-        border-color: $light-button-secondary-hover-border-color;
-      }
-    }
-
-    &.danger {
-      background: $light-button-danger-background-color;
-      color: $light-button-danger-color;
-  
-      &:hover {
-        background: $light-button-danger-background-color-hover;
+        border-color: var(--button-secondary-hover-border-color);
       }
     }
   }
@@ -133,14 +113,6 @@
 
   .danger & {
     background: var(--button-danger-color);
-  }
-
-  .light-theme .primary & {
-    background: $light-button-primary-color;
-  }
-
-  .light-theme .danger & {
-    background: $light-button-danger-color;
   }
   
   .dark-theme .primary & {

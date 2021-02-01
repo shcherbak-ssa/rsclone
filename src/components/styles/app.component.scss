@@ -21,10 +21,6 @@
       display: block;
     }
     
-    .light-theme & {
-      background: $light-app-background-color;
-    }
-    
     .dark-theme & {
       background: $dark-app-background-color;
     }

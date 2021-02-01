@@ -7,10 +7,6 @@
   margin-right: 8px;
   user-select: none;
 
-  .light-theme & {
-    background: $light-space-logo-default-background-color;
-  }
-
   .dark-theme & {
     background: $dark-space-logo-default-background-color;
   }

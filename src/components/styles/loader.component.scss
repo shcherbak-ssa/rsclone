@@ -24,10 +24,6 @@
         width: 6px;
         height: 18px;
 
-        .light-theme & {
-          background: $light-loader-background-color;
-        }
-
         .dark-theme & {
           background: $dark-loader-background-color;
         }

@@ -12,10 +12,6 @@
     border-radius: 4px;
     transition: .2s;
     -x-size: 100% 56px;
-
-    .light-theme & {
-      background: $light-input-background-color;
-    }
     
     .dark-theme & {
       background: $dark-input-background-color;
@@ -28,10 +24,6 @@
     transform: translateY(-50%);
     user-select: none;
     -x-position: absolute 50% x x 16px;
-
-    .light-theme & {
-      color: $light-input-placeholder-color;
-    }
     
     .dark-theme & {
       color: $dark-input-placeholder-color;
@@ -45,10 +37,6 @@
     padding: 16px 0 0 16px;
     position: relative;
     -x-size: 100%;
-
-    .light-theme & {
-      color: $light-input-color;
-    }
     
     .dark-theme & {
       color: $dark-input-color;
@@ -59,10 +47,6 @@
     color: var(--input-error-color);
     opacity: 0;
     transition: .2s;
-
-    .light-theme & {
-      color: $light-input-error-color;
-    }
     
     .dark-theme & {
       color: $dark-input-error-color;
@@ -71,10 +55,6 @@
 
   &-description {
     color: var(--input-description-color);
-
-    .light-theme & {
-      color: $light-input-description-color;
-    }
     
     .dark-theme & {
       color: $dark-input-description-color;
@@ -94,11 +74,10 @@
     }
   
     .light-theme & {
-      color: $light-input-icon-color;
       opacity: .9;
   
       &:hover, &.is-active {
-        color: $light-input-icon-active-color;
+        color: var(--input-icon-active-color);
       }
     }
     

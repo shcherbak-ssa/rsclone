@@ -14,10 +14,6 @@
 
     &:hover {
       background: var(--settings-action-hover-background-color);
-  
-      .light-theme & {
-        background: $light-settings-action-hover-background-color;
-      }
       
       .dark-theme & {
         background: $dark-settings-action-hover-background-color;
@@ -26,10 +22,6 @@
 
     &.is-selected {
       background: var(--settings-action-selected-background-color);
-  
-      .light-theme & {
-        background: $light-settings-action-selected-background-color;
-      }
       
       .dark-theme & {
         background: $dark-settings-action-selected-background-color;
@@ -60,10 +52,6 @@
     .select-type & {
       margin-bottom: 0;
     }
-
-    .light-theme & {
-      color: $light-settings-action-title-color;
-    }
     
     .dark-theme & {
       color: $dark-settings-action-title-color;
@@ -73,10 +61,6 @@
   &-description {
     color: var(--settings-action-description-color);
     -x-font-size: 14px/20px;
-
-    .light-theme & {
-      color: $light-settings-action-description-color;
-    }
     
     .dark-theme & {
       color: $dark-settings-action-description-color;

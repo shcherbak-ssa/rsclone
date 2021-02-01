@@ -17,10 +17,6 @@
   &, &-arrow {
     background: var(--dropdown-background-color);
   
-    .light-theme & {
-      background: $light-dropdown-background-color;
-    }
-  
     .dark-theme & {
       background: $dark-dropdown-background-color;
     }

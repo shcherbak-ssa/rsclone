@@ -31,13 +31,13 @@
 
   --settings-action-title-color: #fff;
   --settings-action-description-color: rgba(255, 255, 255, 0.48);
-  --settings-action-hover-background-color: rgba(#596D8B, 0.4);
+  --settings-action-hover-background-color: rgba(89, 109, 139, 0.4);
   --settings-action-selected-background-color: #596D8B;
 
   --settings-avatar-container-background-color: #183055;
   --settings-avatar-drop-color: #9DAAB6;
   --settings-avatar-drop-border-color: #183055;
-  --settings-avatar-drop-active-backgroun-color: rgba(#fff, .1);
+  --settings-avatar-drop-active-backgroun-color: rgba(255, 255, 255, .1);
   --settings-avatar-link-color: #3884FF;
   --settings-avatar-filename-color: #fff;
 

@@ -20,17 +20,6 @@
         color: var(--select-icon-color-hover);
       }
     }
-
-    .light-theme & {
-      background: $light-select-background-color;
-      color: $light-select-color;
-      
-      &:hover {
-        .select-icon {
-          color: $light-select-icon-color-hover;
-        }
-      }
-    }
     
     .dark-theme & {
       background: $dark-select-background-color;
@@ -48,10 +37,6 @@
     color: var(--base-input-placeholder-color);
     -x-font-size: 13px/20px;
     -x-position: absolute 6px x x 16px;
-
-    .light-theme & {
-      color: $light-select-placeholder-color;
-    }
     
     .dark-theme & {
       color: $dark-select-placeholder-color;
@@ -63,10 +48,6 @@
     transform: translateY(-50%) rotate(360deg) !important;
     transition: .2s;
     -x-position: absolute 50% 12px x x;
-
-    .light-theme & {
-      color: $light-select-icon-color;
-    }
     
     .dark-theme & {
       color: $dark-select-icon-color;
@@ -79,10 +60,6 @@
     opacity: 0;
     width: 100%;
     transition: .2s;
-
-    .light-theme & {
-      background: $light-select-background-color;
-    }
     
     .dark-theme & {
       background: $dark-select-background-color;
@@ -104,14 +81,6 @@
     &:hover, &.is-selected {
       background: var(--select-item-active-background-color);
     }
-
-    .light-theme & {
-      color: $light-select-color;
-
-      &:hover, &.is-selected {
-        background: $light-select-item-active-background-color;
-      }
-    }
     
     .dark-theme & {
       color: $dark-select-color;
@@ -131,10 +100,6 @@
       &-icon {
         color: var(--select-icon-color-hover);
         transform: translateY(-50%) rotate(180deg) !important;
-
-        .light-theme & {
-          color: $light-select-icon-color-hover;
-        }
         
         .dark-theme & {
           color: $dark-select-icon-color-hover;
