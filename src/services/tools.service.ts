@@ -1,4 +1,4 @@
-import { EMPTY_STRING } from '../constants/strings.constants';
+import { EMPTY_STRING, SLASH } from '../constants/strings.constants';
 import { InitialInputState, OpenSpacePathnames } from '../types/tools.types';
 import { InputState } from '../types/user-draft.types';
 
@@ -7,8 +7,8 @@ const SPLITED_LOCATION_PATHNAME_LENGTH_WITHOUT_PAGE_PATHNAME: number = 4;
 export class ToolsService implements InitialInputState, OpenSpacePathnames {
   getInitialInputState(): InputState {
     return {
-      value: '',
-      error: '',
+      value: EMPTY_STRING,
+      error: EMPTY_STRING,
     };
   }
 
@@ -29,18 +29,25 @@ export class ToolsService implements InitialInputState, OpenSpacePathnames {
     spacePathname: string,
     pagePathname: string,
   } {
-    const splitedLocationPathname: string[] = location.pathname.split('/').reverse();
+    const splitedLocationPathname: string[] = location.pathname.split(SLASH).reverse();
+    const decodePathname = this.getPathnameDecoder(splitedLocationPathname);
 
     if (splitedLocationPathname.length === SPLITED_LOCATION_PATHNAME_LENGTH_WITHOUT_PAGE_PATHNAME) {
       return {
-        spacePathname: splitedLocationPathname[0],
+        spacePathname: decodePathname(0),
         pagePathname: EMPTY_STRING,
       };
     }
 
     return {
-      spacePathname: splitedLocationPathname[1],
-      pagePathname: splitedLocationPathname[0],
+      spacePathname: decodePathname(1),
+      pagePathname: decodePathname(0),
     };
+  }
+
+  private getPathnameDecoder(splitedLocationPathname: string[]) {
+    return (index: number): string => {
+      return decodeURIComponent(splitedLocationPathname[index]);
+    }
   }
 }

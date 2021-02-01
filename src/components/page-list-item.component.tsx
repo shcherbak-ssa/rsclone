@@ -54,8 +54,6 @@ export function PageListItemComponent({
       return <div className="lds-ellipsis">{drawLoaderItems()}</div>;
     }
 
-    
-
     return (
       <>
         <div className="page-list-title">{getPageListTitle()}</div>

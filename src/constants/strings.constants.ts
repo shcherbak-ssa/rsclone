@@ -5,6 +5,7 @@ export const EMPTY_SHORTCUT_STRING: string = '???';
 export const JOIN_SHORTCUT_KEYS_STRING: string = ' + ';
 export const USERNAME_PATHNAME_INITIAL_STRING: string = '@';
 export const EMPTY_STRING: string = '';
+export const SLASH: string = '/';
 
 export const USERNAME_REPLACE_STRING: string = ':username';
 export const SPACE_PATHNAME_REPLACE_STRING: string = ':spacePathname';
