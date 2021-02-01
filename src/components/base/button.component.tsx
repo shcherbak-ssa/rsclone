@@ -3,9 +3,7 @@ import classnames from 'classnames';
 import './styles/button.component.scss';
 
 import { Icon } from '@iconify/react';
-import { ButtonTypes, Classnames } from '../../constants/ui.constants';
-
-const BUTTON_ICON_HEIGHT: number = 18;
+import { ButtonTypes, Classnames, ICON_18_HEIGHT } from '../../constants/ui.constants';
 
 export type BaseButtonProps = {
   isLoading?: boolean,
@@ -48,7 +46,7 @@ export function ButtonComponent({
 
     return (
       <div className="button-icon">
-        <Icon icon={icon} height={BUTTON_ICON_HEIGHT} />
+        <Icon icon={icon} height={ICON_18_HEIGHT} />
       </div>
     );
   }

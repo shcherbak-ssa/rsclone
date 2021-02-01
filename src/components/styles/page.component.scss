@@ -96,6 +96,7 @@
     }
 
     &-icon {
+      flex-shrink: 0;
       margin-left: 8px;
       z-index: 1;
       transition: .2s;
@@ -238,6 +239,10 @@
     &-title {
       font-weight: 500;
       -x-font-size: 16px/1.5;
+    }
+
+    &-icon {
+      flex-shrink: 0;
     }
 
     &-label, &-icon {

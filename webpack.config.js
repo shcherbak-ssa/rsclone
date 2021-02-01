@@ -1,4 +1,5 @@
 const {join: joinPaths, resolve} = require('path');
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -57,10 +58,40 @@ const webpackConfig = (env = {}) => {
               options: {
                 transpileOnly: true,
                 compilerOptions: {
+                  module: 'esnext',
                   sourceMap: isDev,
                 },
               },
             }
+          ]
+        },
+        {
+          test: /\.css$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].css',
+                outputPath: 'css'
+              }
+            },
+            'extract-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                url: false,
+                importLoaders: 1,
+                sourceMap: false,
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: []
+                }
+              }
+            },
           ]
         },
         {
@@ -109,11 +140,11 @@ const webpackConfig = (env = {}) => {
     plugins: [
       new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
-        filename: joinPaths('css', 'main.css')
-      })
+        filename: joinPaths('css', '[name].css'),
+        chunkFilename: joinPaths('css', '[id].css'),
+      }),
     ],
   }
 };
 
 module.exports = webpackConfig;
-
