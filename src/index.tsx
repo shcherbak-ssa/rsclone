@@ -17,9 +17,14 @@ import { StoreManager } from './types/store.types';
 import { StoreManagerService } from './services/store-manager.service';
 import { UserLocalStorage } from './types/services.types';
 import { UserLocalStorageService } from './services/user-local-storage.service';
+import { LoaderComponent } from './components/loader.component';
 
 class App {
   store: ReduxStore;
+
+  constructor() {
+    this.render(<LoaderComponent />);
+  }
 
   static async init() {
     const app: App = new App();
@@ -48,14 +53,17 @@ class App {
   renderApp(initialRoutePathname: string): void {
     appController.emit(AppEvents.REMOVE_INIT_EVENTS);
   
-    ReactDOM.render(
+    this.render(
       <Provider store={this.store}>
         <Router>
           <EntryContainer initialRoutePathname={initialRoutePathname} />
         </Router>
-      </Provider>,
-      document.getElementById(DocumentElementIDs.ROOT),
+      </Provider>
     );
+  }
+
+  render(component: any) {
+    ReactDOM.render(component, document.getElementById(DocumentElementIDs.ROOT));
   }
 }
 

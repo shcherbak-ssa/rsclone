@@ -4,12 +4,11 @@ import classnames from 'classnames';
 import { Icon } from '@iconify/react';
 import deleteIcon from '@iconify/icons-ic/baseline-delete-forever';
 
-import { Classnames } from '../constants/ui.constants';
 import { Page } from '../../common/entities';
-import { AssetsService } from '../services/assets.service';
-import { NEW_PAGE_ID } from '../constants';
-import { ICON_18_HEIGHT } from '../constants/ui.constants';
+import { Classnames, ICON_18_HEIGHT } from '../constants/ui.constants';
 import { EMPTY_STRING } from '../constants/strings.constants';
+import { NEW_PAGE_ID } from '../constants';
+import { AssetsService } from '../services/assets.service';
 
 const LOADER_ITEMS_COUNT: number = 4;
 
