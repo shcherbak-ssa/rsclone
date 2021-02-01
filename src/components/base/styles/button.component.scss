@@ -15,32 +15,30 @@
     -x-size: 18px;
   }
 
-  .original-theme & {
-    &.primary {
-      background: $original-button-primary-background-color;
-      color: $original-button-primary-color;
-  
-      &:hover {
-        background: $original-button-primary-background-color-hover;
-      }
-    }
+  &.primary {
+    background: var(--button-primary-background-color);
+    color: var(--button-primary-color);
 
-    &.secondary {
-      background: $original-button-secondary-background-color;
-      color: $original-button-secondary-color;
-  
-      &:hover {
-        background: $original-button-secondary-background-color-hover;
-      }
+    &:hover {
+      background: var(--button-primary-background-color-hover);
     }
+  }
 
-    &.danger {
-      background: $original-button-danger-background-color;
-      color: $original-button-danger-color;
-  
-      &:hover {
-        background: $original-button-danger-background-color-hover;
-      }
+  &.secondary {
+    background: var(--button-secondary-background-color);
+    color: var(--button-secondary-color);
+
+    &:hover {
+      background: var(--button-secondary-background-color-hover);
+    }
+  }
+
+  &.danger {
+    background: var(--button-danger-background-color);
+    color: var(--button-danger-color);
+
+    &:hover {
+      background: var(--button-danger-background-color-hover);
     }
   }
 
@@ -129,12 +127,12 @@
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
   -x-size: 10px;
 
-  .original-theme .primary & {
-    background: $original-button-primary-color;
+  .primary & {
+    background: var(--button-primary-color);
   }
 
-  .original-theme .danger & {
-    background: $original-button-danger-color;
+  .danger & {
+    background: var(--button-danger-color);
   }
 
   .light-theme .primary & {

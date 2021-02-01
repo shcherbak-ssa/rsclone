@@ -2,18 +2,14 @@
 
 .avatar {
   background: {
+    color: var(--avatar-background-color);
     repeat: no-repeat;
     position: center;
     size: cover;
   };
-  border: 2px solid #fff;
+  border: 2px solid var(--avatar-border-color);
   border-radius: 50%;
-
-  .original-theme & {
-    background-color: $original-avatar-background-color;
-    border-color: $original-avatar-border-color;
-    color: $original-avatar-color;
-  }
+  color: var(--avatar-color);
 
   .light-theme & {
     background-color: $light-avatar-background-color;

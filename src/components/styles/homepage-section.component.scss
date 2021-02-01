@@ -25,30 +25,27 @@
     @media screen and (max-width: 489px) {
       .button {
         padding: 0 8px;
-      }
-      
-      .button-icon {
-        margin-right: 0;
-      }
 
-      .button-value {
-        display: none;
+        &-icon {
+          margin-right: 0;
+        }
+  
+        &-value {
+          display: none;
+        }
       }
     }
     
   }
 
   &-title {
+    color: var(--homepage-section-title-color);
     font-weight: 500;
     -x-font-size: 36px/32px;
 
     @media screen and (max-width: 767px) {
       font-size: 28px;
       line-height: normal;
-    }
-
-    .original-theme & {
-      color: $original-homepage-section-title-color;
     }
 
     .light-theme & {

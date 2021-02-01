@@ -39,12 +39,9 @@
   }
 
   &-line {
+    background: var(--sidebar-line-background-color);
     margin-bottom: 8px;
     -x-size: 42px 1px;
-
-    .original-theme & {
-      background: $original-sidebar-line-background-color;
-    }
 
     .light-theme & {
       background: $light-sidebar-line-background-color;

@@ -2,6 +2,7 @@
 
 .menu-item {
   border-radius: 3px;
+  color: var(--menu-item-color);
   display: flex;
   align-items: center;
   transition: .2s;
@@ -23,17 +24,13 @@
     -x-font-size: 14px/32px;
   }
 
-  .original-theme & {
-    color: $original-menu-item-color;
+  &:hover {
+    background: var(--menu-item-background-color-hover);
+    color: var(--menu-item-color-hover);
+  }
 
-    &:hover {
-      background: $original-menu-item-background-color-hover;
-      color: $original-menu-item-color-hover;
-    }
-
-    &.is-active {
-      color: $original-menu-item-color-active;
-    }
+  &.is-active {
+    color: var(--menu-item-color-active);
   }
 
   .light-theme & {

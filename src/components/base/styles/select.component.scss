@@ -4,6 +4,8 @@
   margin-bottom: 24px;
 
   &-selected {
+    background: var(--base-input-background-color);
+    color: var(--base-input-color);
     border-radius: 4px;
     padding: 26px 16px 0;
     -x-font-size: 16px/24px;
@@ -13,14 +15,9 @@
       -x-font-size: 14px/18px;
     }
 
-    .original-theme & {
-      background: $original-select-background-color;
-      color: $original-select-color;
-
-      &:hover {
-        .select-icon {
-          color: $original-select-icon-color-hover;
-        }
+    &:hover {
+      .select-icon {
+        color: var(--select-icon-color-hover);
       }
     }
 
@@ -48,12 +45,9 @@
   }
 
   &-placeholder {
+    color: var(--base-input-placeholder-color);
     -x-font-size: 13px/20px;
     -x-position: absolute 6px x x 16px;
-
-    .original-theme & {
-      color: $original-select-placeholder-color;
-    }
 
     .light-theme & {
       color: $light-select-placeholder-color;
@@ -65,13 +59,10 @@
   }
 
   &-icon {
+    color: var(--select-icon-color);
     transform: translateY(-50%) rotate(360deg) !important;
     transition: .2s;
     -x-position: absolute 50% 12px x x;
-
-    .original-theme & {
-      color: $original-select-icon-color;
-    }
 
     .light-theme & {
       color: $light-select-icon-color;
@@ -83,14 +74,11 @@
   }
 
   &-items {
+    background: var(--base-input-background-color);
     border-radius: 4px;
     opacity: 0;
     width: 100%;
     transition: .2s;
-
-    .original-theme & {
-      background: $original-select-background-color;
-    }
 
     .light-theme & {
       background: $light-select-background-color;
@@ -102,6 +90,7 @@
   }
 
   &-item {
+    color: var(--base-input-color);
     display: flex;
     align-items: center;
     padding-left: 16px;
@@ -112,12 +101,8 @@
       -x-font-size: 14px/18px;
     }
 
-    .original-theme & {
-      color: $original-select-color;
-
-      &:hover, &.is-selected {
-        background: $original-select-item-active-background-color;
-      }
+    &:hover, &.is-selected {
+      background: var(--select-item-active-background-color);
     }
 
     .light-theme & {
@@ -144,11 +129,8 @@
       }
 
       &-icon {
+        color: var(--select-icon-color-hover);
         transform: translateY(-50%) rotate(180deg) !important;
-
-        .original-theme & {
-          color: $original-select-icon-color-hover;
-        }
 
         .light-theme & {
           color: $light-select-icon-color-hover;

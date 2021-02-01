@@ -14,7 +14,7 @@
       animation: loader-spinner 1.2s linear infinite;
 
       &::after {
-        background: $original-loader-background-color;
+        background: var(--loader-background-color);
         border-radius: 20%;
         content: '';
         display: block;

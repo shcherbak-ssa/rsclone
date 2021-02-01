@@ -13,9 +13,7 @@
     transition: .2s;
 
     &:hover {
-      .original-theme & {
-        background: $original-settings-action-hover-background-color;
-      }
+      background: var(--settings-action-hover-background-color);
   
       .light-theme & {
         background: $light-settings-action-hover-background-color;
@@ -27,9 +25,7 @@
     }
 
     &.is-selected {
-      .original-theme & {
-        background: $original-settings-action-selected-background-color;
-      }
+      background: var(--settings-action-selected-background-color);
   
       .light-theme & {
         background: $light-settings-action-selected-background-color;
@@ -56,16 +52,13 @@
   }
 
   &-title {
+    color: var(--settings-action-title-color);
     font-weight: 500;
     margin-bottom: 8px;
     -x-font-size: 16px/24px;
 
     .select-type & {
       margin-bottom: 0;
-    }
-
-    .original-theme & {
-      color: $original-settings-action-title-color;
     }
 
     .light-theme & {
@@ -78,11 +71,8 @@
   }
 
   &-description {
+    color: var(--settings-action-description-color);
     -x-font-size: 14px/20px;
-
-    .original-theme & {
-      color: $original-settings-action-description-color;
-    }
 
     .light-theme & {
       color: $light-settings-action-description-color;

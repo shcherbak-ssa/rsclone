@@ -8,13 +8,10 @@
   }
 
   &-container {
+    background: var(--base-input-background-color);
     border-radius: 4px;
     transition: .2s;
     -x-size: 100% 56px;
-
-    .original-theme & {
-      background: $original-input-background-color;
-    }
 
     .light-theme & {
       background: $light-input-background-color;
@@ -26,14 +23,11 @@
   }
 
   &-placeholder {
+    color: var(--base-input-placeholder-color);
     transition: .2s;
     transform: translateY(-50%);
     user-select: none;
     -x-position: absolute 50% x x 16px;
-
-    .original-theme & {
-      color: $original-input-placeholder-color;
-    }
 
     .light-theme & {
       color: $light-input-placeholder-color;
@@ -46,14 +40,11 @@
 
   &-field {
     background: transparent;
+    color: var(--base-input-color);
     font-family: inherit;
     padding: 16px 0 0 16px;
     position: relative;
     -x-size: 100%;
-
-    .original-theme & {
-      color: $original-input-color;
-    }
 
     .light-theme & {
       color: $light-input-color;
@@ -65,12 +56,9 @@
   }
 
   &-error {
+    color: var(--input-error-color);
     opacity: 0;
     transition: .2s;
-
-    .original-theme & {
-      color: $original-input-error-color;
-    }
 
     .light-theme & {
       color: $light-input-error-color;
@@ -82,9 +70,7 @@
   }
 
   &-description {
-    .original-theme & {
-      color: $original-input-description-color;
-    }
+    color: var(--input-description-color);
 
     .light-theme & {
       color: $light-input-description-color;
@@ -96,6 +82,7 @@
   }
 
   &-icon {
+    color: var(--input-icon-color);
     transition: .2s;
     transform: translateY(-50%) !important;
     z-index: 1;
@@ -103,7 +90,6 @@
     -x-position: absolute 50% 12px x x;
 
     .original-theme & {
-      color: $original-input-icon-color;
       opacity: .6;
     }
   

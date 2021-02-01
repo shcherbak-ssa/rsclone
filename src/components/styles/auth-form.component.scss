@@ -15,6 +15,8 @@
   }
 
   &-error {
+    background: rgba(#fff, .1);
+    color:#FF4642;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,21 +32,6 @@
       margin: 0 0 16px -16px;
     }
 
-    .original-theme & {
-      background: $original-auth-form-error-background-color;
-      color: $original-auth-form-error-color;
-    }
-  
-    .light-theme & {
-      background: $light-auth-form-error-background-color;
-      color: $light-auth-form-error-color;
-    }
-  
-    .dark-theme & {
-      background: $dark-auth-form-error-background-color;
-      color: $dark-auth-form-error-color;
-    }
-
     .is-error & {
       height: 60px;
     }
@@ -57,28 +44,13 @@
   }
 
   &-link {
+    color: #7badff;
     cursor: pointer;
     text-align: center;
     -x-font-size: 16px/24px;
 
     &:hover {
       text-decoration: underline;
-    }
-
-    .original-theme & {
-      color: $original-auth-form-link-color;
-    }
-  
-    .light-theme & {
-      color: $light-auth-form-link-color;
-
-      &:hover {
-        color: $light-auth-form-link-hover-color;
-      }
-    }
-  
-    .dark-theme & {
-      color: $dark-auth-form-link-color;
     }
   }
 

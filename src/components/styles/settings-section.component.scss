@@ -1,6 +1,7 @@
 @import '../../assets/styles/assets.scss';
 
 .settings-section {
+  background: var( --settings-section-background-color);
   border-radius: 4px;
   margin-bottom: 24px;
   padding: 18px 24px 24px;
@@ -10,10 +11,6 @@
 
   @media screen and (max-width: 489px) {
     padding: 18px;
-  }
-
-  .original-theme & {
-    background: $original-settings-section-background-color;
   }
 
   .light-theme & {
@@ -33,12 +30,9 @@
   }
 
   &-title {
+    color: var(--settings-section-title-color);
     font-weight: 500;
     font-size: 18px;
-
-    .original-theme & {
-      color: $original-settings-section-title-color;
-    }
 
     .light-theme & {
       color: $light-settings-section-title-color;
@@ -50,12 +44,9 @@
   }
 
   &-content {
+    border-top: 1px solid var(--settings-section-line-color);
     padding-top: 24px;
     transition: .4s;
-    
-    .original-theme & {
-      border-top: 1px solid $original-settings-section-line-color;
-    }
 
     .light-theme & {
       border-top: 1px solid $light-settings-section-line-color;
@@ -67,12 +58,9 @@
   }
 
   &-message {
+    color: var(--settings-section-message-color);
     margin-bottom: 24px;
     -x-font-size: 14px/20px;
-
-    .original-theme & {
-      color: $original-settings-section-message-color;
-    }
 
     .light-theme & {
       color: $light-settings-section-message-color;
@@ -98,9 +86,7 @@
     padding: 24px;
 
     &:hover {
-      .original-theme & {
-        background: $original-settings-section-close-hover-background-color;
-      }
+      background: var(--settings-section-close-hover-background-color);
 
       .dark-theme & {
         background: $dark-settings-section-close-hover-background-color;

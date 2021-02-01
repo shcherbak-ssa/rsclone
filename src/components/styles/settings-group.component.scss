@@ -7,14 +7,11 @@
   }
 
   &-title {
+    color: var(--settings-group-title-color);
     font-weight: bold;
     letter-spacing: 2px;
     margin-bottom: 8px;
     -x-font-size: 12px/17px;
-
-    .original-theme & {
-      color: $original-settings-group-title-color;
-    }
 
     .light-theme & {
       color: $light-settings-group-title-color;

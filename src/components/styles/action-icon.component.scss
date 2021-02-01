@@ -1,6 +1,7 @@
 @import '../../assets/styles/assets.scss';
 
 .action-icon {
+  color: var(--sidebar-icon-color);
   flex-direction: column;
   transition: .2s;
   -x-size: 40px;
@@ -10,7 +11,6 @@
   }
 
   .original-theme & {
-    color: $original-sidebar-icon-color;
     opacity: .6;
   }
 

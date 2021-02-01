@@ -25,6 +25,7 @@
     }
 
     &-item {
+      color: var(--space-page-title-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -39,10 +40,6 @@
       .page-list-icon {
         opacity: 0;
       }
-
-      .original-theme & {
-        color: $original-space-page-title-color;
-      }
   
       .light-theme & {
         color: $light-space-page-title-color;
@@ -53,16 +50,14 @@
       }
 
       &:hover {
+        background: var(--space-page-border-color);
+
         .page-list-icon {
           opacity: .6;
 
           &:hover {
             opacity: 1;
           }
-        }
-
-        .original-theme & {
-          background: rgba($original-space-page-title-color, .1);
         }
     
         .light-theme & {
@@ -75,13 +70,9 @@
       }
 
       &.is-active {
-        border: 1px solid;
+        background: var(--space-page-editor-background-color);
+        border: 1px solid var(--space-page-border-color);
         border-right: none;
-
-        .original-theme & {
-          background: $original-space-page-editor-background-color;
-          border-color: $original-space-page-border-color;
-        }
     
         .light-theme & {
           background: $light-space-page-editor-background-color;
@@ -105,16 +96,12 @@
   }
 
   &-add {
-    border-top: 1px solid;
+    border-top: 1px solid var(--space-page-border-color);
+    color: var(--space-page-add-color);
     margin-top: 24px;
 
     .page-list-icon {
       opacity: 1 !important;
-    }
-
-    .original-theme & {
-      border-color: $original-space-page-border-color;
-      color: $original-space-page-add-color;
     }
 
     .light-theme & {
@@ -129,13 +116,9 @@
   }
 
   &-header {
-    border-bottom: 2px solid;
+    border-bottom: 2px solid var(--space-page-border-color);
     margin-bottom: 32px;
     padding: 40px 0px;
-
-    .original-theme & {
-      border-bottom-color: $original-space-page-border-color;
-    }
 
     .light-theme & {
       border-bottom-color: $light-space-page-border-color;
@@ -147,13 +130,10 @@
   }
 
   &-title {
+    color: var(--space-page-title-color);
     font-weight: 500;
     margin-bottom: 8px;
     -x-font-size: 32px/1.5;
-
-    .original-theme & {
-      color: $original-space-page-title-color;
-    }
 
     .light-theme & {
       color: $light-space-page-title-color;
@@ -165,13 +145,10 @@
   }
 
   &-description {
+    color: var(--space-page-add-color);
     height: 30px;
     font-weight: 400;
     -x-font-size: 16px/1.625;
-
-    .original-theme & {
-      color: $original-space-page-add-color;
-    }
 
     .light-theme & {
       color: $light-space-page-add-color;
@@ -207,8 +184,9 @@
   }
 
   &-link {
-    border: 1px solid;
+    border: 1px solid var(--space-page-border-color);
     border-radius: 3px;
+    color: var(--space-page-title-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -216,11 +194,6 @@
     padding: 16px;
     transition: .2s;
     width: 100%;
-
-    .original-theme & {
-      border-color: $original-space-page-border-color;
-      color: $original-space-page-title-color;
-    }
 
     .light-theme & {
       border-color: $light-space-page-border-color;
@@ -246,9 +219,7 @@
     }
 
     &-label, &-icon {
-      .original-theme & {
-        color: $original-space-page-add-color;
-      }
+      color: var(--space-page-add-color);
   
       .light-theme & {
         color: $light-space-page-add-color;

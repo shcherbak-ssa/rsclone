@@ -1,14 +1,11 @@
 @import '../../assets/styles/assets.scss';
 
 .space-logo {
+  background: var(--space-logo-default-background-color);
   border-radius: 3px;
   flex-shrink: 0;
   margin-right: 8px;
   user-select: none;
-
-  .original-theme & {
-    background: $original-space-logo-default-background-color;
-  }
 
   .light-theme & {
     background: $light-space-logo-default-background-color;

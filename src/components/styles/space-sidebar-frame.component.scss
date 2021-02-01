@@ -1,16 +1,13 @@
 @import '../../assets/styles/assets.scss';
 
 .space-sidebar-frame {
+  background: var(--app-background-color);
   height: 100vh;
   padding: 23px 12px;
   transition: .2s;
   position: absolute;
   overflow: hidden;
   z-index: 12;
-
-  .original-theme & {
-    background: $original-app-background-color;
-  }
   
   .light-theme & {
     padding: 23px 10px;
@@ -22,14 +19,10 @@
   }
 
   &-header {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid var(--sidebar-frame-header-border-color);
     display: flex;
     justify-content: flex-end;
     padding-bottom: 21px;
-
-    .original-theme & {
-      border-bottom-color: $original-sidebar-frame-header-border-color;
-    }
   
     .light-theme & {
       border-bottom-color: $light-sidebar-frame-header-border-color;
@@ -41,11 +34,11 @@
   }
 
   &-close-icon {
+    color: var(--sidebar-icon-color);
     transform: rotate(180deg);
     -x-size: 24px;
 
     .original-theme & {
-      color: $original-sidebar-icon-color;
       opacity: .6;
     }
   

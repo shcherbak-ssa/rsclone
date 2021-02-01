@@ -21,12 +21,9 @@
   }
 
   &-image {
+    background: var(--settings-avatar-container-background-color);
     margin-bottom: 6px;
     -x-size: 100% 126px;
-
-    .original-theme & {
-      background: $original-settings-avatar-container-background-color;
-    }
 
     .light-theme & {
       background: $light-settings-avatar-container-background-color;
@@ -42,21 +39,13 @@
   }
 
   &-drop {
-    border: 1px solid;
+    border: 1px solid var(--settings-avatar-drop-border-color);
+    color: var(--settings-avatar-drop-color);
     text-align: center;
     flex-grow: 1;
     height: 126px;
     transition: .2s;
     -x-font-size: 13px/17px;
-
-    @media screen and (max-width: 767px) {
-      
-    }
-
-    .original-theme & {
-      border-color: $original-settings-avatar-drop-border-color;
-      color: $original-settings-avatar-drop-color;
-    }
 
     .light-theme & {
       border-color: $light-settings-avatar-drop-border-color;
@@ -78,12 +67,9 @@
   }
 
   &-filename {
+    color: var(--settings-avatar-filename-color);
     font-weight: 500;
     -x-font-size: 16px/24px;
-
-    .original-theme & {
-      color: $original-settings-avatar-filename-color;
-    }
 
     .light-theme & {
       color: $light-settings-avatar-filename-color;
@@ -95,15 +81,12 @@
   }
 
   &-link {
+    color: var(--settings-avatar-link-color);
     cursor: pointer;
     margin-left: 3px;
 
     &:hover {
       text-decoration: underline;
-    }
-
-    .original-theme & {
-      color: $original-settings-avatar-link-color;
     }
 
     .light-theme & {
@@ -116,11 +99,8 @@
   }
 
   &-error {
+    color: var(--input-error-color);
     font-size: 15px;
-
-    .original-theme & {
-      color: $original-input-error-color;
-    }
 
     .light-theme & {
       color: $light-input-error-color;
@@ -141,9 +121,7 @@
 
   &.is-drop-active {
     .settings-avatar-drop {
-      .original-theme & {
-        background: $original-settings-avatar-drop-active-backgroun-color;
-      }
+      background: var(--settings-avatar-drop-active-backgroun-color);
   
       .light-theme & {
         background: $light-settings-avatar-drop-active-backgroun-color;

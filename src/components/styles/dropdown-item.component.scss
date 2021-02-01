@@ -1,6 +1,7 @@
 @import '../../assets/styles/assets.scss';
 
 .dropdown-item {
+  color: var(--dropdown-item-color);
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -8,13 +9,9 @@
   transition: .2s;
   -x-size: 100% 40px;
 
-  .original-theme & {
-    color: $original-dropdown-item-color;
-
-    &:hover {
-      background: $original-dropdown-item-hover-background-color;
-      color: $original-dropdown-item-hover-color;
-    }
+  &:hover {
+    background: var(--dropdown-item-hover-background-color);
+    color: var(--dropdown-item-hover-color);
   }
 
   .light-theme & {

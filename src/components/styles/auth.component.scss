@@ -1,27 +1,14 @@
 @import '../../assets/styles/assets.scss';
 
 .auth {
+  background: var(--app-background-color);
+  color: #fff;
   padding: 20px 64px;
   position: relative;
   -x-size: 100%;
 
   @media screen and (max-width: 767px) {
     padding: 20px 16px;
-  }
-
-  .original-theme & {
-    background: $original-auth-background-color;
-    color: $original-auth-color;
-  }
-
-  .light-theme & {
-    background: $light-auth-background-color;
-    color: $light-auth-color;
-  }
-
-  .dark-theme & {
-    background: $dark-auth-background-color;
-    color: $dark-auth-color;
   }
 
   &-content {
@@ -42,6 +29,7 @@
   }
 
   &-form-container {
+    background: #2F4566;
     border-radius: 8px;
     padding: 32px;
     transform: translate(-50%, -50%);
@@ -53,18 +41,6 @@
     @media screen and (max-width: 450px) {
       width: 100%;
       padding: 16px;
-    }
-
-    .original-theme & {
-      background: $original-auth-form-container-background-color;
-    }
-  
-    .light-theme & {
-      background: $light-auth-form-container-background-color;
-    }
-  
-    .dark-theme & {
-      background: $dark-auth-form-container-background-color;
     }
   }
 

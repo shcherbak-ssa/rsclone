@@ -27,16 +27,12 @@
   }
 
   &-message {
-    border: 1px solid;
+    border: 1px solid var(--spaces-message-color);
     border-radius: 3px;
+    color: var(--spaces-message-color);
     text-align: center;
     padding: 24px;
     -x-font-size: 14px/28px;
-
-    .original-theme & {
-      border-color: $original-spaces-message-color;
-      color: $original-spaces-message-color;
-    }
 
     .light-theme & {
       border-color: $light-spaces-message-color;
@@ -49,14 +45,11 @@
     }
 
     &-label {
+      background: var(--spaces-message-label-background-color);
       border-radius: 3px;
       margin: 0 4px;
       padding: 3px 5px;
       white-space: nowrap;
-
-      .original-theme & {
-        background: $original-spaces-message-label-background-color;
-      }
 
       .light-theme & {
         background: $light-spaces-message-label-background-color;
