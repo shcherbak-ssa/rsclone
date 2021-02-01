@@ -128,6 +128,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    user-select: none;
     gap: 16px;
     padding: 16px;
     transition: .2s;
