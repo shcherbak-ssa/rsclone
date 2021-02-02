@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
+
 import Editor, { PluginEditorProps } from '@draft-js-plugins/editor';
-import createInlineToolbarPlugin, { Separator } from '@draft-js-plugins/inline-toolbar';
-import {
-  BoldButton,
-  ItalicButton,
-  UnderlineButton,
-  CodeButton,
-} from '@draft-js-plugins/buttons';
+import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
+
 import {
   ContentBlock,
   ContentState,
@@ -24,17 +20,21 @@ import { PageNodeComponent } from '../components/page-node.component';
 import { activeSpaceController } from '../controllers/active-space.controller';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { UserDataLabels } from '../../backend/constants';
-import { inlineEditorStyles, EditorButtons } from '../data/editor.data';
+import { inlineEditorStyles } from '../data/editor.data';
+import { PageInlineToolbarContainer, PageInlineToolbarContainerProps } from './page-inline-toolbar.container';
+import { EditorInlineStyleType } from '../constants/ui.constants';
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
-const { InlineToolbar } = inlineToolbarPlugin;
 
 export type PageContentContainerProps = {
   activePageID: string,
   pageNodes: string,
+  color: string,
 };
 
-export function PageContentContainer({activePageID, pageNodes}: PageContentContainerProps) {
+export function PageContentContainer({
+  activePageID, pageNodes, color,
+}: PageContentContainerProps) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const editorProps: PluginEditorProps = {
@@ -46,7 +46,6 @@ export function PageContentContainer({activePageID, pageNodes}: PageContentConta
     handleKeyCommand,
     blockRendererFn: nodeRender,
     onChange: (state: EditorState) => {
-      console.log(state.getCurrentInlineStyle());
       setEditorState(state);
     },
     onBlur: () => {
@@ -62,6 +61,10 @@ export function PageContentContainer({activePageID, pageNodes}: PageContentConta
 
       activeSpaceController.emit(ActiveSpaceEvents.UPDATE_PAGE, updatedPage);
     },
+  };
+
+  const inlineToolbarProps: PageInlineToolbarContainerProps = {
+    inlineToolbarPlugin,
   };
 
   useEffect(() => {
@@ -100,19 +103,7 @@ export function PageContentContainer({activePageID, pageNodes}: PageContentConta
   return (
     <>
       <Editor {...editorProps}/>
-      <InlineToolbar>
-        {
-          (externalProps) => (
-            <>
-              <EditorButtons.Bold {...externalProps}/>
-              <EditorButtons.Italic {...externalProps} />
-              <EditorButtons.Underline {...externalProps} />
-              <Separator className="inline-toolbar-separator"/>
-              <EditorButtons.Code {...externalProps} />
-            </>
-          )
-        }
-      </InlineToolbar>
+      <PageInlineToolbarContainer {...inlineToolbarProps}/>
     </>
   );
 }

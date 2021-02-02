@@ -11,28 +11,14 @@
   padding: 8px 4px;
   vertical-align: middle;
 
-  svg {
-    fill: var(--inline-toolbar-color);
-    // -x-size: 1em;
-  }
-
   &:hover, &:focus {
     color: var(--inline-toolbar-hover-color);
     outline: 0;
-
-    svg {
-      fill: var(--inline-toolbar-hover-color);
-      // -x-size: 1em;
-    }
   }
 }
 
 .a9immln {
   color: var(--inline-toolbar-hover-color);
-
-  svg {
-    fill: var(--inline-toolbar-hover-color);
-  }
 }
 
 .tukdd6b {

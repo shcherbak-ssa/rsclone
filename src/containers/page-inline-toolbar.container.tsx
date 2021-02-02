@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { createInlineStyleButton } from '@draft-js-plugins/buttons';
+import { Separator, InlineToolBarPlugin } from '@draft-js-plugins/inline-toolbar';
 
 import { Icon } from '@iconify/react';
 import formatBoldIcon from '@iconify/icons-mdi-light/format-bold';
@@ -11,25 +13,38 @@ import { EditorInlineStyleType } from '../constants/ui.constants';
 
 const ICON_HEIGHT: number = 24;
 
-export const inlineEditorStyles = {
-  [EditorInlineStyleType.CODE]: {
-    margin: '0 1px',
-    display: 'inline-block',
-    padding: '3px 6px',
-    fontSize: '85%',
-    maxWidth: '100%',
-    fontFamily: '"Source Code Pro", Consolas, Menlo, monospace',
-    borderRadius: '3px',
-    backgroundColor: 'var(--content-inline-code-background-color)',
-  },
-};
-
-export const EditorButtons = {
+const EditorButtons = {
   Bold: createEditorButton(EditorInlineStyleType.BOLD, formatBoldIcon),
   Italic: createEditorButton(EditorInlineStyleType.ITALIC, formatItalicIcon),
   Underline: createEditorButton(EditorInlineStyleType.UNDERLINE, formatUnderlineIcon),
   Code: createEditorButton(EditorInlineStyleType.CODE, formatCodeIcon),
 };
+
+export type PageInlineToolbarContainerProps = {
+  inlineToolbarPlugin: InlineToolBarPlugin,
+};
+
+export function PageInlineToolbarContainer({
+  inlineToolbarPlugin,
+}: PageInlineToolbarContainerProps) {
+  const { InlineToolbar } = inlineToolbarPlugin;
+
+  return (
+    <InlineToolbar>
+      {
+        (externalProps) => (
+          <>
+            <EditorButtons.Bold {...externalProps}/>
+            <EditorButtons.Italic {...externalProps} />
+            <EditorButtons.Underline {...externalProps} />
+            <Separator className="inline-toolbar-separator"/>
+            <EditorButtons.Code {...externalProps}/>
+          </>
+        )
+      }
+    </InlineToolbar>
+  );
+}
 
 function createEditorButton(style: EditorInlineStyleType, icon: object) {
   return createInlineStyleButton({

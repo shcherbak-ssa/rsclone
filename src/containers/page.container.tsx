@@ -45,6 +45,7 @@ export function PageContainer({
   const pageContentProps: PageContentContainerProps = {
     activePageID: activePage.id,
     pageNodes: activePage.nodes,
+    color: activeSpace.color,
   };
 
   function drawPageNavigation() {

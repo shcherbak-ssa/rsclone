@@ -76,5 +76,5 @@ export enum EditorInlineStyleType {
   CODE = 'CODE',
   BOLD = 'BOLD',
   ITALIC = 'ITALIC',
-  UNDERLINE = 'UNDERLINE'
+  UNDERLINE = 'UNDERLINE',
 }
