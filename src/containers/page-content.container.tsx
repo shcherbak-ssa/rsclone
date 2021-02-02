@@ -14,29 +14,30 @@ import {
   RichUtils,
 } from 'draft-js';
 
-import { PageNodeType, UpdatedPage } from '../../common/entities';
+import { UpdatedPage } from '../../common/entities';
 import { PageNodeComponent } from '../components/page-node.component';
 import { activeSpaceController } from '../controllers/active-space.controller';
 import { ActiveSpaceEvents } from '../constants/events.constants';
-import { UserDataLabels } from '../../backend/constants';
+import { PageNodeType, UserDataLabels } from '../constants';
 import { inlineEditorStyles } from '../data/editor.data';
 import { PageInlineToolbarContainer, PageInlineToolbarContainerProps } from './page-inline-toolbar.container';
 import { PageToolbarContainer, PageToolbarContainerProps } from './page-toolbar.container';
+import { EMPTY_STRING } from '../constants/strings.constants';
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
 const toolbarPlugin = createToolbarPlugin();
 
 export type PageContentContainerProps = {
   activePageID: string,
-  pageNodes: string,
+  pageContent: string,
   color: string,
 };
 
 export function PageContentContainer({
-  activePageID, pageNodes, color,
+  activePageID, pageContent, color,
 }: PageContentContainerProps) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [currentSelectionBlockKey, setCurrentSelectionBlockKey] = useState(getStartKey());
+  const [currentSelectionBlockKey, setCurrentSelectionBlockKey] = useState(EMPTY_STRING);
 
   const editorProps: PluginEditorProps = {
     editorState,
@@ -57,7 +58,7 @@ export function PageContentContainer({
       const updatedPage: UpdatedPage = {
         id: activePageID,
         updates: {
-          [UserDataLabels.PAGE_NODES]: JSON.stringify(rowContent),
+          [UserDataLabels.PAGE_CONTENT]: JSON.stringify(rowContent),
         },
       };
 
@@ -74,13 +75,13 @@ export function PageContentContainer({
   };
 
   useEffect(() => {
-    if (pageNodes) {
-      const contentState: ContentState = convertFromRaw(JSON.parse(pageNodes));
+    if (pageContent) {
+      const contentState: ContentState = convertFromRaw(JSON.parse(pageContent));
       setEditorState(EditorState.createWithContent(contentState));
     } else {
       setEditorState(EditorState.createEmpty());
     }
-  }, [pageNodes]);
+  }, [pageContent]);
 
   useEffect(() => {
     const startKey: string = getStartKey();

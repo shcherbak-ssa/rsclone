@@ -44,7 +44,7 @@ export function PageContainer({
 
   const pageContentProps: PageContentContainerProps = {
     activePageID: activePage.id,
-    pageNodes: activePage.nodes,
+    pageContent: activePage.content,
     color: activeSpace.color,
   };
 

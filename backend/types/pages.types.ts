@@ -15,5 +15,5 @@ export type NewPage = {
   title: string,
   description: string,
   pathname: string,
-  nodes: string,
+  content: string,
 };

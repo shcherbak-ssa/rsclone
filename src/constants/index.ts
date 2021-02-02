@@ -38,6 +38,7 @@ export enum UserDataLabels {
   PAGE_ID = 'id',
   PAGE_TITLE = 'title',
   PAGE_DESCRIPTION = 'description',
+  PAGE_CONTENT = 'content',
 };
 
 export enum Stores {
@@ -88,4 +89,11 @@ export enum SettingsGroupLabels {
 export enum DropdownItemLabels {
   DELETE_SPACE = 'delete-space',
   SETTINGS_SPACE = 'settings-space',
+};
+
+export enum PageNodeType {
+  HEADER_ONE = 'header-one',
+  HEADER_TWO = 'header-two',
+  HEADER_THREE = 'header-three',
+  PARAGRAPH = 'paragraph',
 };

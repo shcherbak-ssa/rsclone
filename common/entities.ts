@@ -41,7 +41,7 @@ export type Page = {
   title: string,
   description: string,
   pathname: string,
-  nodes: string,
+  content: string,
 };
 
 export type UpdatedPage = {
@@ -49,11 +49,4 @@ export type UpdatedPage = {
   updates: {
     [key: string]: string,
   },
-};
-
-export enum PageNodeType {
-  HEADER_ONE = 'header-one',
-  HEADER_TWO = 'header-two',
-  HEADER_THREE = 'header-three',
-  PARAGRAPH = 'paragraph',
 };

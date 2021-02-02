@@ -1,24 +1,24 @@
 import { NewPage } from '../types/pages.types';
 import { LanguageLabels } from '../../common/constants';
-import { EMPTY_STRING } from '../constants';
+import { EMPTY_STRING, UserDataLabels } from '../constants';
 
 export const initialPage: {[key: string]: NewPage} = {
   [LanguageLabels.ENGLISH]: {
-    title: 'Initial page',
-    description: EMPTY_STRING,
-    pathname: 'initial-page',
-    nodes: EMPTY_STRING,
+    [UserDataLabels.PAGE_TITLE]: 'Initial page',
+    [UserDataLabels.PAGE_DESCRIPTION]: EMPTY_STRING,
+    [UserDataLabels.PAGE_PATHNAME]: 'initial-page',
+    [UserDataLabels.PAGE_CONTENT]: EMPTY_STRING,
   },
   [LanguageLabels.RUSSIAN]: {
-    title: 'Начальная страница',
-    description: EMPTY_STRING,
-    pathname: 'начальная-страница',
-    nodes: EMPTY_STRING,
+    [UserDataLabels.PAGE_TITLE]: 'Начальная страница',
+    [UserDataLabels.PAGE_DESCRIPTION]: EMPTY_STRING,
+    [UserDataLabels.PAGE_PATHNAME]: 'начальная-страница',
+    [UserDataLabels.PAGE_CONTENT]: EMPTY_STRING,
   },
   [LanguageLabels.ITALIAN]: {
-    title: 'Pagina iniziale',
-    description: EMPTY_STRING,
-    pathname: 'pagina-iniziale',
-    nodes: EMPTY_STRING,
+    [UserDataLabels.PAGE_TITLE]: 'Pagina iniziale',
+    [UserDataLabels.PAGE_DESCRIPTION]: EMPTY_STRING,
+    [UserDataLabels.PAGE_PATHNAME]: 'pagina-iniziale',
+    [UserDataLabels.PAGE_CONTENT]: EMPTY_STRING,
   },
 };

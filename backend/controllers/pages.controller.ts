@@ -137,10 +137,10 @@ export class PagesController extends BaseController {
 
   private createNewPage(newPageTitle: string, pagePathname: string): NewPage {
     return {
-      title: newPageTitle,
-      description: EMPTY_STRING,
-      pathname: pagePathname,
-      nodes: EMPTY_STRING,
+      [UserDataLabels.PAGE_TITLE]: newPageTitle,
+      [UserDataLabels.PAGE_DESCRIPTION]: EMPTY_STRING,
+      [UserDataLabels.PAGE_PATHNAME]: pagePathname,
+      [UserDataLabels.PAGE_CONTENT]: EMPTY_STRING,
     };
   }
 

@@ -41,5 +41,5 @@ export enum UserDataLabels {
   PAGE_TITLE = 'title',
   PAGE_DESCRIPTION = 'description',
   PAGE_PATHNAME = 'pathname',
-  PAGE_NODES = 'nodes',
+  PAGE_CONTENT = 'content',
 };

@@ -125,7 +125,7 @@ export class Validation {
       .max(MAX_PAGE_DESCRIPTION_LENGTH);
   }
 
-  pageNodes(): Joi.StringSchema {
+  pageContent(): Joi.StringSchema {
     return Joi.string();
   }
 
