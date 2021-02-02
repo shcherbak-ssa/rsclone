@@ -13,7 +13,7 @@ export type PageListComponentProps = {
   color: string,
   pageTitles: string[],
   pageIDs: string[],
-  activePage: Page | null,
+  activePage: Page | undefined,
   setActivePage: Function,
   addPage: Function,
   deletePage: Function,
@@ -22,7 +22,7 @@ export type PageListComponentProps = {
 export function PageListComponent({
   addPageValue, color, pageTitles, pageIDs, activePage, setActivePage, addPage, deletePage,
 }: PageListComponentProps) {
-  if (activePage === null) return <LoaderComponent />;
+  if (activePage === undefined) return <LoaderComponent />;
 
   const addPageIconProps = {
     icon: plusIcon,

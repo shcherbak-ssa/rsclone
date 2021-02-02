@@ -1,5 +1,6 @@
 import { Page, Space, UpdatedPage } from '../../common/entities';
 import { Stores } from '../constants';
+import { EMPTY_STRING } from '../constants/strings.constants';
 import { StoreManagerService } from '../services/store-manager.service';
 import { ActiveSpaceStore } from '../types/active-space.types';
 import { Request, Response } from '../types/services.types';
@@ -27,10 +28,10 @@ export class ActiveSpaceModel extends BaseModel {
       const response: Response = await this.requestSender.send(spacePagesRequest).get();
 
       const {pages}: {pages: Page[]} = response.parseResponse();
-      const activePage: Page | null
-        = pagePathname ? pages.find((page) => page.pathname === pagePathname) : null;
+      const activePageID: string
+        = pagePathname ? pages.find((page) => page.pathname === pagePathname).id : EMPTY_STRING;
 
-      this.activeSpaceStore.openSpace(pages, activePage);
+      this.activeSpaceStore.openSpace(pages, activePageID);
     } catch (error) {
       console.log(error);
     }
@@ -41,9 +42,7 @@ export class ActiveSpaceModel extends BaseModel {
   }
 
   setActiveSpaceID(pageID: string) {
-    const pages: Page[] = this.activeSpaceStore.getPages();
-    const activePage: Page = pages.find((page) => page.id === pageID);
-    this.activeSpaceStore.setActivePage(activePage);
+    this.activeSpaceStore.setActivePageID(pageID);
   }
 
   async createPage(newPageTitle: string, spacePathname: string): Promise<string> {
@@ -71,14 +70,13 @@ export class ActiveSpaceModel extends BaseModel {
 
       updatedPage = response.parseResponse();
 
-      let activePage: Page = this.activeSpaceStore.getActivePage();
-      activePage = {...activePage, ...updatedPage.updates};
-
       const updatedPages: Page[] = this.updateSpacePages((pages: Page[]) => {
-        return pages.map((page) => page.id === activePage.id ? activePage : page);
+        return pages.map((page) => {
+          return page.id === updatedPage.id ? {...page, ...updatedPage.updates} : page;
+        });
       });
 
-      this.activeSpaceStore.updateActivePage(activePage, updatedPages);
+      this.activeSpaceStore.updatePages(updatedPages);
     } catch (error) {
       console.log(error);
     }

@@ -1,25 +1,25 @@
-import { Page, PageNode } from '../../common/entities';
+import { Page } from '../../common/entities';
+import { EMPTY_STRING } from '../constants/strings.constants';
 
 export const initialState: ActiveSpaceStoreState = {
   isOpen: false,
-  activePage: null,
+  activePageID: EMPTY_STRING,
   pages: [],
 };
 
 export type ActiveSpaceStoreState = {
   isOpen: boolean,
-  activePage: Page | null,
+  activePageID: string,
   pages: Page[]
 };
 
 export interface ActiveSpaceStore {
   getPages(): Page[];
-  getActivePage(): Page;
   setIsOpen(isOpen: boolean): void;
-  openSpace(pages: Page[], activePage: Page | null): void;
+  openSpace(pages: Page[], activePageID: string): void;
   closeSpace(): void;
   addPage(page: Page): void;
-  setActivePage(page: Page): void;
-  updateActivePage(activePage: Page, pages: Page[]): void;
+  setActivePageID(activePageID: string): void;
+  updatePages(pages: Page[]): void;
   deletePage(pages: Page[]): void;
 }

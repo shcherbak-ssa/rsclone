@@ -12,8 +12,8 @@ enum Constants {
   OPEN_SPACE = 'active-space-store/open-space',
   CLOSE_SPACE = 'active-space-store/close-space',
   ADD_PAGE = 'active-space-store/add-page',
-  SET_ACTIVE_PAGE = 'active-space-store/set-active-page',
-  UPDATE_ACTIVE_PAGE = 'active-space-store/update-active-page',
+  SET_ACTIVE_PAGE_ID = 'active-space-store/set-active-page-id',
+  UPDATE_PAGES = 'active-space-store/update-pages',
   DELETE_PAGE = 'active-space-store/delete-page',
 };
 
@@ -33,7 +33,7 @@ type OpenSpaceAction = {
   type: Constants.OPEN_SPACE,
   payload: {
     pages: Page[],
-    activePage: Page | null,
+    activePageID: string,
   },
 };
 
@@ -49,17 +49,16 @@ type AddPageAction = {
   },
 };
 
-type SetActivePageAction = {
-  type: Constants.SET_ACTIVE_PAGE,
+type SetActivePageIDAction = {
+  type: Constants.SET_ACTIVE_PAGE_ID,
   payload: {
-    page: Page,
+    activePageID: string,
   },
 };
 
-type UpdateActivePageAction = {
-  type: Constants.UPDATE_ACTIVE_PAGE,
+type UpdatePagesAction = {
+  type: Constants.UPDATE_PAGES,
   payload: {
-    activePage: Page,
     pages: Page[],
   },
 };
@@ -77,8 +76,8 @@ type ActiveSpaceStoreAction =
   | OpenSpaceAction
   | CloseSpaceAction
   | AddPageAction
-  | SetActivePageAction
-  | UpdateActivePageAction
+  | SetActivePageIDAction
+  | UpdatePagesAction
   | DeletePageAction;
 
 /** constants */
@@ -91,7 +90,8 @@ const activeSpaceStoreSelectors: StoreSelectors = {
 
   getActivePage: () => {
     return (state: ActiveSpaceStoreSelector) => {
-      return state[Stores.ACTIVE_SPACE_STORE].activePage;
+      const {pages, activePageID} = state[Stores.ACTIVE_SPACE_STORE];
+      return pages.find((page) => page.id === activePageID);
     };
   },
 
@@ -108,19 +108,15 @@ class ActiveSpaceStoreImpl implements ActiveSpaceStore {
     return reduxStore.getState()[Stores.ACTIVE_SPACE_STORE].pages;
   }
 
-  getActivePage(): Page {
-    return reduxStore.getState()[Stores.ACTIVE_SPACE_STORE].activePage;
-  }
-
   setIsOpen(isOpen: boolean): void {
     reduxStore.dispatch(
       setIsOpenAction(isOpen)
     );
   }
 
-  openSpace(pages: Page[], activePage: Page | null): void {
+  openSpace(pages: Page[], activePageID: string): void {
     reduxStore.dispatch(
-      openSpaceAction(pages, activePage)
+      openSpaceAction(pages, activePageID)
     );
   }
 
@@ -136,15 +132,15 @@ class ActiveSpaceStoreImpl implements ActiveSpaceStore {
     );
   }
 
-  setActivePage(page: Page): void {
+  setActivePageID(activePageID: string): void {
     reduxStore.dispatch(
-      setActivePageAction(page)
+      setActivePageIDAction(activePageID)
     );
   }
 
-  updateActivePage(activePage: Page, pages: Page[]): void {
+  updatePages(pages: Page[]): void {
     reduxStore.dispatch(
-      updateActivePageAction(activePage, pages)
+      updatePagesAction(pages)
     );
   }
 
@@ -176,7 +172,7 @@ function activeSpaceStoreReducer(
       return {
         ...state,
         pages: payload.pages,
-        activePage: payload.activePage === null ? payload.pages[0] : payload.activePage,
+        activePageID: payload.activePageID,
       };
     case Constants.CLOSE_SPACE:
       return initialState;
@@ -184,18 +180,17 @@ function activeSpaceStoreReducer(
       return {
         ...state,
         pages: [...state.pages, payload.page],
-        activePage: payload.page,
+        activePageID: payload.page.id,
       };
-    case Constants.SET_ACTIVE_PAGE:
+    case Constants.SET_ACTIVE_PAGE_ID:
       return {
         ...state,
-        activePage: payload.page,
+        activePageID: payload.activePageID,
       };
-    case Constants.UPDATE_ACTIVE_PAGE:
+    case Constants.UPDATE_PAGES:
       return {
         ...state,
         pages: [...payload.pages],
-        activePage: payload.activePage,
       };
     case Constants.DELETE_PAGE:
       return {
@@ -215,10 +210,10 @@ function setIsOpenAction(isOpen: boolean): SetIsOpenAction {
   };
 }
 
-function openSpaceAction(pages: Page[], activePage: Page | null): OpenSpaceAction {
+function openSpaceAction(pages: Page[], activePageID: string): OpenSpaceAction {
   return {
     type: Constants.OPEN_SPACE,
-    payload: { pages, activePage },
+    payload: { pages, activePageID },
   };
 }
 
@@ -236,17 +231,17 @@ function addPageAction(page: Page): AddPageAction {
   };
 }
 
-function setActivePageAction(page: Page): SetActivePageAction {
+function setActivePageIDAction(activePageID: string): SetActivePageIDAction {
   return {
-    type: Constants.SET_ACTIVE_PAGE,
-    payload: { page },
+    type: Constants.SET_ACTIVE_PAGE_ID,
+    payload: { activePageID },
   };
 }
 
-function updateActivePageAction(activePage: Page, pages: Page[]): UpdateActivePageAction {
+function updatePagesAction(pages: Page[]): UpdatePagesAction {
   return {
-    type: Constants.UPDATE_ACTIVE_PAGE,
-    payload: { activePage, pages },
+    type: Constants.UPDATE_PAGES,
+    payload: { pages },
   };
 }
 

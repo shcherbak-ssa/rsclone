@@ -43,6 +43,7 @@ export function PageContainer({
   };
 
   const pageContentProps: PageContentContainerProps = {
+    activePageID: activePage.id,
     pageNodes: activePage.nodes,
   };
 
