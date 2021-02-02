@@ -1,20 +1,25 @@
 import React from 'react';
-import classnames from 'classnames';
 import { EditorBlock } from 'draft-js';
+import classnames from 'classnames';
 import './styles/page-node.component.scss';
 
-import { PageNodeType } from '../../common/entities';
-
-export type PageNodeComponentProps = {
-  nodeType: PageNodeType,
-};
+import { EMPTY_STRING } from '../constants/strings.constants';
 
 export function PageNodeComponent(props: any) {
-  const componentClassnames = classnames('page-node', props.blockProps.nodeType);
+  const {
+    blockProps: {nodeType, currentSelectionBlockKey, toolbar},
+    selection, block,
+  } = props;
+  const componentClassnames = classnames('page-node', nodeType);
+
+  function drawToolbar() {
+    return selection.hasFocus && block.key === currentSelectionBlockKey ? toolbar : EMPTY_STRING;
+  }
 
   return (
     <div className={componentClassnames}>
       <EditorBlock {...props}/>
+      {drawToolbar()}
     </div>
   );
 }

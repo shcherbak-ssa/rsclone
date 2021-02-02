@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Editor, { PluginEditorProps } from '@draft-js-plugins/editor';
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
+import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
 
 import {
   ContentBlock,
@@ -13,8 +14,6 @@ import {
   RichUtils,
 } from 'draft-js';
 
-import '../assets/styles/inline-toolbar.scss';
-
 import { PageNodeType, UpdatedPage } from '../../common/entities';
 import { PageNodeComponent } from '../components/page-node.component';
 import { activeSpaceController } from '../controllers/active-space.controller';
@@ -22,9 +21,10 @@ import { ActiveSpaceEvents } from '../constants/events.constants';
 import { UserDataLabels } from '../../backend/constants';
 import { inlineEditorStyles } from '../data/editor.data';
 import { PageInlineToolbarContainer, PageInlineToolbarContainerProps } from './page-inline-toolbar.container';
-import { EditorInlineStyleType } from '../constants/ui.constants';
+import { PageToolbarContainer, PageToolbarContainerProps } from './page-toolbar.container';
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
+const toolbarPlugin = createToolbarPlugin();
 
 export type PageContentContainerProps = {
   activePageID: string,
@@ -36,12 +36,14 @@ export function PageContentContainer({
   activePageID, pageNodes, color,
 }: PageContentContainerProps) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [currentSelectionBlockKey, setCurrentSelectionBlockKey] = useState(getStartKey());
 
   const editorProps: PluginEditorProps = {
     editorState,
     customStyleMap: inlineEditorStyles,
     plugins: [
       inlineToolbarPlugin,
+      toolbarPlugin,
     ],
     handleKeyCommand,
     blockRendererFn: nodeRender,
@@ -67,6 +69,10 @@ export function PageContentContainer({
     inlineToolbarPlugin,
   };
 
+  const toolbarProps: PageToolbarContainerProps = {
+    toolbarPlugin,
+  };
+
   useEffect(() => {
     if (pageNodes) {
       const contentState: ContentState = convertFromRaw(JSON.parse(pageNodes));
@@ -76,20 +82,49 @@ export function PageContentContainer({
     }
   }, [pageNodes]);
 
+  useEffect(() => {
+    const startKey: string = getStartKey();
+
+    if (startKey !== currentSelectionBlockKey) {
+      setCurrentSelectionBlockKey(startKey);
+
+      setEditorState(EditorState.forceSelection(
+        editorState,
+        editorState.getSelection(),
+      ));
+    }
+  }, [getStartKey()]);
+
+  function getStartKey(): string {
+    return editorState.getSelection().getStartKey();
+  }
+
   function nodeRender(contentBlock: ContentBlock) {
     const type: string = contentBlock.getType();
 
+    switch (type) {
+      case PageNodeType.HEADER_ONE:
+      case PageNodeType.HEADER_TWO:
+      case PageNodeType.HEADER_THREE:
+        return getRenderComponent(type);
+      default:
+        return getRenderComponent(PageNodeType.PARAGRAPH);
+    }
+  }
+
+  function getRenderComponent(nodeType: PageNodeType) {
     return {
       component: PageNodeComponent,
       editable: true,
       props: {
-        nodeType: type in PageNodeType ? type : PageNodeType.PARAGRAPH,
+        nodeType,
+        currentSelectionBlockKey,
+        toolbar: <PageToolbarContainer {...toolbarProps}/>
       },
     };
   }
 
   function handleKeyCommand(command: string, state: EditorState): DraftHandleValue {
-    console.log(command);
     const updatedState = RichUtils.handleKeyCommand(state, command);
 
     if (updatedState) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/styles/inline-toolbar.scss';
 
 import { createInlineStyleButton } from '@draft-js-plugins/buttons';
 import { Separator, InlineToolBarPlugin } from '@draft-js-plugins/inline-toolbar';
