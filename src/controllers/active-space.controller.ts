@@ -61,14 +61,14 @@ function setActivePageHandler({pageID, callback}: SetActivePage): void {
 }
 
 async function addPageHandler({newPageTitle, callback}: NewPage): Promise<void> {
-  updateSpacePages((spacePageIDs: string[]) => {
+  updateSpacePageIDs((spacePageIDs: string[]) => {
     return [...spacePageIDs, NEW_PAGE_ID];
   });
 
   const {activeSpaceModel, spacePathname} = getPageActionsAssets();
   const newPageID: string = await activeSpaceModel.createPage(newPageTitle, spacePathname);
 
-  updateSpacePages((spacePageIDs: string[]) => {
+  updateSpacePageIDs((spacePageIDs: string[]) => {
     return spacePageIDs.map((pageID) => {
       return pageID === NEW_PAGE_ID ? newPageID : pageID;
     });
@@ -93,7 +93,7 @@ async function deletePageHandler({
   const deleted: boolean = await activeSpaceModel.deletePage(pageID, spacePathname);
 
   if (deleted) {
-    updateSpacePages((spacePageIDs: string[]) => {
+    updateSpacePageIDs((spacePageIDs: string[]) => {
       if (activePage.id === pageID) {
         const initialPageID: string = spacePageIDs[0];
         const setActivePagePayload: SetActivePage = {
@@ -134,7 +134,7 @@ function getOpenSpacePathname(): string {
   return toolsService.getOpenSpacePathnames().spacePathname;
 }
 
-function updateSpacePages(updatingFunction: Function) {
+function updateSpacePageIDs(updatingFunction: Function) {
   const userModel: UserModel = new UserModel();
   const spacePageIDs = userModel.getState(UserDataLabels.SPACE_PAGES) as string[];
 

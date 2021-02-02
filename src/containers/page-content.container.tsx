@@ -49,6 +49,8 @@ export function PageContentContainer({activePageID, pageNodes}: PageContentConta
     if (pageNodes) {
       const contentState: ContentState = convertFromRaw(JSON.parse(pageNodes));
       setEditorState(EditorState.createWithContent(contentState));
+    } else {
+      setEditorState(EditorState.createEmpty());
     }
   }, [pageNodes]);
 

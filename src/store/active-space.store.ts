@@ -172,7 +172,7 @@ function activeSpaceStoreReducer(
       return {
         ...state,
         pages: payload.pages,
-        activePageID: payload.activePageID,
+        activePageID: payload.activePageID || payload.pages[0].id,
       };
     case Constants.CLOSE_SPACE:
       return initialState;
