@@ -7,9 +7,4 @@ export const defaultKeyboardShortcuts: KeyboardShortcut[] = [
     keys: 'ctrl+alt+s',
     label: ShortcutsLabels.ADD_SPACE,
   },
-  {
-    section: ShortcurtsSections.SPACE,
-    keys: 'ctrl+alt+p',
-    label: ShortcutsLabels.ADD_PAGE,
-  },
 ];

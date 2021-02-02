@@ -73,7 +73,6 @@ export enum ShortcurtsSections {
 
 export enum ShortcutsLabels {
   ADD_SPACE = 'add-space',
-  ADD_PAGE = 'add-page',
 };
 
 export enum ErrorLabels {

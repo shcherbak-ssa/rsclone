@@ -16,8 +16,6 @@ import { useSetActiveSpace } from '../hooks/set-active-space.hook';
 import { useCloseSpacePage } from '../hooks/close-space-page.hook';
 import { PageContainer, PageContainerProps } from './page.container';
 import { PageListComponentProps, PageListComponent } from '../components/page-list.component';
-import { ShortcutsLabels } from '../../common/constants';
-import { useHotkeys } from 'react-hotkeys-hook';
 import { useAppLanguage } from '../hooks/app-language.hook';
 import { DeletePopupContainer, DeletePopupContainerProps } from './popups/delete-popup.container';
 import { PopupNames } from '../constants/ui.constants';
@@ -46,7 +44,6 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
 
   const userStoreSelectors = storeSelectorsService.get(Stores.USER_STORE);
   const activeSpace: Space = useSelector(userStoreSelectors.getActiveSpace());
-  const addPageShortcutKeys = useSelector(userStoreSelectors.getShortcutKeys(ShortcutsLabels.ADD_PAGE));
 
   const activeSpaceSelectors = storeSelectorsService.get(Stores.ACTIVE_SPACE_STORE);
   const activePage: Page = useSelector(activeSpaceSelectors.getActivePage());
@@ -91,8 +88,6 @@ export function SpacePageContainer({isSpacePageOpen, closeMenuHandler}: SpacePag
       changePagePathname(activePage.id);
     }
   }, [activePage && activePage.title]);
-
-  useHotkeys(addPageShortcutKeys, () => addPage());
 
   const spacePageProps: SpacePageComponentProps = {
     space: activeSpace,
