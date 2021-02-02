@@ -138,9 +138,9 @@ export class PagesController extends BaseController {
   private createNewPage(newPageTitle: string, pagePathname: string): NewPage {
     return {
       title: newPageTitle,
-      description: '',
+      description: EMPTY_STRING,
       pathname: pagePathname,
-      nodes: [],
+      nodes: EMPTY_STRING,
     };
   }
 

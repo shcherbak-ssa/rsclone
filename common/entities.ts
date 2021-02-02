@@ -41,19 +41,14 @@ export type Page = {
   title: string,
   description: string,
   pathname: string,
-  nodes: PageNode[],
+  nodes: string,
 };
 
 export type UpdatedPage = {
   id: string,
   updates: {
-    [key: string]: string | PageNode,
+    [key: string]: string,
   },
-};
-
-export type PageNode = {
-  type: PageNodeType,
-  value: string,
 };
 
 export enum PageNodeType {

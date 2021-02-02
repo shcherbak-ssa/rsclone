@@ -19,6 +19,7 @@ export class PagesValidationImpl implements PagesValidation {
         updates: Joi.object({
           [UserDataLabels.PAGE_TITLE]: this.validation.pageTitle(),
           [UserDataLabels.PAGE_DESCRIPTION]: this.validation.pageDescription(),
+          [UserDataLabels.PAGE_NODES]: this.validation.pageNodes(),
         }),
       });
   

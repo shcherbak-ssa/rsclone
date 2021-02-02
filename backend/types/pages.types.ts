@@ -1,5 +1,3 @@
-import { PageNode } from '../../common/entities';
-
 export interface PageAccessCreator {
   setUserID(userID: string): PageAccessCreator;
   setSpaceID(spaceID: string): PageAccessCreator;
@@ -17,5 +15,5 @@ export type NewPage = {
   title: string,
   description: string,
   pathname: string,
-  nodes: PageNode[],
+  nodes: string,
 };

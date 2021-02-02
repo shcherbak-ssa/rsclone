@@ -8,11 +8,11 @@ import {
   RichUtils,
 } from 'draft-js';
 
-import { PageNode, PageNodeType } from '../../common/entities';
+import { PageNodeType } from '../../common/entities';
 import { PageNodeComponent } from '../components/page-node.component';
 
 export type PageContentContainerProps = {
-  pageNodes: PageNode[],
+  pageNodes: string,
 };
 
 export function PageContentContainer({pageNodes}: PageContentContainerProps) {
