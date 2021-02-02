@@ -12,9 +12,9 @@ import formatCodeIcon from '@iconify/icons-mdi-light/xml';
 
 import { EditorInlineStyleType } from '../constants/ui.constants';
 
-const ICON_HEIGHT: number = 24;
+const TOOLBAR_ICON_HEIGHT: number = 24;
 
-const EditorButtons = {
+const EditorInlineButtons = {
   Bold: createEditorButton(EditorInlineStyleType.BOLD, formatBoldIcon),
   Italic: createEditorButton(EditorInlineStyleType.ITALIC, formatItalicIcon),
   Underline: createEditorButton(EditorInlineStyleType.UNDERLINE, formatUnderlineIcon),
@@ -35,11 +35,11 @@ export function PageInlineToolbarContainer({
       {
         (externalProps) => (
           <>
-            <EditorButtons.Bold {...externalProps}/>
-            <EditorButtons.Italic {...externalProps} />
-            <EditorButtons.Underline {...externalProps} />
-            <Separator className="inline-toolbar-separator"/>
-            <EditorButtons.Code {...externalProps}/>
+            <EditorInlineButtons.Bold {...externalProps}/>
+            <EditorInlineButtons.Italic {...externalProps} />
+            <EditorInlineButtons.Underline {...externalProps} />
+            <Separator className="toolbar-separator"/>
+            <EditorInlineButtons.Code {...externalProps}/>
           </>
         )
       }
@@ -50,6 +50,6 @@ export function PageInlineToolbarContainer({
 function createEditorButton(style: EditorInlineStyleType, icon: object) {
   return createInlineStyleButton({
     style,
-    children: <Icon icon={icon} height={ICON_HEIGHT}/>,
+    children: <Icon icon={icon} height={TOOLBAR_ICON_HEIGHT}/>,
   });
 }

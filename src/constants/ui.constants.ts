@@ -78,3 +78,10 @@ export enum EditorInlineStyleType {
   ITALIC = 'ITALIC',
   UNDERLINE = 'UNDERLINE',
 }
+
+export enum EditorBlockStyleType {
+  HEADER_ONE = 'header-one',
+  HEADER_TWO = 'header-two',
+  HEADER_THREE = 'header-three',
+  PARAGRAPH = 'paragraph',
+};

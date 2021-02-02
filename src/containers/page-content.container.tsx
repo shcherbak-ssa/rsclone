@@ -18,14 +18,22 @@ import { UpdatedPage } from '../../common/entities';
 import { PageNodeComponent } from '../components/page-node.component';
 import { activeSpaceController } from '../controllers/active-space.controller';
 import { ActiveSpaceEvents } from '../constants/events.constants';
-import { PageNodeType, UserDataLabels } from '../constants';
+import { UserDataLabels } from '../constants';
+import { EditorBlockStyleType } from '../constants/ui.constants';
 import { inlineEditorStyles } from '../data/editor.data';
 import { PageInlineToolbarContainer, PageInlineToolbarContainerProps } from './page-inline-toolbar.container';
 import { PageToolbarContainer, PageToolbarContainerProps } from './page-toolbar.container';
 import { EMPTY_STRING } from '../constants/strings.constants';
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
-const toolbarPlugin = createToolbarPlugin();
+const toolbarPlugin = createToolbarPlugin({
+  theme: {
+    toolbarStyles: {
+      toolbar: 'toolbar',
+    },
+    buttonStyles: {},
+  },
+});
 
 export type PageContentContainerProps = {
   activePageID: string,
@@ -50,6 +58,9 @@ export function PageContentContainer({
     blockRendererFn: nodeRender,
     onChange: (state: EditorState) => {
       setEditorState(state);
+    },
+    onFocus: () => {
+      setCurrentSelectionBlockKey(getStartKey());
     },
     onBlur: () => {
       const contentState: ContentState = editorState.getCurrentContent();
@@ -81,12 +92,14 @@ export function PageContentContainer({
     } else {
       setEditorState(EditorState.createEmpty());
     }
+    
+    setCurrentSelectionBlockKey(EMPTY_STRING);
   }, [pageContent]);
 
   useEffect(() => {
     const startKey: string = getStartKey();
 
-    if (startKey !== currentSelectionBlockKey) {
+    if (currentSelectionBlockKey !== EMPTY_STRING && startKey !== currentSelectionBlockKey) {
       setCurrentSelectionBlockKey(startKey);
 
       setEditorState(EditorState.forceSelection(
@@ -104,16 +117,16 @@ export function PageContentContainer({
     const type: string = contentBlock.getType();
 
     switch (type) {
-      case PageNodeType.HEADER_ONE:
-      case PageNodeType.HEADER_TWO:
-      case PageNodeType.HEADER_THREE:
+      case EditorBlockStyleType.HEADER_ONE:
+      case EditorBlockStyleType.HEADER_TWO:
+      case EditorBlockStyleType.HEADER_THREE:
         return getRenderComponent(type);
       default:
-        return getRenderComponent(PageNodeType.PARAGRAPH);
+        return getRenderComponent(EditorBlockStyleType.PARAGRAPH);
     }
   }
 
-  function getRenderComponent(nodeType: PageNodeType) {
+  function getRenderComponent(nodeType: EditorBlockStyleType) {
     return {
       component: PageNodeComponent,
       editable: true,

@@ -90,10 +90,3 @@ export enum DropdownItemLabels {
   DELETE_SPACE = 'delete-space',
   SETTINGS_SPACE = 'settings-space',
 };
-
-export enum PageNodeType {
-  HEADER_ONE = 'header-one',
-  HEADER_TWO = 'header-two',
-  HEADER_THREE = 'header-three',
-  PARAGRAPH = 'paragraph',
-};
