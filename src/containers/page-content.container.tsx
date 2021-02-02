@@ -24,7 +24,7 @@ import { PageNodeComponent } from '../components/page-node.component';
 import { activeSpaceController } from '../controllers/active-space.controller';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { UserDataLabels } from '../../backend/constants';
-import { inlineEditorStyles } from '../assets/styles/inline-editor.styles';
+import { inlineEditorStyles, EditorButtons } from '../data/editor.data';
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin;
@@ -45,7 +45,10 @@ export function PageContentContainer({activePageID, pageNodes}: PageContentConta
     ],
     handleKeyCommand,
     blockRendererFn: nodeRender,
-    onChange: setEditorState,
+    onChange: (state: EditorState) => {
+      console.log(state.getCurrentInlineStyle());
+      setEditorState(state);
+    },
     onBlur: () => {
       const contentState: ContentState = editorState.getCurrentContent();
       const rowContent = convertToRaw(contentState);
@@ -83,6 +86,7 @@ export function PageContentContainer({activePageID, pageNodes}: PageContentConta
   }
 
   function handleKeyCommand(command: string, state: EditorState): DraftHandleValue {
+    console.log(command);
     const updatedState = RichUtils.handleKeyCommand(state, command);
 
     if (updatedState) {
@@ -100,11 +104,11 @@ export function PageContentContainer({activePageID, pageNodes}: PageContentConta
         {
           (externalProps) => (
             <>
-              <BoldButton {...externalProps} />
-              <ItalicButton {...externalProps} />
-              <UnderlineButton {...externalProps} />
+              <EditorButtons.Bold {...externalProps}/>
+              <EditorButtons.Italic {...externalProps} />
+              <EditorButtons.Underline {...externalProps} />
               <Separator className="inline-toolbar-separator"/>
-              <CodeButton {...externalProps} />
+              <EditorButtons.Code {...externalProps} />
             </>
           )
         }

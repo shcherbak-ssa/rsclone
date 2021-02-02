@@ -1,3 +1,7 @@
+.bpsgbes {
+  display: inline-block;
+}
+
 .b181v2oy {
   background: transparent;
   border: 0;
@@ -6,11 +10,10 @@
   font-size: 18px;
   padding: 8px 4px;
   vertical-align: middle;
-  -x-size: 36px 34px;
 
   svg {
     fill: var(--inline-toolbar-color);
-    -x-size: 1em;
+    // -x-size: 1em;
   }
 
   &:hover, &:focus {
@@ -19,7 +22,7 @@
 
     svg {
       fill: var(--inline-toolbar-hover-color);
-      -x-size: 1em;
+      // -x-size: 1em;
     }
   }
 }
@@ -37,10 +40,11 @@
   border-radius: 4px;
   left: 50%;
   transform: translate(-50%) scale(0);
-  padding: 0px 12px;
+  padding: 0 12px;
   position: absolute;
-  display: flex;
+  display: inline-flex;
   z-index: 2;
+  height: 40px;
 }
 
 .tukdd6b:after,
