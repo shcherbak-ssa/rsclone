@@ -51,4 +51,14 @@ export type UpdatedPage = {
   },
 };
 
-export type PageNode = {};
+export type PageNode = {
+  type: PageNodeType,
+  value: string,
+};
+
+export enum PageNodeType {
+  HEADER_ONE = 'header-one',
+  HEADER_TWO = 'header-two',
+  HEADER_THREE = 'header-three',
+  PARAGRAPH = 'paragraph',
+};

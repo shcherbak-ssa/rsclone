@@ -98,4 +98,6 @@
   --space-page-header-background-color: #393E46;
   --space-page-menu-button-span-background-color: #fff;
   --space-page-add-color: rgba(255, 255, 255, .6);
-  }
+
+  --content-paragraph-color: #fff;
+}

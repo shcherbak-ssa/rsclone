@@ -10,6 +10,7 @@ import { PageContentComponent } from '../components/page-content.component';
 import { PageFooterComponent } from '../components/page-footer.component';
 import { PageLink, PageNavigationComponent, PageNavigationComponentProps } from '../components/page-navigation.component';
 import { EMPTY_STRING } from '../constants/strings.constants';
+import { PageContentContainer, PageContentContainerProps } from './page-content.container';
 
 const ONLY_ONE_PAGE_LENGTH: number = 1;
 const FIRST_PAGE_INDEX: number = 0;
@@ -39,6 +40,10 @@ export function PageContainer({
     pageDescription: activePage.description,
     placeholder: pageLanguage.descriptionPlaceholder,
     activePageID: activePage.id,
+  };
+
+  const pageContentProps: PageContentContainerProps = {
+    pageNodes: activePage.nodes,
   };
 
   function drawPageNavigation() {
@@ -100,7 +105,9 @@ export function PageContainer({
         <PageTitleComponent {...pageTitleProps}/>
         <PageDescriptionComponent {...pageDescriptionProps}/>
       </PageHeaderComponent>
-      <PageContentComponent></PageContentComponent>
+      <PageContentComponent>
+        <PageContentContainer {...pageContentProps}/>
+      </PageContentComponent>
       <PageFooterComponent>
         {drawPageNavigation()}
       </PageFooterComponent>
