@@ -1,21 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import Editor, { PluginEditorProps } from '@draft-js-plugins/editor';
+import createInlineToolbarPlugin, { Separator } from '@draft-js-plugins/inline-toolbar';
+import {
+  BoldButton,
+  ItalicButton,
+  UnderlineButton,
+  CodeButton,
+} from '@draft-js-plugins/buttons';
 import {
   ContentBlock,
   ContentState,
   convertFromRaw,
   convertToRaw,
   DraftHandleValue,
-  Editor,
-  EditorProps,
   EditorState,
   RichUtils,
 } from 'draft-js';
+
+import '../assets/styles/inline-toolbar.scss';
 
 import { PageNodeType, UpdatedPage } from '../../common/entities';
 import { PageNodeComponent } from '../components/page-node.component';
 import { activeSpaceController } from '../controllers/active-space.controller';
 import { ActiveSpaceEvents } from '../constants/events.constants';
 import { UserDataLabels } from '../../backend/constants';
+import { inlineEditorStyles } from '../assets/styles/inline-editor.styles';
+
+const inlineToolbarPlugin = createInlineToolbarPlugin();
+const { InlineToolbar } = inlineToolbarPlugin;
 
 export type PageContentContainerProps = {
   activePageID: string,
@@ -25,8 +37,12 @@ export type PageContentContainerProps = {
 export function PageContentContainer({activePageID, pageNodes}: PageContentContainerProps) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const editorProps: EditorProps = {
+  const editorProps: PluginEditorProps = {
     editorState,
+    customStyleMap: inlineEditorStyles,
+    plugins: [
+      inlineToolbarPlugin,
+    ],
     handleKeyCommand,
     blockRendererFn: nodeRender,
     onChange: setEditorState,
@@ -71,11 +87,28 @@ export function PageContentContainer({activePageID, pageNodes}: PageContentConta
 
     if (updatedState) {
       setEditorState(updatedState);
-      return 'handled'
+      return 'handled';
     }
 
     return 'not-handled';
   }
   
-  return <Editor {...editorProps}/>;
+  return (
+    <>
+      <Editor {...editorProps}/>
+      <InlineToolbar>
+        {
+          (externalProps) => (
+            <>
+              <BoldButton {...externalProps} />
+              <ItalicButton {...externalProps} />
+              <UnderlineButton {...externalProps} />
+              <Separator className="inline-toolbar-separator"/>
+              <CodeButton {...externalProps} />
+            </>
+          )
+        }
+      </InlineToolbar>
+    </>
+  );
 }

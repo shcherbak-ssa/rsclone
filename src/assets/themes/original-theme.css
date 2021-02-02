@@ -98,4 +98,9 @@
   --space-page-add-color: #74818d;
   
   --content-paragraph-color: #3b454e;
+
+  --inline-toolbar-background-color: #242a31;
+  --inline-toolbar-color: #9daab6;
+  --inline-toolbar-hover-color: #fff;
+  --inline-toolbar-separato-color: #9daab6;
 }

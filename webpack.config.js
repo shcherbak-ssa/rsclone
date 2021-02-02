@@ -67,6 +67,7 @@ const webpackConfig = (env = {}) => {
         },
         {
           test: /\.css$/,
+          include: /themes/,
           use: [
             {
               loader: 'file-loader',
@@ -95,7 +96,8 @@ const webpackConfig = (env = {}) => {
           ]
         },
         {
-          test: /\.scss$/,
+          test: /\.(sc|c)ss$/,
+          exclude: /themes/,
           use: [
             MiniCssExtractPlugin.loader,
             {

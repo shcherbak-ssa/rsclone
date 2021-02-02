@@ -71,3 +71,7 @@ export enum DropdownNames {
   SPACE = 'space',
   INFORMATION = 'information',
 }
+
+export enum EditorInlineStyleType {
+  CODE = 'CODE',
+}
