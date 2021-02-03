@@ -1,12 +1,14 @@
 import { MongoClient } from 'mongodb';
-import serverConfig from '../../config/server.config.json';
+
+import { serverConfig } from '../config';
+import serverConfigJson from '../../config/server.config.json';
 
 export let connectedMongoDatabase: MongoClient;
 
 export class DatabaseConnectionService {
   static init(): DatabaseConnectionService {
-    const {mongodb} = serverConfig;
-    connectedMongoDatabase = new MongoClient(mongodb.url, mongodb.options);
+    const {mongodb} = serverConfigJson;
+    connectedMongoDatabase = new MongoClient(mongodb.url, serverConfig.mongodb.options);
 
     return new DatabaseConnectionService();
   }

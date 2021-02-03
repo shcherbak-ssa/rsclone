@@ -26,7 +26,9 @@ export class AvatarsController extends BaseController {
   }
 
   async runController(
-    action: AvatarsControllerActions, {userID, body, responseSender}: ControllerData
+    action: AvatarsControllerActions,
+    {userID, responseSender}: ControllerData,
+    avatarFile: AvatarFile,
   ): Promise<void> {
     try {
       if (!userID) throw this.unknowUserIDError();
@@ -35,9 +37,9 @@ export class AvatarsController extends BaseController {
         case AvatarsControllerActions.GET_AVATAR:
           return await this.getAvatar(userID, responseSender);
         case AvatarsControllerActions.CREATE_AVATAR:
-          return await this.createAvatar(userID, body, responseSender);
+          return await this.createAvatar(userID, avatarFile, responseSender);
         case AvatarsControllerActions.UPDATE_AVATAR:
-          return await this.updateAvatar(userID, body, responseSender);
+          return await this.updateAvatar(userID, avatarFile, responseSender);
         case AvatarsControllerActions.DELETE_AVATAR:
           return await this.deleteAvatar(userID, responseSender);
       }

@@ -20,7 +20,7 @@ export class AvatarsRouter implements BaseRouter {
       .all(RequestPathnames.AVATARS, this.routerHanlder.bind(this));
   }
 
-  private async routerHanlder({method, controllerData}: Request) {
+  private async routerHanlder({method, controllerData, avatarFile}: Request) {
     if (!controllerData) return;
 
     switch (method) {
@@ -34,12 +34,14 @@ export class AvatarsRouter implements BaseRouter {
         await this.runAvatarsController(
           AvatarsControllerActions.CREATE_AVATAR,
           controllerData,
+          avatarFile,
         );
         break;
       case RequestMethods.PUT:
         await this.runAvatarsController(
           AvatarsControllerActions.UPDATE_AVATAR,
           controllerData,
+          avatarFile,
         );
         break;
       case RequestMethods.DELETE:

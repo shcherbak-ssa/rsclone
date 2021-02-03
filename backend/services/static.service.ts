@@ -2,10 +2,10 @@ import { extname, join } from 'path';
 import { promises as fsPromises } from 'fs';
 import { Request } from 'express';
 
+import { serverConfig } from '../config';
 import { LanguageParts } from '../../common/constants';
 import { ASSETS_EXTNAME_REGEXP, INDEX_FILENAME } from '../constants';
 import { StaticEntry, StaticLanguage } from '../types/static.types';
-import serverConfig from '../../config/server.config.json';
 
 export class StaticService implements StaticEntry, StaticLanguage {
   private languagesFolder: string = serverConfig.app.languagesFolder;

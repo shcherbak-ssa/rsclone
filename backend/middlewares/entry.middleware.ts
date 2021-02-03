@@ -52,8 +52,6 @@ export class EntryMiddleware implements BaseMiddleware {
       const entryFilePath: string = this.staticService.getEntryFilePath();
       this.responseSender.sendFile(StatusCodes.SUCCESS, entryFilePath);   
     } catch (error) {
-      console.log(error); // @TODO: add logger
-
       const serverError: ServerError = new ServerError(error.message, {});
       const responseService: ResponseService = serverError.getResponse();
 
