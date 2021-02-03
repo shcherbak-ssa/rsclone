@@ -84,4 +84,8 @@ export enum EditorBlockStyleType {
   HEADER_TWO = 'header-two',
   HEADER_THREE = 'header-three',
   PARAGRAPH = 'paragraph',
+  UNORDERED_LIST = 'unordered-list-item',
+  ORDERED_LIST = 'ordered-list-item',
+  BLOCKQUOTE = 'blockquote',
+  CODE_BLOCK = 'code-block',
 };
