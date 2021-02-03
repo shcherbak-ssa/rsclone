@@ -29,12 +29,10 @@ class AvatarsService {
             yield this.usersFiles.writeUserFile(userAvatarFilename, buffer);
         });
     }
-    update(userID, currentFileType, { type, buffer }) {
+    update(userID, currentFileType, avatarFile) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userCurrentAvatarFilename = yield this.createUserAvatarFilename(userID, currentFileType);
-            yield this.usersFiles.removeUserFile(userCurrentAvatarFilename);
-            const userNewAvatarFilename = yield this.createUserAvatarFilename(userID, type);
-            yield this.usersFiles.writeUserFile(userNewAvatarFilename, buffer);
+            yield this.delete(userID, currentFileType);
+            yield this.create(userID, avatarFile);
         });
     }
     delete(userID, fileType) {

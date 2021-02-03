@@ -7,6 +7,7 @@
     "dev": "webpack --watch --env isDev",
     "dev-server": "nodemon --watch backend backend/server.ts",
     "build": "node scripts/clear-build.script.js && webpack && tsc",
+    "build-public": "node scripts/clear-public-build.script.js && webpack",
     "build-server": "node scripts/clear-server-build.script.js && tsc",
     "start": "node index.js"
   },

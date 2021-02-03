@@ -41,7 +41,9 @@ class UserFilesService {
     }
     removeUserFile(userFileFilename) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield fs_1.promises.unlink(userFileFilename);
+            if (this.fileIsExist(userFileFilename)) {
+                yield fs_1.promises.unlink(userFileFilename);
+            }
         });
     }
     createUserFilesFolderIfDoesNotExist(userFilesDirname) {
