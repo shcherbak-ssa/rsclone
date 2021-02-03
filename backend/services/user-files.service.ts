@@ -33,7 +33,9 @@ export class UserFilesService implements UserFiles {
   }
 
   async removeUserFile(userFileFilename: string): Promise<void> {
-    await fsPromises.unlink(userFileFilename);
+    if (this.fileIsExist(userFileFilename)) {
+      await fsPromises.unlink(userFileFilename);
+    }
   }
 
   private async createUserFilesFolderIfDoesNotExist(userFilesDirname: string): Promise<void> {
