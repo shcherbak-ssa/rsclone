@@ -103,5 +103,10 @@
   --inline-toolbar-background-color: #242a31;
   --inline-toolbar-color: #9daab6;
   --inline-toolbar-hover-color: #fff;
-  --inline-toolbar-separato-color: #9daab6;
+  
+  --toolbar-background-color: #fff;
+  --toolbar-border-color: #d3dce4;
+  --toolbar-separato-color: #9daab6;
+  --toolbar-color: #242a31;
+  --toolbar-hover-color: #3884FF;
 }

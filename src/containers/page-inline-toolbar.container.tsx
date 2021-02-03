@@ -2,7 +2,7 @@ import React from 'react';
 import '../assets/styles/inline-toolbar.scss';
 
 import { createInlineStyleButton } from '@draft-js-plugins/buttons';
-import { Separator, InlineToolBarPlugin } from '@draft-js-plugins/inline-toolbar';
+import { InlineToolBarPlugin } from '@draft-js-plugins/inline-toolbar';
 
 import { Icon } from '@iconify/react';
 import formatBoldIcon from '@iconify/icons-mdi-light/format-bold';
@@ -11,6 +11,7 @@ import formatUnderlineIcon from '@iconify/icons-mdi-light/format-underline';
 import formatCodeIcon from '@iconify/icons-mdi-light/xml';
 
 import { EditorInlineStyleType } from '../constants/ui.constants';
+import { ToolbarSeparatorComponent } from '../components/toolbar-separator.component';
 
 const TOOLBAR_ICON_HEIGHT: number = 24;
 
@@ -38,7 +39,7 @@ export function PageInlineToolbarContainer({
             <EditorInlineButtons.Bold {...externalProps}/>
             <EditorInlineButtons.Italic {...externalProps} />
             <EditorInlineButtons.Underline {...externalProps} />
-            <Separator className="toolbar-separator"/>
+            <ToolbarSeparatorComponent />
             <EditorInlineButtons.Code {...externalProps}/>
           </>
         )

@@ -10,16 +10,22 @@ export function PageNodeComponent(props: any) {
     blockProps: {nodeType, currentSelectionBlockKey, toolbar},
     selection, block,
   } = props;
-  const componentClassnames = classnames('page-node', nodeType);
+
+  const isBlockActive: boolean = selection.hasFocus && block.key === currentSelectionBlockKey;
+  const componentClassnames = classnames('page-node', nodeType, {
+    'is-block-active': isBlockActive,
+  });
 
   function drawToolbar() {
-    return selection.hasFocus && block.key === currentSelectionBlockKey ? toolbar : EMPTY_STRING;
+    return isBlockActive ? toolbar : EMPTY_STRING;
   }
 
   return (
-    <div className={componentClassnames}>
-      <EditorBlock {...props}/>
+    <>
+      <div className={componentClassnames}>
+        <EditorBlock {...props}/>
+      </div>
       {drawToolbar()}
-    </div>
+    </>
   );
 }

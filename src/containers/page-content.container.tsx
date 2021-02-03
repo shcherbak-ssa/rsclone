@@ -25,13 +25,28 @@ import { PageInlineToolbarContainer, PageInlineToolbarContainerProps } from './p
 import { PageToolbarContainer, PageToolbarContainerProps } from './page-toolbar.container';
 import { EMPTY_STRING } from '../constants/strings.constants';
 
-const inlineToolbarPlugin = createInlineToolbarPlugin();
+const inlineToolbarPlugin = createInlineToolbarPlugin({
+  theme: {
+    toolbarStyles: {
+      toolbar: 'inline-toolbar',
+    },
+    buttonStyles: {
+      active: 'is-active',
+      button: 'inline-toolbar-button',
+    },
+  },
+});
+
 const toolbarPlugin = createToolbarPlugin({
   theme: {
     toolbarStyles: {
       toolbar: 'toolbar',
     },
-    buttonStyles: {},
+    buttonStyles: {
+      active: 'is-active',
+      button: 'toolbar-button',
+      buttonWrapper: 'toolbar-wrapper',
+    },
   },
 });
 
@@ -55,7 +70,7 @@ export function PageContentContainer({
       toolbarPlugin,
     ],
     handleKeyCommand,
-    blockRendererFn: nodeRender,
+    blockRendererFn: blockRender,
     onChange: (state: EditorState) => {
       setEditorState(state);
     },
@@ -113,7 +128,7 @@ export function PageContentContainer({
     return editorState.getSelection().getStartKey();
   }
 
-  function nodeRender(contentBlock: ContentBlock) {
+  function blockRender(contentBlock: ContentBlock) {
     const type: string = contentBlock.getType();
 
     switch (type) {
@@ -133,7 +148,7 @@ export function PageContentContainer({
       props: {
         nodeType,
         currentSelectionBlockKey,
-        toolbar: <PageToolbarContainer {...toolbarProps}/>
+        toolbar: <PageToolbarContainer {...toolbarProps}/>,
       },
     };
   }

@@ -1,11 +1,8 @@
 import React from 'react';
 import '../assets/styles/toolbar.scss';
 
-import { Separator, StaticToolBarPlugin } from '@draft-js-plugins/static-toolbar';
+import { StaticToolBarPlugin } from '@draft-js-plugins/static-toolbar';
 import {
-  HeadlineOneButton,
-  HeadlineTwoButton,
-  HeadlineThreeButton,
   UnorderedListButton,
   OrderedListButton,
   BlockquoteButton,
@@ -19,6 +16,7 @@ import formatHeader2Icon from '@iconify/icons-fluent/text-header-2-20-regular';
 import formatHeader3Icon from '@iconify/icons-fluent/text-header-3-20-regular';
 
 import { EditorBlockStyleType } from '../constants/ui.constants';
+import { ToolbarSeparatorComponent } from '../components/toolbar-separator.component';
 
 const TOOLBAR_ICON_HEIGHT: number = 18;
 
@@ -43,10 +41,10 @@ export function PageToolbarContainer({toolbarPlugin}: PageToolbarContainerProps)
             <EditorBlockButtons.Header1 {...externalProps}/>
             <EditorBlockButtons.Header2 {...externalProps}/>
             <EditorBlockButtons.Header3 {...externalProps}/>
-            <Separator className="toolbar-separator"/>
+            <ToolbarSeparatorComponent />
             <UnorderedListButton {...externalProps} />
             <OrderedListButton {...externalProps} />
-            <Separator className="toolbar-separator"/>
+            <ToolbarSeparatorComponent />
             <BlockquoteButton {...externalProps} />
             <CodeBlockButton {...externalProps} />
           </>
