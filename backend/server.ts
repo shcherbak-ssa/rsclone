@@ -18,6 +18,7 @@ import { PagesRouter } from './routers/pages.router';
 import { App, AppOptions } from './app';
 import { UserFilesService } from './services/user-files.service';
 import { AvatarFile } from './models/avatars.model';
+import { DEFAULT_PORT } from './constants';
 
 declare global {
   namespace Express {
@@ -40,8 +41,7 @@ DatabaseConnectionService.init().connect()
   })
   .then(() => {
     const appOptions: AppOptions = {
-      port: process.env.APP_PORT || '3000',
-      hostname: process.env.APP_HOST || 'local',
+      port: process.env.PORT || DEFAULT_PORT,
       routers: [
         new AuthRouter(),
         new UsersRouter(),

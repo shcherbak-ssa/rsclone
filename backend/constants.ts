@@ -5,6 +5,7 @@ export const MINUS_REPLACE_STRING: string = '-';
 export const EMPTY_VALUE_LENGTH: number = 0;
 export const INITIAL_PATHNAME_COUNT: number = 1;
 export const EMPTY_STRING: string = '';
+export const DEFAULT_PORT: string = '3000';
 
 export { UserDataLabels } from '../common/constants';
 

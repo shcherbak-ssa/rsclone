@@ -8,7 +8,6 @@ import { StaticService } from './services/static.service';
 
 export type AppOptions = {
   port: string;
-  hostname: string;
   routers: Array<BaseRouter>;
   middlewares: Array<any>;
   appMiddlewares: Array<BaseMiddleware>;
@@ -17,14 +16,12 @@ export type AppOptions = {
 export class App {
   private application: Application;
   private port: number;
-  private hostname: string;
 
   constructor({
-    port, hostname, routers, middlewares, appMiddlewares,
+    port, routers, middlewares, appMiddlewares,
   }: AppOptions) {
     this.application = express();
     this.port = parseInt(port);
-    this.hostname = hostname;
 
     this.initMiddlewares(middlewares);
     this.initAppMiddlewares(appMiddlewares);
@@ -37,8 +34,8 @@ export class App {
   }
 
   listen() {
-    this.application.listen(this.port, this.hostname, () => {
-      console.log(`Server runs on the http://${this.hostname}:${this.port}/`);
+    this.application.listen(this.port, () => {
+      console.log(`Server runs on port ${this.port}`);
     });
   }
 
