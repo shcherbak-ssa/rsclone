@@ -1,5 +1,5 @@
 const { existsSync, rmdirSync, mkdirSync } = require('fs');
-const { DIST_DIRNAME } = require('./dirnames.script');
+const { DIST_PATHNAME } = require('./pathnames.script');
 
 function preparingDistFolder() {
   if (distDirnameExist()) {
@@ -10,15 +10,15 @@ function preparingDistFolder() {
 }
 
 function distDirnameExist() {
-  return existsSync(DIST_DIRNAME);
+  return existsSync(DIST_PATHNAME);
 }
 
 function deleteDistDirname() {
-  rmdirSync(DIST_DIRNAME, { recursive: true });
+  rmdirSync(DIST_PATHNAME, { recursive: true });
 }
 
 function createDistDirname() {
-  mkdirSync(DIST_DIRNAME);
+  mkdirSync(DIST_PATHNAME);
 }
 
 module.exports = { preparingDistFolder };
