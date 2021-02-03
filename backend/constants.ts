@@ -6,6 +6,8 @@ export const EMPTY_VALUE_LENGTH: number = 0;
 export const INITIAL_PATHNAME_COUNT: number = 1;
 export const EMPTY_STRING: string = '';
 
+export { UserDataLabels } from '../common/constants';
+
 export enum DatabaseNames {
   USERS = 'users',
 };
@@ -18,28 +20,4 @@ export enum CollectionNames {
 export enum Parameters {
   USERNAME = 'username',
   LANGUAGE = 'language',
-};
-
-export enum UserDataLabels {
-  AVATAR = 'avatar',
-  FULLNAME = 'fullname',
-  EMAIL = 'email',
-  PASSWORD = 'password',
-  NEW_PASSWORD = 'newPassword',
-  USERNAME = 'username',
-  LANGUAGE = 'language',
-  THEME = 'theme',
-  SHORTCUTS = 'shortcuts',
-  SPACE_ID = 'id',
-  SPACE_NAME = 'name',
-  SPACE_COLOR = 'color',
-  SPACE_LOGO = 'logo',
-  SPACE_PATHNAME = 'pathname',
-  SPACE_PAGES = 'pages',
-  SPACE_LAST_UPDATED = 'lastUpdated',
-  PAGE_ID = 'id',
-  PAGE_TITLE = 'title',
-  PAGE_DESCRIPTION = 'description',
-  PAGE_PATHNAME = 'pathname',
-  PAGE_CONTENT = 'content',
 };

@@ -106,3 +106,27 @@ export enum PageDataLabels {
   DESCRIPTION = 'description',
   NODES = 'nodes',
 };
+
+export enum UserDataLabels {
+  AVATAR = 'avatar',
+  FULLNAME = 'fullname',
+  EMAIL = 'email',
+  PASSWORD = 'password',
+  NEW_PASSWORD = 'newPassword',
+  USERNAME = 'username',
+  LANGUAGE = 'language',
+  THEME = 'theme',
+  SHORTCUTS = 'shortcuts',
+  SPACE_ID = 'id',
+  SPACE_NAME = 'name',
+  SPACE_COLOR = 'color',
+  SPACE_LOGO = 'logo',
+  SPACE_PATHNAME = 'pathname',
+  SPACE_PAGES = 'pages',
+  SPACE_LAST_UPDATED = 'lastUpdated',
+  PAGE_ID = 'id',
+  PAGE_TITLE = 'title',
+  PAGE_DESCRIPTION = 'description',
+  PAGE_PATHNAME = 'pathname',
+  PAGE_CONTENT = 'content',
+};

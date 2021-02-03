@@ -8,6 +8,8 @@ export const ZERO: number = 0;
 export const SPACE_PAGE_PATHNAME_REGEXP: RegExp = /\/s\//;
 export const NEW_PAGE_ID: string = 'new-page';
 
+export { UserDataLabels } from '../../common/constants';
+
 export enum AppRoutePathnames {
   REGISTRATION = '/registration',
   LOGIN = '/login',
@@ -16,29 +18,6 @@ export enum AppRoutePathnames {
   SETTINGS = '/:username/settings',
   SPACE_PAGE = '/:username/s/:spacePathname',
   ACTIVE_PAGE = '/:username/s/:spacePathname/:pagePathname',
-};
-
-export enum UserDataLabels {
-  AVATAR = 'avatar',
-  FULLNAME = 'fullname',
-  EMAIL = 'email',
-  PASSWORD = 'password',
-  NEW_PASSWORD = 'newPassword',
-  USERNAME = 'username',
-  LANGUAGE = 'language',
-  THEME = 'theme',
-  SHORTCUTS = 'shortcuts',
-  SPACE_ID = 'id',
-  SPACE_NAME = 'name',
-  SPACE_COLOR = 'color',
-  SPACE_LOGO = 'logo',
-  SPACE_PATHNAME = 'pathname',
-  SPACE_PAGES = 'pages',
-  SPACE_LAST_UPDATED = 'lastUpdated',
-  PAGE_ID = 'id',
-  PAGE_TITLE = 'title',
-  PAGE_DESCRIPTION = 'description',
-  PAGE_CONTENT = 'content',
 };
 
 export enum Stores {

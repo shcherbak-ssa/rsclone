@@ -76,6 +76,7 @@ const webpackConfig = (env = {}) => {
                 transpileOnly: true,
                 compilerOptions: {
                   module: 'esnext',
+                  jsx: 'react',
                   sourceMap: isDev,
                 },
               },

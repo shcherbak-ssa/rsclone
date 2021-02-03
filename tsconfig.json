@@ -7,13 +7,13 @@
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "jsx": "react",
     "typeRoots": [
       "node_modules/@types"
     ],
-    "outDir": "server",
+    "outDir": "./dist/server",
     "baseUrl": "./backend",
-    "removeComments": true
+    "removeComments": true,
+    "sourceMap": false
   },
   "include": ["backend/**/*"],
   "exclude": ["node_modules"]
