@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import Editor, { PluginEditorProps } from '@draft-js-plugins/editor';
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
-import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
 
 import {
   ContentBlock,
@@ -22,8 +21,6 @@ import { UserDataLabels } from '../constants';
 import { EditorBlockStyleType } from '../constants/ui.constants';
 import { inlineEditorStyles } from '../data/editor.data';
 import { PageInlineToolbarContainer, PageInlineToolbarContainerProps } from './page-inline-toolbar.container';
-import { PageToolbarContainer, PageToolbarContainerProps } from './page-toolbar.container';
-import { EMPTY_STRING } from '../constants/strings.constants';
 
 const inlineToolbarPlugin = createInlineToolbarPlugin({
   theme: {
@@ -33,19 +30,6 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
     buttonStyles: {
       active: 'is-active',
       button: 'inline-toolbar-button',
-    },
-  },
-});
-
-const toolbarPlugin = createToolbarPlugin({
-  theme: {
-    toolbarStyles: {
-      toolbar: 'toolbar',
-    },
-    buttonStyles: {
-      active: 'is-active',
-      button: 'toolbar-button',
-      buttonWrapper: 'toolbar-wrapper',
     },
   },
 });
@@ -60,22 +44,17 @@ export function PageContentContainer({
   activePageID, pageContent, color,
 }: PageContentContainerProps) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [currentSelectionBlockKey, setCurrentSelectionBlockKey] = useState(EMPTY_STRING);
 
   const editorProps: PluginEditorProps = {
     editorState,
     customStyleMap: inlineEditorStyles,
     plugins: [
       inlineToolbarPlugin,
-      toolbarPlugin,
     ],
     handleKeyCommand,
     blockRendererFn: blockRender,
     onChange: (state: EditorState) => {
       setEditorState(state);
-    },
-    onFocus: () => {
-      setCurrentSelectionBlockKey(getStartKey());
     },
     onBlur: () => {
       const contentState: ContentState = editorState.getCurrentContent();
@@ -96,10 +75,6 @@ export function PageContentContainer({
     inlineToolbarPlugin,
   };
 
-  const toolbarProps: PageToolbarContainerProps = {
-    toolbarPlugin,
-  };
-
   useEffect(() => {
     if (pageContent) {
       const contentState: ContentState = convertFromRaw(JSON.parse(pageContent));
@@ -107,26 +82,7 @@ export function PageContentContainer({
     } else {
       setEditorState(EditorState.createEmpty());
     }
-    
-    setCurrentSelectionBlockKey(EMPTY_STRING);
   }, [pageContent]);
-
-  useEffect(() => {
-    const startKey: string = getStartKey();
-
-    if (currentSelectionBlockKey !== EMPTY_STRING && startKey !== currentSelectionBlockKey) {
-      setCurrentSelectionBlockKey(startKey);
-
-      setEditorState(EditorState.forceSelection(
-        editorState,
-        editorState.getSelection(),
-      ));
-    }
-  }, [getStartKey()]);
-
-  function getStartKey(): string {
-    return editorState.getSelection().getStartKey();
-  }
 
   function blockRender(contentBlock: ContentBlock) {
     const type: string = contentBlock.getType();
@@ -148,8 +104,6 @@ export function PageContentContainer({
       editable: true,
       props: {
         nodeType,
-        currentSelectionBlockKey,
-        toolbar: <PageToolbarContainer {...toolbarProps}/>,
       },
     };
   }

@@ -99,5 +99,14 @@
   --space-page-menu-button-span-background-color: #fff;
   --space-page-add-color: rgba(255, 255, 255, .6);
 
-  --content-paragraph-color: #fff;
+  --content-paragraph-color: #f1f1f1;
+  --content-inline-code-background-color: rgba(255, 255, 255, .2);
+
+  --blockquote-color: #74818d;
+  --blockquote-border-color: #e6ecf1;
+
+  --inline-toolbar-background-color: #222;
+  --inline-toolbar-color: #9daab6;
+  --inline-toolbar-hover-color: #fff;
+  --inline-toolbar-separato-color: #9daab6;
 }

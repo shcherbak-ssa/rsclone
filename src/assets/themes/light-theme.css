@@ -101,4 +101,13 @@
   --space-page-add-color: #393E46;
 
   --content-paragraph-color: #393E46;
+  --content-inline-code-background-color: #f5f7f9;
+
+  --blockquote-color: #74818d;
+  --blockquote-border-color: #e6ecf1;
+
+  --inline-toolbar-background-color: #111;
+  --inline-toolbar-color: #9daab6;
+  --inline-toolbar-hover-color: #fff;
+  --inline-toolbar-separato-color: #9daab6;
 }

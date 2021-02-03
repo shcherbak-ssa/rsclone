@@ -24,7 +24,6 @@
     "@draft-js-plugins/buttons": "^4.1.0",
     "@draft-js-plugins/editor": "^4.1.0",
     "@draft-js-plugins/inline-toolbar": "^4.1.0",
-    "@draft-js-plugins/static-toolbar": "^4.1.0",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
     "clone-deep": "^4.0.1",
