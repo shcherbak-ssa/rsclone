@@ -8,6 +8,7 @@ const cssnano = require('cssnano');
 
 const currentMode = (isDev) => isDev ? 'development' : 'production';
 const currentDevtool = (isDev) => isDev ? 'eval-source-map' : false;
+const outputPath = (isDev) => isDev ? ['public'] : ['dist', 'public'];
 
 const SRC_DIRNAME = joinPaths(__dirname, 'src');
 
@@ -32,7 +33,7 @@ const webpackConfig = (env = {}) => {
     devtool: currentDevtool(isDev),
     entry: joinPaths(SRC_DIRNAME, 'index.tsx'),
     output: {
-      path: resolve(__dirname, 'public'),
+      path: resolve(__dirname, ...outputPath(isDev)),
       chunkFilename: joinPaths('js', '[name].chunk.js'),
       filename: joinPaths('js', 'main.js'),
     },
