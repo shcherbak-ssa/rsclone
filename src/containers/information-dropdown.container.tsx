@@ -45,7 +45,7 @@ export function InformationDropdownContainer({closeHandler}: InformationDropdown
     {
       icon: articleIcon,
       text: informationLanguage.article,
-      href: '',
+      href: 'https://shcherbak.gitbook.io/gitbook-clone/article',
     },
   ];
 
