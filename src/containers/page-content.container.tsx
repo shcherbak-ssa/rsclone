@@ -135,6 +135,7 @@ export function PageContentContainer({
       case EditorBlockStyleType.HEADER_ONE:
       case EditorBlockStyleType.HEADER_TWO:
       case EditorBlockStyleType.HEADER_THREE:
+      case EditorBlockStyleType.BLOCKQUOTE:
         return getRenderComponent(type);
       default:
         return getRenderComponent(EditorBlockStyleType.PARAGRAPH);

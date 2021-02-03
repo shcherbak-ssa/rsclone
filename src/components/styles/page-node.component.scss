@@ -25,6 +25,13 @@
     -x-font-size: 16px/1.625;
   }
 
+  &.blockquote {
+    border-left: 4px solid var(--blockquote-border-color);
+    color: var(--blockquote-color);
+    padding-left: 12px;
+    -x-font-size: 16px/1.625;
+  }
+
   &.is-block-active {
     margin-bottom: 8px;
 

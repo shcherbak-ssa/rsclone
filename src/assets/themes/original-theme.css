@@ -100,6 +100,9 @@
   --content-paragraph-color: #3b454e;
   --content-inline-code-background-color: rgb(245, 247, 249);
 
+  --blockquote-color: #74818d;
+  --blockquote-border-color: #e6ecf1;
+
   --inline-toolbar-background-color: #242a31;
   --inline-toolbar-color: #9daab6;
   --inline-toolbar-hover-color: #fff;
