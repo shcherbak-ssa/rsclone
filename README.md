@@ -34,7 +34,11 @@ MONGODB_URL=mongodb+srv://cross-checker:1234567890@gitbook-clone.6xhqm.mongodb.n
 ```shell
 > npm start
 ```
-5. Enjoy! (I hope)
+5. Open next link in browser
+```shell
+> http://localhost:3000/
+```
+6. Enjoy! (I hope)
 
 #### Notes ####
 
