@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "webpack --watch --env isDev",
     "dev-server": "nodemon --watch backend backend/server.ts",
-    "server": "tsc && node server/backend/server.js",
-    "build": "node ./scripts/build-dist.script.js && webpack"
+    "build": "node ./scripts/clear-build.script.js && webpack && tsc"
   },
   "repository": {
     "type": "git",

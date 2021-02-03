@@ -10,7 +10,7 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "outDir": "./dist/server",
+    "outDir": "./server",
     "baseUrl": "./backend",
     "removeComments": true,
     "sourceMap": false
