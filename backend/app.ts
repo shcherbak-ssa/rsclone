@@ -7,7 +7,7 @@ import { BaseRouter } from './routers/base.router';
 import { StaticService } from './services/static.service';
 
 export type AppOptions = {
-  port: number;
+  port: string;
   hostname: string;
   routers: Array<BaseRouter>;
   middlewares: Array<any>;
@@ -23,7 +23,7 @@ export class App {
     port, hostname, routers, middlewares, appMiddlewares,
   }: AppOptions) {
     this.application = express();
-    this.port = port;
+    this.port = parseInt(port);
     this.hostname = hostname;
 
     this.initMiddlewares(middlewares);

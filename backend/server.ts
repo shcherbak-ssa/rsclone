@@ -1,5 +1,5 @@
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import serverConfig from '../config/server.config.json';
 
 import { DatabaseConnectionService } from './services/database-connection.service';
 import { UsersCollectionDatabase } from './database/users-collection.database';
@@ -19,7 +19,6 @@ import { App, AppOptions } from './app';
 import { UserFilesService } from './services/user-files.service';
 import { AvatarFile } from './models/avatars.model';
 
-
 declare global {
   namespace Express {
     interface Request {
@@ -30,6 +29,8 @@ declare global {
   }
 }
 
+dotenv.config();
+
 DatabaseConnectionService.init().connect()
   .then(() => {
     UsersCollectionDatabase.create();
@@ -39,8 +40,8 @@ DatabaseConnectionService.init().connect()
   })
   .then(() => {
     const appOptions: AppOptions = {
-      port: serverConfig.app.port,
-      hostname: serverConfig.app.hostname,
+      port: process.env.APP_PORT || '3000',
+      hostname: process.env.APP_HOST || 'local',
       routers: [
         new AuthRouter(),
         new UsersRouter(),
@@ -54,9 +55,9 @@ DatabaseConnectionService.init().connect()
       appMiddlewares: [
         new EntryMiddleware(),
         new AuthUserMiddleware(),
+        new AvatarsMiddleware(),
         new ControllerMiddleware(),
         new ActiveSpaceMiddleware(),
-        new AvatarsMiddleware(),
         new LanguageMiddleware(),
       ],
     };

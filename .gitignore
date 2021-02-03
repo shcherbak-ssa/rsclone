@@ -3,3 +3,5 @@ public/
 db/
 server/
 config/
+
+.env
