@@ -1,0 +1,1 @@
+(self.webpackChunkgitbook_clone=self.webpackChunkgitbook_clone||[]).push([[131],{87597:(e,t,n)=>{"use strict";n.r(t),n.d(t,{default:()=>r});var a=n(67294),c=n(73021),l=n(56330),o=n(81603),u=n(36863);function r(){var e={mode:c.Az.LOGIN,nextRoutePathname:c.DF.REGISTRATION},t=(0,o.i)(e);return a.createElement(u.P,null,a.createElement(l.c,Object.assign({},t)))}}}]);
