@@ -3,6 +3,9 @@ const {join: joinPaths, resolve} = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const postcssShort = require('postcss-short');
+const cssnano = require('cssnano');
+
 const currentMode = (isDev) => isDev ? 'development' : 'production';
 const currentDevtool = (isDev) => isDev ? 'eval-source-map' : false;
 
@@ -10,6 +13,19 @@ const SRC_DIRNAME = joinPaths(__dirname, 'src');
 
 const webpackConfig = (env = {}) => {
   const isDev = env.isDev || false;
+  const postcssPlugins = [
+    postcssShort({ prefix: 'x', skip: 'x' }),
+  ];
+
+  if (!isDev) {
+    postcssPlugins.push(cssnano({
+      preset: ['default', {
+        discardComments: {
+            removeAll: true,
+        },
+    }]
+    }));
+  }
 
   return {
     mode: currentMode(isDev),
@@ -29,7 +45,7 @@ const webpackConfig = (env = {}) => {
               loader: 'html-loader',
               options: {
                 attributes: false,
-                minimize: !isDev
+                minimize: !isDev,
               }
             },
             {
@@ -73,7 +89,7 @@ const webpackConfig = (env = {}) => {
               loader: 'file-loader',
               options: {
                 name: '[name].css',
-                outputPath: 'css'
+                outputPath: 'css',
               }
             },
             'extract-loader',
@@ -89,7 +105,7 @@ const webpackConfig = (env = {}) => {
               loader: 'postcss-loader',
               options: {
                 postcssOptions: {
-                  plugins: []
+                  plugins: postcssPlugins,
                 }
               }
             },
@@ -112,9 +128,7 @@ const webpackConfig = (env = {}) => {
               loader: 'postcss-loader',
               options: {
                 postcssOptions: {
-                  plugins: [
-                    require('postcss-short')({ prefix: 'x', skip: 'x' }),
-                  ]
+                  plugins: postcssPlugins,
                 }
               }
             },
