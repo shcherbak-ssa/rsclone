@@ -1,3 +1,3 @@
-const { preparingDistFolder } = require('./dist-folder.script');
+const { preparingDistFolder } = require('./dist.script');
 
 preparingDistFolder();

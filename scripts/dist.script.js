@@ -3,7 +3,7 @@ const { existsSync, rmdirSync, mkdirSync } = require('fs');
 const { DIST_DIRNAME } = require('./dirnames.script');
 
 function preparingDistFolder() {
-  if (distDirnameExist) {
+  if (distDirnameExist()) {
     deleteDistDirname();
   }
 
