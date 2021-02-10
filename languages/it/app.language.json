@@ -1,0 +1,178 @@
+{
+  "menu": {
+    "items": {
+      "spaces": "Spazi",
+      "settings": "Impostazioni",
+      "logout": "Disconnettersi"
+    }
+  },
+  "homepage": {
+    "spaces": {
+      "title": "Spazi",
+      "buttonValue": "Aggiungi spazio",
+      "message": [
+        "Non ci sono ancora spazi qui. Fai clic su",
+        "o premere il tasti",
+        "per aggiungere uno spazio"
+      ],
+      "lastUpdated": {
+        "label": "Ultimo aggiornamento"
+      }
+    },
+    "settings": {
+      "title": "Impostazioni",
+      "saveButtonValue": "Salvare"
+    }
+  },
+  "settings": {
+    "user": {
+      "title": "Utente",
+      "groups": {
+        "avatar": {
+          "title": "Avatar"
+        },
+        "user-data": {
+          "title": "Dati utente"
+        }
+      },
+      "avatar": {
+        "deleteImageButtonValue": "Elimina",
+        "dropText": "Trascina il tuo file qui",
+        "dropLink": "o sfoglia",
+        "errors": {
+          "invalid-file-type": "Tipo di file non valido. I tipi corretti sono '.png', '.jpg'"
+        }
+      }
+    },
+    "login": {
+      "title": "Accesso",
+      "actions": {
+        "change-password": {
+          "title": "Password",
+          "description": "Proteggi il tuo account GitBook Clone con una password complessa e univoca",
+          "buttonValue": "Cambia la password"
+        }
+      },
+      "groups": {
+        "password": {
+          "title": "Password"
+        }
+      }
+    },
+    "app": {
+      "title": "App",
+      "groups": {
+        "theme": {
+          "title": "Tema"
+        }
+      }
+    },
+    "shortcuts": {
+      "title": "Tasti rapidi",
+      "message": "Seleziona una scorciatoia da tastiera e premi la tua combinazione",
+      "actions": {
+        "add-space": {
+          "title": "Aggiungi spazio",
+          "description": "Crea il tuo spazio personale"
+        },
+        "add-page": {
+          "title": "Aggiungi pagina",
+          "description": "Crea una nuova pagina nello spazio aperto"
+        },
+        "add-section": {
+          "title": "Aggiungi sezione",
+          "description": "Crea una nuova sezione nello spazio aperto"
+        }
+      },
+      "groups": {
+        "homepage": {
+          "title": "Homepage"
+        },
+        "space": {
+          "title": "Spazio"
+        }
+      }
+    },
+    "danger": {
+      "title": "Zona pericolosa",
+      "actions": {
+        "delete-account": {
+          "title": "Eliminare l'account",
+          "description": "Eliminando il tuo account personale, elimini tutti i dati associati. Pensa prima di agire, non si torna indietro!",
+          "buttonValue": "Elimina"
+        }
+      }
+    },
+    "space": {
+      "title": "Spazio",
+      "groups": {
+        "color": {
+          "title": "Colore"
+        }
+      }
+    },
+    "delete-space": {
+      "title": "Elimina",
+      "actions": {
+        "delete-space": {
+          "title": "Eliminare l'spazio",
+          "description": "Questa azione non può essere annullata. Questo eliminerà definitivamente il progetto",
+          "buttonValue": "Elimina"
+        }
+      }
+    }
+  },
+  "popups": {
+    "logout": {
+      "title": "Disconnettersi",
+      "confirmButtonValue": "Disconnettersi",
+      "message": "Sei sicuro di voler uscire?"
+    },
+    "delete-account": {
+      "title": "Eliminare l'account",
+      "confirmButtonValue": "Elimina",
+      "message": "Eliminando il tuo account personale, elimini tutti i dati associati. Pensa prima di agire, non si torna indietro! Sei sicuro?"
+    },
+    "delete-space": {
+      "title": "Eliminare l'spazio",
+      "confirmButtonValue": "Elimina",
+      "message": "Questa azione non può essere annullata. Questo eliminerà definitivamente il progetto"
+    },
+    "create-space": {
+      "title": "Crea uno spazio",
+      "confirmButtonValue": "Creare"
+    },
+    "update-space": {
+      "title": "Impostazioni dello spazio",
+      "confirmButtonValue": "Salvare"
+    },
+    "delete-page": {
+      "title": "Elimina pagina",
+      "confirmButtonValue": "Elimina",
+      "message": "Questa azione non può essere annullata. Questo eliminerà definitivamente la pagina e tutto il contenuto"
+    }
+  },
+  "dropdowns": {
+    "settings-space": "Impostazioni",
+    "delete-space": "Elimina"
+  },
+  "actionIconDescriptions": {
+    "settings": "Impostazioni",
+    "shortcuts": "Tasti rapidi"
+  },
+  "page": {
+    "addPage": "Nuova pagina",
+    "newPageTitle": "Senza titolo",
+    "titlePlaceholder": "Titolo della pagina",
+    "descriptionPlaceholder": "Descrizione della pagina (opzionale)",
+    "linkLabels": {
+      "previous": "Pagina precedente",
+      "next": "Pagina successiva"
+    }
+  },
+  "deletePopupConfirmation": {
+    "placeholder": "Digita DELETE",
+    "description": "Digita DELETE per confermare",
+    "confirmWord": "DELETE"
+  }
+}

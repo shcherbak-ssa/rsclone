@@ -1,0 +1,136 @@
+.menu {
+  width: 224px;
+  transition: .2s;
+  z-index: 9;
+  -x-position: fixed 80px x x x;
+
+  @media screen and (max-width: 1366px) {
+    left: 130px;
+  }
+
+  @media screen and (max-width: 1124px) {
+    left: 115px;
+  }
+
+  @media screen and (max-width: 1023px) {
+    left: -250px;
+    top: 0;
+    background: rgba(17, 17, 17, 0.5);
+    z-index: 99;
+    -x-size: 250px 100%;
+
+    &.is-open {
+      width: 100%;
+      left: 0;
+      z-index: 9;
+    }
+  }
+
+  &-container {
+    width: 100%;
+    position: relative;
+
+    @media screen and (max-width: 1023px) {
+      background: var(--app-background-color);
+      padding: 12px 13px;
+      -x-size: 250px 100%;
+    }
+  }
+
+  &-user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 35px;
+    width: 100%;
+
+    .avatar {
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+  }
+
+  &-username {
+    color: var(--menu-username-color);
+    font-weight: 500;
+    -x-font-size: 16px/32px;
+  }
+
+  &-line {
+    background: var(--menu-line-background);
+    margin: 14px 0;
+    -x-size: 100% 1px;
+  }
+
+  &-button {
+    display: none;
+    flex-direction: column;
+    -x-size: 40px;
+    -x-position: absolute 12px -56px x x;
+
+    @media screen and (max-width: 1023px) {
+      display: flex;
+    }
+
+    .original-theme &, .dark-theme & {
+      opacity: .6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .light-theme & {
+      opacity: .9;
+  
+      &:hover {
+        span {
+          background: var(--menu-button-span-background-active-color);
+        }
+      }
+    }
+
+    span {
+      background: var(--menu-button-span-background-color);
+      border-radius: 2px;
+      transition: .2s;
+      -x-size: 24px 2px;
+
+      &:nth-child(2) {
+        margin: 5px 0;
+      }
+    }
+
+    .is-open & {
+      @media screen and (max-width: 489px) {
+        right: -40px;
+      }
+
+      .light-theme & {
+        opacity: .6;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        span {
+          background: var(--menu-button-span-background-color);
+        }
+      }
+
+      span {
+        &:nth-child(1) {
+          transform: rotate(45deg);
+          margin-bottom: -14px;
+        }
+
+        &:nth-child(2) {
+          opacity: 0;
+        }
+
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+}

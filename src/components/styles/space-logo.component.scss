@@ -1,0 +1,22 @@
+.space-logo {
+  background: var(--space-logo-default-background-color);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  user-select: none;
+
+  &.space {
+    font-size: 18px;
+    -x-size: 30px;
+  }
+
+  &.page-logo {
+    font-size: 24px;
+    -x-size: 36px;
+  }
+
+  &.settings {
+    font-size: 32px;
+    -x-size: 56px;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "outDir": "./server",
+    "baseUrl": "./backend",
+    "removeComments": true,
+    "sourceMap": false
+  },
+  "include": ["backend/**/*"],
+  "exclude": ["node_modules"]
+}

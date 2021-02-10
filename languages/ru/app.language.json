@@ -1,0 +1,178 @@
+{
+  "menu": {
+    "items": {
+      "spaces": "Пространства",
+      "settings": "Настройки",
+      "logout": "Выйти"
+    }
+  },
+  "homepage": {
+    "spaces": {
+      "title": "Пространства",
+      "buttonValue": "Создать",
+      "message": [
+        "Здесь пока нет пространств. Нажмите кнопку",
+        "или зажмите клавиши",
+        "чтобы добавить пространство"
+      ],
+      "lastUpdated": {
+        "label": "Последнее обновление"
+      }
+    },
+    "settings": {
+      "title": "Настройки",
+      "saveButtonValue": "Сохранить"
+    }
+  },
+  "settings": {
+    "user": {
+      "title": "Пользователь",
+      "groups": {
+        "avatar": {
+          "title": "Аватар"
+        },
+        "user-data": {
+          "title": "Данные пользователя"
+        }
+      },
+      "avatar": {
+        "deleteImageButtonValue": "Удалить",
+        "dropText": "Перетащите свой файл сюда",
+        "dropLink": "или просмотрите",
+        "errors": {
+          "invalid-file-type": "Неверный тип файла. Правильные типы: '.png', '.jpg'"
+        }
+      }
+    },
+    "login": {
+      "title": "Авторизация",
+      "actions": {
+        "change-password": {
+          "title": "Пароль",
+          "description": "Защитите свою учетную запись GitBook Clone надежным и уникальным паролем",
+          "buttonValue": "Изменить пароль"
+        }
+      },
+      "groups": {
+        "password": {
+          "title": "Пароль"
+        }
+      }
+    },
+    "app": {
+      "title": "Приложение",
+      "groups": {
+        "theme": {
+          "title": "Тема"
+        }
+      }
+    },
+    "shortcuts": {
+      "title": "Горячие клавиши",
+      "message": "Выберите любую горячую клавишу и нажмите свою комбинацию",
+      "actions": {
+        "add-space": {
+          "title": "Добавить пространство",
+          "description": "Создайте свое личное пространство"
+        },
+        "add-page": {
+          "title": "Добавить страницу",
+          "description": "Создать новую страницу в открытом пространстве"
+        },
+        "add-section": {
+          "title": "Добавить раздел",
+          "description": "Создать новый раздел в открытом пространстве"
+        }
+      },
+      "groups": {
+        "homepage": {
+          "title": "Домашняя страница"
+        },
+        "space": {
+          "title": "Пространство"
+        }
+      }
+    },
+    "danger": {
+      "title": "Опасная зона",
+      "actions": {
+        "delete-account": {
+          "title": "Удалить аккаунт",
+          "description": "Удаляя учетную запись, вы удаляете все связанные с ней данные. Подумай, прежде чем действовать, пути назад нет!",
+          "buttonValue": "Удалить"
+        }
+      }
+    },
+    "space": {
+      "title": "Пространство",
+      "groups": {
+        "color": {
+          "title": "Цвет"
+        }
+      }
+    },
+    "delete-space": {
+      "title": "Удалить",
+      "actions": {
+        "delete-space": {
+          "title": "Удалить пространство",
+          "description": "Это действие не может быть отменено. Это приведет к безвозвратному удалению проекта",
+          "buttonValue": "Удалить"
+        }
+      }
+    }
+  },
+  "popups": {
+    "logout": {
+      "title": "Выйти",
+      "confirmButtonValue": "Выйти",
+      "message": "Вы уверены, что хотите выйти?"
+    },
+    "delete-account": {
+      "title": "Удалить аккаунт",
+      "confirmButtonValue": "Удалить",
+      "message": "Удаляя учетную запись, вы удаляете все связанные с ней данные. Подумай, прежде чем действовать, пути назад нет! Вы уверены?"
+    },
+    "delete-space": {
+      "title": "Удалить пространство",
+      "confirmButtonValue": "Удалить",
+      "message": "Это действие не может быть отменено. Это приведет к безвозвратному удалению проекта"
+    },
+    "create-space": {
+      "title": "Создать пространство",
+      "confirmButtonValue": "Создать"
+    },
+    "update-space": {
+      "title": "Настройки пространства",
+      "confirmButtonValue": "Сохранить"
+    },
+    "delete-page": {
+      "title": "Удалить страницу",
+      "confirmButtonValue": "Удалить",
+      "message": "Это действие не может быть отменено. Это приведет к безвозвратному удалению страницы и всего содержимого"
+    }
+  },
+  "dropdowns": {
+    "settings-space": "Настройки",
+    "delete-space": "Удалить"
+  },
+  "actionIconDescriptions": {
+    "settings": "Настройки",
+    "shortcuts": "Горячие клавиши"
+  },
+  "page": {
+    "addPage": "Новая страница",
+    "newPageTitle": "Без названия",
+    "titlePlaceholder": "Заголовок страницы",
+    "descriptionPlaceholder": "Описание страницы (необязательно)",
+    "linkLabels": {
+      "previous": "Предыдущая страница",
+      "next": "Следующая страница"
+    }
+  },
+  "deletePopupConfirmation": {
+    "placeholder": "Введите УДАЛИТЬ",
+    "description": "Введите УДАЛИТЬ для подтверждения",
+    "confirmWord": "УДАЛИТЬ"
+  }
+}

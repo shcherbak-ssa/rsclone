@@ -1,0 +1,82 @@
+.select {
+  margin-bottom: 24px;
+
+  &-selected {
+    background: var(--base-input-background-color);
+    color: var(--base-input-color);
+    border-radius: 4px;
+    padding: 26px 16px 0;
+    -x-font-size: 16px/24px;
+    -x-size: 100% 56px;
+
+    @media screen and (max-width: 489px) {
+      -x-font-size: 14px/18px;
+    }
+
+    &:hover {
+      .select-icon {
+        color: var(--select-icon-color-hover);
+      }
+    }
+  }
+
+  &-placeholder {
+    color: var(--base-input-placeholder-color);
+    -x-font-size: 13px/20px;
+    -x-position: absolute 6px x x 16px;
+  }
+
+  &-icon {
+    color: var(--select-icon-color);
+    transform: translateY(-50%) rotate(360deg) !important;
+    transition: .2s;
+    -x-position: absolute 50% 12px x x;
+  }
+
+  &-items {
+    background: var(--base-input-background-color);
+    border-radius: 4px;
+    opacity: 0;
+    width: 100%;
+    transition: .2s;
+  }
+
+  &-item {
+    color: var(--base-input-color);
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    transition: .2s;
+    -x-size: 100% 0;
+
+    @media screen and (max-width: 489px) {
+      -x-font-size: 14px/18px;
+    }
+
+    &:hover, &.is-selected {
+      background: var(--select-item-active-background-color);
+    }
+  }
+
+  &.is-open {
+    .select {
+      &-selected {
+        margin-bottom: 4px;
+      }
+
+      &-icon {
+        color: var(--select-icon-color-hover);
+        transform: translateY(-50%) rotate(180deg) !important;
+      }
+
+      &-items {
+        opacity: 1;
+        padding: 8px 0;
+      }
+
+      &-item {
+        height: 40px;
+      }
+    }
+  }
+}

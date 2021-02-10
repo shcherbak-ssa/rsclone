@@ -1,0 +1,42 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+
+  @media screen and (max-width: 767px) {
+    width: 4px;
+  }
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb        {
+  background: rgba(0, 0, 0, .4);
+  border-radius: 20px;
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+#root {
+  -x-size: 100%;
+}
+
+@import './classes.scss';

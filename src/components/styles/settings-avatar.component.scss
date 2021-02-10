@@ -1,0 +1,83 @@
+.settings-avatar {
+  display: flex;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  &-container {
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    transition: .2s;
+    width: 126px;
+
+    @media screen and (max-width: 767px) {
+      margin: 0 0 16px 0;
+      width: 100%;
+    }
+  }
+
+  &-image {
+    background: var(--settings-avatar-container-background-color);
+    margin-bottom: 6px;
+    -x-size: 100% 126px;
+
+    .avatar {
+      font-size: 24px;
+    }
+  }
+
+  &-drop {
+    border: 1px solid var(--settings-avatar-drop-border-color);
+    color: var(--settings-avatar-drop-color);
+    text-align: center;
+    flex-grow: 1;
+    height: 126px;
+    transition: .2s;
+    -x-font-size: 13px/17px;
+  }
+
+  &-loaded-file, &-drop {
+    flex-direction: column;
+  }
+
+  &-drop-message, &-filename {
+    margin-bottom: 12px;
+  }
+
+  &-filename {
+    color: var(--settings-avatar-filename-color);
+    font-weight: 500;
+    -x-font-size: 16px/24px;
+  }
+
+  &-link {
+    color: var(--settings-avatar-link-color);
+    cursor: pointer;
+    margin-left: 3px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &-error {
+    color: var(--input-error-color);
+    font-size: 15px;
+  }
+
+  &-image, &-drop {
+    border-radius: 3px;
+  }
+
+  input {
+    display: none;
+  }
+
+  &.is-drop-active {
+    .settings-avatar-drop {
+      background: var(--settings-avatar-drop-active-backgroun-color);
+    }
+  }
+}

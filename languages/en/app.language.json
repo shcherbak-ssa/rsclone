@@ -1,0 +1,178 @@
+{
+  "menu": {
+    "items": {
+      "spaces": "Spaces",
+      "settings": "Settings",
+      "logout": "Log out"
+    }
+  },
+  "homepage": {
+    "spaces": {
+      "title": "Spaces",
+      "buttonValue": "Add space",
+      "message": [
+        "There are no spaces here yet. Click the",
+        "button or press the",
+        "keys to add a space"
+      ],
+      "lastUpdated": {
+        "label": "Last updated"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "saveButtonValue": "Save changes"
+    }
+  },
+  "settings": {
+    "user": {
+      "title": "User",
+      "groups": {
+        "avatar": {
+          "title": "Avatar"
+        },
+        "user-data": {
+          "title": "User data"
+        }
+      },
+      "avatar": {
+        "deleteImageButtonValue": "Delete image",
+        "dropText": "Drop your file here",
+        "dropLink": "or browse",
+        "errors": {
+          "invalid-file-type": "Invalid file type. Correct types are '.png', '.jpg'"
+        }
+      }
+    },
+    "login": {
+      "title": "Login",
+      "actions": {
+        "change-password": {
+          "title": "Password",
+          "description": "Secure your GitBook Clone account with a strong and unique password",
+          "buttonValue": "Change password"
+        }
+      },
+      "groups": {
+        "password": {
+          "title": "Password"
+        }
+      }
+    },
+    "app": {
+      "title": "App",
+      "groups": {
+        "theme": {
+          "title": "Theme"
+        }
+      }
+    },
+    "shortcuts": {
+      "title": "Keyboard Shortcuts",
+      "message": "Select any keyboard shortcut and press your combination",
+      "actions": {
+        "add-space": {
+          "title": "Add space",
+          "description": "Create your personal space"
+        },
+        "add-page": {
+          "title": "Add page",
+          "description": "Create a new page in open space"
+        },
+        "add-section": {
+          "title": "Add section",
+          "description": "Create a new section in open space"
+        }
+      },
+      "groups": {
+        "homepage": {
+          "title": "Homepage"
+        },
+        "space": {
+          "title": "Space"
+        }
+      }
+    },
+    "danger": {
+      "title": "Danger Zone",
+      "actions": {
+        "delete-account": {
+          "title": "Delete account",
+          "description": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back!",
+          "buttonValue": "Delete"
+        }
+      }
+    },
+    "space": {
+      "title": "Space",
+      "groups": {
+        "color": {
+          "title": "Color"
+        }
+      }
+    },
+    "delete-space": {
+      "title": "Delete",
+      "actions": {
+        "delete-space": {
+          "title": "Delete space",
+          "description": "This action cannot be undone. This will permanently delete the project",
+          "buttonValue": "Delete"
+        }
+      }
+    }
+  },
+  "popups": {
+    "logout": {
+      "title": "Log out",
+      "confirmButtonValue": "Log out",
+      "message": "Are you sure you want to log out?"
+    },
+    "delete-account": {
+      "title": "Delete account",
+      "confirmButtonValue": "Delete",
+      "message": "By deleting your personal account, you delete all associated data. Think before acting, there's no turning back! Are you sure?"
+    },
+    "delete-space": {
+      "title": "Delete space",
+      "confirmButtonValue": "Delete",
+      "message": "This action cannot be undone. This will permanently delete the project"
+    },
+    "create-space": {
+      "title": "Create a space",
+      "confirmButtonValue": "Create"
+    },
+    "update-space": {
+      "title": "Space settings",
+      "confirmButtonValue": "Save changes"
+    },
+    "delete-page": {
+      "title": "Delete page",
+      "confirmButtonValue": "Delete",
+      "message": "This action cannot be undone. This will permanently delete the page and all content"
+    }
+  },
+  "dropdowns": {
+    "settings-space": "Settings",
+    "delete-space": "Delete"
+  },
+  "actionIconDescriptions": {
+    "settings": "Settings",
+    "shortcuts": "Shortcuts"
+  },
+  "page": {
+    "addPage": "New page",
+    "newPageTitle": "Untitled",
+    "titlePlaceholder": "Page title",
+    "descriptionPlaceholder": "Page description (optional)",
+    "linkLabels": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "deletePopupConfirmation": {
+    "placeholder": "Type DELETE",
+    "description": "Type DELETE to confirm",
+    "confirmWord": "DELETE"
+  }
+}

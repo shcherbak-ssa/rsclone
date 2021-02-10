@@ -1,0 +1,42 @@
+{
+  "fullname": {
+    "placeholder": "Nome e cognome"
+  },
+  "email": {
+    "placeholder": "E-mail"
+  },
+  "password": {
+    "placeholder": "Password",
+    "description": {
+      "current-password": "Inserisci la tua password attuale"
+    }
+  },
+  "newPassword": {
+    "placeholder": "Nuova password",
+    "description": {
+      "new-password": "Inserire una nuova password"
+    }
+  },
+  "username": {
+    "placeholder": "Username",
+    "description": {
+      "prefix": "Il tuo nome utente viene utilizzato come prefisso per i tuoi spazi personali"
+    }
+  },
+  "theme": {
+    "original-theme": "Originale",
+    "light-theme": "Bianca",
+    "dark-theme": "Scuro"
+  },
+  "language": {
+    "placeholder": "Lingua",
+    "items": {
+      "en": "Inglese",
+      "ru": "Russo",
+      "it": "Italiano"
+    }
+  },
+  "name": {
+    "placeholder": "Nome dello spazio"
+  }
+}

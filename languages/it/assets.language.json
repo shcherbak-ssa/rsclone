@@ -1,0 +1,22 @@
+{
+  "popupCloseButtonValue": "Annulla",
+  "errors": {
+    "empty-value": "Il valore non può essere vuoto",
+    "invalid-email": "E-mail non valido",
+    "email-exist": "Esiste già un utente con l'indirizzo email corrente",
+    "username-exist": "Esiste già un utente con username corrente",
+    "password-length": "La password deve contenere più di 8 caratteri",
+    "alpha-numeric": "Il valore deve contenere solo caratteri alfanumerici",
+    "field-max": "Il valore non può contenere più di 256 caratteri",
+    "new-password-required": "La password corrente deve essere inserita con una nuova password",
+    "password-required": "La nuova password deve essere inserita con la password corrente",
+    "invalid-password": "Password non valida"
+  },
+  "information": {
+    "author": "Autore",
+    "original": "App originale",
+    "rsschool": "RS School",
+    "design": "Design",
+    "article": "Articolo"
+  }
+}

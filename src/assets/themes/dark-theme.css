@@ -1,0 +1,112 @@
+:root {
+  --loader-background-color: #fff;
+
+  --app-background-color: #222222;
+
+  --sidebar-icon-color: #fff;
+  --sidebar-line-background-color: rgba(255, 255, 255, .4);
+  --sidebar-frame-header-border-color: rgba(255, 255, 255, .4);
+
+  --avatar-color: #fff;
+  --avatar-border-color: #222222;
+  --avatar-background-color: #393E46;
+
+  --homepage-section-title-color: #fff;
+
+  --menu-username-color: #fff;
+  --menu-line-background: rgba(255, 255, 255, .4);
+  --menu-item-color: rgba(255, 255, 255, .5);
+  --menu-item-color-hover: #fff;
+  --menu-item-background-color-hover: rgba(255, 255, 255, .2);
+  --menu-item-color-active: #fff;
+  --menu-button-span-background-color: #fff;
+
+  --settings-group-title-color: rgba(255, 255, 255, .6);
+
+  --settings-section-background-color: #333333;
+  --settings-section-close-hover-background-color: #393E46;
+  --settings-section-title-color: #fff;
+  --settings-section-line-color: rgba(255, 255, 255, .4);
+  --settings-section-message-color: rgba(255, 255, 255, .48);
+
+  --settings-action-title-color: #fff;
+  --settings-action-description-color: rgba(255, 255, 255, .48);
+  --settings-action-hover-background-color: rgba(255, 255, 255, .2);
+  --settings-action-selected-background-color: rgba(255, 255, 255, .3);
+
+  --settings-avatar-container-background-color: #222222;
+  --settings-avatar-drop-color: #FFFFFF;
+  --settings-avatar-drop-border-color: #4D4D4D;
+  --settings-avatar-drop-active-backgroun-color: rgba(255, 255, 255, .1);
+  --settings-avatar-link-color: #6E41E2;
+  --settings-avatar-filename-color: #fff;
+
+  --base-input-background-color: #222222;
+  --base-input-color: #fff;
+  --base-input-placeholder-color: rgba(255, 255, 255, .48);
+
+  --input-error-color: #FF4642;
+  --input-description-color: rgba(255, 255, 255, .48);
+  --input-icon-color: #fff;
+
+  --select-icon-color: rgba(255, 255, 255, .48);
+  --select-icon-color-hover: #FFFFFF;
+  --select-item-active-background-color: #393E46;
+
+  --radio-label-background-color: #222;
+  --radio-label-selected-background-color: #fff;
+  --radio-label-hover-background-color: #393E46;
+  --radio-span-background-color: #6E41E2;
+  --radio-description-color: #fff;
+
+  --button-primary-color: #6E41E2;
+  --button-primary-background-color: #fff;
+  --button-primary-background-color-hover: #f1f1f1;
+  --button-secondary-color: #fff;
+  --button-secondary-border-color: #fff;
+  --button-secondary-background-color: transparent;
+  --button-secondary-hover-color: #f1f1f1;
+  --button-secondary-hover-border-color: #f1f1f1;
+  --button-danger-color: #fff;
+  --button-danger-background-color: #DB524E;
+  --button-danger-background-color-hover: #C7302B;
+
+  --popup-background-color: #393E46;
+  --popup-header-border-color: rgba(241, 241, 241, .6);
+  --popup-title-color: #fff;
+  --popup-body-text-color: #fff;
+
+  --dropdown-background-color: #2D2D2D;
+  --dropdown-item-color: #fff;
+  --dropdown-item-hover-color: #F1F1F1;
+  --dropdown-item-hover-background-color: rgba(255, 255, 255, .2);
+
+  --spaces-message-color: rgba(255, 255, 255, .5);
+  --spaces-message-label-background-color: rgba(255, 255, 255, .2);
+
+  --space-logo-default-background-color: #222222;
+  --space-background-color: #333333;
+  --space-hover-background-color: #393E46;
+  --space-line-background-color: rgba(255, 255, 255, .4);
+  --space-title-color: #fff;
+  --space-icon-color: #fff;
+
+  --space-page-pages-background-color: #2D2D2D;
+  --space-page-border-color: rgba(255, 255, 255, .4);
+  --space-page-editor-background-color: #393E46;
+  --space-page-title-color: #fff;
+  --space-page-header-background-color: #393E46;
+  --space-page-menu-button-span-background-color: #fff;
+  --space-page-add-color: rgba(255, 255, 255, .6);
+
+  --content-paragraph-color: #f1f1f1;
+  --content-inline-code-background-color: rgba(255, 255, 255, .2);
+
+  --blockquote-color: #74818d;
+  --blockquote-border-color: #e6ecf1;
+
+  --inline-toolbar-background-color: #222;
+  --inline-toolbar-color: #9daab6;
+  --inline-toolbar-hover-color: #fff;
+  --inline-toolbar-separato-color: #9daab6;
+}

@@ -1,0 +1,18 @@
+{
+  "login": {
+    "title": "Авторизация",
+    "buttonValue": "Войти",
+    "linkText": "Еще не регистрировались?"
+  },
+  "registration": {
+    "title": "Регистрация",
+    "buttonValue": "Создать аккаунт",
+    "linkText": "Уже есть аккаунт?"
+  },
+  "actionIconDescription": {
+    "info": "Информация"
+  },
+  "errors": {
+    "invalid-user": "Неверный пароль или адрес эл. почты"
+  }
+}

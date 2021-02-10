@@ -1,0 +1,33 @@
+.menu-item {
+  border-radius: 3px;
+  color: var(--menu-item-color);
+  display: flex;
+  align-items: center;
+  transition: .2s;
+  padding: 0 8px;
+  user-select: none;
+  -x-size: 100% 30px;
+
+  @media screen and (max-width: 1024px) {
+    height: 42px;
+  }
+
+  &-icon {
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  &-text {
+    font-weight: 500;
+    -x-font-size: 14px/32px;
+  }
+
+  &:hover {
+    background: var(--menu-item-background-color-hover);
+    color: var(--menu-item-color-hover);
+  }
+
+  &.is-active {
+    color: var(--menu-item-color-active);
+  }
+}

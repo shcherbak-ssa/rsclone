@@ -1,0 +1,19 @@
+.space-settings-data {
+  display: flex;
+  margin-bottom: 24px;
+  position: relative;
+  width: 420px;
+
+  @media screen and (max-width: 520px) {
+    width: 100%;
+  }
+
+  .space-logo {
+    flex-shrink: 0;
+    margin-right: 12px;
+  }
+
+  .settings-section & {
+    width: 100%;
+  }
+}

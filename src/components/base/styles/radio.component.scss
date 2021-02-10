@@ -1,0 +1,43 @@
+.radio {
+  display: flex;
+  width: 100%;
+
+  &-label {
+    background: var(--radio-label-background-color);
+    margin-right: 12px;
+    transition: .2s;
+    -x-size: 24px;
+
+    span {
+      background: var(--radio-span-background-color);
+      display: none;
+      -x-size: 10px;
+    }
+  }
+
+  &-description {
+    color: var(--radio-description-color);
+    user-select: none;
+    -x-font-size: 16px/24px;
+  }
+
+  &-label, &-label span {
+    border-radius: 50%;
+  }
+
+  &:hover {
+    .radio-label {
+      background: var(--radio-label-hover-background-color);
+    }
+  }
+
+  &.is-selected {
+    .radio-label {
+      background: var(--radio-label-selected-background-color);
+
+      span {
+        display: block;
+      }
+    }
+  }
+}

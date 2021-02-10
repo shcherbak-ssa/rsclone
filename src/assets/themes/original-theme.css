@@ -1,0 +1,110 @@
+:root {
+  --loader-background-color: #3884FF;
+
+  --app-background-color: #183055;
+
+  --sidebar-icon-color: #fff;
+  --sidebar-line-background-color: rgba(255, 255, 255, 0.1);
+  --sidebar-frame-header-border-color: rgba(255, 255, 255, 0.1);
+
+  --avatar-color: #fff;
+  --avatar-border-color: #183055;
+  --avatar-background-color: #596D8B;
+
+  --homepage-section-title-color: #fff;
+
+  --menu-username-color: #fff;
+  --menu-line-background: #596D8B;
+  --menu-item-color: #9DAAB6;
+  --menu-item-color-hover: #fff;
+  --menu-item-color-active: #fff;
+  --menu-item-background-color-hover: #2F4566;
+  --menu-button-span-background-color: #fff;
+
+  --settings-group-title-color: #9DAAB6;
+
+  --settings-section-background-color: #2F4566;
+  --settings-section-close-hover-background-color: #596D8B;
+  --settings-section-title-color: #fff;
+  --settings-section-line-color: #183055;
+  --settings-section-message-color: rgba(255, 255, 255, 0.48);
+
+  --settings-action-title-color: #fff;
+  --settings-action-description-color: rgba(255, 255, 255, 0.48);
+  --settings-action-hover-background-color: rgba(89, 109, 139, 0.4);
+  --settings-action-selected-background-color: #596D8B;
+
+  --settings-avatar-container-background-color: #183055;
+  --settings-avatar-drop-color: #9DAAB6;
+  --settings-avatar-drop-border-color: #183055;
+  --settings-avatar-drop-active-backgroun-color: rgba(255, 255, 255, .1);
+  --settings-avatar-link-color: #3884FF;
+  --settings-avatar-filename-color: #fff;
+
+  --base-input-background-color: #183055;
+  --base-input-color: #fff;
+  --base-input-placeholder-color: rgba(255, 255, 255, 0.48);
+
+  --input-error-color: #FF4642;
+  --input-description-color: rgba(255, 255, 255, 0.48);
+  --input-icon-color: #fff;
+
+  --select-icon-color: rgba(255, 255, 255, 0.48);
+  --select-icon-color-hover: #fff;
+  --select-item-active-background-color: #596D8B;
+
+  --radio-label-background-color: #183055;
+  --radio-label-selected-background-color: #3884FF;
+  --radio-label-hover-background-color: #596d8b;
+  --radio-span-background-color: #fff;
+  --radio-description-color: #fff;
+
+  --button-primary-color: #fff;
+  --button-primary-background-color: #3884FF;
+  --button-primary-background-color-hover: #1F65D6;
+  --button-secondary-color: #74818D;
+  --button-secondary-background-color: #E6ECF1;
+  --button-secondary-background-color-hover: #d3dce4;
+  --button-danger-color: #fff;
+  --button-danger-background-color: #FF4642;
+  --button-danger-background-color-hover: #f62520;
+
+  --popup-background-color: #2F4566;
+  --popup-header-border-color: #183055;
+  --popup-title-color: #fff;
+  --popup-body-text-color: #fff;
+
+  --dropdown-background-color: #fff;
+  --dropdown-item-color: #242A31;
+  --dropdown-item-hover-color: #3884FF;
+  --dropdown-item-hover-background-color: #F5F7F9;
+
+  --spaces-message-color: rgba(255, 255, 255, 0.48);
+  --spaces-message-label-background-color: #2F4566;
+
+  --space-logo-default-background-color: #183055;
+  --space-background-color: #2F4566;
+  --space-hover-background-color: #596D8B;
+  --space-line-background-color: #183055;
+  --space-title-color: #fff;
+  --space-icon-color: #fff;
+
+  --space-page-pages-background-color: #F5F7F9;
+  --space-page-border-color: #D9E3E8;
+  --space-page-editor-background-color: #fff;
+  --space-page-title-color: #242A31;
+  --space-page-header-background-color: #fff;
+  --space-page-menu-button-span-background-color: #242A31;
+  --space-page-add-color: #74818d;
+  
+  --content-paragraph-color: #3b454e;
+  --content-inline-code-background-color: rgb(245, 247, 249);
+
+  --blockquote-color: #74818d;
+  --blockquote-border-color: #e6ecf1;
+
+  --inline-toolbar-background-color: #242a31;
+  --inline-toolbar-color: #9daab6;
+  --inline-toolbar-hover-color: #fff;
+  --inline-toolbar-separato-color: #9daab6;
+}

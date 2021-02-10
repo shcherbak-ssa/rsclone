@@ -1,0 +1,14 @@
+.settings-group {
+
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  &-title {
+    color: var(--settings-group-title-color);
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    -x-font-size: 12px/17px;
+  }
+}

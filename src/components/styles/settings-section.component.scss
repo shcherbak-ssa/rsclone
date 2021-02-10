@@ -1,0 +1,61 @@
+.settings-section {
+  background: var(--settings-section-background-color);
+  border-radius: 4px;
+  margin-bottom: 24px;
+  padding: 18px 24px 24px;
+  width: 100%;
+  transition: .2s;
+  position: relative;
+
+  @media screen and (max-width: 489px) {
+    padding: 18px;
+  }
+
+  .light-theme & {
+    box-shadow: 0 4px 4px rgba(51, 51, 51, 0.04), 0 4px 16px rgba(51, 51, 51, 0.08);
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  &-title {
+    color: var(--settings-section-title-color);
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  &-content {
+    border-top: 1px solid var(--settings-section-line-color);
+    padding-top: 24px;
+    transition: .4s;
+  }
+
+  &-message {
+    color: var(--settings-section-message-color);
+    margin-bottom: 24px;
+    -x-font-size: 14px/20px;
+  }
+
+  &.is-disable {
+    &::after {
+      background: rgba($color: #fff, $alpha: .1);
+      border-radius: 4px;
+      content: '';
+      display: block;
+      z-index: 1;
+      -x-position: absolute 0 0 0 0;
+    }
+  }
+
+  &.settings-section-close {
+    padding: 24px;
+
+    &:hover {
+      background: var(--settings-section-close-hover-background-color);
+    }
+  }
+}

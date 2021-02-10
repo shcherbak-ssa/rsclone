@@ -1,0 +1,18 @@
+{
+  "login": {
+    "title": "Login",
+    "buttonValue": "Login",
+    "linkText": "Do not have an account?"
+  },
+  "registration": {
+    "title": "Registration",
+    "buttonValue": "Create account",
+    "linkText": "Already have an account?"
+  },
+  "actionIconDescription": {
+    "info": "Information"
+  },
+  "errors": {
+    "invalid-user": "Invalid password or e-mail"
+  }
+}

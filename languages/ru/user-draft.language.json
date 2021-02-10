@@ -1,0 +1,42 @@
+{
+  "fullname": {
+    "placeholder": "Полное имя"
+  },
+  "email": {
+    "placeholder": "Эл. почта"
+  },
+  "password": {
+    "placeholder": "Пароль",
+    "description": {
+      "current-password": "Введи свой текущий пароль"
+    }
+  },
+  "newPassword": {
+    "placeholder": "Новый пароль",
+    "description": {
+      "new-password": "Введите новый пароль"
+    }
+  },
+  "username": {
+    "placeholder": "Username",
+    "description": {
+      "prefix": "Ваше имя пользователя используется как префикс для ваших личных пространств"
+    }
+  },
+  "theme": {
+    "original-theme": "Оригинал",
+    "light-theme": "Светлая",
+    "dark-theme": "Темная"
+  },
+  "language": {
+    "placeholder": "Язык",
+    "items": {
+      "en": "Английский",
+      "ru": "Русский",
+      "it": "Итальянский"
+    }
+  },
+  "name": {
+    "placeholder": "Название пространства"
+  }
+}

@@ -1,0 +1,34 @@
+.page-node {
+  margin-bottom: 24px;
+
+  &[class*="header"] {
+    color: var(--space-page-title-color);
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  &.header-one {
+    font-size: 24px;
+  }
+
+  &.header-two {
+    font-size: 20px;
+  }
+
+  &.header-three {
+    font-size: 16px;
+  }
+
+  &.paragraph {
+    color: var(--content-paragraph-color);
+    font-weight: 400;
+    -x-font-size: 16px/1.625;
+  }
+
+  &.blockquote {
+    border-left: 4px solid var(--blockquote-border-color);
+    color: var(--blockquote-color);
+    padding-left: 12px;
+    -x-font-size: 16px/1.625;
+  }
+}

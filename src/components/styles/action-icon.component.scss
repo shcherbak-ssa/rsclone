@@ -1,0 +1,33 @@
+.action-icon {
+  color: var(--sidebar-icon-color);
+  flex-direction: column;
+  transition: .2s;
+  -x-size: 40px;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  .original-theme &, .dark-theme & {
+    opacity: .6;
+  }
+
+  .light-theme & {
+    opacity: .9;
+
+    &:hover, &.is-active {
+      color: var(--sidebar-icon-active-color);
+    }
+  }
+
+  &:hover, &.is-active {
+    opacity: 1;
+  }
+
+  &-description {
+    margin-top: 4px;
+    user-select: none;
+    text-align: center;
+    -x-font-size: 10px/9px;
+  }
+}

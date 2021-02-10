@@ -1,0 +1,88 @@
+.space-sidebar-frame {
+  background: var(--app-background-color);
+  height: 100vh;
+  padding: 23px 12px;
+  transition: .2s;
+  position: absolute;
+  overflow: hidden;
+  z-index: 12;
+  
+  .light-theme & {
+    padding: 23px 10px;
+  }
+
+  &-header {
+    border-bottom: 1px solid var(--sidebar-frame-header-border-color);
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 21px;
+  }
+
+  &-close-icon {
+    color: var(--sidebar-icon-color);
+    transform: rotate(180deg);
+    -x-size: 24px;
+
+    .original-theme &, .dark-theme & {
+      opacity: .6;
+    }
+  
+    .light-theme & {
+      opacity: .9;
+  
+      &:hover, &.is-active {
+        color: var(--sidebar-icon-active-color);
+      }
+    }
+  
+    &:hover, &.is-active {
+      opacity: 1;
+    }
+  }
+
+  &-container {
+    overflow: hidden;
+    height: calc(100vh - 70px);
+  }
+
+  &-content {
+    padding: 24px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+
+    .light-theme & {
+      padding: 24px 2px;
+    }
+
+    .settings-section {
+      padding: 18px;
+
+      .settings-action {
+        display: block;
+        padding: 0 0 6px 0;
+
+        &-content {
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 389px) {
+    padding: 23px 6px 23px 0;
+  }
+
+  &.show-space-sidebar-frame {
+    width: 320px;
+
+    @media screen and (max-width: 389px) {
+      width: calc(100vw - 72px);
+    }
+  }
+
+  &.hide-space-sidebar-frame {
+    padding: 0;
+    width: 0;
+  }
+}

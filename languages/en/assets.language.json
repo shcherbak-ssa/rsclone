@@ -1,0 +1,22 @@
+{
+  "popupCloseButtonValue": "Cancel",
+  "errors": {
+    "empty-value": "Field cannot be empty",
+    "invalid-email": "Invalid e-mail",
+    "email-exist": "User with current e-mail address already exists",
+    "username-exist": "User with current username already exists",
+    "password-length": "Password must be over 8 characters",
+    "alpha-numeric": "Field must only contain alpha-numeric characters",
+    "field-max": "Field cannot contain over 256 characters",
+    "new-password-required": "Current password must be entered with new password",
+    "password-required": "New password must be entered with current password",
+    "invalid-password": "Invalid password"
+  },
+  "information": {
+    "author": "Author",
+    "original": "Original app",
+    "rsschool": "RS School",
+    "design": "Design",
+    "article": "Article"
+  }
+}

@@ -1,0 +1,31 @@
+.dropdown-item {
+  color: var(--dropdown-item-color);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  user-select: none;
+  padding: 0 12px;
+  transition: .2s;
+  -x-size: 100% 40px;
+
+  &:hover {
+    background: var(--dropdown-item-hover-background-color);
+    color: var(--dropdown-item-hover-color);
+  }
+
+  &-icon {
+    margin-right: 4px;
+  }
+
+  &-text {
+    -x-font-size: 14px/24px;
+  }
+
+  a {
+    display: none;
+  }
+
+  &-space-logo {
+    font-size: 24px;
+  }
+}
